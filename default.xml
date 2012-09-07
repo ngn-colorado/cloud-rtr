@@ -5,7 +5,7 @@
            fetch="https://android.googlesource.com/" />
   <remote  name="iv-mirror"
            fetch=".." />
-  <default revision="android-zynq-0.7"
+  <default revision="android-zynq-1.0"
            remote="iv-mirror"
            sync-j="4" />
 
