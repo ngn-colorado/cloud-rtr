@@ -6,7 +6,7 @@
   <remote  name="origin"
            fetch=".." />
   <default revision="android-zynq-1.0"
-           remote="github"
+           remote="origin"
            sync-j="4" />
 
   <project path="build" name="platform-build">
