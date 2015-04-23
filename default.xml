@@ -171,7 +171,7 @@
   <project path="packages/wallpapers/LivePicker" name="platform-packages-wallpapers-LivePicker" />
   <project path="packages/wallpapers/MagicSmoke" name="platform-packages-wallpapers-MagicSmoke" />
   <project path="packages/wallpapers/MusicVisualization" name="platform-packages-wallpapers-MusicVisualization" />
-  <project path="prebuilt" name="platform/prebuilt" remote="aosp" revision="android-2.3.6_r0.9" />
+  <project path="prebuilt" name="platform/prebuilt" remote="aosp" revision="gingerbread-release" />
   <project path="sdk" name="platform-sdk" />
   <project path="system/bluetooth" name="platform-system-bluetooth" />
   <project path="system/core" name="platform-system-core" />
