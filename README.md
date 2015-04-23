@@ -20,3 +20,4 @@ Some repos are taken from the AOSP:
    * When using make 4 or higher, errors are thrown when building the core/build/prebuilt.mk file
    * When using make 3.82, an error is thrown with a call to free() causing the build to crash
    * make 3.81 seems to work, as per http://comments.gmane.org/gmane.comp.handhelds.android.porting/12191
+  * Please be sure to use gcc 4.4, g++ 4.4 and cpp 4.4, as is stated in the elinux.org instructions. Some errors that are thrown by the newer compilers are ignored by the older ones in use when this version of Android was developed. Use the `update-alternatives` command on Ubuntu to manage the compiler versions (don't forget to change back after you are done, as the older compilers can screw things up, such as doing an apt-get upgrade).
