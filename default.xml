@@ -11,6 +11,7 @@
 
   <project path="build" name="platform-build">
     <copyfile src="core/root.mk" dest="Makefile" />
+    <copyfile src="core/Makefile.zynq" dest="Makefile.zynq" />
   </project>
   <project path="bionic" name="platform-bionic" />
   <project path="bootable/bootloader/legacy" name="platform-bootable-bootloader-legacy" />
