@@ -4,7 +4,9 @@
   <remote  name="aosp"
            fetch="https://android.googlesource.com/" />
   <remote  name="origin"
-           fetch=".." />
+	  fetch=".." />
+  <remote name="chainsdd"
+	  fetch="https://github.com/ChainsDD" />
   <default revision="android-zynq-1.0"
            remote="origin"
            sync-j="4" />
@@ -13,6 +15,8 @@
     <copyfile src="core/root.mk" dest="Makefile" />
     <copyfile src="core/Makefile.zynq" dest="Makefile.zynq" />
   </project>
+  <project path="external/su-binary" name="su-binary" remote="chainsdd" revision="2x" />
+  <project path="packages/app/Superuser" name="Superuser" remote="chainsdd" revision="2x" />
   <project path="bionic" name="platform-bionic" />
   <project path="bootable/bootloader/legacy" name="platform-bootable-bootloader-legacy" />
   <project path="bootable/diskinstaller" name="platform-bootable-diskinstaller" />
