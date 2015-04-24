@@ -96,7 +96,7 @@
   <project path="external/sonivox" name="platform-external-sonivox" />
   <project path="external/speex" name="platform-external-speex" />
   <project path="external/sqlite" name="platform-external-sqlite" />
-  <project path="external/srec" name="platform/external/srec" remote="aosp" revision="ea4ad6085a8661b5513c394316108c0ef26f3e7b" />
+  <project path="external/srec" name="platform/external/srec" remote="aosp" revision="android-cts-2.3_r12" />
   <project path="external/stlport" name="platform-external-stlport" />
   <project path="external/strace" name="platform-external-strace" />
   <project path="external/svox" name="platform-external-svox" />
