@@ -1,0 +1,6 @@
+the_ROM_image:
+{
+	[bootloader]/Xilinx/xilinx_workspace/adv7511_vivado_designs/adv7511_ref_aes_2/ZedBoard_HDMI_Ref_Des_2013_4/vivado/projects/adv7511/zed/adv7511_zed.sdk/SDK/SDK_Export/fsbl/Debug/fsbl.elf
+	/Xilinx/xilinx_workspace/adv7511_vivado_designs/adv7511_ref_aes_2/ZedBoard_HDMI_Ref_Des_2013_4/vivado/projects/adv7511/zed/adv7511_zed.sdk/SDK/SDK_Export/hw_platform_0/system_top.bit
+	/Xilinx/xilinx_bootfiles/u-boot.elf
+}
