@@ -19,8 +19,8 @@
     <copyfile src="core/Makefile.zynq" dest="Makefile.zynq" />
   </project>
   <project path="external/busybox" name="android_external_busybox" remote="cyanogenmod" revision="gingerbread" />
-  <project path="external/su-binary" name="su-binary" remote="chainsdd" revision="2x" />
-  <project path="packages/app/Superuser" name="Superuser" remote="chainsdd" revision="2x" />
+  <project path="system/su" name="su-binary" remote="chainsdd" revision="2x" />
+  <project path="packages/apps/Superuser" name="Superuser" remote="chainsdd" revision="2x" />
   <project path="bionic" name="platform-bionic" />
   <project path="bootable/bootloader/legacy" name="platform-bootable-bootloader-legacy" />
   <project path="bootable/diskinstaller" name="platform-bootable-diskinstaller" />
