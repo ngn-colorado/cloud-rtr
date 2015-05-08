@@ -64,24 +64,23 @@ if {${::AESL::PGuard_rtl_comp_handler}} {
 	::AP::rtl_comp_handler aes_AXILiteS_s_axi
 }
 
-# XIL_BRAM:
-if {${::AESL::PGuard_autoexp_gen}} {
-if {[info proc ::AESL_LIB_XILADAPTER::xil_bram_gen] == "::AESL_LIB_XILADAPTER::xil_bram_gen"} {
-eval "::AESL_LIB_XILADAPTER::xil_bram_gen { \
+# Native M_AXI:
+if {${::AESL::PGuard_simmodel_gen}} {
+if {[info proc ::AESL_LIB_XILADAPTER::m_axi_gen] == "::AESL_LIB_XILADAPTER::m_axi_gen"} {
+eval "::AESL_LIB_XILADAPTER::m_axi_gen { \
     id 5 \
-    name ddr \
-    reset_level 0 \
-    sync_rst true \
-    dir IO \
-    corename ddr \
+    corename {m_axi} \
     op interface \
-    ports { ddr_address0 { O 22 vector } ddr_ce0 { O 1 bit } ddr_we0 { O 1 bit } ddr_d0 { O 8 vector } ddr_q0 { I 8 vector } } \
+    name {aes_ddr_m_axi} \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 'ddr'"
+puts "@W \[IMPL-110\] Cannot find AXI interface model in the library. Ignored generation of AXI interface for 'ddr'"
 }
 }
 
+if {${::AESL::PGuard_rtl_comp_handler}} {
+	::AP::rtl_comp_handler aes_ddr_m_axi
+}
 
 # Direct connection:
 if {${::AESL::PGuard_autoexp_gen}} {

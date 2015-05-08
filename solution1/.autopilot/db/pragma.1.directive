@@ -70,65 +70,33 @@
 <option name="self" positionalBoolean="type" value=""/>
 </pragma>
 </directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="s_axilite" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="length"/>
+<directive functionLabel="" functionName="aestest" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="state"/>
+<option name="complete" positionalBoolean="type" value=""/>
+<option name="dim" value="1"/>
 </pragma>
 </directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="s_axilite" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="destinationAddress"/>
+<directive functionLabel="" functionName="aestest" label="">
+<pragma name="ARRAY_PARTITION">
+<option name="variable" positionalBoolean="4" value="statekey"/>
+<option name="complete" positionalBoolean="type" value=""/>
+<option name="dim" value="1"/>
 </pragma>
 </directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="s_axilite" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="key_in"/>
+<directive functionLabel="" functionName="aestest" label="">
+<pragma name="PIPELINE"/>
+</directive>
+<directive functionLabel="" functionName="aestest" label="">
+<pragma name="INLINE">
+<option name="recursive" positionalBoolean="1" value=""/>
 </pragma>
 </directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="s_axilite" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="sourceAddress"/>
-</pragma>
+<directive functionLabel="" functionName="aestest" label="">
+<pragma name="UNROLL"/>
 </directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="ap_ctrl_hs" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="return"/>
-</pragma>
-</directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="s_axilite" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="return"/>
-</pragma>
-</directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="ap_vld" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="length"/>
-</pragma>
-</directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="ap_vld" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="destinationAddress"/>
-</pragma>
-</directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="ap_vld" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="key_in"/>
-</pragma>
-</directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="ap_vld" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="sourceAddress"/>
-</pragma>
+<directive functionLabel="" functionName="aestest" label="">
+<pragma name="UNROLL"/>
 </directive>
 </sourceFile>
 </AutoPilot:ProjectResources>

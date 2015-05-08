@@ -38322,6 +38322,8 @@ inline __attribute__((always_inline)) static void aesl_keep_name_ssdm_int_key_in
 #59 "aes_runner/source/aes_runner.cpp"
 bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, ap_uint<128>* key_in,
   volatile unsigned destinationAddress, unsigned int length){_ssdm_SpecArrayDimSize(ddr,4194304);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_key_in< 128 >::aesl_keep_name_ap_uint_key_in(key_in);
+_ssdm_op_SpecWire(ddr, "m_axi", 0, 0, 0, 0, "", "", "");
+
 _ssdm_op_SpecWire(&length, "s_axilite", 0, 0, 0, 0, "", "", "");
 
 _ssdm_op_SpecWire(&destinationAddress, "s_axilite", 0, 0, 0, 0, "", "", "");

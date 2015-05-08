@@ -2,12 +2,11 @@
 <xd:acceleratorMap xmlns:xd="http://www.xilinx.com/xidane" xd:functionName="aes" xd:componentRef="aes" xd:initiationInterval="x" xd:clockPeriod="10.000000" xd:sequential="true" xd:hostMachine="64">
   <xd:returnValue xd:interfaceRef="s_axi_AXILiteS" xd:busTypeRef="axilite" xd:offset="0x10"/>
   <xd:controlReg xd:name="control" xd:interfaceRef="s_axi_AXILiteS" xd:busTypeRef="axilite" xd:type="generic_axi_lite" xd:offset="0x0"/>
+  <xd:arg xd:name="ddr[]" xd:originalName="ddr" xd:direction="inout" xd:interfaceRef="m_axi_ddr" xd:busTypeRef="aximm" xd:arraySize="4194304" xd:dataWidth="8"/>
   <xd:arg xd:name="sourceAddress" xd:originalName="sourceAddress" xd:direction="in" xd:interfaceRef="s_axi_AXILiteS" xd:busTypeRef="axilite" xd:offset="0x18" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
   <xd:arg xd:name="*(key_in)" xd:originalName="key_in" xd:direction="in" xd:interfaceRef="s_axi_AXILiteS" xd:busTypeRef="axilite" xd:offset="0x20" xd:handshakeRef="ap_vld" xd:dataWidth="128"/>
   <xd:arg xd:name="destinationAddress" xd:originalName="destinationAddress" xd:direction="in" xd:interfaceRef="s_axi_AXILiteS" xd:busTypeRef="axilite" xd:offset="0x34" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
   <xd:arg xd:name="length" xd:originalName="length" xd:direction="in" xd:interfaceRef="s_axi_AXILiteS" xd:busTypeRef="axilite" xd:offset="0x3C" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
-  <xd:arg xd:name="ddr_d0" xd:originalName="ddr_d0" xd:direction="out" xd:interfaceRef="ddr_d0" xd:busTypeRef="register" xd:handshakeRef="ap_none"/>
-  <xd:arg xd:name="ddr_q0" xd:originalName="ddr_q0" xd:direction="in" xd:interfaceRef="ddr_q0" xd:busTypeRef="register" xd:handshakeRef="ap_none"/>
   <xd:latencyEstimates xd:best-case="undef" xd:worst-case="undef" xd:average-case="undef"/>
-  <xd:resourceEstimates xd:LUT="10276" xd:FF="4022" xd:BRAM="100" xd:DSP="0"/>
+  <xd:resourceEstimates xd:LUT="10255" xd:FF="4088" xd:BRAM="100" xd:DSP="0"/>
 </xd:acceleratorMap>

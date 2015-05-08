@@ -58,6 +58,8 @@ typedef hls::stream<uint128_t> mem_stream;
 
 bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, ap_uint<128>* key_in,
 		volatile unsigned destinationAddress, unsigned int length){
+#pragma HLS INTERFACE m_axi port=ddr
+
 #pragma HLS INTERFACE s_axilite port=length
 
 #pragma HLS INTERFACE s_axilite port=destinationAddress

@@ -295,7 +295,7 @@ set argAPint ""
 set returnAPint ""
 set portList ""
 set portName0 "ddr"
-set portInterface0 "memory"
+set portInterface0 "[list axi_master 0]"
 set portData0 "unsigned char"
 set portPointer0 "0"
 set portArrayDim0 [list 4194304]
