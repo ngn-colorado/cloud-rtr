@@ -25,6 +25,7 @@
 								<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.871036645" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.988487176" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1767186625" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/Xilinx/xilinx_workspace"/>
 									<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include"/>
 									<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/systemc/include"/>
 									<listOptionValue builtIn="false" value="/usr/local/ssl/include"/>
@@ -43,6 +44,7 @@
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.1009083639" name="Optimization Level" superClass="gnu.c.compiler.exe.debug.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.exe.debug.option.debugging.level.1820769956" name="Debug Level" superClass="gnu.c.compiler.exe.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.798427522" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/Xilinx/xilinx_workspace"/>
 									<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include"/>
 									<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/systemc/include"/>
 									<listOptionValue builtIn="false" value="/usr/local/ssl/include"/>
@@ -94,9 +96,9 @@
 							<option id="gnu.cpp.compiler.option.preprocessor.def.1250327481" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
 							<option id="gnu.cpp.compiler.option.include.paths.950733479" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 								<listOptionValue builtIn="false" value="../../../../usr/local/ssl/include"/>
+								<listOptionValue builtIn="false" value="/Xilinx/xilinx_workspace"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/systemc/include"/>
-								<listOptionValue builtIn="false" value="/D/xilinx_workspace"/>
 								<listOptionValue builtIn="false" value="/usr/local/ssl/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include/ap_sysc"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/auto_cc/include"/>
@@ -142,6 +144,7 @@
 								<option id="gnu.cpp.compiler.exe.release.option.optimization.level.1697993463" name="Optimization Level" superClass="gnu.cpp.compiler.exe.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.exe.release.option.debugging.level.1833402533" name="Debug Level" superClass="gnu.cpp.compiler.exe.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.230170046" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/Xilinx/xilinx_workspace"/>
 									<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include"/>
 									<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/systemc/include"/>
 									<listOptionValue builtIn="false" value="/usr/local/ssl/include"/>
@@ -155,6 +158,7 @@
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.exe.release.option.optimization.level.342272171" name="Optimization Level" superClass="gnu.c.compiler.exe.release.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.exe.release.option.debugging.level.1517289328" name="Debug Level" superClass="gnu.c.compiler.exe.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.25181912" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/Xilinx/xilinx_workspace"/>
 									<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include"/>
 									<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/systemc/include"/>
 									<listOptionValue builtIn="false" value="/usr/local/ssl/include"/>
@@ -200,9 +204,9 @@
 							<option id="gnu.cpp.compiler.option.preprocessor.def.730894503" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
 							<option id="gnu.cpp.compiler.option.include.paths.810528633" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 								<listOptionValue builtIn="false" value="../../../../usr/local/ssl/include"/>
+								<listOptionValue builtIn="false" value="/Xilinx/xilinx_workspace"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/systemc/include"/>
-								<listOptionValue builtIn="false" value="/D/xilinx_workspace"/>
 								<listOptionValue builtIn="false" value="/usr/local/ssl/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include/ap_sysc"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/auto_cc/include"/>

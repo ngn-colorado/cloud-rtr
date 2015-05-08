@@ -1762,7 +1762,7 @@ architecture behav of aestest is
     signal tmp_4_fu_11884_p1 : STD_LOGIC_VECTOR (63 downto 0);
     signal p_Result_s_fu_2377_p4 : STD_LOGIC_VECTOR (7 downto 0);
     signal p_Result_1_fu_2387_p4 : STD_LOGIC_VECTOR (7 downto 0);
-    signal p_Result_s_92_fu_2397_p4 : STD_LOGIC_VECTOR (7 downto 0);
+    signal p_Result_s_87_fu_2397_p4 : STD_LOGIC_VECTOR (7 downto 0);
     signal p_Result_2_fu_2417_p4 : STD_LOGIC_VECTOR (7 downto 0);
     signal p_Result_3_fu_2437_p4 : STD_LOGIC_VECTOR (7 downto 0);
     signal p_Result_4_fu_2457_p4 : STD_LOGIC_VECTOR (7 downto 0);
@@ -4872,7 +4872,7 @@ begin
     p_Result_7_fu_2517_p4 <= inptext_V_read(71 downto 64);
     p_Result_8_fu_2537_p4 <= inptext_V_read(63 downto 56);
     p_Result_9_fu_2557_p4 <= inptext_V_read(55 downto 48);
-    p_Result_s_92_fu_2397_p4 <= inptext_V_read(119 downto 112);
+    p_Result_s_87_fu_2397_p4 <= inptext_V_read(119 downto 112);
     p_Result_s_fu_2377_p4 <= inptext_V_read(127 downto 120);
     rv_10_0_1_fu_3169_p2 <= (tmp_51_fu_3155_p2 xor ap_const_lv8_1B);
     rv_10_0_2_fu_3554_p2 <= (tmp_59_fu_3540_p2 xor ap_const_lv8_1B);
@@ -8745,7 +8745,7 @@ begin
     tmp_6_12_fu_2763_p2 <= (p_Result_13_fu_2637_p4 xor p_Result_1_12_fu_2647_p4);
     tmp_6_13_fu_2769_p2 <= (p_Result_14_fu_2657_p4 xor p_Result_1_13_fu_2667_p4);
     tmp_6_14_fu_2775_p2 <= (tmp_5_fu_2677_p1 xor tmp_6_fu_2681_p1);
-    tmp_6_1_fu_2691_p2 <= (p_Result_s_92_fu_2397_p4 xor p_Result_1_1_fu_2407_p4);
+    tmp_6_1_fu_2691_p2 <= (p_Result_s_87_fu_2397_p4 xor p_Result_1_1_fu_2407_p4);
     tmp_6_2_fu_2697_p2 <= (p_Result_2_fu_2417_p4 xor p_Result_1_2_fu_2427_p4);
     tmp_6_3_fu_2703_p2 <= (p_Result_3_fu_2437_p4 xor p_Result_1_3_fu_2447_p4);
     tmp_6_4_fu_2709_p2 <= (p_Result_4_fu_2457_p4 xor p_Result_1_4_fu_2467_p4);

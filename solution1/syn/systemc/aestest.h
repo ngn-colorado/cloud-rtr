@@ -1749,7 +1749,7 @@ struct aestest : public sc_module {
     sc_signal< sc_lv<64> > tmp_4_fu_11884_p1;
     sc_signal< sc_lv<8> > p_Result_s_fu_2377_p4;
     sc_signal< sc_lv<8> > p_Result_1_fu_2387_p4;
-    sc_signal< sc_lv<8> > p_Result_s_92_fu_2397_p4;
+    sc_signal< sc_lv<8> > p_Result_s_87_fu_2397_p4;
     sc_signal< sc_lv<8> > p_Result_2_fu_2417_p4;
     sc_signal< sc_lv<8> > p_Result_3_fu_2437_p4;
     sc_signal< sc_lv<8> > p_Result_4_fu_2457_p4;
@@ -2990,7 +2990,7 @@ struct aestest : public sc_module {
     void thread_p_Result_7_fu_2517_p4();
     void thread_p_Result_8_fu_2537_p4();
     void thread_p_Result_9_fu_2557_p4();
-    void thread_p_Result_s_92_fu_2397_p4();
+    void thread_p_Result_s_87_fu_2397_p4();
     void thread_p_Result_s_fu_2377_p4();
     void thread_rv_10_0_1_fu_3169_p2();
     void thread_rv_10_0_2_fu_3554_p2();

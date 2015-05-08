@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vivado HLS Report for 'aestest'" level="0">
-<item name = "Date">Sun Apr 19 01:10:13 2015
+<item name = "Date">Fri May  8 12:13:51 2015
 </item>
 <item name = "Version">2014.1 (build date: Fri Apr 04 13:20:25 PM 2014)</item>
 <item name = "Project">aes_runner</item>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
   <source>
-    <originFiles name="aes_runner.cpp" path="/D/xilinx_workspace/aes_runner/source/aes_runner.cpp"/>
-    <originFiles name="aes.cpp" path="/D/xilinx_workspace/aes_runner/source/aes.cpp"/>
+    <originFiles name="aes_runner.cpp" path="/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"/>
+    <originFiles name="aes.cpp" path="/Xilinx/xilinx_workspace/aes_runner/source/aes.cpp"/>
   </source>
   <testbench>
-    <originFiles name="aes_runner_testbench.cpp" path="/D/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp"/>
+    <originFiles name="aes_runner_testbench.cpp" path="/Xilinx/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp"/>
   </testbench>
 </autopilotfilemapping:AutoPilotFileMapping>

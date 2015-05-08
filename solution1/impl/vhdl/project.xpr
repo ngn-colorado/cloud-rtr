@@ -3,10 +3,10 @@
 <!--                                                         -->
 <!-- Copyright (c) 2001-2013 Xilinx Inc, All rights reserved -->
 
-<Project Version="7" Minor="0" Path="/D/xilinx_workspace/aes_runner/solution1/impl/vhdl/project.xpr">
+<Project Version="7" Minor="0" Path="/Xilinx/xilinx_workspace/aes_runner/solution1/impl/vhdl/project.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="5486a966b956461cbec1be46bbdea30f"/>
+    <Option Name="Id" Val="f5cd4776a620475784fa80d71fce58b8"/>
     <Option Name="Part" Val="xc7z020clg484-1"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="TargetLanguage" Val="VHDL"/>
@@ -17,19 +17,7 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/aes.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/aestest.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/aestest_sboxes_0.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -41,13 +29,13 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/aes_m_mm2s_ctl_m_axi.vhd">
+      <File Path="$PPRDIR/aes.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/aes_m_s2mm_ctl_m_axi.vhd">
+      <File Path="$PPRDIR/aestest_sboxes_0.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
