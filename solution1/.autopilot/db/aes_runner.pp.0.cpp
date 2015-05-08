@@ -38273,8 +38273,9 @@ typedef ap_uint<128> uint128_t;
 typedef hls::stream<uint128_t> mem_stream;
 
 
-bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, ap_uint<128>* key_in,
-  volatile unsigned destinationAddress, unsigned int length){
+bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128>* key_in,
+  volatile unsigned destinationAddress, unsigned int length,
+  mem_stream& s_in, mem_stream& s_out){
 #pragma HLS INTERFACE s_axilite port=length
 
 #pragma HLS INTERFACE s_axilite port=destinationAddress
@@ -38283,9 +38284,17 @@ bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, a
 
 #pragma HLS INTERFACE s_axilite port=sourceAddress
 
+#pragma HLS INTERFACE m_axi port=m_s2mm_ctl
+
+#pragma HLS INTERFACE m_axi port=m_mm2s_ctl
+
 #pragma HLS INTERFACE ap_ctrl_hs port=return
 
 #pragma HLS INTERFACE s_axilite port=return
+
+#pragma HLS INTERFACE axis depth=1000 port=s_out
+
+#pragma HLS INTERFACE axis depth=1000 port=s_in
 
 #pragma HLS INTERFACE ap_vld port=length
 
@@ -38297,68 +38306,68 @@ bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, a
 
  //for i to length, fetch 128 bits of data, call aes function on data, and write data back out
  //increment the source and dest address by 128 bits each time
- int i, j, iterations = length;
+ int i, j, iterations;
  unsigned char mask;
  unsigned sourceAddressLocal = sourceAddress;
  unsigned destinationAddressLocal = destinationAddress;
 
  ap_uint<128> key_local = *key_in;
-//	m_mm2s_ctl[0] &= 0;
-//	m_s2mm_ctl[12] &= 0;
-//
-//	m_mm2s_ctl[0] |= 4;
-//	m_s2mm_ctl[12] |= 4;
-//
-//	m_mm2s_ctl[0] &= 0;
-//	m_s2mm_ctl[12] &= 0;
-//
-//	//--------Program read DMA mm2s----------
-//	//enable read dma block
-//	m_mm2s_ctl[0] |= 1;
-//	//enable read interupts
-//	m_mm2s_ctl[0] |= 4096;
-//	//write source address
-//	m_mm2s_ctl[6] = sourceAddress;
-//	//calculate # of bytes that will be read from s_in in total
-//	//read_length = #encryptions X #bytes/encryption
-//	int read_length = length*sizeof(ap_uint<128>);
-//	m_mm2s_ctl[10] = read_length;
-//
-//	//--------Program write DMA s2mm--------
-//	//enable s2mm on write dma block
-//	m_s2mm_ctl[12] |= 1;
-//	//enable write interrupts
-//	m_s2mm_ctl[12] |= 4096;
-//	//write dest address
-//	m_s2mm_ctl[18] = destinationAddress;
-//	//write write length as the same as read length
-//	m_s2mm_ctl[22] = read_length;
-//
+ m_mm2s_ctl[0] &= 0;
+ m_s2mm_ctl[12] &= 0;
+
+ m_mm2s_ctl[0] |= 4;
+ m_s2mm_ctl[12] |= 4;
+
+ m_mm2s_ctl[0] &= 0;
+ m_s2mm_ctl[12] &= 0;
+
+ //--------Program read DMA mm2s----------
+ //enable read dma block
+ m_mm2s_ctl[0] |= 1;
+ //enable read interupts
+ m_mm2s_ctl[0] |= 4096;
+ //write source address
+ m_mm2s_ctl[6] = sourceAddress;
+ //calculate # of bytes that will be read from s_in in total
+ //read_length = #encryptions X #bytes/encryption
+ int read_length = length*16;
+ m_mm2s_ctl[10] = read_length;
+
+ //--------Program write DMA s2mm--------
+ //enable s2mm on write dma block
+ m_s2mm_ctl[12] |= 1;
+ //enable write interrupts
+ m_s2mm_ctl[12] |= 4096;
+ //write dest address
+ m_s2mm_ctl[18] = destinationAddress;
+ //write write length as the same as read length
+ m_s2mm_ctl[22] = read_length;
+
  ap_uint<128> encrypted_data;
  for(iterations = 0; iterations<length; iterations++){
-  ap_uint<128> data(0);
+//		ap_uint<128> data(0);
 //
-  for(i = 0; i<16; i++){
-   mask = 128;
-   for(j=0; j<8; j++){
-    if(ddr[sourceAddressLocal + i] & mask){
-     data.set((127 - 8*i) - j);
-    }
-    mask = mask >> 1;
-   }
-  }
-//		ap_uint<128> data = s_in.read();
+//		for(i = 0; i<16; i++){
+//			mask = 128;
+//			for(j=0; j<8; j++){
+//				if(ddr[sourceAddressLocal + i] & mask){
+//					data.set((127 - 8*i) - j);
+//				}
+//				mask = mask >> 1;
+//			}
+//		}
+  ap_uint<128> data = s_in.read();
 //			printf("\nData in fabric: %s", data.to_string().c_str());
 //			printf("\nKey in fabric: %s", ((ap_uint<128>*)key_in)->to_string().c_str());
   aestest(&data, &key_local, &encrypted_data);
 //			printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
-  char current = 0;
-  for(i=0; i < 16; i++)
-  {
-   current = encrypted_data.range(127-i*8, (120)-i*8);
-   ddr[destinationAddressLocal + i] = current;
-  }
-//		s_out.write(encrypted_data);
+//		char current = 0;
+//		for(i=0; i < 16; i++)
+//		{
+//			current = encrypted_data.range(127-i*8, (120)-i*8);
+//			ddr[destinationAddressLocal + i] = current;
+//		}
+  s_out.write(encrypted_data);
 
   sourceAddressLocal += 16;
   destinationAddressLocal += 16;

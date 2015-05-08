@@ -3,26 +3,29 @@
   <errorLogs>
     <logs>
       <synLog/>
-      <simLog>
-        <logs message="@E [SIM-4] *** C/RTL co-simulation finished: FAIL ***&#xA;&#xA;    while executing&#xA;&quot;cosim_design -ldflags {-lcrypto -lssl -ldl} -trace_level none -rtl verilog -tool auto&quot;&#xA;    (file &quot;/Xilinx/xilinx_workspace/aes_runner/solution1/cosim.tcl&quot; line 8)" projectName="aes_runner" solutionName="solution1" date="2015-05-08T12:15:17.287-0600"/>
-        <logs message="@E [SIM-320] Generating test vectors failed." projectName="aes_runner" solutionName="solution1" date="2015-05-08T12:15:17.273-0600"/>
-        <logs message="@E [SIM-360] Aborting co-simulation: C TB simulation failed." projectName="aes_runner" solutionName="solution1" date="2015-05-08T12:15:17.258-0600"/>
-      </simLog>
+      <simLog/>
       <mgLog/>
       <packageLog/>
-      <csimLog/>
+      <csimLog>
+        <logs message="@E [SIM-1] 'csim_design' failed: compilation error(s).&#xA;4&#xA;    while executing&#xA;&quot;csim_design -ldflags {-lcrypto -lssl -ldl} -quiet&quot;&#xA;    (file &quot;/D/xilinx_workspace/aes_runner/solution1/csim.tcl&quot; line 8)" projectName="aes_runner" solutionName="solution1" date="2015-04-19T04:25:01.187-0600"/>
+        <logs message="@E [SIM-1] 'csim_design' failed: compilation error(s).&#xA;4&#xA;    while executing&#xA;&quot;csim_design -ldflags {-lcrypto -lssl -ldl} -quiet&quot;&#xA;    (file &quot;/D/xilinx_workspace/aes_runner/solution1/csim.tcl&quot; line 8)" projectName="aes_runner" solutionName="solution1" date="2015-04-19T04:22:38.503-0600"/>
+        <logs message="@E [SIM-1] 'csim_design' failed: compilation error(s).&#xA;4&#xA;    while executing&#xA;&quot;csim_design -ldflags {-lcrypto -lssl -ldl} -quiet&quot;&#xA;    (file &quot;/D/xilinx_workspace/aes_runner/solution1/csim.tcl&quot; line 8)" projectName="aes_runner" solutionName="solution1" date="2015-04-19T04:21:51.832-0600"/>
+      </csimLog>
     </logs>
   </errorLogs>
   <warningLogs>
     <logs>
       <synLog>
-        <logs message="@W [RTGEN-101] Legalizing port name 'aes/length' to 'aes/length_r'." projectName="aes_runner" solutionName="solution1" date="2015-05-08T12:13:46.342-0600" type="Warning"/>
-        <logs message="@W [SYNCHK-23] aes_runner/source/aes.cpp:178: variable-indexed range selection may cause suboptimal QoR." projectName="aes_runner" solutionName="solution1" date="2015-05-08T12:13:39.053-0600" type="Warning"/>
+        <logs message="@W [RTGEN-101] Legalizing port name 'aes/length' to 'aes/length_r'." projectName="aes_runner" solutionName="solution1" date="2015-04-19T01:10:08.926-0600" type="Warning"/>
+        <logs message="@W [SYNCHK-23] aes_runner/source/aes.cpp:178: variable-indexed range selection may cause suboptimal QoR." projectName="aes_runner" solutionName="solution1" date="2015-04-19T01:10:01.904-0600" type="Warning"/>
       </synLog>
       <simLog/>
       <mgLog/>
       <packageLog/>
-      <csimLog/>
+      <csimLog>
+        <logs message="@W [LIC-102] Failed to get a license [HLS].             " projectName="aes_runner" solutionName="solution1" date="2015-04-19T04:21:19.996-0600" type="Warning"/>
+        <logs message="@W [LIC-102] Failed to get a license [VIVADO_HLS].             " projectName="aes_runner" solutionName="solution1" date="2015-04-19T04:21:19.985-0600" type="Warning"/>
+      </csimLog>
     </logs>
   </warningLogs>
 </vivadoHLSLog:LogRoot>

@@ -90,7 +90,7 @@
 		<link>
 			<name>testbench</name>
 			<type>2</type>
-			<location>/Xilinx/xilinx_workspace/aes_runner/.apc/.tb</location>
+			<location>/D/xilinx_workspace/aes_runner/.apc/.tb</location>
 		</link>
 		<link>
 			<name>.reference/aes.h</name>
@@ -120,37 +120,37 @@
 		<link>
 			<name>solution1/constraints</name>
 			<type>2</type>
-			<location>/Xilinx/xilinx_workspace/aes_runner/solution1/.tcls</location>
+			<location>/D/xilinx_workspace/aes_runner/solution1/.tcls</location>
 		</link>
 		<link>
 			<name>source/aes.cpp</name>
 			<type>1</type>
-			<location>/Xilinx/xilinx_workspace/aes_runner/source/aes.cpp</location>
+			<location>/D/xilinx_workspace/aes_runner/source/aes.cpp</location>
 		</link>
 		<link>
 			<name>source/aes_runner.cpp</name>
 			<type>1</type>
-			<location>/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp</location>
+			<location>/D/xilinx_workspace/aes_runner/source/aes_runner.cpp</location>
 		</link>
 		<link>
 			<name>testbench/aes_runner_testbench.cpp</name>
 			<type>1</type>
-			<location>/Xilinx/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp</location>
+			<location>/D/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp</location>
 		</link>
 		<link>
 			<name>solution1/constraints/.xml.directive</name>
 			<type>1</type>
-			<location>/Xilinx/xilinx_workspace/aes_runner/solution1/solution1.directive</location>
+			<location>/D/xilinx_workspace/aes_runner/solution1/solution1.directive</location>
 		</link>
 		<link>
 			<name>solution1/constraints/directives.tcl</name>
 			<type>1</type>
-			<location>/Xilinx/xilinx_workspace/aes_runner/solution1/directives.tcl</location>
+			<location>/D/xilinx_workspace/aes_runner/solution1/directives.tcl</location>
 		</link>
 		<link>
 			<name>solution1/constraints/script.tcl</name>
 			<type>1</type>
-			<location>/Xilinx/xilinx_workspace/aes_runner/solution1/script.tcl</location>
+			<location>/D/xilinx_workspace/aes_runner/solution1/script.tcl</location>
 		</link>
 	</linkedResources>
 </projectDescription>

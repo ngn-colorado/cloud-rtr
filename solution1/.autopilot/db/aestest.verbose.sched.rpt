@@ -3,7 +3,7 @@
 ================================================================
 == Vivado HLS Report for 'aestest'
 ================================================================
-* Date:           Fri May  8 12:13:50 2015
+* Date:           Sun Apr 19 01:10:12 2015
 
 * Version:        2014.1 (build date: Fri Apr 04 13:20:25 PM 2014)
 * Project:        aes_runner
@@ -178,8 +178,8 @@ ST_1: p_Result_s [1/1] 0.00ns
 ST_1: p_Result_1 [1/1] 0.00ns
 .preheader86.preheader:4  %p_Result_1 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 120, i32 127)
 
-ST_1: p_Result_s_87 [1/1] 0.00ns
-.preheader86.preheader:5  %p_Result_s_87 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
+ST_1: p_Result_s_92 [1/1] 0.00ns
+.preheader86.preheader:5  %p_Result_s_92 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
 
 ST_1: p_Result_1_1 [1/1] 0.00ns
 .preheader86.preheader:6  %p_Result_1_1 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 112, i32 119)
@@ -272,7 +272,7 @@ ST_1: tmp_1 [1/1] 1.37ns
 .preheader86.preheader:35  %tmp_1 = xor i8 %p_Result_s, %p_Result_1
 
 ST_1: tmp_6_1 [1/1] 1.37ns
-.preheader86.preheader:36  %tmp_6_1 = xor i8 %p_Result_s_87, %p_Result_1_1
+.preheader86.preheader:36  %tmp_6_1 = xor i8 %p_Result_s_92, %p_Result_1_1
 
 ST_1: tmp_6_2 [1/1] 1.37ns
 .preheader86.preheader:37  %tmp_6_2 = xor i8 %p_Result_2, %p_Result_1_2

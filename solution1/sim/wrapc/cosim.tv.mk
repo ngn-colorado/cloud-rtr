@@ -66,10 +66,10 @@ $(ObjDir)/aes_runner_testbench.cpp_pre.cpp.tb.o: aes_runner_testbench.cpp_pre.cp
 	$(Echo) "   Compiling aes_runner_testbench.cpp_pre.cpp.tb.cpp" $(AVE_DIR_DLOG)
 	$(Verb)  gcc -fno-builtin-isinf -fno-builtin-isnan -c $(IFLAG) $(DFLAG)  $< -o $@ ; \
 
-$(ObjDir)/aes.cpp_pre.cpp.tb.o: aes.cpp_pre.cpp.tb.cpp $(ObjDir)/.dir
-	$(Echo) "   Compiling aes.cpp_pre.cpp.tb.cpp" $(AVE_DIR_DLOG)
-	$(Verb)  gcc -fno-builtin-isinf -fno-builtin-isnan -c $(IFLAG) $(DFLAG)  $< -o $@ ; \
-
 $(ObjDir)/aes_runner.cpp_pre.cpp.tb.o: aes_runner.cpp_pre.cpp.tb.cpp $(ObjDir)/.dir
 	$(Echo) "   Compiling aes_runner.cpp_pre.cpp.tb.cpp" $(AVE_DIR_DLOG)
+	$(Verb)  gcc -fno-builtin-isinf -fno-builtin-isnan -c $(IFLAG) $(DFLAG)  $< -o $@ ; \
+
+$(ObjDir)/aes.cpp_pre.cpp.tb.o: aes.cpp_pre.cpp.tb.cpp $(ObjDir)/.dir
+	$(Echo) "   Compiling aes.cpp_pre.cpp.tb.cpp" $(AVE_DIR_DLOG)
 	$(Verb)  gcc -fno-builtin-isinf -fno-builtin-isnan -c $(IFLAG) $(DFLAG)  $< -o $@ ; \

@@ -15,11 +15,13 @@ void aestest(ap_uint<128>*, ap_uint<128>*, ap_uint<128>*);
 //		volatile ap_uint<1>*, volatile bool*, volatile bool*,
 //		unsigned, unsigned);
 
-//bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, ap_uint<128>* key_in,
-//		volatile unsigned destinationAddress, unsigned int length){
+//bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128>* key_in,
+//		volatile unsigned destinationAddress, unsigned int length,
+//		mem_stream& s_in, mem_stream& s_out){
 
-bool aes(volatile unsigned char*, volatile unsigned, ap_uint<128>*,
-		volatile unsigned, unsigned int);
+bool aes(volatile unsigned int*, volatile unsigned int*, volatile unsigned, ap_uint<128>*,
+		volatile unsigned, unsigned int,
+		mem_stream&, mem_stream&);
 
 int main(){
 	volatile unsigned char ddr[0x3000];
@@ -82,70 +84,70 @@ int main(){
 	printf("\nEncrypted data as hex: %s - from fabric software implementation", ((ap_uint<128>)fabric_dest_test).to_string().c_str());
 	volatile bool finished;
 
-//	mem_stream read_stream;
-//	mem_stream write_stream;
-//	read_stream.write(data_to_encrypt_fabric);
-//	read_stream.write(data_to_encrypt_fabric2);
+	mem_stream read_stream;
+	mem_stream write_stream;
+	read_stream.write(data_to_encrypt_fabric);
+	read_stream.write(data_to_encrypt_fabric2);
 
-	aes(ddr, source, &fabric_key, dest, (unsigned int)2);
+	aes(mm2s, s2mm, source, &fabric_key, dest, (unsigned int)2, read_stream, write_stream);
 
-	printf("\nEncrypted data as hex: 0x");//%s - from fabric", ((ap_uint<128>)fabric_dest_test).to_string().c_str());
-	for(i=0; i<16; i++){
-		printf("%02x", ddr[dest+i]);
-	}
-	printf(" - from fabric");
-
-	printf("\nEncrypted data as hex: 0x");
-	for(i=0; i<16; i++){
-		printf("%02x", ddr[dest+i+16]);
-	}
-	printf(" - from fabric #2");
-//	ap_uint<128> first_fabric = write_stream.read();
-//	ap_uint<128> second_fabric = write_stream.read();
-//	printf("\nEncrypted data as hex: %s - fabric 1", first_fabric.to_string().c_str());
+//	printf("\nEncrypted data as hex: 0x");//%s - from fabric", ((ap_uint<128>)fabric_dest_test).to_string().c_str());
+//	for(i=0; i<16; i++){
+//		printf("%02x", ddr[dest+i]);
+//	}
+//	printf(" - from fabric");
+//
+//	printf("\nEncrypted data as hex: 0x");
+//	for(i=0; i<16; i++){
+//		printf("%02x", ddr[dest+i+16]);
+//	}
+//	printf(" - from fabric #2");
+	ap_uint<128> first_fabric = write_stream.read();
+	ap_uint<128> second_fabric = write_stream.read();
+	printf("\nEncrypted data as hex: %s - fabric 1", first_fabric.to_string().c_str());
 //	printf("\nEncrypted data as hex: %s - fabric 1", ((ap_uint<128>)s_out[0]).to_string().c_str());
 //	printf("Encrypted data as hex: %s - fabric 2", ((ap_uint<128>)s_out[1]).to_string().c_str());
 
 
-//	char encrypted_answer[100];
-//	sprintf(encrypted_answer, "0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", encrypted_data[0],encrypted_data[1],encrypted_data[2],encrypted_data[3],encrypted_data[4],encrypted_data[5],encrypted_data[6],encrypted_data[7],encrypted_data[8],encrypted_data[9],encrypted_data[10],encrypted_data[11],encrypted_data[12],encrypted_data[13],encrypted_data[14],encrypted_data[15]);
-//	if(strcmp(encrypted_answer, first_fabric.to_string().c_str()) != 0){
-//		printf("%s", encrypted_answer);
-//		printf("%s", first_fabric.to_string().c_str());
-//		return -1;
-//	}
-	for(i=0; i<16; i++){
-		if(ddr[dest + i] != encrypted_data[i]){
-			return -1;
-		}
+	char encrypted_answer[100];
+	sprintf(encrypted_answer, "0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", encrypted_data[0],encrypted_data[1],encrypted_data[2],encrypted_data[3],encrypted_data[4],encrypted_data[5],encrypted_data[6],encrypted_data[7],encrypted_data[8],encrypted_data[9],encrypted_data[10],encrypted_data[11],encrypted_data[12],encrypted_data[13],encrypted_data[14],encrypted_data[15]);
+	if(strcmp(encrypted_answer, first_fabric.to_string().c_str()) != 0){
+		printf("%s", encrypted_answer);
+		printf("%s", first_fabric.to_string().c_str());
+		return -1;
 	}
-	AES_encrypt((unsigned char*)data_to_encrypt2, encrypted_data, &aes_key);
-//	sprintf(encrypted_answer, "0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", encrypted_data[0],encrypted_data[1],encrypted_data[2],encrypted_data[3],encrypted_data[4],encrypted_data[5],encrypted_data[6],encrypted_data[7],encrypted_data[8],encrypted_data[9],encrypted_data[10],encrypted_data[11],encrypted_data[12],encrypted_data[13],encrypted_data[14],encrypted_data[15]);
-//	if(strcmp(encrypted_answer, second_fabric.to_string().c_str()) != 0){
-//		printf("%s", encrypted_answer);
-//		printf("%s", second_fabric.to_string().c_str());
-//		return -1;
+//	for(i=0; i<16; i++){
+//		if(ddr[dest + i] != encrypted_data[i]){
+//			return -1;
+//		}
 //	}
-//	printf("\nEncrypted data as hex: %s - fabric 2", second_fabric.to_string().c_str());
+	AES_encrypt((unsigned char*)data_to_encrypt2, encrypted_data, &aes_key);
+	sprintf(encrypted_answer, "0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", encrypted_data[0],encrypted_data[1],encrypted_data[2],encrypted_data[3],encrypted_data[4],encrypted_data[5],encrypted_data[6],encrypted_data[7],encrypted_data[8],encrypted_data[9],encrypted_data[10],encrypted_data[11],encrypted_data[12],encrypted_data[13],encrypted_data[14],encrypted_data[15]);
+	if(strcmp(encrypted_answer, second_fabric.to_string().c_str()) != 0){
+		printf("%s", encrypted_answer);
+		printf("%s", second_fabric.to_string().c_str());
+		return -1;
+	}
+	printf("\nEncrypted data as hex: %s - fabric 2", second_fabric.to_string().c_str());
 	printf("\nEncrypted data as hex: 0x");
 	for(i = 0; i<16; i++){
 		printf("%02x", encrypted_data[i]);
 	}
 	printf(" - second from openssl\n\n");
-	for(i=0; i<16; i++){
-		if(ddr[dest + i + 16] != encrypted_data[i]){
-			return -1;
-		}
+//	for(i=0; i<16; i++){
+//		if(ddr[dest + i + 16] != encrypted_data[i]){
+//			return -1;
+//		}
+//	}
+	printf("\nmm2s control registers:");
+	for(i=0; i<24; i++){
+		printf("\n%08x", mm2s[i]);
 	}
-//	printf("\nmm2s control registers:");
-//	for(i=0; i<24; i++){
-//		printf("\n%08x", mm2s[i]);
-//	}
-//
-//	printf("\n\ns2mm control registers:");
-//	for(i=0; i<24; i++){
-//		printf("\n%08x", s2mm[i]);
-//	}
+
+	printf("\n\ns2mm control registers:");
+	for(i=0; i<24; i++){
+		printf("\n%08x", s2mm[i]);
+	}
 
 	free(encrypted_data);
 	return 0;

@@ -2626,7 +2626,7 @@ void aestest::thread_tmp_6_14_fu_2775_p2() {
 }
 
 void aestest::thread_tmp_6_1_fu_2691_p2() {
-    tmp_6_1_fu_2691_p2 = (p_Result_s_87_fu_2397_p4.read() ^ p_Result_1_1_fu_2407_p4.read());
+    tmp_6_1_fu_2691_p2 = (p_Result_s_92_fu_2397_p4.read() ^ p_Result_1_1_fu_2407_p4.read());
 }
 
 void aestest::thread_tmp_6_2_fu_2697_p2() {

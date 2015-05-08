@@ -193,10 +193,10 @@
 
 <node id="28" bw="8" op_0_bw="8" op_1_bw="128" op_2_bw="32" op_3_bw="32">
 <![CDATA[
-.preheader86.preheader:5  %p_Result_s_87 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
+.preheader86.preheader:5  %p_Result_s_92 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
 
 ]]></node>
-<StgValue><ssdm name="p_Result_s_87"/></StgValue>
+<StgValue><ssdm name="p_Result_s_92"/></StgValue>
 </operation>
 
 <operation id="26" st_id="1" stage="1" lat="1">
@@ -658,7 +658,7 @@
 
 <node id="59" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:36  %tmp_6_1 = xor i8 %p_Result_s_87, %p_Result_1_1
+.preheader86.preheader:36  %tmp_6_1 = xor i8 %p_Result_s_92, %p_Result_1_1
 
 ]]></node>
 <StgValue><ssdm name="tmp_6_1"/></StgValue>

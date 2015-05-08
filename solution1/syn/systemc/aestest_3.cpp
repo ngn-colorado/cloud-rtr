@@ -350,8 +350,8 @@ void aestest::thread_p_Result_9_fu_2557_p4() {
     p_Result_9_fu_2557_p4 = inptext_V_read.read().range(55, 48);
 }
 
-void aestest::thread_p_Result_s_87_fu_2397_p4() {
-    p_Result_s_87_fu_2397_p4 = inptext_V_read.read().range(119, 112);
+void aestest::thread_p_Result_s_92_fu_2397_p4() {
+    p_Result_s_92_fu_2397_p4 = inptext_V_read.read().range(119, 112);
 }
 
 void aestest::thread_p_Result_s_fu_2377_p4() {
