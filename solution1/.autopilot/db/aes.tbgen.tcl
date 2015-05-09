@@ -15,12 +15,12 @@ set C_modelArgList {
 	{ length_r int 32 regular {axi_slave 0}  }
 }
 set C_modelArgMapList {[ 
-	{ "Name" : "ddr", "interface" : "axi_master", "bitwidth" : 8,"bitSlice":[{"low":0,"up":7,"cElement": [{"cName": "ddr","cData": "unsigned char","cArray": [{"low" : 0,"up" : 4194303,"step" : 1}]}]}]} , 
+	{ "Name" : "ddr", "interface" : "axi_master", "bitwidth" : 8,"bitSlice":[{"low":0,"up":7,"cElement": [{"cName": "ddr","cData": "unsigned char","cArray": [{"low" : 0,"up" : 536870910,"step" : 1}]}]}]} , 
  	{ "Name" : "sourceAddress", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "sourceAddress","cData": "unsigned int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":24}]} , 
  	{ "Name" : "key_in_V", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 128,"bitSlice":[{"low":0,"up":127,"cElement": [{"cName": "key_in.V","cData": "uint128","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}], "offset" : [{"in":32}]} , 
  	{ "Name" : "destinationAddress", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "destinationAddress","cData": "unsigned int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":52}]} , 
  	{ "Name" : "length_r", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "length","cData": "unsigned int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":60}]} , 
- 	{ "Name" : "ap_return", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_none","bitwidth" : 1,"bitSlice":[{"low":0,"up":0,"cElement": [{"cName": "return","cData": "bool","cArray": [{"low" : 0,"up" : 1,"step" : 0}]}]}], "offset" : [{"out":16}]} ]}
+ 	{ "Name" : "ap_return", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_none","bitwidth" : 1,"bitSlice":[{"low":0,"up":0,"cElement": [{"cName": "return","cData": "","cArray": [{"low" : 0,"up" : 1,"step" : 0}]}]}], "offset" : [{"out":16}]} ]}
 # RTL Port declarations: 
 set portNum 65
 set portList { 

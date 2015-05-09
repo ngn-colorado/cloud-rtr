@@ -296,12 +296,12 @@ reg   [31:0] iterations_1_reg_601;
 wire   [4:0] i_3_fu_368_p2;
 reg   [4:0] i_3_reg_609;
 reg   [31:0] ddr_addr_reg_614;
-wire   [0:0] exitcond1_fu_362_p2;
-wire   [6:0] tmp_4_fu_402_p2;
-reg   [6:0] tmp_4_reg_620;
+wire   [0:0] exitcond3_fu_362_p2;
+wire   [6:0] tmp_28_fu_402_p2;
+reg   [6:0] tmp_28_reg_620;
 wire   [3:0] j_1_fu_418_p2;
 reg   [3:0] j_1_reg_628;
-wire   [0:0] exitcond2_fu_412_p2;
+wire   [0:0] exitcond4_fu_412_p2;
 reg    ap_sig_ioackin_ddr_ARREADY;
 wire   [6:0] i_assign_fu_424_p2;
 reg   [6:0] i_assign_reg_633;
@@ -338,8 +338,8 @@ reg   [7:0] mask_reg_260;
 reg   [4:0] i_1_reg_272;
 reg    grp_aestest_fu_284_ap_start_ap_start_reg = 1'b0;
 reg   [4:0] ap_NS_fsm;
-wire   [63:0] tmp_2_fu_380_p1;
-wire   [63:0] tmp_5_fu_544_p1;
+wire   [63:0] tmp_26_fu_380_p1;
+wire   [63:0] tmp_31_fu_544_p1;
 reg    ap_reg_ioackin_ddr_ARREADY = 1'b0;
 reg    ap_reg_ioackin_ddr_AWREADY = 1'b0;
 reg    ap_sig_ioackin_ddr_AWREADY;
@@ -348,24 +348,24 @@ reg    ap_reg_ioackin_ddr_WREADY = 1'b0;
 reg   [31:0] sourceAddress_assign_fu_136;
 reg   [31:0] destinationAddress_assign_fu_140;
 wire   [31:0] i_cast5_fu_358_p1;
-wire   [31:0] tmp_1_fu_374_p2;
+wire   [31:0] tmp_s_fu_374_p2;
 wire   [3:0] tmp_fu_390_p1;
-wire   [6:0] tmp_3_fu_394_p3;
+wire   [6:0] tmp_27_fu_394_p3;
 wire   [6:0] j_cast3_fu_408_p1;
-wire   [7:0] tmp_6_fu_429_p2;
+wire   [7:0] tmp_32_fu_429_p2;
 wire   [31:0] i_assign_cast_fu_440_p1;
-wire   [0:0] tmp_7_fu_434_p2;
+wire   [0:0] tmp_33_fu_434_p2;
 wire   [127:0] p_Result_2_fu_443_p5;
 wire   [6:0] mask_1_fu_463_p4;
 wire   [3:0] tmp_325_fu_493_p1;
-wire   [6:0] tmp_8_fu_497_p3;
+wire   [6:0] tmp_29_fu_497_p3;
 wire   [6:0] Hi_assign_fu_505_p2;
 wire   [6:0] Lo_assign_fu_515_p2;
 wire   [31:0] Lo_assign_cast_fu_521_p1;
 wire   [31:0] Hi_assign_cast_fu_511_p1;
 wire   [127:0] p_Result_s_fu_525_p4;
 wire   [31:0] i_1_cast2_fu_477_p1;
-wire   [31:0] tmp_s_fu_538_p2;
+wire   [31:0] tmp_30_fu_538_p2;
 reg    ap_sig_bdd_1830;
 
 
@@ -551,7 +551,7 @@ begin : ap_ret_ap_reg_ioackin_ddr_ARREADY
         ap_reg_ioackin_ddr_ARREADY <= ap_const_logic_0;
     end else begin
         if (ap_sig_bdd_1830) begin
-            if (~((ap_const_lv1_0 == exitcond2_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY))) begin
+            if (~((ap_const_lv1_0 == exitcond4_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY))) begin
                 ap_reg_ioackin_ddr_ARREADY <= ap_const_logic_0;
             end else if ((ap_const_logic_1 == ddr_ARREADY)) begin
                 ap_reg_ioackin_ddr_ARREADY <= ap_const_logic_1;
@@ -713,7 +713,7 @@ end
 /// assign process. ///
 always @(posedge ap_clk)
 begin
-    if (((ap_ST_st5_fsm_4 == ap_CS_fsm) & ~((ap_const_lv1_0 == exitcond2_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)) & ~(ap_const_lv1_0 == exitcond2_fu_412_p2))) begin
+    if (((ap_ST_st5_fsm_4 == ap_CS_fsm) & ~((ap_const_lv1_0 == exitcond4_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)) & ~(ap_const_lv1_0 == exitcond4_fu_412_p2))) begin
         data_V_reg_214 <= p_Val2_1_reg_237;
     end else if (((ap_ST_st3_fsm_2 == ap_CS_fsm) & (ap_const_lv1_0 == exitcond8_fu_347_p2))) begin
         data_V_reg_214 <= ap_const_lv128_lc_1;
@@ -743,7 +743,7 @@ end
 /// assign process. ///
 always @(posedge ap_clk)
 begin
-    if (((ap_ST_st5_fsm_4 == ap_CS_fsm) & ~((ap_const_lv1_0 == exitcond2_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)) & ~(ap_const_lv1_0 == exitcond2_fu_412_p2))) begin
+    if (((ap_ST_st5_fsm_4 == ap_CS_fsm) & ~((ap_const_lv1_0 == exitcond4_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)) & ~(ap_const_lv1_0 == exitcond4_fu_412_p2))) begin
         i_reg_226 <= i_3_reg_609;
     end else if (((ap_ST_st3_fsm_2 == ap_CS_fsm) & (ap_const_lv1_0 == exitcond8_fu_347_p2))) begin
         i_reg_226 <= ap_const_lv5_0;
@@ -765,7 +765,7 @@ always @(posedge ap_clk)
 begin
     if ((ap_ST_st7_fsm_6 == ap_CS_fsm)) begin
         j_reg_249 <= j_1_reg_628;
-    end else if (((ap_ST_st4_fsm_3 == ap_CS_fsm) & (exitcond1_fu_362_p2 == ap_const_lv1_0))) begin
+    end else if (((ap_ST_st4_fsm_3 == ap_CS_fsm) & (exitcond3_fu_362_p2 == ap_const_lv1_0))) begin
         j_reg_249 <= ap_const_lv4_0;
     end
 end
@@ -775,7 +775,7 @@ always @(posedge ap_clk)
 begin
     if ((ap_ST_st7_fsm_6 == ap_CS_fsm)) begin
         mask_reg_260 <= mask_2_fu_473_p1;
-    end else if (((ap_ST_st4_fsm_3 == ap_CS_fsm) & (exitcond1_fu_362_p2 == ap_const_lv1_0))) begin
+    end else if (((ap_ST_st4_fsm_3 == ap_CS_fsm) & (exitcond3_fu_362_p2 == ap_const_lv1_0))) begin
         mask_reg_260 <= ap_const_lv8_80;
     end
 end
@@ -785,7 +785,7 @@ always @(posedge ap_clk)
 begin
     if ((ap_ST_st7_fsm_6 == ap_CS_fsm)) begin
         p_Val2_1_reg_237 <= data_V_2_fu_455_p3;
-    end else if (((ap_ST_st4_fsm_3 == ap_CS_fsm) & (exitcond1_fu_362_p2 == ap_const_lv1_0))) begin
+    end else if (((ap_ST_st4_fsm_3 == ap_CS_fsm) & (exitcond3_fu_362_p2 == ap_const_lv1_0))) begin
         p_Val2_1_reg_237 <= data_V_reg_214;
     end
 end
@@ -805,7 +805,7 @@ always @(posedge ap_clk)
 begin
     if (((ap_ST_st28_fsm_27 == ap_CS_fsm) & (ap_const_lv1_0 == exitcond_fu_481_p2))) begin
         current_reg_666 <= current_fu_534_p1;
-        ddr_addr_1_reg_671 <= tmp_5_fu_544_p1;
+        ddr_addr_1_reg_671 <= tmp_31_fu_544_p1;
     end
 end
 
@@ -820,9 +820,9 @@ end
 /// assign process. ///
 always @(posedge ap_clk)
 begin
-    if (((ap_ST_st4_fsm_3 == ap_CS_fsm) & (exitcond1_fu_362_p2 == ap_const_lv1_0))) begin
-        ddr_addr_reg_614 <= tmp_2_fu_380_p1;
-        tmp_4_reg_620 <= tmp_4_fu_402_p2;
+    if (((ap_ST_st4_fsm_3 == ap_CS_fsm) & (exitcond3_fu_362_p2 == ap_const_lv1_0))) begin
+        ddr_addr_reg_614 <= tmp_26_fu_380_p1;
+        tmp_28_reg_620 <= tmp_28_fu_402_p2;
     end
 end
 
@@ -862,7 +862,7 @@ end
 /// assign process. ///
 always @(posedge ap_clk)
 begin
-    if (((ap_ST_st5_fsm_4 == ap_CS_fsm) & (ap_const_lv1_0 == exitcond2_fu_412_p2) & ~((ap_const_lv1_0 == exitcond2_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)))) begin
+    if (((ap_ST_st5_fsm_4 == ap_CS_fsm) & (ap_const_lv1_0 == exitcond4_fu_412_p2) & ~((ap_const_lv1_0 == exitcond4_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)))) begin
         i_assign_reg_633 <= i_assign_fu_424_p2;
     end
 end
@@ -878,7 +878,7 @@ end
 /// assign process. ///
 always @(posedge ap_clk)
 begin
-    if (((ap_ST_st5_fsm_4 == ap_CS_fsm) & ~((ap_const_lv1_0 == exitcond2_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)))) begin
+    if (((ap_ST_st5_fsm_4 == ap_CS_fsm) & ~((ap_const_lv1_0 == exitcond4_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)))) begin
         j_1_reg_628 <= j_1_fu_418_p2;
     end
 end
@@ -944,9 +944,9 @@ begin
 end
 
 /// ddr_ARVALID assign process. ///
-always @ (ap_CS_fsm or exitcond2_fu_412_p2 or ap_reg_ioackin_ddr_ARREADY)
+always @ (ap_CS_fsm or exitcond4_fu_412_p2 or ap_reg_ioackin_ddr_ARREADY)
 begin
-    if (((ap_ST_st5_fsm_4 == ap_CS_fsm) & (ap_const_lv1_0 == exitcond2_fu_412_p2) & (ap_const_logic_0 == ap_reg_ioackin_ddr_ARREADY))) begin
+    if (((ap_ST_st5_fsm_4 == ap_CS_fsm) & (ap_const_lv1_0 == exitcond4_fu_412_p2) & (ap_const_logic_0 == ap_reg_ioackin_ddr_ARREADY))) begin
         ddr_ARVALID = ap_const_logic_1;
     end else begin
         ddr_ARVALID = ap_const_logic_0;
@@ -1072,7 +1072,7 @@ begin
         sourceAddress_in_sig = sourceAddress_preg;
     end
 end
-always @ (ap_CS_fsm or ddr_RVALID or ddr_BVALID or ap_sig_bdd_254 or exitcond1_fu_362_p2 or exitcond2_fu_412_p2 or ap_sig_ioackin_ddr_ARREADY or exitcond_fu_481_p2 or exitcond8_fu_347_p2 or ap_sig_ioackin_ddr_AWREADY or ap_sig_ioackin_ddr_WREADY)
+always @ (ap_CS_fsm or ddr_RVALID or ddr_BVALID or ap_sig_bdd_254 or exitcond3_fu_362_p2 or exitcond4_fu_412_p2 or ap_sig_ioackin_ddr_ARREADY or exitcond_fu_481_p2 or exitcond8_fu_347_p2 or ap_sig_ioackin_ddr_AWREADY or ap_sig_ioackin_ddr_WREADY)
 begin
     case (ap_CS_fsm)
         ap_ST_st1_fsm_0 : 
@@ -1090,15 +1090,15 @@ begin
                 ap_NS_fsm = ap_ST_st4_fsm_3;
             end
         ap_ST_st4_fsm_3 : 
-            if ((exitcond1_fu_362_p2 == ap_const_lv1_0)) begin
+            if ((exitcond3_fu_362_p2 == ap_const_lv1_0)) begin
                 ap_NS_fsm = ap_ST_st5_fsm_4;
             end else begin
                 ap_NS_fsm = ap_ST_st8_fsm_7;
             end
         ap_ST_st5_fsm_4 : 
-            if (((ap_const_lv1_0 == exitcond2_fu_412_p2) & ~((ap_const_lv1_0 == exitcond2_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)))) begin
+            if (((ap_const_lv1_0 == exitcond4_fu_412_p2) & ~((ap_const_lv1_0 == exitcond4_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)))) begin
                 ap_NS_fsm = ap_ST_st6_fsm_5;
-            end else if ((~((ap_const_lv1_0 == exitcond2_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)) & ~(ap_const_lv1_0 == exitcond2_fu_412_p2))) begin
+            end else if ((~((ap_const_lv1_0 == exitcond4_fu_412_p2) & (ap_const_logic_0 == ap_sig_ioackin_ddr_ARREADY)) & ~(ap_const_lv1_0 == exitcond4_fu_412_p2))) begin
                 ap_NS_fsm = ap_ST_st4_fsm_3;
             end else begin
                 ap_NS_fsm = ap_ST_st5_fsm_4;
@@ -1174,15 +1174,15 @@ begin
     endcase
 end
 assign Hi_assign_cast_fu_511_p1 = $unsigned(Hi_assign_fu_505_p2);
-assign Hi_assign_fu_505_p2 = (tmp_8_fu_497_p3 ^ ap_const_lv7_7F);
+assign Hi_assign_fu_505_p2 = (tmp_29_fu_497_p3 ^ ap_const_lv7_7F);
 assign Lo_assign_cast_fu_521_p1 = $unsigned(Lo_assign_fu_515_p2);
-assign Lo_assign_fu_515_p2 = (ap_const_lv7_78 - tmp_8_fu_497_p3);
+assign Lo_assign_fu_515_p2 = (ap_const_lv7_78 - tmp_29_fu_497_p3);
 assign ap_return = ap_const_lv1_1;
 
 /// ap_sig_bdd_1830 assign process. ///
-always @ (ap_CS_fsm or exitcond2_fu_412_p2)
+always @ (ap_CS_fsm or exitcond4_fu_412_p2)
 begin
-    ap_sig_bdd_1830 = ((ap_ST_st5_fsm_4 == ap_CS_fsm) & (ap_const_lv1_0 == exitcond2_fu_412_p2));
+    ap_sig_bdd_1830 = ((ap_ST_st5_fsm_4 == ap_CS_fsm) & (ap_const_lv1_0 == exitcond4_fu_412_p2));
 end
 
 /// ap_sig_bdd_254 assign process. ///
@@ -1191,7 +1191,7 @@ begin
     ap_sig_bdd_254 = ((length_r_ap_vld_in_sig == ap_const_logic_0) | (destinationAddress_ap_vld_in_sig == ap_const_logic_0) | (sourceAddress_ap_vld_in_sig == ap_const_logic_0) | (key_in_V_ap_vld_in_sig == ap_const_logic_0) | (ap_start == ap_const_logic_0));
 end
 assign current_fu_534_p1 = p_Result_s_fu_525_p4[7:0];
-assign data_V_2_fu_455_p3 = ((tmp_7_fu_434_p2)? p_Val2_1_reg_237: p_Result_2_fu_443_p5);
+assign data_V_2_fu_455_p3 = ((tmp_33_fu_434_p2)? p_Val2_1_reg_237: p_Result_2_fu_443_p5);
 assign ddr_ARADDR = ddr_addr_reg_614;
 assign ddr_ARBURST = ap_const_lv2_0;
 assign ddr_ARCACHE = ap_const_lv4_0;
@@ -1220,8 +1220,8 @@ assign ddr_WLAST = ap_const_logic_0;
 assign ddr_WSTRB = ap_const_lv1_1;
 assign ddr_WUSER = ap_const_lv1_0;
 assign destinationAddressLocal_1_fu_560_p2 = (destinationAddressLocal1_reg_204 + ap_const_lv32_10);
-assign exitcond1_fu_362_p2 = (i_reg_226 == ap_const_lv5_10? 1'b1: 1'b0);
-assign exitcond2_fu_412_p2 = (j_reg_249 == ap_const_lv4_8? 1'b1: 1'b0);
+assign exitcond3_fu_362_p2 = (i_reg_226 == ap_const_lv5_10? 1'b1: 1'b0);
+assign exitcond4_fu_412_p2 = (j_reg_249 == ap_const_lv4_8? 1'b1: 1'b0);
 assign exitcond8_fu_347_p2 = (iterations_reg_183 == length_r_in_sig? 1'b1: 1'b0);
 assign exitcond_fu_481_p2 = (i_1_reg_272 == ap_const_lv5_10? 1'b1: 1'b0);
 assign grp_aestest_fu_284_ap_ce = ap_const_logic_1;
@@ -1238,7 +1238,7 @@ assign i_1_cast2_fu_477_p1 = $unsigned(i_1_reg_272);
 assign i_2_fu_487_p2 = (i_1_reg_272 + ap_const_lv5_1);
 assign i_3_fu_368_p2 = (i_reg_226 + ap_const_lv5_1);
 assign i_assign_cast_fu_440_p1 = $unsigned(i_assign_reg_633);
-assign i_assign_fu_424_p2 = (tmp_4_reg_620 - j_cast3_fu_408_p1);
+assign i_assign_fu_424_p2 = (tmp_28_reg_620 - j_cast3_fu_408_p1);
 assign i_cast5_fu_358_p1 = $unsigned(i_reg_226);
 assign iterations_1_fu_352_p2 = (iterations_reg_183 + ap_const_lv32_1);
 assign j_1_fu_418_p2 = (j_reg_249 + ap_const_lv4_1);
@@ -1295,17 +1295,17 @@ assign p_Result_s_fu_525_p4_mask = ~({128{1'b1}} << p_Result_s_fu_525_p4_length)
 assign p_Result_s_fu_525_p4 = (p_Result_s_fu_525_p4_vi_buf >> p_Result_s_fu_525_p4_vl_buf) & p_Result_s_fu_525_p4_mask;
 
 assign sourceAddressLocal_1_fu_554_p2 = (sourceAddressLocal1_reg_194 + ap_const_lv32_10);
-assign tmp_1_fu_374_p2 = (i_cast5_fu_358_p1 + sourceAddressLocal1_reg_194);
-assign tmp_2_fu_380_p1 = $unsigned(tmp_1_fu_374_p2);
+assign tmp_26_fu_380_p1 = $unsigned(tmp_s_fu_374_p2);
+assign tmp_27_fu_394_p3 = {{tmp_fu_390_p1}, {ap_const_lv3_0}};
+assign tmp_28_fu_402_p2 = (tmp_27_fu_394_p3 ^ ap_const_lv7_7F);
+assign tmp_29_fu_497_p3 = {{tmp_325_fu_493_p1}, {ap_const_lv3_0}};
+assign tmp_30_fu_538_p2 = (i_1_cast2_fu_477_p1 + destinationAddressLocal1_reg_204);
+assign tmp_31_fu_544_p1 = $unsigned(tmp_30_fu_538_p2);
 assign tmp_325_fu_493_p1 = i_1_reg_272[3:0];
-assign tmp_3_fu_394_p3 = {{tmp_fu_390_p1}, {ap_const_lv3_0}};
-assign tmp_4_fu_402_p2 = (tmp_3_fu_394_p3 ^ ap_const_lv7_7F);
-assign tmp_5_fu_544_p1 = $unsigned(tmp_s_fu_538_p2);
-assign tmp_6_fu_429_p2 = (ddr_addr_read_reg_638 & mask_reg_260);
-assign tmp_7_fu_434_p2 = (tmp_6_fu_429_p2 == ap_const_lv8_0? 1'b1: 1'b0);
-assign tmp_8_fu_497_p3 = {{tmp_325_fu_493_p1}, {ap_const_lv3_0}};
+assign tmp_32_fu_429_p2 = (ddr_addr_read_reg_638 & mask_reg_260);
+assign tmp_33_fu_434_p2 = (tmp_32_fu_429_p2 == ap_const_lv8_0? 1'b1: 1'b0);
 assign tmp_fu_390_p1 = i_reg_226[3:0];
-assign tmp_s_fu_538_p2 = (i_1_cast2_fu_477_p1 + destinationAddressLocal1_reg_204);
+assign tmp_s_fu_374_p2 = (i_cast5_fu_358_p1 + sourceAddressLocal1_reg_194);
 
 
 endmodule //aes

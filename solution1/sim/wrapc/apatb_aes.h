@@ -6,5 +6,5 @@
 // ==============================================================
 
 
-extern bool aes (volatile unsigned char ddr[4194304], volatile unsigned int sourceAddress,  ap_uint<128>* key_in, volatile unsigned int destinationAddress,  unsigned int length);
+extern bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_uint<128>* key_in, volatile unsigned int destinationAddress,  unsigned int length);
 

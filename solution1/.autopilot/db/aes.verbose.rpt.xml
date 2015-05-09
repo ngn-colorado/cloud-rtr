@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vivado HLS Report for 'aes'" level="0">
-<item name = "Date">Fri May  8 12:34:33 2015
+<item name = "Date">Sat May  9 16:20:31 2015
 </item>
 <item name = "Version">2014.1 (build date: Fri Apr 04 13:20:25 PM 2014)</item>
 <item name = "Project">aes_runner</item>
@@ -84,21 +84,21 @@
 <column name="iterations_1_fu_352_p2">+, 0, 0, 32, 32, 1</column>
 <column name="j_1_fu_418_p2">+, 0, 0, 4, 4, 1</column>
 <column name="sourceAddressLocal_1_fu_554_p2">+, 0, 0, 32, 32, 5</column>
-<column name="tmp_1_fu_374_p2">+, 0, 0, 32, 32, 32</column>
-<column name="tmp_s_fu_538_p2">+, 0, 0, 32, 32, 32</column>
+<column name="tmp_30_fu_538_p2">+, 0, 0, 32, 32, 32</column>
+<column name="tmp_s_fu_374_p2">+, 0, 0, 32, 32, 32</column>
 <column name="Lo_assign_fu_515_p2">-, 0, 0, 7, 5, 7</column>
 <column name="i_assign_fu_424_p2">-, 0, 0, 7, 7, 7</column>
 <column name="data_V_2_fu_455_p3">Select, 0, 0, 128, 1, 128</column>
 <column name="ap_sig_bdd_1830">and, 0, 0, 1, 1, 1</column>
-<column name="tmp_6_fu_429_p2">and, 0, 0, 8, 8, 8</column>
-<column name="exitcond1_fu_362_p2">icmp, 0, 0, 6, 5, 6</column>
-<column name="exitcond2_fu_412_p2">icmp, 0, 0, 5, 4, 5</column>
+<column name="tmp_32_fu_429_p2">and, 0, 0, 8, 8, 8</column>
+<column name="exitcond3_fu_362_p2">icmp, 0, 0, 6, 5, 6</column>
+<column name="exitcond4_fu_412_p2">icmp, 0, 0, 5, 4, 5</column>
 <column name="exitcond8_fu_347_p2">icmp, 0, 0, 40, 32, 32</column>
 <column name="exitcond_fu_481_p2">icmp, 0, 0, 6, 5, 6</column>
-<column name="tmp_7_fu_434_p2">icmp, 0, 0, 8, 8, 1</column>
+<column name="tmp_33_fu_434_p2">icmp, 0, 0, 8, 8, 1</column>
 <column name="ap_sig_bdd_254">or, 0, 0, 1, 1, 1</column>
 <column name="Hi_assign_fu_505_p2">xor, 0, 0, 8, 7, 2</column>
-<column name="tmp_4_fu_402_p2">xor, 0, 0, 8, 7, 2</column>
+<column name="tmp_28_fu_402_p2">xor, 0, 0, 8, 7, 2</column>
 </table>
 </item>
 <item name = "Multiplexer"><table name="" hasTotal="1">
@@ -154,7 +154,7 @@
 <column name="sourceAddress_ap_vld_preg">1, 0, 1, 0</column>
 <column name="sourceAddress_assign_fu_136">32, 0, 32, 0</column>
 <column name="sourceAddress_preg">32, 0, 32, 0</column>
-<column name="tmp_4_reg_620">7, 0, 7, 0</column>
+<column name="tmp_28_reg_620">7, 0, 7, 0</column>
 </table>
 </item>
 </section>

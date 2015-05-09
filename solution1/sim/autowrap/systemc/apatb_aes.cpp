@@ -90,9 +90,9 @@ class INTER_TCL_FILE {
 };
 
 #define aes AESL_ORIG_DUT_aes
-extern bool aes (volatile unsigned char ddr[4194304], volatile unsigned int sourceAddress,  ap_uint<128>* key_in, volatile unsigned int destinationAddress,  unsigned int length);
+extern bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_uint<128>* key_in, volatile unsigned int destinationAddress,  unsigned int length);
 #undef aes
-bool aes (volatile unsigned char ddr[4194304], volatile unsigned int sourceAddress,  ap_uint<128>* key_in, volatile unsigned int destinationAddress,  unsigned int length) {
+bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_uint<128>* key_in, volatile unsigned int destinationAddress,  unsigned int length) {
 
     fstream wrapc_switch_file_token;
 
@@ -126,7 +126,7 @@ bool aes (volatile unsigned char ddr[4194304], volatile unsigned int sourceAddre
 
             aesl_fh.read(AUTOTB_TVOUT_PC_ddr, AESL_token); //data
 
-            sc_bv<8> *ddr_pc_buffer = new sc_bv<8>[4194304];
+            sc_bv<8> *ddr_pc_buffer = new sc_bv<8>[536870911];
 
             int i = 0;
 
@@ -208,9 +208,9 @@ bool aes (volatile unsigned char ddr[4194304], volatile unsigned int sourceAddre
 
                 AESL_i = 0; //subscript for rtl array
 
-                for (int i_0 = 0; i_0 <= 4194303 ; i_0+= 1) {
+                for (int i_0 = 0; i_0 <= 536870910 ; i_0+= 1) {
 
-                    ddr[i_0] = (sc_bv<8>(ddr_pc_buffer[0 + AESL_i].range(7, 0))).to_uint64();
+                    *(ddr) = (sc_bv<8>(ddr_pc_buffer[0 + AESL_i].range(7, 0))).to_uint64();
 
                     AESL_i++;
 
@@ -359,19 +359,19 @@ bool aes (volatile unsigned char ddr[4194304], volatile unsigned int sourceAddre
 
         aesl_fh.write(AUTOTB_TVIN_ddr, tvin_ddr);
 
-        sc_bv<8> *ddr_tvin_wrapc_buffer = new sc_bv<8>[4194304];
+        sc_bv<8> *ddr_tvin_wrapc_buffer = new sc_bv<8>[536870911];
 
         AESL_i = 0; //subscript for rtl array
 
-        for (int i_0 = 0; i_0 <= 4194303 ; i_0+= 1) {
+        for (int i_0 = 0; i_0 <= 536870910 ; i_0+= 1) {
 
-            ddr_tvin_wrapc_buffer[0 + AESL_i].range(7, 0) = ddr[i_0];
+            ddr_tvin_wrapc_buffer[0 + AESL_i].range(7, 0) = *(ddr);
 
             AESL_i++;
 
         }
 
-        for (int i = 0; i < 4194304 ; i++) {
+        for (int i = 0; i < 536870911 ; i++) {
 
             sprintf(tvin_ddr, "%s\n", (ddr_tvin_wrapc_buffer[i]).to_string(SC_HEX).c_str());
 
@@ -379,7 +379,7 @@ bool aes (volatile unsigned char ddr[4194304], volatile unsigned int sourceAddre
 
         }
 
-        tcl_file.set_num(4194304,&tcl_file.ddr_depth);
+        tcl_file.set_num(536870911,&tcl_file.ddr_depth);
 
         sprintf(tvin_ddr, "[[/transaction]] \n");
 
@@ -503,19 +503,19 @@ bool aes (volatile unsigned char ddr[4194304], volatile unsigned int sourceAddre
 
         aesl_fh.write(AUTOTB_TVOUT_ddr, tvout_ddr);
 
-        sc_bv<8> *ddr_tvout_wrapc_buffer = new sc_bv<8>[4194304];
+        sc_bv<8> *ddr_tvout_wrapc_buffer = new sc_bv<8>[536870911];
 
         AESL_i = 0; //subscript for rtl array
 
-        for (int i_0 = 0; i_0 <= 4194303 ; i_0+= 1) {
+        for (int i_0 = 0; i_0 <= 536870910 ; i_0+= 1) {
 
-            ddr_tvout_wrapc_buffer[0 + AESL_i].range(7, 0) = ddr[i_0];
+            ddr_tvout_wrapc_buffer[0 + AESL_i].range(7, 0) = *(ddr);
 
             AESL_i++;
 
         }
 
-        for (int i = 0; i < 4194304 ; i++) {
+        for (int i = 0; i < 536870911 ; i++) {
 
             sprintf(tvout_ddr, "%s\n", (ddr_tvout_wrapc_buffer[i]).to_string(SC_HEX).c_str());
 
@@ -523,7 +523,7 @@ bool aes (volatile unsigned char ddr[4194304], volatile unsigned int sourceAddre
 
         }
 
-        tcl_file.set_num(4194304,&tcl_file.ddr_depth);
+        tcl_file.set_num(536870911,&tcl_file.ddr_depth);
 
         sprintf(tvout_ddr, "[[/transaction]] \n");
 

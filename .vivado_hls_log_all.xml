@@ -3,7 +3,11 @@
   <errorLogs>
     <logs>
       <synLog/>
-      <simLog/>
+      <simLog>
+        <logs message="@E [SIM-4] *** C/RTL co-simulation finished: FAIL ***&#xA;&#xA;    while executing&#xA;&quot;cosim_design -ldflags {-lcrypto -lssl -ldl} -trace_level none -rtl verilog -tool auto&quot;&#xA;    (file &quot;/Xilinx/xilinx_workspace/aes_runner/solution1/cosim.tcl&quot; line 8)" projectName="aes_runner" solutionName="solution1" date="2015-05-09T16:21:42.333-0600"/>
+        <logs message="@E [SIM-320] Generating test vectors failed." projectName="aes_runner" solutionName="solution1" date="2015-05-09T16:21:42.324-0600"/>
+        <logs message="Encrypted data as hex: 0x6743C3D1519AB4F2CD9A78AB09A511BD - from fabric software implementation@E [SIM-360] Aborting co-simulation: C TB simulation failed." projectName="aes_runner" solutionName="solution1" date="2015-05-09T16:21:42.307-0600"/>
+      </simLog>
       <mgLog/>
       <packageLog/>
       <csimLog/>
@@ -12,10 +16,12 @@
   <warningLogs>
     <logs>
       <synLog>
-        <logs message="@W [RTGEN-101] Legalizing port name 'aes/length' to 'aes/length_r'." projectName="aes_runner" solutionName="solution1" date="2015-05-08T12:34:21.849-0600" type="Warning"/>
-        <logs message="@W [SYNCHK-23] aes_runner/source/aes.cpp:178: variable-indexed range selection may cause suboptimal QoR." projectName="aes_runner" solutionName="solution1" date="2015-05-08T12:34:14.217-0600" type="Warning"/>
+        <logs message="@W [RTGEN-101] Legalizing port name 'aes/length' to 'aes/length_r'." projectName="aes_runner" solutionName="solution1" date="2015-05-09T16:20:20.290-0600" type="Warning"/>
+        <logs message="@W [SYNCHK-23] aes_runner/source/aes.cpp:178: variable-indexed range selection may cause suboptimal QoR." projectName="aes_runner" solutionName="solution1" date="2015-05-09T16:20:13.230-0600" type="Warning"/>
       </synLog>
-      <simLog/>
+      <simLog>
+        <logs message="@W [SIM-369] AXI_master port 'ddr' has a depth of '536870911'. Insufficient depth may result in simulation mismatch or freeze.&#xA;   Build using &quot;/Xilinx/Vivado_HLS/2014.1/lnx64/tools/gcc/bin/g++&quot;&#xA;   Compiling aes.cpp_pre.cpp.tb.cpp&#xA;   Compiling aes_runner.cpp_pre.cpp.tb.cpp&#xA;   Compiling aes_runner_testbench.cpp_pre.cpp.tb.cpp&#xA;   Compiling apatb_aes.cpp&#xA;   Generating cosim.tv.exe" projectName="aes_runner" solutionName="solution1" date="2015-05-09T16:21:41.801-0600" type="Warning"/>
+      </simLog>
       <mgLog/>
       <packageLog/>
       <csimLog/>

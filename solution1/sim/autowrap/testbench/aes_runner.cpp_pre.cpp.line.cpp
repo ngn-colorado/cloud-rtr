@@ -39289,8 +39289,10 @@ typedef ap_uint<128> uint128_t;
 typedef hls::stream<uint128_t> mem_stream;
 #pragma empty_line
 #pragma empty_line
-bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, ap_uint<128>* key_in,
+bool aes(volatile unsigned char ddr[0x1FFFFFFF], volatile unsigned sourceAddress, ap_uint<128>* key_in,
   volatile unsigned destinationAddress, unsigned int length){
+#pragma HLS INTERFACE m_axi port=ddr
+#pragma empty_line
 #pragma HLS INTERFACE s_axilite port=length
 #pragma empty_line
 #pragma HLS INTERFACE s_axilite port=destinationAddress
@@ -39319,7 +39321,7 @@ bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, a
  unsigned destinationAddressLocal = destinationAddress;
 #pragma empty_line
  ap_uint<128> key_local = *key_in;
-#pragma line 120 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
+#pragma line 122 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
  ap_uint<128> encrypted_data;
  for(iterations = 0; iterations<length; iterations++){
   ap_uint<128> data(0);

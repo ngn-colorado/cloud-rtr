@@ -39302,8 +39302,10 @@ typedef hls::stream<uint128_t> mem_stream;
 #endif
 #define aes(...) AESL_ORIG_DUT_aes(__VA_ARGS__)
 #59 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
-bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, ap_uint<128>* key_in,
+bool aes(volatile unsigned char ddr[0x1FFFFFFF], volatile unsigned sourceAddress, ap_uint<128>* key_in,
   volatile unsigned destinationAddress, unsigned int length){
+#pragma HLS INTERFACE m_axi port=ddr
+
 #pragma HLS INTERFACE s_axilite port=length
 
 #pragma HLS INTERFACE s_axilite port=destinationAddress
@@ -39332,7 +39334,7 @@ bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, a
  unsigned destinationAddressLocal = destinationAddress;
 
  ap_uint<128> key_local = *key_in;
-#120 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
+#122 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
  ap_uint<128> encrypted_data;
  for(iterations = 0; iterations<length; iterations++){
   ap_uint<128> data(0);
@@ -39366,4 +39368,4 @@ bool aes(volatile unsigned char ddr[4194304], volatile unsigned sourceAddress, a
 }
 #undef aes
 
-#150 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
+#152 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
