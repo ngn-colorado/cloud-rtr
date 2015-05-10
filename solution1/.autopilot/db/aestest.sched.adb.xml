@@ -193,10 +193,10 @@
 
 <node id="28" bw="8" op_0_bw="8" op_1_bw="128" op_2_bw="32" op_3_bw="32">
 <![CDATA[
-.preheader86.preheader:5  %p_Result_s_87 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
+.preheader86.preheader:5  %p_Result_s_77 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
 
 ]]></node>
-<StgValue><ssdm name="p_Result_s_87"/></StgValue>
+<StgValue><ssdm name="p_Result_s_77"/></StgValue>
 </operation>
 
 <operation id="26" st_id="1" stage="1" lat="1">
@@ -613,10 +613,10 @@
 
 <node id="56" bw="8" op_0_bw="128">
 <![CDATA[
-.preheader86.preheader:33  %tmp_5 = trunc i128 %inptext_V_read_1 to i8
+.preheader86.preheader:33  %tmp_7 = trunc i128 %inptext_V_read_1 to i8
 
 ]]></node>
-<StgValue><ssdm name="tmp_5"/></StgValue>
+<StgValue><ssdm name="tmp_7"/></StgValue>
 </operation>
 
 <operation id="54" st_id="1" stage="1" lat="1">
@@ -628,10 +628,10 @@
 
 <node id="57" bw="8" op_0_bw="128">
 <![CDATA[
-.preheader86.preheader:34  %tmp_6 = trunc i128 %key_V_read_1 to i8
+.preheader86.preheader:34  %tmp_8 = trunc i128 %key_V_read_1 to i8
 
 ]]></node>
-<StgValue><ssdm name="tmp_6"/></StgValue>
+<StgValue><ssdm name="tmp_8"/></StgValue>
 </operation>
 
 <operation id="55" st_id="1" stage="1" lat="1">
@@ -643,10 +643,10 @@
 
 <node id="58" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:35  %tmp_1 = xor i8 %p_Result_s, %p_Result_1
+.preheader86.preheader:35  %tmp_s = xor i8 %p_Result_s, %p_Result_1
 
 ]]></node>
-<StgValue><ssdm name="tmp_1"/></StgValue>
+<StgValue><ssdm name="tmp_s"/></StgValue>
 </operation>
 
 <operation id="56" st_id="1" stage="1" lat="1">
@@ -658,10 +658,10 @@
 
 <node id="59" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:36  %tmp_6_1 = xor i8 %p_Result_s_87, %p_Result_1_1
+.preheader86.preheader:36  %tmp_1_1 = xor i8 %p_Result_s_77, %p_Result_1_1
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_1"/></StgValue>
+<StgValue><ssdm name="tmp_1_1"/></StgValue>
 </operation>
 
 <operation id="57" st_id="1" stage="1" lat="1">
@@ -673,10 +673,10 @@
 
 <node id="60" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:37  %tmp_6_2 = xor i8 %p_Result_2, %p_Result_1_2
+.preheader86.preheader:37  %tmp_1_2 = xor i8 %p_Result_2, %p_Result_1_2
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_2"/></StgValue>
+<StgValue><ssdm name="tmp_1_2"/></StgValue>
 </operation>
 
 <operation id="58" st_id="1" stage="1" lat="1">
@@ -688,10 +688,10 @@
 
 <node id="61" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:38  %tmp_6_3 = xor i8 %p_Result_3, %p_Result_1_3
+.preheader86.preheader:38  %tmp_1_3 = xor i8 %p_Result_3, %p_Result_1_3
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_3"/></StgValue>
+<StgValue><ssdm name="tmp_1_3"/></StgValue>
 </operation>
 
 <operation id="59" st_id="1" stage="1" lat="1">
@@ -703,10 +703,10 @@
 
 <node id="62" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:39  %tmp_6_4 = xor i8 %p_Result_4, %p_Result_1_4
+.preheader86.preheader:39  %tmp_1_4 = xor i8 %p_Result_4, %p_Result_1_4
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_4"/></StgValue>
+<StgValue><ssdm name="tmp_1_4"/></StgValue>
 </operation>
 
 <operation id="60" st_id="1" stage="1" lat="1">
@@ -718,10 +718,10 @@
 
 <node id="63" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:40  %tmp_6_5 = xor i8 %p_Result_5, %p_Result_1_5
+.preheader86.preheader:40  %tmp_1_5 = xor i8 %p_Result_5, %p_Result_1_5
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_5"/></StgValue>
+<StgValue><ssdm name="tmp_1_5"/></StgValue>
 </operation>
 
 <operation id="61" st_id="1" stage="1" lat="1">
@@ -733,10 +733,10 @@
 
 <node id="64" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:41  %tmp_6_6 = xor i8 %p_Result_6, %p_Result_1_6
+.preheader86.preheader:41  %tmp_1_6 = xor i8 %p_Result_6, %p_Result_1_6
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_6"/></StgValue>
+<StgValue><ssdm name="tmp_1_6"/></StgValue>
 </operation>
 
 <operation id="62" st_id="1" stage="1" lat="1">
@@ -748,10 +748,10 @@
 
 <node id="65" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:42  %tmp_6_7 = xor i8 %p_Result_7, %p_Result_1_7
+.preheader86.preheader:42  %tmp_1_7 = xor i8 %p_Result_7, %p_Result_1_7
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_7"/></StgValue>
+<StgValue><ssdm name="tmp_1_7"/></StgValue>
 </operation>
 
 <operation id="63" st_id="1" stage="1" lat="1">
@@ -763,10 +763,10 @@
 
 <node id="66" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:43  %tmp_6_8 = xor i8 %p_Result_8, %p_Result_1_8
+.preheader86.preheader:43  %tmp_1_8 = xor i8 %p_Result_8, %p_Result_1_8
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_8"/></StgValue>
+<StgValue><ssdm name="tmp_1_8"/></StgValue>
 </operation>
 
 <operation id="64" st_id="1" stage="1" lat="1">
@@ -778,10 +778,10 @@
 
 <node id="67" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:44  %tmp_6_9 = xor i8 %p_Result_9, %p_Result_1_9
+.preheader86.preheader:44  %tmp_1_9 = xor i8 %p_Result_9, %p_Result_1_9
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_9"/></StgValue>
+<StgValue><ssdm name="tmp_1_9"/></StgValue>
 </operation>
 
 <operation id="65" st_id="1" stage="1" lat="1">
@@ -793,10 +793,10 @@
 
 <node id="68" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:45  %tmp_6_s = xor i8 %p_Result_10, %p_Result_1_s
+.preheader86.preheader:45  %tmp_1_s = xor i8 %p_Result_10, %p_Result_1_s
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_s"/></StgValue>
+<StgValue><ssdm name="tmp_1_s"/></StgValue>
 </operation>
 
 <operation id="66" st_id="1" stage="1" lat="1">
@@ -808,10 +808,10 @@
 
 <node id="69" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:46  %tmp_6_10 = xor i8 %p_Result_11, %p_Result_1_10
+.preheader86.preheader:46  %tmp_1_10 = xor i8 %p_Result_11, %p_Result_1_10
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_10"/></StgValue>
+<StgValue><ssdm name="tmp_1_10"/></StgValue>
 </operation>
 
 <operation id="67" st_id="1" stage="1" lat="1">
@@ -823,10 +823,10 @@
 
 <node id="70" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:47  %tmp_6_11 = xor i8 %p_Result_12, %p_Result_1_11
+.preheader86.preheader:47  %tmp_1_11 = xor i8 %p_Result_12, %p_Result_1_11
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_11"/></StgValue>
+<StgValue><ssdm name="tmp_1_11"/></StgValue>
 </operation>
 
 <operation id="68" st_id="1" stage="1" lat="1">
@@ -838,10 +838,10 @@
 
 <node id="71" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:48  %tmp_6_12 = xor i8 %p_Result_13, %p_Result_1_12
+.preheader86.preheader:48  %tmp_1_12 = xor i8 %p_Result_13, %p_Result_1_12
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_12"/></StgValue>
+<StgValue><ssdm name="tmp_1_12"/></StgValue>
 </operation>
 
 <operation id="69" st_id="1" stage="1" lat="1">
@@ -853,10 +853,10 @@
 
 <node id="72" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:49  %tmp_6_13 = xor i8 %p_Result_14, %p_Result_1_13
+.preheader86.preheader:49  %tmp_1_13 = xor i8 %p_Result_14, %p_Result_1_13
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_13"/></StgValue>
+<StgValue><ssdm name="tmp_1_13"/></StgValue>
 </operation>
 
 <operation id="70" st_id="1" stage="1" lat="1">
@@ -868,10 +868,10 @@
 
 <node id="73" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:50  %tmp_6_14 = xor i8 %tmp_5, %tmp_6
+.preheader86.preheader:50  %tmp_1_14 = xor i8 %tmp_7, %tmp_8
 
 ]]></node>
-<StgValue><ssdm name="tmp_6_14"/></StgValue>
+<StgValue><ssdm name="tmp_1_14"/></StgValue>
 </operation>
 
 <operation id="71" st_id="1" stage="1" lat="1">
@@ -883,10 +883,10 @@
 
 <node id="74" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:51  %tmp_2 = zext i8 %tmp_1 to i64
+.preheader86.preheader:51  %tmp_1 = zext i8 %tmp_s to i64
 
 ]]></node>
-<StgValue><ssdm name="tmp_2"/></StgValue>
+<StgValue><ssdm name="tmp_1"/></StgValue>
 </operation>
 
 <operation id="72" st_id="1" stage="1" lat="1">
@@ -898,7 +898,7 @@
 
 <node id="75" bw="8" op_0_bw="8" op_1_bw="64" op_2_bw="64">
 <![CDATA[
-.preheader86.preheader:52  %sboxes_0_addr = getelementptr [256 x i8]* @sboxes_0, i64 0, i64 %tmp_2
+.preheader86.preheader:52  %sboxes_0_addr = getelementptr [256 x i8]* @sboxes_0, i64 0, i64 %tmp_1
 
 ]]></node>
 <StgValue><ssdm name="sboxes_0_addr"/></StgValue>
@@ -928,7 +928,7 @@
 
 <node id="77" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:54  %tmp_29_0_1 = zext i8 %tmp_6_1 to i64
+.preheader86.preheader:54  %tmp_29_0_1 = zext i8 %tmp_1_1 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_1"/></StgValue>
@@ -973,7 +973,7 @@
 
 <node id="80" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:57  %tmp_29_0_2 = zext i8 %tmp_6_2 to i64
+.preheader86.preheader:57  %tmp_29_0_2 = zext i8 %tmp_1_2 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_2"/></StgValue>
@@ -1018,7 +1018,7 @@
 
 <node id="83" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:60  %tmp_29_0_3 = zext i8 %tmp_6_3 to i64
+.preheader86.preheader:60  %tmp_29_0_3 = zext i8 %tmp_1_3 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_3"/></StgValue>
@@ -1063,7 +1063,7 @@
 
 <node id="86" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:63  %tmp_29_0_4 = zext i8 %tmp_6_4 to i64
+.preheader86.preheader:63  %tmp_29_0_4 = zext i8 %tmp_1_4 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_4"/></StgValue>
@@ -1108,7 +1108,7 @@
 
 <node id="89" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:66  %tmp_29_0_5 = zext i8 %tmp_6_5 to i64
+.preheader86.preheader:66  %tmp_29_0_5 = zext i8 %tmp_1_5 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_5"/></StgValue>
@@ -1153,7 +1153,7 @@
 
 <node id="92" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:69  %tmp_29_0_6 = zext i8 %tmp_6_6 to i64
+.preheader86.preheader:69  %tmp_29_0_6 = zext i8 %tmp_1_6 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_6"/></StgValue>
@@ -1198,7 +1198,7 @@
 
 <node id="95" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:72  %tmp_29_0_7 = zext i8 %tmp_6_7 to i64
+.preheader86.preheader:72  %tmp_29_0_7 = zext i8 %tmp_1_7 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_7"/></StgValue>
@@ -1243,7 +1243,7 @@
 
 <node id="98" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:75  %tmp_29_0_8 = zext i8 %tmp_6_8 to i64
+.preheader86.preheader:75  %tmp_29_0_8 = zext i8 %tmp_1_8 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_8"/></StgValue>
@@ -1288,7 +1288,7 @@
 
 <node id="101" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:78  %tmp_29_0_9 = zext i8 %tmp_6_9 to i64
+.preheader86.preheader:78  %tmp_29_0_9 = zext i8 %tmp_1_9 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_9"/></StgValue>
@@ -1333,7 +1333,7 @@
 
 <node id="104" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:81  %tmp_29_0_s = zext i8 %tmp_6_s to i64
+.preheader86.preheader:81  %tmp_29_0_s = zext i8 %tmp_1_s to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_s"/></StgValue>
@@ -1378,7 +1378,7 @@
 
 <node id="107" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:84  %tmp_29_0_10 = zext i8 %tmp_6_10 to i64
+.preheader86.preheader:84  %tmp_29_0_10 = zext i8 %tmp_1_10 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_10"/></StgValue>
@@ -1423,7 +1423,7 @@
 
 <node id="110" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:87  %tmp_29_0_11 = zext i8 %tmp_6_11 to i64
+.preheader86.preheader:87  %tmp_29_0_11 = zext i8 %tmp_1_11 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_11"/></StgValue>
@@ -1468,7 +1468,7 @@
 
 <node id="113" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:90  %tmp_29_0_12 = zext i8 %tmp_6_12 to i64
+.preheader86.preheader:90  %tmp_29_0_12 = zext i8 %tmp_1_12 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_12"/></StgValue>
@@ -1513,7 +1513,7 @@
 
 <node id="116" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:93  %tmp_29_0_13 = zext i8 %tmp_6_13 to i64
+.preheader86.preheader:93  %tmp_29_0_13 = zext i8 %tmp_1_13 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_13"/></StgValue>
@@ -1558,7 +1558,7 @@
 
 <node id="119" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:96  %tmp_29_0_14 = zext i8 %tmp_6_14 to i64
+.preheader86.preheader:96  %tmp_29_0_14 = zext i8 %tmp_1_14 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_29_0_14"/></StgValue>
@@ -1648,10 +1648,10 @@
 
 <node id="213" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:190  %tmp_13 = zext i8 %p_Result_1_13 to i64
+.preheader86.preheader:190  %tmp_17 = zext i8 %p_Result_1_13 to i64
 
 ]]></node>
-<StgValue><ssdm name="tmp_13"/></StgValue>
+<StgValue><ssdm name="tmp_17"/></StgValue>
 </operation>
 
 <operation id="123" st_id="1" stage="1" lat="1">
@@ -1663,7 +1663,7 @@
 
 <node id="214" bw="8" op_0_bw="8" op_1_bw="64" op_2_bw="64">
 <![CDATA[
-.preheader86.preheader:191  %sboxes_17_addr = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_13
+.preheader86.preheader:191  %sboxes_17_addr = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_17
 
 ]]></node>
 <StgValue><ssdm name="sboxes_17_addr"/></StgValue>
@@ -1693,7 +1693,7 @@
 
 <node id="216" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:193  %tmp_18 = zext i8 %tmp_6 to i64
+.preheader86.preheader:193  %tmp_18 = zext i8 %tmp_8 to i64
 
 ]]></node>
 <StgValue><ssdm name="tmp_18"/></StgValue>
@@ -2056,10 +2056,10 @@
 
 <node id="123" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:100  %tmp_3 = xor i8 %x_assign, %sboxes_10_load
+.preheader86.preheader:100  %tmp_6 = xor i8 %x_assign, %sboxes_10_load
 
 ]]></node>
-<StgValue><ssdm name="tmp_3"/></StgValue>
+<StgValue><ssdm name="tmp_6"/></StgValue>
 </operation>
 
 <operation id="150" st_id="2" stage="1" lat="1">
@@ -2071,7 +2071,7 @@
 
 <node id="124" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:101  %e = xor i8 %tmp_3, %sboxes_15_load
+.preheader86.preheader:101  %e = xor i8 %tmp_6, %sboxes_15_load
 
 ]]></node>
 <StgValue><ssdm name="e"/></StgValue>
@@ -3391,7 +3391,7 @@
 
 <node id="248" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:225  %tmp7 = xor i8 %tmp_3, %tmp_23
+.preheader86.preheader:225  %tmp7 = xor i8 %tmp_6, %tmp_23
 
 ]]></node>
 <StgValue><ssdm name="tmp7"/></StgValue>
@@ -3906,7 +3906,7 @@
 
 <node id="238" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:215  %tmp_35 = xor i8 %tmp_6, %tmp_31
+.preheader86.preheader:215  %tmp_35 = xor i8 %tmp_8, %tmp_31
 
 ]]></node>
 <StgValue><ssdm name="tmp_35"/></StgValue>
@@ -7273,7 +7273,7 @@
 
 <node id="443" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:420  %tmp_74_1 = xor i8 %tmp_6, %tmp_66_1
+.preheader86.preheader:420  %tmp_74_1 = xor i8 %tmp_8, %tmp_66_1
 
 ]]></node>
 <StgValue><ssdm name="tmp_74_1"/></StgValue>
@@ -13913,7 +13913,7 @@
 
 <node id="861" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:838  %tmp_74_3 = xor i8 %tmp_6, %sboxes_19_load_3
+.preheader86.preheader:838  %tmp_74_3 = xor i8 %tmp_8, %sboxes_19_load_3
 
 ]]></node>
 <StgValue><ssdm name="tmp_74_3"/></StgValue>
@@ -32577,10 +32577,10 @@
 
 <node id="2003" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:1980  %tmp_8 = zext i8 %tmp_72_8 to i64
+.preheader86.preheader:1980  %tmp_2 = zext i8 %tmp_72_8 to i64
 
 ]]></node>
-<StgValue><ssdm name="tmp_8"/></StgValue>
+<StgValue><ssdm name="tmp_2"/></StgValue>
 </operation>
 
 <operation id="2181" st_id="19" stage="1" lat="1">
@@ -32592,7 +32592,7 @@
 
 <node id="2004" bw="8" op_0_bw="8" op_1_bw="64" op_2_bw="64">
 <![CDATA[
-.preheader86.preheader:1981  %sboxes_16_addr_9 = getelementptr [256 x i8]* @sboxes_16, i64 0, i64 %tmp_8
+.preheader86.preheader:1981  %sboxes_16_addr_9 = getelementptr [256 x i8]* @sboxes_16, i64 0, i64 %tmp_2
 
 ]]></node>
 <StgValue><ssdm name="sboxes_16_addr_9"/></StgValue>
@@ -32622,10 +32622,10 @@
 
 <node id="2006" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:1983  %tmp_9 = zext i8 %tmp_73_8 to i64
+.preheader86.preheader:1983  %tmp_3 = zext i8 %tmp_73_8 to i64
 
 ]]></node>
-<StgValue><ssdm name="tmp_9"/></StgValue>
+<StgValue><ssdm name="tmp_3"/></StgValue>
 </operation>
 
 <operation id="2184" st_id="19" stage="1" lat="1">
@@ -32637,7 +32637,7 @@
 
 <node id="2007" bw="8" op_0_bw="8" op_1_bw="64" op_2_bw="64">
 <![CDATA[
-.preheader86.preheader:1984  %sboxes_17_addr_9 = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_9
+.preheader86.preheader:1984  %sboxes_17_addr_9 = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_3
 
 ]]></node>
 <StgValue><ssdm name="sboxes_17_addr_9"/></StgValue>
@@ -32667,10 +32667,10 @@
 
 <node id="2009" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:1986  %tmp_s = zext i8 %tmp_74_8 to i64
+.preheader86.preheader:1986  %tmp_4 = zext i8 %tmp_74_8 to i64
 
 ]]></node>
-<StgValue><ssdm name="tmp_s"/></StgValue>
+<StgValue><ssdm name="tmp_4"/></StgValue>
 </operation>
 
 <operation id="2187" st_id="19" stage="1" lat="1">
@@ -32682,7 +32682,7 @@
 
 <node id="2010" bw="8" op_0_bw="8" op_1_bw="64" op_2_bw="64">
 <![CDATA[
-.preheader86.preheader:1987  %sboxes_18_addr_9 = getelementptr [256 x i8]* @sboxes_18, i64 0, i64 %tmp_s
+.preheader86.preheader:1987  %sboxes_18_addr_9 = getelementptr [256 x i8]* @sboxes_18, i64 0, i64 %tmp_4
 
 ]]></node>
 <StgValue><ssdm name="sboxes_18_addr_9"/></StgValue>
@@ -32712,10 +32712,10 @@
 
 <node id="2012" bw="64" op_0_bw="8">
 <![CDATA[
-.preheader86.preheader:1989  %tmp_4 = zext i8 %tmp_71_8 to i64
+.preheader86.preheader:1989  %tmp_5 = zext i8 %tmp_71_8 to i64
 
 ]]></node>
-<StgValue><ssdm name="tmp_4"/></StgValue>
+<StgValue><ssdm name="tmp_5"/></StgValue>
 </operation>
 
 <operation id="2190" st_id="19" stage="1" lat="1">
@@ -32727,7 +32727,7 @@
 
 <node id="2013" bw="8" op_0_bw="8" op_1_bw="64" op_2_bw="64">
 <![CDATA[
-.preheader86.preheader:1990  %sboxes_19_addr_9 = getelementptr [256 x i8]* @sboxes_19, i64 0, i64 %tmp_4
+.preheader86.preheader:1990  %sboxes_19_addr_9 = getelementptr [256 x i8]* @sboxes_19, i64 0, i64 %tmp_5
 
 ]]></node>
 <StgValue><ssdm name="sboxes_19_addr_9"/></StgValue>
@@ -32760,7 +32760,7 @@
 
 <node id="25" bw="0" op_0_bw="0" op_1_bw="32" op_2_bw="32" op_3_bw="32" op_4_bw="32" op_5_bw="8">
 <![CDATA[
-.preheader86.preheader:2  call void (...)* @_ssdm_op_SpecPipeline(i32 1, i32 1, i32 1, i32 0, [1 x i8]* @p_str1) nounwind
+.preheader86.preheader:2  call void (...)* @_ssdm_op_SpecPipeline(i32 1, i32 1, i32 1, i32 0, [1 x i8]* @p_str19) nounwind
 
 ]]></node>
 <StgValue><ssdm name=""/></StgValue>
@@ -33075,10 +33075,10 @@
 
 <node id="2015" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:1992  %tmp_7 = xor i8 %buf0, 54
+.preheader86.preheader:1992  %tmp_9 = xor i8 %buf0, 54
 
 ]]></node>
-<StgValue><ssdm name="tmp_7"/></StgValue>
+<StgValue><ssdm name="tmp_9"/></StgValue>
 </operation>
 
 <operation id="2214" st_id="20" stage="1" lat="1">
@@ -33090,10 +33090,10 @@
 
 <node id="2016" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:1993  %tmp_14 = xor i8 %tmp_63_7, %tmp_7
+.preheader86.preheader:1993  %tmp_13 = xor i8 %tmp_63_7, %tmp_9
 
 ]]></node>
-<StgValue><ssdm name="tmp_14"/></StgValue>
+<StgValue><ssdm name="tmp_13"/></StgValue>
 </operation>
 
 <operation id="2215" st_id="20" stage="1" lat="1">
@@ -33105,10 +33105,10 @@
 
 <node id="2017" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:1994  %tmp_15 = xor i8 %tmp_64_7, %buf1
+.preheader86.preheader:1994  %tmp_14 = xor i8 %tmp_64_7, %buf1
 
 ]]></node>
-<StgValue><ssdm name="tmp_15"/></StgValue>
+<StgValue><ssdm name="tmp_14"/></StgValue>
 </operation>
 
 <operation id="2216" st_id="20" stage="1" lat="1">
@@ -33120,10 +33120,10 @@
 
 <node id="2018" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:1995  %tmp_16 = xor i8 %tmp_65_7, %buf2
+.preheader86.preheader:1995  %tmp_15 = xor i8 %tmp_65_7, %buf2
 
 ]]></node>
-<StgValue><ssdm name="tmp_16"/></StgValue>
+<StgValue><ssdm name="tmp_15"/></StgValue>
 </operation>
 
 <operation id="2217" st_id="20" stage="1" lat="1">
@@ -33135,10 +33135,10 @@
 
 <node id="2019" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:1996  %tmp_17 = xor i8 %tmp_66_7, %buf3
+.preheader86.preheader:1996  %tmp_16 = xor i8 %tmp_66_7, %buf3
 
 ]]></node>
-<StgValue><ssdm name="tmp_17"/></StgValue>
+<StgValue><ssdm name="tmp_16"/></StgValue>
 </operation>
 
 <operation id="2218" st_id="20" stage="1" lat="1">
@@ -33165,7 +33165,7 @@
 
 <node id="2021" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:1998  %tmp_38 = xor i8 %tmp289, %tmp_7
+.preheader86.preheader:1998  %tmp_38 = xor i8 %tmp289, %tmp_9
 
 ]]></node>
 <StgValue><ssdm name="tmp_38"/></StgValue>
@@ -33270,7 +33270,7 @@
 
 <node id="2028" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2005  %tmp_32_4 = xor i8 %sboxes_4_load_9, %tmp_14
+.preheader86.preheader:2005  %tmp_32_4 = xor i8 %sboxes_4_load_9, %tmp_13
 
 ]]></node>
 <StgValue><ssdm name="tmp_32_4"/></StgValue>
@@ -33285,7 +33285,7 @@
 
 <node id="2029" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2006  %tmp_32_5 = xor i8 %sboxes_9_load_9, %tmp_15
+.preheader86.preheader:2006  %tmp_32_5 = xor i8 %sboxes_9_load_9, %tmp_14
 
 ]]></node>
 <StgValue><ssdm name="tmp_32_5"/></StgValue>
@@ -33300,7 +33300,7 @@
 
 <node id="2030" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2007  %tmp_32_6 = xor i8 %temp_2, %tmp_16
+.preheader86.preheader:2007  %tmp_32_6 = xor i8 %temp_2, %tmp_15
 
 ]]></node>
 <StgValue><ssdm name="tmp_32_6"/></StgValue>
@@ -33315,7 +33315,7 @@
 
 <node id="2031" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2008  %tmp_32_7 = xor i8 %temp_3, %tmp_17
+.preheader86.preheader:2008  %tmp_32_7 = xor i8 %temp_3, %tmp_16
 
 ]]></node>
 <StgValue><ssdm name="tmp_32_7"/></StgValue>
@@ -33330,7 +33330,7 @@
 
 <node id="2032" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2009  %tmp293 = xor i8 %tmp_14, %sboxes_8_load_9
+.preheader86.preheader:2009  %tmp293 = xor i8 %tmp_13, %sboxes_8_load_9
 
 ]]></node>
 <StgValue><ssdm name="tmp293"/></StgValue>
@@ -33360,7 +33360,7 @@
 
 <node id="2034" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2011  %tmp294 = xor i8 %tmp_15, %sboxes_13_load_9
+.preheader86.preheader:2011  %tmp294 = xor i8 %tmp_14, %sboxes_13_load_9
 
 ]]></node>
 <StgValue><ssdm name="tmp294"/></StgValue>
@@ -33390,7 +33390,7 @@
 
 <node id="2036" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2013  %tmp295 = xor i8 %tmp_16, %sboxes_2_load_9
+.preheader86.preheader:2013  %tmp295 = xor i8 %tmp_15, %sboxes_2_load_9
 
 ]]></node>
 <StgValue><ssdm name="tmp295"/></StgValue>
@@ -33420,7 +33420,7 @@
 
 <node id="2038" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2015  %tmp296 = xor i8 %tmp_17, %sboxes_7_load_9
+.preheader86.preheader:2015  %tmp296 = xor i8 %tmp_16, %sboxes_7_load_9
 
 ]]></node>
 <StgValue><ssdm name="tmp296"/></StgValue>
@@ -33450,7 +33450,7 @@
 
 <node id="2040" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2017  %tmp297 = xor i8 %tmp_14, %sboxes_12_load_9
+.preheader86.preheader:2017  %tmp297 = xor i8 %tmp_13, %sboxes_12_load_9
 
 ]]></node>
 <StgValue><ssdm name="tmp297"/></StgValue>
@@ -33480,7 +33480,7 @@
 
 <node id="2042" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2019  %tmp298 = xor i8 %tmp_15, %temp
+.preheader86.preheader:2019  %tmp298 = xor i8 %tmp_14, %temp
 
 ]]></node>
 <StgValue><ssdm name="tmp298"/></StgValue>
@@ -33510,7 +33510,7 @@
 
 <node id="2044" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2021  %tmp299 = xor i8 %tmp_16, %sboxes_6_load_9
+.preheader86.preheader:2021  %tmp299 = xor i8 %tmp_15, %sboxes_6_load_9
 
 ]]></node>
 <StgValue><ssdm name="tmp299"/></StgValue>
@@ -33540,7 +33540,7 @@
 
 <node id="2046" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-.preheader86.preheader:2023  %tmp300 = xor i8 %tmp_17, %sboxes_11_load_9
+.preheader86.preheader:2023  %tmp300 = xor i8 %tmp_16, %sboxes_11_load_9
 
 ]]></node>
 <StgValue><ssdm name="tmp300"/></StgValue>

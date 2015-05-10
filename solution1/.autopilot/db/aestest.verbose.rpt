@@ -3,7 +3,7 @@
 ================================================================
 == Vivado HLS Report for 'aestest'
 ================================================================
-* Date:           Sat May  9 16:20:28 2015
+* Date:           Sat May  9 23:39:34 2015
 
 * Version:        2014.1 (build date: Fri Apr 04 13:20:25 PM 2014)
 * Project:        aes_runner
@@ -725,11 +725,25 @@
     |tmp98_fu_6557_p2            |    xor   |      0|  0|   8|           8|           8|
     |tmp99_fu_6563_p2            |    xor   |      0|  0|   8|           8|           8|
     |tmp9_fu_3461_p2             |    xor   |      0|  0|   8|           8|           8|
-    |tmp_14_fu_11895_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_15_fu_11900_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_16_fu_11905_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_17_fu_11910_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_1_fu_2685_p2            |    xor   |      0|  0|   8|           8|           8|
+    |tmp_13_fu_11895_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_14_fu_11900_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_15_fu_11905_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_16_fu_11910_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_10_fu_2751_p2         |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_11_fu_2757_p2         |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_12_fu_2763_p2         |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_13_fu_2769_p2         |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_14_fu_2775_p2         |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_1_fu_2691_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_2_fu_2697_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_3_fu_2703_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_4_fu_2709_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_5_fu_2715_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_6_fu_2721_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_7_fu_2727_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_8_fu_2733_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_9_fu_2739_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_1_s_fu_2745_p2          |    xor   |      0|  0|   8|           8|           8|
     |tmp_20_fu_3347_p2           |    xor   |      0|  0|   8|           8|           8|
     |tmp_21_fu_3352_p2           |    xor   |      0|  0|   8|           8|           8|
     |tmp_22_fu_3357_p2           |    xor   |      0|  0|   8|           8|           8|
@@ -763,7 +777,6 @@
     |tmp_35_fu_3639_p2           |    xor   |      0|  0|   8|           8|           8|
     |tmp_36_fu_3643_p2           |    xor   |      0|  0|   8|           8|           8|
     |tmp_38_fu_11920_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_3_fu_2893_p2            |    xor   |      0|  0|   8|           8|           8|
     |tmp_41_0_1_fu_3041_p2       |    xor   |      0|  0|   8|           8|           8|
     |tmp_41_0_2_fu_3509_p2       |    xor   |      0|  0|   8|           8|           8|
     |tmp_41_0_3_fu_3568_p2       |    xor   |      0|  0|   8|           8|           8|
@@ -863,21 +876,7 @@
     |tmp_69_4_fu_7516_p2         |    xor   |      0|  0|   8|           8|           8|
     |tmp_69_6_fu_9505_p2         |    xor   |      0|  0|   8|           8|           8|
     |tmp_69_8_fu_11447_p2        |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_10_fu_2751_p2         |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_11_fu_2757_p2         |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_12_fu_2763_p2         |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_13_fu_2769_p2         |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_14_fu_2775_p2         |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_1_fu_2691_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_2_fu_2697_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_3_fu_2703_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_4_fu_2709_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_5_fu_2715_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_6_fu_2721_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_7_fu_2727_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_8_fu_2733_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_9_fu_2739_p2          |    xor   |      0|  0|   8|           8|           8|
-    |tmp_6_s_fu_2745_p2          |    xor   |      0|  0|   8|           8|           8|
+    |tmp_6_fu_2893_p2            |    xor   |      0|  0|   8|           8|           8|
     |tmp_70_2_fu_5432_p2         |    xor   |      0|  0|   8|           8|           8|
     |tmp_70_4_fu_6898_p2         |    xor   |      0|  0|   8|           8|           8|
     |tmp_70_6_fu_9509_p2         |    xor   |      0|  0|   8|           8|           8|
@@ -1057,8 +1056,9 @@
     |tmp_79_8_9_fu_11717_p2      |    xor   |      0|  0|   8|           8|           8|
     |tmp_79_8_fu_11639_p2        |    xor   |      0|  0|   8|           8|           8|
     |tmp_79_8_s_fu_11725_p2      |    xor   |      0|  0|   8|           8|           8|
-    |tmp_7_fu_11889_p2           |    xor   |      0|  0|   8|           8|           6|
+    |tmp_9_fu_11889_p2           |    xor   |      0|  0|   8|           8|           6|
     |tmp_fu_2881_p2              |    xor   |      0|  0|   8|           8|           1|
+    |tmp_s_fu_2685_p2            |    xor   |      0|  0|   8|           8|           8|
     |x_assign_0_1_fu_3035_p2     |    xor   |      0|  0|   8|           8|           8|
     |x_assign_0_2_fu_3183_p2     |    xor   |      0|  0|   8|           8|           8|
     |x_assign_0_3_fu_3265_p2     |    xor   |      0|  0|   8|           8|           8|
@@ -1577,7 +1577,6 @@
     |tmp_69_4_reg_13636                        |   8|   0|    8|          0|
     |tmp_69_6_reg_14239                        |   8|   0|    8|          0|
     |tmp_69_8_reg_14892                        |   8|   0|    8|          0|
-    |tmp_6_reg_12187                           |   8|   0|    8|          0|
     |tmp_70_2_reg_13035                        |   8|   0|    8|          0|
     |tmp_70_4_reg_13579                        |   8|   0|    8|          0|
     |tmp_70_6_reg_14246                        |   8|   0|    8|          0|
@@ -1622,6 +1621,7 @@
     |tmp_79_7_7_reg_14626                      |   8|   0|    8|          0|
     |tmp_79_8_10_reg_14975                     |   8|   0|    8|          0|
     |tmp_79_8_3_reg_14930                      |   8|   0|    8|          0|
+    |tmp_8_reg_12187                           |   8|   0|    8|          0|
     |tmp_94_reg_12672                          |   1|   0|    1|          0|
     |tmp_reg_12294                             |   8|   0|    8|          0|
     |x_assign_0_2_reg_12340                    |   8|   0|    8|          0|
@@ -1670,7 +1670,6 @@
     |tmp_69_2_reg_13133                        |   0|   8|    8|          0|
     |tmp_69_4_reg_13636                        |   0|   8|    8|          0|
     |tmp_69_6_reg_14239                        |   0|   8|    8|          0|
-    |tmp_6_reg_12187                           |   0|   8|    8|          0|
     |tmp_70_2_reg_13035                        |   0|   8|    8|          0|
     |tmp_70_4_reg_13579                        |   0|   8|    8|          0|
     |tmp_70_6_reg_14246                        |   0|   8|    8|          0|
@@ -1683,6 +1682,7 @@
     |tmp_73_7_reg_14500                        |   0|   8|    8|          0|
     |tmp_74_3_reg_13324                        |   0|   8|    8|          0|
     |tmp_74_7_reg_14559                        |   0|   8|    8|          0|
+    |tmp_8_reg_12187                           |   0|   8|    8|          0|
     +------------------------------------------+----+----+-----+-----------+
     |Total                                     |3145| 432| 3577|          0|
     +------------------------------------------+----+----+-----+-----------+
@@ -1797,8 +1797,8 @@ ST_1: p_Result_s [1/1] 0.00ns
 ST_1: p_Result_1 [1/1] 0.00ns
 .preheader86.preheader:4  %p_Result_1 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 120, i32 127)
 
-ST_1: p_Result_s_87 [1/1] 0.00ns
-.preheader86.preheader:5  %p_Result_s_87 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
+ST_1: p_Result_s_77 [1/1] 0.00ns
+.preheader86.preheader:5  %p_Result_s_77 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
 
 ST_1: p_Result_1_1 [1/1] 0.00ns
 .preheader86.preheader:6  %p_Result_1_1 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 112, i32 119)
@@ -1881,71 +1881,71 @@ ST_1: p_Result_14 [1/1] 0.00ns
 ST_1: p_Result_1_13 [1/1] 0.00ns
 .preheader86.preheader:32  %p_Result_1_13 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 8, i32 15)
 
-ST_1: tmp_5 [1/1] 0.00ns
-.preheader86.preheader:33  %tmp_5 = trunc i128 %inptext_V_read_1 to i8
+ST_1: tmp_7 [1/1] 0.00ns
+.preheader86.preheader:33  %tmp_7 = trunc i128 %inptext_V_read_1 to i8
 
-ST_1: tmp_6 [1/1] 0.00ns
-.preheader86.preheader:34  %tmp_6 = trunc i128 %key_V_read_1 to i8
+ST_1: tmp_8 [1/1] 0.00ns
+.preheader86.preheader:34  %tmp_8 = trunc i128 %key_V_read_1 to i8
 
-ST_1: tmp_1 [1/1] 1.37ns
-.preheader86.preheader:35  %tmp_1 = xor i8 %p_Result_s, %p_Result_1
+ST_1: tmp_s [1/1] 1.37ns
+.preheader86.preheader:35  %tmp_s = xor i8 %p_Result_s, %p_Result_1
 
-ST_1: tmp_6_1 [1/1] 1.37ns
-.preheader86.preheader:36  %tmp_6_1 = xor i8 %p_Result_s_87, %p_Result_1_1
+ST_1: tmp_1_1 [1/1] 1.37ns
+.preheader86.preheader:36  %tmp_1_1 = xor i8 %p_Result_s_77, %p_Result_1_1
 
-ST_1: tmp_6_2 [1/1] 1.37ns
-.preheader86.preheader:37  %tmp_6_2 = xor i8 %p_Result_2, %p_Result_1_2
+ST_1: tmp_1_2 [1/1] 1.37ns
+.preheader86.preheader:37  %tmp_1_2 = xor i8 %p_Result_2, %p_Result_1_2
 
-ST_1: tmp_6_3 [1/1] 1.37ns
-.preheader86.preheader:38  %tmp_6_3 = xor i8 %p_Result_3, %p_Result_1_3
+ST_1: tmp_1_3 [1/1] 1.37ns
+.preheader86.preheader:38  %tmp_1_3 = xor i8 %p_Result_3, %p_Result_1_3
 
-ST_1: tmp_6_4 [1/1] 1.37ns
-.preheader86.preheader:39  %tmp_6_4 = xor i8 %p_Result_4, %p_Result_1_4
+ST_1: tmp_1_4 [1/1] 1.37ns
+.preheader86.preheader:39  %tmp_1_4 = xor i8 %p_Result_4, %p_Result_1_4
 
-ST_1: tmp_6_5 [1/1] 1.37ns
-.preheader86.preheader:40  %tmp_6_5 = xor i8 %p_Result_5, %p_Result_1_5
+ST_1: tmp_1_5 [1/1] 1.37ns
+.preheader86.preheader:40  %tmp_1_5 = xor i8 %p_Result_5, %p_Result_1_5
 
-ST_1: tmp_6_6 [1/1] 1.37ns
-.preheader86.preheader:41  %tmp_6_6 = xor i8 %p_Result_6, %p_Result_1_6
+ST_1: tmp_1_6 [1/1] 1.37ns
+.preheader86.preheader:41  %tmp_1_6 = xor i8 %p_Result_6, %p_Result_1_6
 
-ST_1: tmp_6_7 [1/1] 1.37ns
-.preheader86.preheader:42  %tmp_6_7 = xor i8 %p_Result_7, %p_Result_1_7
+ST_1: tmp_1_7 [1/1] 1.37ns
+.preheader86.preheader:42  %tmp_1_7 = xor i8 %p_Result_7, %p_Result_1_7
 
-ST_1: tmp_6_8 [1/1] 1.37ns
-.preheader86.preheader:43  %tmp_6_8 = xor i8 %p_Result_8, %p_Result_1_8
+ST_1: tmp_1_8 [1/1] 1.37ns
+.preheader86.preheader:43  %tmp_1_8 = xor i8 %p_Result_8, %p_Result_1_8
 
-ST_1: tmp_6_9 [1/1] 1.37ns
-.preheader86.preheader:44  %tmp_6_9 = xor i8 %p_Result_9, %p_Result_1_9
+ST_1: tmp_1_9 [1/1] 1.37ns
+.preheader86.preheader:44  %tmp_1_9 = xor i8 %p_Result_9, %p_Result_1_9
 
-ST_1: tmp_6_s [1/1] 1.37ns
-.preheader86.preheader:45  %tmp_6_s = xor i8 %p_Result_10, %p_Result_1_s
+ST_1: tmp_1_s [1/1] 1.37ns
+.preheader86.preheader:45  %tmp_1_s = xor i8 %p_Result_10, %p_Result_1_s
 
-ST_1: tmp_6_10 [1/1] 1.37ns
-.preheader86.preheader:46  %tmp_6_10 = xor i8 %p_Result_11, %p_Result_1_10
+ST_1: tmp_1_10 [1/1] 1.37ns
+.preheader86.preheader:46  %tmp_1_10 = xor i8 %p_Result_11, %p_Result_1_10
 
-ST_1: tmp_6_11 [1/1] 1.37ns
-.preheader86.preheader:47  %tmp_6_11 = xor i8 %p_Result_12, %p_Result_1_11
+ST_1: tmp_1_11 [1/1] 1.37ns
+.preheader86.preheader:47  %tmp_1_11 = xor i8 %p_Result_12, %p_Result_1_11
 
-ST_1: tmp_6_12 [1/1] 1.37ns
-.preheader86.preheader:48  %tmp_6_12 = xor i8 %p_Result_13, %p_Result_1_12
+ST_1: tmp_1_12 [1/1] 1.37ns
+.preheader86.preheader:48  %tmp_1_12 = xor i8 %p_Result_13, %p_Result_1_12
 
-ST_1: tmp_6_13 [1/1] 1.37ns
-.preheader86.preheader:49  %tmp_6_13 = xor i8 %p_Result_14, %p_Result_1_13
+ST_1: tmp_1_13 [1/1] 1.37ns
+.preheader86.preheader:49  %tmp_1_13 = xor i8 %p_Result_14, %p_Result_1_13
 
-ST_1: tmp_6_14 [1/1] 1.37ns
-.preheader86.preheader:50  %tmp_6_14 = xor i8 %tmp_5, %tmp_6
+ST_1: tmp_1_14 [1/1] 1.37ns
+.preheader86.preheader:50  %tmp_1_14 = xor i8 %tmp_7, %tmp_8
 
-ST_1: tmp_2 [1/1] 0.00ns
-.preheader86.preheader:51  %tmp_2 = zext i8 %tmp_1 to i64
+ST_1: tmp_1 [1/1] 0.00ns
+.preheader86.preheader:51  %tmp_1 = zext i8 %tmp_s to i64
 
 ST_1: sboxes_0_addr [1/1] 0.00ns
-.preheader86.preheader:52  %sboxes_0_addr = getelementptr [256 x i8]* @sboxes_0, i64 0, i64 %tmp_2
+.preheader86.preheader:52  %sboxes_0_addr = getelementptr [256 x i8]* @sboxes_0, i64 0, i64 %tmp_1
 
 ST_1: sboxes_0_load [2/2] 2.39ns
 .preheader86.preheader:53  %sboxes_0_load = load i8* %sboxes_0_addr, align 1
 
 ST_1: tmp_29_0_1 [1/1] 0.00ns
-.preheader86.preheader:54  %tmp_29_0_1 = zext i8 %tmp_6_1 to i64
+.preheader86.preheader:54  %tmp_29_0_1 = zext i8 %tmp_1_1 to i64
 
 ST_1: sboxes_1_addr [1/1] 0.00ns
 .preheader86.preheader:55  %sboxes_1_addr = getelementptr [256 x i8]* @sboxes_1, i64 0, i64 %tmp_29_0_1
@@ -1954,7 +1954,7 @@ ST_1: sboxes_1_load [2/2] 2.39ns
 .preheader86.preheader:56  %sboxes_1_load = load i8* %sboxes_1_addr, align 1
 
 ST_1: tmp_29_0_2 [1/1] 0.00ns
-.preheader86.preheader:57  %tmp_29_0_2 = zext i8 %tmp_6_2 to i64
+.preheader86.preheader:57  %tmp_29_0_2 = zext i8 %tmp_1_2 to i64
 
 ST_1: sboxes_2_addr [1/1] 0.00ns
 .preheader86.preheader:58  %sboxes_2_addr = getelementptr [256 x i8]* @sboxes_2, i64 0, i64 %tmp_29_0_2
@@ -1963,7 +1963,7 @@ ST_1: sboxes_2_load [2/2] 2.39ns
 .preheader86.preheader:59  %sboxes_2_load = load i8* %sboxes_2_addr, align 1
 
 ST_1: tmp_29_0_3 [1/1] 0.00ns
-.preheader86.preheader:60  %tmp_29_0_3 = zext i8 %tmp_6_3 to i64
+.preheader86.preheader:60  %tmp_29_0_3 = zext i8 %tmp_1_3 to i64
 
 ST_1: sboxes_3_addr [1/1] 0.00ns
 .preheader86.preheader:61  %sboxes_3_addr = getelementptr [256 x i8]* @sboxes_3, i64 0, i64 %tmp_29_0_3
@@ -1972,7 +1972,7 @@ ST_1: sboxes_3_load [2/2] 2.39ns
 .preheader86.preheader:62  %sboxes_3_load = load i8* %sboxes_3_addr, align 1
 
 ST_1: tmp_29_0_4 [1/1] 0.00ns
-.preheader86.preheader:63  %tmp_29_0_4 = zext i8 %tmp_6_4 to i64
+.preheader86.preheader:63  %tmp_29_0_4 = zext i8 %tmp_1_4 to i64
 
 ST_1: sboxes_4_addr [1/1] 0.00ns
 .preheader86.preheader:64  %sboxes_4_addr = getelementptr [256 x i8]* @sboxes_4, i64 0, i64 %tmp_29_0_4
@@ -1981,7 +1981,7 @@ ST_1: sboxes_4_load [2/2] 2.39ns
 .preheader86.preheader:65  %sboxes_4_load = load i8* %sboxes_4_addr, align 1
 
 ST_1: tmp_29_0_5 [1/1] 0.00ns
-.preheader86.preheader:66  %tmp_29_0_5 = zext i8 %tmp_6_5 to i64
+.preheader86.preheader:66  %tmp_29_0_5 = zext i8 %tmp_1_5 to i64
 
 ST_1: sboxes_5_addr [1/1] 0.00ns
 .preheader86.preheader:67  %sboxes_5_addr = getelementptr [256 x i8]* @sboxes_5, i64 0, i64 %tmp_29_0_5
@@ -1990,7 +1990,7 @@ ST_1: sboxes_5_load [2/2] 2.39ns
 .preheader86.preheader:68  %sboxes_5_load = load i8* %sboxes_5_addr, align 1
 
 ST_1: tmp_29_0_6 [1/1] 0.00ns
-.preheader86.preheader:69  %tmp_29_0_6 = zext i8 %tmp_6_6 to i64
+.preheader86.preheader:69  %tmp_29_0_6 = zext i8 %tmp_1_6 to i64
 
 ST_1: sboxes_6_addr [1/1] 0.00ns
 .preheader86.preheader:70  %sboxes_6_addr = getelementptr [256 x i8]* @sboxes_6, i64 0, i64 %tmp_29_0_6
@@ -1999,7 +1999,7 @@ ST_1: sboxes_6_load [2/2] 2.39ns
 .preheader86.preheader:71  %sboxes_6_load = load i8* %sboxes_6_addr, align 1
 
 ST_1: tmp_29_0_7 [1/1] 0.00ns
-.preheader86.preheader:72  %tmp_29_0_7 = zext i8 %tmp_6_7 to i64
+.preheader86.preheader:72  %tmp_29_0_7 = zext i8 %tmp_1_7 to i64
 
 ST_1: sboxes_7_addr [1/1] 0.00ns
 .preheader86.preheader:73  %sboxes_7_addr = getelementptr [256 x i8]* @sboxes_7, i64 0, i64 %tmp_29_0_7
@@ -2008,7 +2008,7 @@ ST_1: sboxes_7_load [2/2] 2.39ns
 .preheader86.preheader:74  %sboxes_7_load = load i8* %sboxes_7_addr, align 1
 
 ST_1: tmp_29_0_8 [1/1] 0.00ns
-.preheader86.preheader:75  %tmp_29_0_8 = zext i8 %tmp_6_8 to i64
+.preheader86.preheader:75  %tmp_29_0_8 = zext i8 %tmp_1_8 to i64
 
 ST_1: sboxes_8_addr [1/1] 0.00ns
 .preheader86.preheader:76  %sboxes_8_addr = getelementptr [256 x i8]* @sboxes_8, i64 0, i64 %tmp_29_0_8
@@ -2017,7 +2017,7 @@ ST_1: sboxes_8_load [2/2] 2.39ns
 .preheader86.preheader:77  %sboxes_8_load = load i8* %sboxes_8_addr, align 1
 
 ST_1: tmp_29_0_9 [1/1] 0.00ns
-.preheader86.preheader:78  %tmp_29_0_9 = zext i8 %tmp_6_9 to i64
+.preheader86.preheader:78  %tmp_29_0_9 = zext i8 %tmp_1_9 to i64
 
 ST_1: sboxes_9_addr [1/1] 0.00ns
 .preheader86.preheader:79  %sboxes_9_addr = getelementptr [256 x i8]* @sboxes_9, i64 0, i64 %tmp_29_0_9
@@ -2026,7 +2026,7 @@ ST_1: sboxes_9_load [2/2] 2.39ns
 .preheader86.preheader:80  %sboxes_9_load = load i8* %sboxes_9_addr, align 1
 
 ST_1: tmp_29_0_s [1/1] 0.00ns
-.preheader86.preheader:81  %tmp_29_0_s = zext i8 %tmp_6_s to i64
+.preheader86.preheader:81  %tmp_29_0_s = zext i8 %tmp_1_s to i64
 
 ST_1: sboxes_10_addr [1/1] 0.00ns
 .preheader86.preheader:82  %sboxes_10_addr = getelementptr [256 x i8]* @sboxes_10, i64 0, i64 %tmp_29_0_s
@@ -2035,7 +2035,7 @@ ST_1: sboxes_10_load [2/2] 2.39ns
 .preheader86.preheader:83  %sboxes_10_load = load i8* %sboxes_10_addr, align 1
 
 ST_1: tmp_29_0_10 [1/1] 0.00ns
-.preheader86.preheader:84  %tmp_29_0_10 = zext i8 %tmp_6_10 to i64
+.preheader86.preheader:84  %tmp_29_0_10 = zext i8 %tmp_1_10 to i64
 
 ST_1: sboxes_11_addr [1/1] 0.00ns
 .preheader86.preheader:85  %sboxes_11_addr = getelementptr [256 x i8]* @sboxes_11, i64 0, i64 %tmp_29_0_10
@@ -2044,7 +2044,7 @@ ST_1: sboxes_11_load [2/2] 2.39ns
 .preheader86.preheader:86  %sboxes_11_load = load i8* %sboxes_11_addr, align 1
 
 ST_1: tmp_29_0_11 [1/1] 0.00ns
-.preheader86.preheader:87  %tmp_29_0_11 = zext i8 %tmp_6_11 to i64
+.preheader86.preheader:87  %tmp_29_0_11 = zext i8 %tmp_1_11 to i64
 
 ST_1: sboxes_12_addr [1/1] 0.00ns
 .preheader86.preheader:88  %sboxes_12_addr = getelementptr [256 x i8]* @sboxes_12, i64 0, i64 %tmp_29_0_11
@@ -2053,7 +2053,7 @@ ST_1: sboxes_12_load [2/2] 2.39ns
 .preheader86.preheader:89  %sboxes_12_load = load i8* %sboxes_12_addr, align 1
 
 ST_1: tmp_29_0_12 [1/1] 0.00ns
-.preheader86.preheader:90  %tmp_29_0_12 = zext i8 %tmp_6_12 to i64
+.preheader86.preheader:90  %tmp_29_0_12 = zext i8 %tmp_1_12 to i64
 
 ST_1: sboxes_13_addr [1/1] 0.00ns
 .preheader86.preheader:91  %sboxes_13_addr = getelementptr [256 x i8]* @sboxes_13, i64 0, i64 %tmp_29_0_12
@@ -2062,7 +2062,7 @@ ST_1: sboxes_13_load [2/2] 2.39ns
 .preheader86.preheader:92  %sboxes_13_load = load i8* %sboxes_13_addr, align 1
 
 ST_1: tmp_29_0_13 [1/1] 0.00ns
-.preheader86.preheader:93  %tmp_29_0_13 = zext i8 %tmp_6_13 to i64
+.preheader86.preheader:93  %tmp_29_0_13 = zext i8 %tmp_1_13 to i64
 
 ST_1: sboxes_14_addr [1/1] 0.00ns
 .preheader86.preheader:94  %sboxes_14_addr = getelementptr [256 x i8]* @sboxes_14, i64 0, i64 %tmp_29_0_13
@@ -2071,7 +2071,7 @@ ST_1: sboxes_14_load [2/2] 2.39ns
 .preheader86.preheader:95  %sboxes_14_load = load i8* %sboxes_14_addr, align 1
 
 ST_1: tmp_29_0_14 [1/1] 0.00ns
-.preheader86.preheader:96  %tmp_29_0_14 = zext i8 %tmp_6_14 to i64
+.preheader86.preheader:96  %tmp_29_0_14 = zext i8 %tmp_1_14 to i64
 
 ST_1: sboxes_15_addr [1/1] 0.00ns
 .preheader86.preheader:97  %sboxes_15_addr = getelementptr [256 x i8]* @sboxes_15, i64 0, i64 %tmp_29_0_14
@@ -2088,17 +2088,17 @@ ST_1: sboxes_16_addr [1/1] 0.00ns
 ST_1: sboxes_16_load [2/2] 2.39ns
 .preheader86.preheader:189  %sboxes_16_load = load i8* %sboxes_16_addr, align 1
 
-ST_1: tmp_13 [1/1] 0.00ns
-.preheader86.preheader:190  %tmp_13 = zext i8 %p_Result_1_13 to i64
+ST_1: tmp_17 [1/1] 0.00ns
+.preheader86.preheader:190  %tmp_17 = zext i8 %p_Result_1_13 to i64
 
 ST_1: sboxes_17_addr [1/1] 0.00ns
-.preheader86.preheader:191  %sboxes_17_addr = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_13
+.preheader86.preheader:191  %sboxes_17_addr = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_17
 
 ST_1: sboxes_17_load [2/2] 2.39ns
 .preheader86.preheader:192  %sboxes_17_load = load i8* %sboxes_17_addr, align 1
 
 ST_1: tmp_18 [1/1] 0.00ns
-.preheader86.preheader:193  %tmp_18 = zext i8 %tmp_6 to i64
+.preheader86.preheader:193  %tmp_18 = zext i8 %tmp_8 to i64
 
 ST_1: sboxes_18_addr [1/1] 0.00ns
 .preheader86.preheader:194  %sboxes_18_addr = getelementptr [256 x i8]* @sboxes_18, i64 0, i64 %tmp_18
@@ -2171,11 +2171,11 @@ ST_2: sboxes_15_load [1/2] 2.39ns
 ST_2: x_assign [1/1] 1.37ns
 .preheader86.preheader:99  %x_assign = xor i8 %sboxes_5_load, %sboxes_0_load
 
-ST_2: tmp_3 [1/1] 1.37ns
-.preheader86.preheader:100  %tmp_3 = xor i8 %x_assign, %sboxes_10_load
+ST_2: tmp_6 [1/1] 1.37ns
+.preheader86.preheader:100  %tmp_6 = xor i8 %x_assign, %sboxes_10_load
 
 ST_2: e [1/1] 1.37ns
-.preheader86.preheader:101  %e = xor i8 %tmp_3, %sboxes_15_load
+.preheader86.preheader:101  %e = xor i8 %tmp_6, %sboxes_15_load
 
 ST_2: tmp_10 [1/1] 0.00ns
 .preheader86.preheader:102  %tmp_10 = shl i8 %x_assign, 1
@@ -2439,7 +2439,7 @@ ST_2: tmp6 [1/1] 1.37ns
 .preheader86.preheader:223  %tmp6 = xor i8 %sboxes_10_load, %tmp_22
 
 ST_2: tmp7 [1/1] 1.37ns
-.preheader86.preheader:225  %tmp7 = xor i8 %tmp_3, %tmp_23
+.preheader86.preheader:225  %tmp7 = xor i8 %tmp_6, %tmp_23
 
 ST_2: tmp_79_0_3 [1/1] 1.37ns
 .preheader86.preheader:226  %tmp_79_0_3 = xor i8 %tmp7, %rv_3
@@ -2543,7 +2543,7 @@ ST_3: tmp_34 [1/1] 1.37ns
 .preheader86.preheader:214  %tmp_34 = xor i8 %p_Result_1_13, %tmp_30
 
 ST_3: tmp_35 [1/1] 1.37ns
-.preheader86.preheader:215  %tmp_35 = xor i8 %tmp_6, %tmp_31
+.preheader86.preheader:215  %tmp_35 = xor i8 %tmp_8, %tmp_31
 
 ST_3: tmp_36 [1/1] 1.37ns
 .preheader86.preheader:218  %tmp_36 = xor i8 %tmp2, %tmp1
@@ -3219,7 +3219,7 @@ ST_5: tmp_73_1 [1/1] 1.37ns
 .preheader86.preheader:419  %tmp_73_1 = xor i8 %p_Result_1_13, %tmp_65_1
 
 ST_5: tmp_74_1 [1/1] 1.37ns
-.preheader86.preheader:420  %tmp_74_1 = xor i8 %tmp_6, %tmp_66_1
+.preheader86.preheader:420  %tmp_74_1 = xor i8 %tmp_8, %tmp_66_1
 
 ST_5: tmp30 [1/1] 1.37ns
 .preheader86.preheader:422  %tmp30 = xor i8 %sboxes_0_load_1, %tmp_59_1
@@ -4551,7 +4551,7 @@ ST_8: tmp_73_3 [1/1] 1.37ns
 .preheader86.preheader:837  %tmp_73_3 = xor i8 %p_Result_1_13, %sboxes_18_load_3
 
 ST_8: tmp_74_3 [1/1] 1.37ns
-.preheader86.preheader:838  %tmp_74_3 = xor i8 %tmp_6, %sboxes_19_load_3
+.preheader86.preheader:838  %tmp_74_3 = xor i8 %tmp_8, %sboxes_19_load_3
 
 ST_8: tmp94 [1/1] 1.37ns
 .preheader86.preheader:839  %tmp94 = xor i8 %rv_2_3, %e_3
@@ -8298,38 +8298,38 @@ ST_19: sboxes_15_addr_9 [1/1] 0.00ns
 ST_19: sboxes_15_load_9 [2/2] 2.39ns
 .preheader86.preheader:1979  %sboxes_15_load_9 = load i8* %sboxes_15_addr_9, align 1
 
-ST_19: tmp_8 [1/1] 0.00ns
-.preheader86.preheader:1980  %tmp_8 = zext i8 %tmp_72_8 to i64
+ST_19: tmp_2 [1/1] 0.00ns
+.preheader86.preheader:1980  %tmp_2 = zext i8 %tmp_72_8 to i64
 
 ST_19: sboxes_16_addr_9 [1/1] 0.00ns
-.preheader86.preheader:1981  %sboxes_16_addr_9 = getelementptr [256 x i8]* @sboxes_16, i64 0, i64 %tmp_8
+.preheader86.preheader:1981  %sboxes_16_addr_9 = getelementptr [256 x i8]* @sboxes_16, i64 0, i64 %tmp_2
 
 ST_19: buf0 [2/2] 2.39ns
 .preheader86.preheader:1982  %buf0 = load i8* %sboxes_16_addr_9, align 1
 
-ST_19: tmp_9 [1/1] 0.00ns
-.preheader86.preheader:1983  %tmp_9 = zext i8 %tmp_73_8 to i64
+ST_19: tmp_3 [1/1] 0.00ns
+.preheader86.preheader:1983  %tmp_3 = zext i8 %tmp_73_8 to i64
 
 ST_19: sboxes_17_addr_9 [1/1] 0.00ns
-.preheader86.preheader:1984  %sboxes_17_addr_9 = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_9
+.preheader86.preheader:1984  %sboxes_17_addr_9 = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_3
 
 ST_19: buf1 [2/2] 2.39ns
 .preheader86.preheader:1985  %buf1 = load i8* %sboxes_17_addr_9, align 1
 
-ST_19: tmp_s [1/1] 0.00ns
-.preheader86.preheader:1986  %tmp_s = zext i8 %tmp_74_8 to i64
+ST_19: tmp_4 [1/1] 0.00ns
+.preheader86.preheader:1986  %tmp_4 = zext i8 %tmp_74_8 to i64
 
 ST_19: sboxes_18_addr_9 [1/1] 0.00ns
-.preheader86.preheader:1987  %sboxes_18_addr_9 = getelementptr [256 x i8]* @sboxes_18, i64 0, i64 %tmp_s
+.preheader86.preheader:1987  %sboxes_18_addr_9 = getelementptr [256 x i8]* @sboxes_18, i64 0, i64 %tmp_4
 
 ST_19: buf2 [2/2] 2.39ns
 .preheader86.preheader:1988  %buf2 = load i8* %sboxes_18_addr_9, align 1
 
-ST_19: tmp_4 [1/1] 0.00ns
-.preheader86.preheader:1989  %tmp_4 = zext i8 %tmp_71_8 to i64
+ST_19: tmp_5 [1/1] 0.00ns
+.preheader86.preheader:1989  %tmp_5 = zext i8 %tmp_71_8 to i64
 
 ST_19: sboxes_19_addr_9 [1/1] 0.00ns
-.preheader86.preheader:1990  %sboxes_19_addr_9 = getelementptr [256 x i8]* @sboxes_19, i64 0, i64 %tmp_4
+.preheader86.preheader:1990  %sboxes_19_addr_9 = getelementptr [256 x i8]* @sboxes_19, i64 0, i64 %tmp_5
 
 ST_19: buf3 [2/2] 2.39ns
 .preheader86.preheader:1991  %buf3 = load i8* %sboxes_19_addr_9, align 1
@@ -8337,7 +8337,7 @@ ST_19: buf3 [2/2] 2.39ns
 
  <State 20>: 7.87ns
 ST_20: stg_2192 [1/1] 0.00ns
-.preheader86.preheader:2  call void (...)* @_ssdm_op_SpecPipeline(i32 1, i32 1, i32 1, i32 0, [1 x i8]* @p_str1) nounwind
+.preheader86.preheader:2  call void (...)* @_ssdm_op_SpecPipeline(i32 1, i32 1, i32 1, i32 0, [1 x i8]* @p_str19) nounwind
 
 ST_20: sboxes_0_load_9 [1/2] 2.39ns
 .preheader86.preheader:1934  %sboxes_0_load_9 = load i8* %sboxes_0_addr_9, align 1
@@ -8399,26 +8399,26 @@ ST_20: buf2 [1/2] 2.39ns
 ST_20: buf3 [1/2] 2.39ns
 .preheader86.preheader:1991  %buf3 = load i8* %sboxes_19_addr_9, align 1
 
-ST_20: tmp_7 [1/1] 1.37ns
-.preheader86.preheader:1992  %tmp_7 = xor i8 %buf0, 54
+ST_20: tmp_9 [1/1] 1.37ns
+.preheader86.preheader:1992  %tmp_9 = xor i8 %buf0, 54
+
+ST_20: tmp_13 [1/1] 1.37ns
+.preheader86.preheader:1993  %tmp_13 = xor i8 %tmp_63_7, %tmp_9
 
 ST_20: tmp_14 [1/1] 1.37ns
-.preheader86.preheader:1993  %tmp_14 = xor i8 %tmp_63_7, %tmp_7
+.preheader86.preheader:1994  %tmp_14 = xor i8 %tmp_64_7, %buf1
 
 ST_20: tmp_15 [1/1] 1.37ns
-.preheader86.preheader:1994  %tmp_15 = xor i8 %tmp_64_7, %buf1
+.preheader86.preheader:1995  %tmp_15 = xor i8 %tmp_65_7, %buf2
 
 ST_20: tmp_16 [1/1] 1.37ns
-.preheader86.preheader:1995  %tmp_16 = xor i8 %tmp_65_7, %buf2
-
-ST_20: tmp_17 [1/1] 1.37ns
-.preheader86.preheader:1996  %tmp_17 = xor i8 %tmp_66_7, %buf3
+.preheader86.preheader:1996  %tmp_16 = xor i8 %tmp_66_7, %buf3
 
 ST_20: tmp289 [1/1] 1.37ns
 .preheader86.preheader:1997  %tmp289 = xor i8 %tmp_59_8, %sboxes_0_load_9
 
 ST_20: tmp_38 [1/1] 1.37ns
-.preheader86.preheader:1998  %tmp_38 = xor i8 %tmp289, %tmp_7
+.preheader86.preheader:1998  %tmp_38 = xor i8 %tmp289, %tmp_9
 
 ST_20: tmp290 [1/1] 1.37ns
 .preheader86.preheader:1999  %tmp290 = xor i8 %buf1, %sboxes_5_load_9
@@ -8439,61 +8439,61 @@ ST_20: tmp_32_3 [1/1] 1.37ns
 .preheader86.preheader:2004  %tmp_32_3 = xor i8 %tmp292, %tmp_62_8
 
 ST_20: tmp_32_4 [1/1] 1.37ns
-.preheader86.preheader:2005  %tmp_32_4 = xor i8 %sboxes_4_load_9, %tmp_14
+.preheader86.preheader:2005  %tmp_32_4 = xor i8 %sboxes_4_load_9, %tmp_13
 
 ST_20: tmp_32_5 [1/1] 1.37ns
-.preheader86.preheader:2006  %tmp_32_5 = xor i8 %sboxes_9_load_9, %tmp_15
+.preheader86.preheader:2006  %tmp_32_5 = xor i8 %sboxes_9_load_9, %tmp_14
 
 ST_20: tmp_32_6 [1/1] 1.37ns
-.preheader86.preheader:2007  %tmp_32_6 = xor i8 %temp_2, %tmp_16
+.preheader86.preheader:2007  %tmp_32_6 = xor i8 %temp_2, %tmp_15
 
 ST_20: tmp_32_7 [1/1] 1.37ns
-.preheader86.preheader:2008  %tmp_32_7 = xor i8 %temp_3, %tmp_17
+.preheader86.preheader:2008  %tmp_32_7 = xor i8 %temp_3, %tmp_16
 
 ST_20: tmp293 [1/1] 1.37ns
-.preheader86.preheader:2009  %tmp293 = xor i8 %tmp_14, %sboxes_8_load_9
+.preheader86.preheader:2009  %tmp293 = xor i8 %tmp_13, %sboxes_8_load_9
 
 ST_20: tmp_32_8 [1/1] 1.37ns
 .preheader86.preheader:2010  %tmp_32_8 = xor i8 %tmp293, %tmp_67_8
 
 ST_20: tmp294 [1/1] 1.37ns
-.preheader86.preheader:2011  %tmp294 = xor i8 %tmp_15, %sboxes_13_load_9
+.preheader86.preheader:2011  %tmp294 = xor i8 %tmp_14, %sboxes_13_load_9
 
 ST_20: tmp_32_9 [1/1] 1.37ns
 .preheader86.preheader:2012  %tmp_32_9 = xor i8 %tmp294, %tmp_68_8
 
 ST_20: tmp295 [1/1] 1.37ns
-.preheader86.preheader:2013  %tmp295 = xor i8 %tmp_16, %sboxes_2_load_9
+.preheader86.preheader:2013  %tmp295 = xor i8 %tmp_15, %sboxes_2_load_9
 
 ST_20: tmp_32_s [1/1] 1.37ns
 .preheader86.preheader:2014  %tmp_32_s = xor i8 %tmp295, %tmp_69_8
 
 ST_20: tmp296 [1/1] 1.37ns
-.preheader86.preheader:2015  %tmp296 = xor i8 %tmp_17, %sboxes_7_load_9
+.preheader86.preheader:2015  %tmp296 = xor i8 %tmp_16, %sboxes_7_load_9
 
 ST_20: tmp_32_10 [1/1] 1.37ns
 .preheader86.preheader:2016  %tmp_32_10 = xor i8 %tmp296, %tmp_70_8
 
 ST_20: tmp297 [1/1] 1.37ns
-.preheader86.preheader:2017  %tmp297 = xor i8 %tmp_14, %sboxes_12_load_9
+.preheader86.preheader:2017  %tmp297 = xor i8 %tmp_13, %sboxes_12_load_9
 
 ST_20: tmp_32_11 [1/1] 1.37ns
 .preheader86.preheader:2018  %tmp_32_11 = xor i8 %tmp297, %tmp_71_7
 
 ST_20: tmp298 [1/1] 1.37ns
-.preheader86.preheader:2019  %tmp298 = xor i8 %tmp_15, %temp
+.preheader86.preheader:2019  %tmp298 = xor i8 %tmp_14, %temp
 
 ST_20: tmp_32_12 [1/1] 1.37ns
 .preheader86.preheader:2020  %tmp_32_12 = xor i8 %tmp298, %tmp_72_7
 
 ST_20: tmp299 [1/1] 1.37ns
-.preheader86.preheader:2021  %tmp299 = xor i8 %tmp_16, %sboxes_6_load_9
+.preheader86.preheader:2021  %tmp299 = xor i8 %tmp_15, %sboxes_6_load_9
 
 ST_20: tmp_32_13 [1/1] 1.37ns
 .preheader86.preheader:2022  %tmp_32_13 = xor i8 %tmp299, %tmp_73_7
 
 ST_20: tmp300 [1/1] 1.37ns
-.preheader86.preheader:2023  %tmp300 = xor i8 %tmp_17, %sboxes_11_load_9
+.preheader86.preheader:2023  %tmp300 = xor i8 %tmp_16, %sboxes_11_load_9
 
 ST_20: tmp_32_14 [1/1] 1.37ns
 .preheader86.preheader:2024  %tmp_32_14 = xor i8 %tmp300, %tmp_74_7
@@ -8518,28 +8518,28 @@ STG Binding:
 - Is pipelined: 1
 - Is top level: 0
 Port [ Return ] is wired: 1; IO mode=ap_ctrl_hs:ce=0
-Port [ inptext_V_read]:  wired=1; compound=0; hidden=0; nouse=0; global=0; static=0; extern=0; dir=0; type=0; mode=0x43456d0; pingpong=0; private_global=0; IO mode=ap_none:ce=0
-Port [ key_V_read]:  wired=1; compound=0; hidden=0; nouse=0; global=0; static=0; extern=0; dir=0; type=0; mode=0x440f360; pingpong=0; private_global=0; IO mode=ap_none:ce=0
-Port [ sboxes_0]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x4493c20; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_1]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x43db200; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_2]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x44c81d0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_3]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x4315430; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_4]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x41d7a20; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_5]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x4367450; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_6]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x45a4200; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_7]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x4420a80; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_8]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x3df2cf0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_9]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x44711e0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_10]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x4672410; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_11]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x467fd50; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_12]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x44d6230; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_13]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x41d7980; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_14]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x4475990; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_15]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x44214d0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_16]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x423d720; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_17]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x3ea3b30; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_18]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x440f810; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
-Port [ sboxes_19]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x44217d0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ inptext_V_read]:  wired=1; compound=0; hidden=0; nouse=0; global=0; static=0; extern=0; dir=0; type=0; mode=0x50cd740; pingpong=0; private_global=0; IO mode=ap_none:ce=0
+Port [ key_V_read]:  wired=1; compound=0; hidden=0; nouse=0; global=0; static=0; extern=0; dir=0; type=0; mode=0x53f64f0; pingpong=0; private_global=0; IO mode=ap_none:ce=0
+Port [ sboxes_0]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x53aa5f0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_1]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x4d15640; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_2]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x52f2580; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_3]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x53e60b0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_4]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x50dda70; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_5]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x50ddad0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_6]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x53ef750; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_7]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x53ef7b0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_8]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x50ccf30; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_9]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x50ccf90; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_10]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x50ccff0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_11]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x53e5f00; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_12]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x53e5f60; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_13]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x53e5fc0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_14]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x54e14d0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_15]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x54e1530; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_16]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x54e1590; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_17]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x54e1730; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_18]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x54e1790; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
+Port [ sboxes_19]:  wired=0; compound=1; hidden=1; nouse=0; global=1; static=1; extern=0; dir=0; type=1; mode=0x54e17f0; pingpong=0; private_global=1; linkage=7; visibility=0; MemPort=[1111111111]; IO mode=ap_memory:ce=0
 ---------------- STG Properties END ------------------
 
 ---------------- Datapath Model BEGIN ----------------
@@ -8550,7 +8550,7 @@ key_V_read_1     (read          ) [ 000000000000000000000]
 inptext_V_read_1 (read          ) [ 000000000000000000000]
 p_Result_s       (partselect    ) [ 000000000000000000000]
 p_Result_1       (partselect    ) [ 000000000000000000000]
-p_Result_s_87    (partselect    ) [ 000000000000000000000]
+p_Result_s_77    (partselect    ) [ 000000000000000000000]
 p_Result_1_1     (partselect    ) [ 011000000000000000000]
 p_Result_2       (partselect    ) [ 000000000000000000000]
 p_Result_1_2     (partselect    ) [ 011000000000000000000]
@@ -8578,25 +8578,25 @@ p_Result_13      (partselect    ) [ 000000000000000000000]
 p_Result_1_12    (partselect    ) [ 011111111000000000000]
 p_Result_14      (partselect    ) [ 000000000000000000000]
 p_Result_1_13    (partselect    ) [ 011111111000000000000]
-tmp_5            (trunc         ) [ 000000000000000000000]
-tmp_6            (trunc         ) [ 011111111000000000000]
-tmp_1            (xor           ) [ 000000000000000000000]
-tmp_6_1          (xor           ) [ 000000000000000000000]
-tmp_6_2          (xor           ) [ 000000000000000000000]
-tmp_6_3          (xor           ) [ 000000000000000000000]
-tmp_6_4          (xor           ) [ 000000000000000000000]
-tmp_6_5          (xor           ) [ 000000000000000000000]
-tmp_6_6          (xor           ) [ 000000000000000000000]
-tmp_6_7          (xor           ) [ 000000000000000000000]
-tmp_6_8          (xor           ) [ 000000000000000000000]
-tmp_6_9          (xor           ) [ 000000000000000000000]
-tmp_6_s          (xor           ) [ 000000000000000000000]
-tmp_6_10         (xor           ) [ 000000000000000000000]
-tmp_6_11         (xor           ) [ 000000000000000000000]
-tmp_6_12         (xor           ) [ 000000000000000000000]
-tmp_6_13         (xor           ) [ 000000000000000000000]
-tmp_6_14         (xor           ) [ 000000000000000000000]
-tmp_2            (zext          ) [ 000000000000000000000]
+tmp_7            (trunc         ) [ 000000000000000000000]
+tmp_8            (trunc         ) [ 011111111000000000000]
+tmp_s            (xor           ) [ 000000000000000000000]
+tmp_1_1          (xor           ) [ 000000000000000000000]
+tmp_1_2          (xor           ) [ 000000000000000000000]
+tmp_1_3          (xor           ) [ 000000000000000000000]
+tmp_1_4          (xor           ) [ 000000000000000000000]
+tmp_1_5          (xor           ) [ 000000000000000000000]
+tmp_1_6          (xor           ) [ 000000000000000000000]
+tmp_1_7          (xor           ) [ 000000000000000000000]
+tmp_1_8          (xor           ) [ 000000000000000000000]
+tmp_1_9          (xor           ) [ 000000000000000000000]
+tmp_1_s          (xor           ) [ 000000000000000000000]
+tmp_1_10         (xor           ) [ 000000000000000000000]
+tmp_1_11         (xor           ) [ 000000000000000000000]
+tmp_1_12         (xor           ) [ 000000000000000000000]
+tmp_1_13         (xor           ) [ 000000000000000000000]
+tmp_1_14         (xor           ) [ 000000000000000000000]
+tmp_1            (zext          ) [ 000000000000000000000]
 sboxes_0_addr    (getelementptr ) [ 011000000000000000000]
 tmp_29_0_1       (zext          ) [ 000000000000000000000]
 sboxes_1_addr    (getelementptr ) [ 011000000000000000000]
@@ -8630,7 +8630,7 @@ tmp_29_0_14      (zext          ) [ 000000000000000000000]
 sboxes_15_addr   (getelementptr ) [ 011000000000000000000]
 tmp_12           (zext          ) [ 000000000000000000000]
 sboxes_16_addr   (getelementptr ) [ 011000000000000000000]
-tmp_13           (zext          ) [ 000000000000000000000]
+tmp_17           (zext          ) [ 000000000000000000000]
 sboxes_17_addr   (getelementptr ) [ 011000000000000000000]
 tmp_18           (zext          ) [ 000000000000000000000]
 sboxes_18_addr   (getelementptr ) [ 011000000000000000000]
@@ -8654,7 +8654,7 @@ sboxes_13_load   (load          ) [ 000000000000000000000]
 sboxes_14_load   (load          ) [ 000000000000000000000]
 sboxes_15_load   (load          ) [ 000000000000000000000]
 x_assign         (xor           ) [ 000000000000000000000]
-tmp_3            (xor           ) [ 000000000000000000000]
+tmp_6            (xor           ) [ 000000000000000000000]
 e                (xor           ) [ 000000000000000000000]
 tmp_10           (shl           ) [ 000000000000000000000]
 tmp_11           (bitselect     ) [ 000000000000000000000]
@@ -10509,13 +10509,13 @@ tmp_27_13        (zext          ) [ 000000000000000000000]
 sboxes_14_addr_9 (getelementptr ) [ 010000000000000000001]
 tmp_27_14        (zext          ) [ 000000000000000000000]
 sboxes_15_addr_9 (getelementptr ) [ 010000000000000000001]
-tmp_8            (zext          ) [ 000000000000000000000]
+tmp_2            (zext          ) [ 000000000000000000000]
 sboxes_16_addr_9 (getelementptr ) [ 010000000000000000001]
-tmp_9            (zext          ) [ 000000000000000000000]
+tmp_3            (zext          ) [ 000000000000000000000]
 sboxes_17_addr_9 (getelementptr ) [ 010000000000000000001]
-tmp_s            (zext          ) [ 000000000000000000000]
-sboxes_18_addr_9 (getelementptr ) [ 010000000000000000001]
 tmp_4            (zext          ) [ 000000000000000000000]
+sboxes_18_addr_9 (getelementptr ) [ 010000000000000000001]
+tmp_5            (zext          ) [ 000000000000000000000]
 sboxes_19_addr_9 (getelementptr ) [ 010000000000000000001]
 stg_2192         (specpipeline  ) [ 000000000000000000000]
 sboxes_0_load_9  (load          ) [ 000000000000000000000]
@@ -10538,11 +10538,11 @@ buf0             (load          ) [ 000000000000000000000]
 buf1             (load          ) [ 000000000000000000000]
 buf2             (load          ) [ 000000000000000000000]
 buf3             (load          ) [ 000000000000000000000]
-tmp_7            (xor           ) [ 000000000000000000000]
+tmp_9            (xor           ) [ 000000000000000000000]
+tmp_13           (xor           ) [ 000000000000000000000]
 tmp_14           (xor           ) [ 000000000000000000000]
 tmp_15           (xor           ) [ 000000000000000000000]
 tmp_16           (xor           ) [ 000000000000000000000]
-tmp_17           (xor           ) [ 000000000000000000000]
 tmp289           (xor           ) [ 000000000000000000000]
 tmp_38           (xor           ) [ 000000000000000000000]
 tmp290           (xor           ) [ 000000000000000000000]
@@ -11224,7 +11224,7 @@ stg_2247         (ret           ) [ 000000000000000000000]
 <pin id="139" dir="1" index="0" bw="1" slack="2147483647"/>
 </pin_list>
 <bind>
-<StgValue><ssdm name="p_str1"/></StgValue>
+<StgValue><ssdm name="p_str19"/></StgValue>
 </bind>
 </comp>
 
@@ -14678,7 +14678,7 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </bind>
 </comp>
 
-<comp id="2397" class="1004" name="p_Result_s_87_fu_2397">
+<comp id="2397" class="1004" name="p_Result_s_77_fu_2397">
 <pin_list>
 <pin id="2398" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2399" dir="0" index="1" bw="128" slack="0"/>
@@ -14688,7 +14688,7 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="partselect(1002) " fcode="partselect"/>
-<opset="p_Result_s_87/1 "/>
+<opset="p_Result_s_77/1 "/>
 </bind>
 </comp>
 
@@ -15070,29 +15070,29 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </bind>
 </comp>
 
-<comp id="2677" class="1004" name="tmp_5_fu_2677">
+<comp id="2677" class="1004" name="tmp_7_fu_2677">
 <pin_list>
 <pin id="2678" dir="0" index="0" bw="128" slack="0"/>
 <pin id="2679" dir="1" index="1" bw="8" slack="0"/>
 </pin_list>
 <bind>
 <opcode="trunc(33) " fcode="trunc"/>
-<opset="tmp_5/1 "/>
+<opset="tmp_7/1 "/>
 </bind>
 </comp>
 
-<comp id="2681" class="1004" name="tmp_6_fu_2681">
+<comp id="2681" class="1004" name="tmp_8_fu_2681">
 <pin_list>
 <pin id="2682" dir="0" index="0" bw="128" slack="0"/>
 <pin id="2683" dir="1" index="1" bw="8" slack="0"/>
 </pin_list>
 <bind>
 <opcode="trunc(33) " fcode="trunc"/>
-<opset="tmp_6/1 "/>
+<opset="tmp_8/1 "/>
 </bind>
 </comp>
 
-<comp id="2685" class="1004" name="tmp_1_fu_2685">
+<comp id="2685" class="1004" name="tmp_s_fu_2685">
 <pin_list>
 <pin id="2686" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2687" dir="0" index="1" bw="8" slack="0"/>
@@ -15100,11 +15100,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_1/1 "/>
+<opset="tmp_s/1 "/>
 </bind>
 </comp>
 
-<comp id="2691" class="1004" name="tmp_6_1_fu_2691">
+<comp id="2691" class="1004" name="tmp_1_1_fu_2691">
 <pin_list>
 <pin id="2692" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2693" dir="0" index="1" bw="8" slack="0"/>
@@ -15112,11 +15112,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_1/1 "/>
+<opset="tmp_1_1/1 "/>
 </bind>
 </comp>
 
-<comp id="2697" class="1004" name="tmp_6_2_fu_2697">
+<comp id="2697" class="1004" name="tmp_1_2_fu_2697">
 <pin_list>
 <pin id="2698" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2699" dir="0" index="1" bw="8" slack="0"/>
@@ -15124,11 +15124,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_2/1 "/>
+<opset="tmp_1_2/1 "/>
 </bind>
 </comp>
 
-<comp id="2703" class="1004" name="tmp_6_3_fu_2703">
+<comp id="2703" class="1004" name="tmp_1_3_fu_2703">
 <pin_list>
 <pin id="2704" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2705" dir="0" index="1" bw="8" slack="0"/>
@@ -15136,11 +15136,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_3/1 "/>
+<opset="tmp_1_3/1 "/>
 </bind>
 </comp>
 
-<comp id="2709" class="1004" name="tmp_6_4_fu_2709">
+<comp id="2709" class="1004" name="tmp_1_4_fu_2709">
 <pin_list>
 <pin id="2710" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2711" dir="0" index="1" bw="8" slack="0"/>
@@ -15148,11 +15148,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_4/1 "/>
+<opset="tmp_1_4/1 "/>
 </bind>
 </comp>
 
-<comp id="2715" class="1004" name="tmp_6_5_fu_2715">
+<comp id="2715" class="1004" name="tmp_1_5_fu_2715">
 <pin_list>
 <pin id="2716" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2717" dir="0" index="1" bw="8" slack="0"/>
@@ -15160,11 +15160,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_5/1 "/>
+<opset="tmp_1_5/1 "/>
 </bind>
 </comp>
 
-<comp id="2721" class="1004" name="tmp_6_6_fu_2721">
+<comp id="2721" class="1004" name="tmp_1_6_fu_2721">
 <pin_list>
 <pin id="2722" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2723" dir="0" index="1" bw="8" slack="0"/>
@@ -15172,11 +15172,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_6/1 "/>
+<opset="tmp_1_6/1 "/>
 </bind>
 </comp>
 
-<comp id="2727" class="1004" name="tmp_6_7_fu_2727">
+<comp id="2727" class="1004" name="tmp_1_7_fu_2727">
 <pin_list>
 <pin id="2728" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2729" dir="0" index="1" bw="8" slack="0"/>
@@ -15184,11 +15184,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_7/1 "/>
+<opset="tmp_1_7/1 "/>
 </bind>
 </comp>
 
-<comp id="2733" class="1004" name="tmp_6_8_fu_2733">
+<comp id="2733" class="1004" name="tmp_1_8_fu_2733">
 <pin_list>
 <pin id="2734" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2735" dir="0" index="1" bw="8" slack="0"/>
@@ -15196,11 +15196,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_8/1 "/>
+<opset="tmp_1_8/1 "/>
 </bind>
 </comp>
 
-<comp id="2739" class="1004" name="tmp_6_9_fu_2739">
+<comp id="2739" class="1004" name="tmp_1_9_fu_2739">
 <pin_list>
 <pin id="2740" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2741" dir="0" index="1" bw="8" slack="0"/>
@@ -15208,11 +15208,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_9/1 "/>
+<opset="tmp_1_9/1 "/>
 </bind>
 </comp>
 
-<comp id="2745" class="1004" name="tmp_6_s_fu_2745">
+<comp id="2745" class="1004" name="tmp_1_s_fu_2745">
 <pin_list>
 <pin id="2746" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2747" dir="0" index="1" bw="8" slack="0"/>
@@ -15220,11 +15220,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_s/1 "/>
+<opset="tmp_1_s/1 "/>
 </bind>
 </comp>
 
-<comp id="2751" class="1004" name="tmp_6_10_fu_2751">
+<comp id="2751" class="1004" name="tmp_1_10_fu_2751">
 <pin_list>
 <pin id="2752" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2753" dir="0" index="1" bw="8" slack="0"/>
@@ -15232,11 +15232,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_10/1 "/>
+<opset="tmp_1_10/1 "/>
 </bind>
 </comp>
 
-<comp id="2757" class="1004" name="tmp_6_11_fu_2757">
+<comp id="2757" class="1004" name="tmp_1_11_fu_2757">
 <pin_list>
 <pin id="2758" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2759" dir="0" index="1" bw="8" slack="0"/>
@@ -15244,11 +15244,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_11/1 "/>
+<opset="tmp_1_11/1 "/>
 </bind>
 </comp>
 
-<comp id="2763" class="1004" name="tmp_6_12_fu_2763">
+<comp id="2763" class="1004" name="tmp_1_12_fu_2763">
 <pin_list>
 <pin id="2764" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2765" dir="0" index="1" bw="8" slack="0"/>
@@ -15256,11 +15256,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_12/1 "/>
+<opset="tmp_1_12/1 "/>
 </bind>
 </comp>
 
-<comp id="2769" class="1004" name="tmp_6_13_fu_2769">
+<comp id="2769" class="1004" name="tmp_1_13_fu_2769">
 <pin_list>
 <pin id="2770" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2771" dir="0" index="1" bw="8" slack="0"/>
@@ -15268,11 +15268,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_13/1 "/>
+<opset="tmp_1_13/1 "/>
 </bind>
 </comp>
 
-<comp id="2775" class="1004" name="tmp_6_14_fu_2775">
+<comp id="2775" class="1004" name="tmp_1_14_fu_2775">
 <pin_list>
 <pin id="2776" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2777" dir="0" index="1" bw="8" slack="0"/>
@@ -15280,18 +15280,18 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_6_14/1 "/>
+<opset="tmp_1_14/1 "/>
 </bind>
 </comp>
 
-<comp id="2781" class="1004" name="tmp_2_fu_2781">
+<comp id="2781" class="1004" name="tmp_1_fu_2781">
 <pin_list>
 <pin id="2782" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2783" dir="1" index="1" bw="64" slack="0"/>
 </pin_list>
 <bind>
 <opcode="zext(34) " fcode="zext"/>
-<opset="tmp_2/1 "/>
+<opset="tmp_1/1 "/>
 </bind>
 </comp>
 
@@ -15471,14 +15471,14 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </bind>
 </comp>
 
-<comp id="2866" class="1004" name="tmp_13_fu_2866">
+<comp id="2866" class="1004" name="tmp_17_fu_2866">
 <pin_list>
 <pin id="2867" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2868" dir="1" index="1" bw="64" slack="0"/>
 </pin_list>
 <bind>
 <opcode="zext(34) " fcode="zext"/>
-<opset="tmp_13/1 "/>
+<opset="tmp_17/1 "/>
 </bind>
 </comp>
 
@@ -15528,7 +15528,7 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </bind>
 </comp>
 
-<comp id="2893" class="1004" name="tmp_3_fu_2893">
+<comp id="2893" class="1004" name="tmp_6_fu_2893">
 <pin_list>
 <pin id="2894" dir="0" index="0" bw="8" slack="0"/>
 <pin id="2895" dir="0" index="1" bw="8" slack="0"/>
@@ -15536,7 +15536,7 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_3/2 "/>
+<opset="tmp_6/2 "/>
 </bind>
 </comp>
 
@@ -33820,43 +33820,32 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </bind>
 </comp>
 
-<comp id="11869" class="1004" name="tmp_8_fu_11869">
+<comp id="11869" class="1004" name="tmp_2_fu_11869">
 <pin_list>
 <pin id="11870" dir="0" index="0" bw="8" slack="0"/>
 <pin id="11871" dir="1" index="1" bw="64" slack="0"/>
 </pin_list>
 <bind>
 <opcode="zext(34) " fcode="zext"/>
-<opset="tmp_8/19 "/>
+<opset="tmp_2/19 "/>
 </bind>
 </comp>
 
-<comp id="11874" class="1004" name="tmp_9_fu_11874">
+<comp id="11874" class="1004" name="tmp_3_fu_11874">
 <pin_list>
 <pin id="11875" dir="0" index="0" bw="8" slack="0"/>
 <pin id="11876" dir="1" index="1" bw="64" slack="0"/>
 </pin_list>
 <bind>
 <opcode="zext(34) " fcode="zext"/>
-<opset="tmp_9/19 "/>
+<opset="tmp_3/19 "/>
 </bind>
 </comp>
 
-<comp id="11879" class="1004" name="tmp_s_fu_11879">
+<comp id="11879" class="1004" name="tmp_4_fu_11879">
 <pin_list>
 <pin id="11880" dir="0" index="0" bw="8" slack="0"/>
 <pin id="11881" dir="1" index="1" bw="64" slack="0"/>
-</pin_list>
-<bind>
-<opcode="zext(34) " fcode="zext"/>
-<opset="tmp_s/19 "/>
-</bind>
-</comp>
-
-<comp id="11884" class="1004" name="tmp_4_fu_11884">
-<pin_list>
-<pin id="11885" dir="0" index="0" bw="8" slack="0"/>
-<pin id="11886" dir="1" index="1" bw="64" slack="0"/>
 </pin_list>
 <bind>
 <opcode="zext(34) " fcode="zext"/>
@@ -33864,7 +33853,18 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </bind>
 </comp>
 
-<comp id="11889" class="1004" name="tmp_7_fu_11889">
+<comp id="11884" class="1004" name="tmp_5_fu_11884">
+<pin_list>
+<pin id="11885" dir="0" index="0" bw="8" slack="0"/>
+<pin id="11886" dir="1" index="1" bw="64" slack="0"/>
+</pin_list>
+<bind>
+<opcode="zext(34) " fcode="zext"/>
+<opset="tmp_5/19 "/>
+</bind>
+</comp>
+
+<comp id="11889" class="1004" name="tmp_9_fu_11889">
 <pin_list>
 <pin id="11890" dir="0" index="0" bw="8" slack="0"/>
 <pin id="11891" dir="0" index="1" bw="8" slack="0"/>
@@ -33872,11 +33872,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_7/20 "/>
+<opset="tmp_9/20 "/>
 </bind>
 </comp>
 
-<comp id="11895" class="1004" name="tmp_14_fu_11895">
+<comp id="11895" class="1004" name="tmp_13_fu_11895">
 <pin_list>
 <pin id="11896" dir="0" index="0" bw="8" slack="4"/>
 <pin id="11897" dir="0" index="1" bw="8" slack="0"/>
@@ -33884,11 +33884,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_14/20 "/>
+<opset="tmp_13/20 "/>
 </bind>
 </comp>
 
-<comp id="11900" class="1004" name="tmp_15_fu_11900">
+<comp id="11900" class="1004" name="tmp_14_fu_11900">
 <pin_list>
 <pin id="11901" dir="0" index="0" bw="8" slack="5"/>
 <pin id="11902" dir="0" index="1" bw="8" slack="0"/>
@@ -33896,11 +33896,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_15/20 "/>
+<opset="tmp_14/20 "/>
 </bind>
 </comp>
 
-<comp id="11905" class="1004" name="tmp_16_fu_11905">
+<comp id="11905" class="1004" name="tmp_15_fu_11905">
 <pin_list>
 <pin id="11906" dir="0" index="0" bw="8" slack="5"/>
 <pin id="11907" dir="0" index="1" bw="8" slack="0"/>
@@ -33908,11 +33908,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_16/20 "/>
+<opset="tmp_15/20 "/>
 </bind>
 </comp>
 
-<comp id="11910" class="1004" name="tmp_17_fu_11910">
+<comp id="11910" class="1004" name="tmp_16_fu_11910">
 <pin_list>
 <pin id="11911" dir="0" index="0" bw="8" slack="4"/>
 <pin id="11912" dir="0" index="1" bw="8" slack="0"/>
@@ -33920,7 +33920,7 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </pin_list>
 <bind>
 <opcode="xor(25) " fcode="xor"/>
-<opset="tmp_17/20 "/>
+<opset="tmp_16/20 "/>
 </bind>
 </comp>
 
@@ -34427,13 +34427,13 @@ stg_2247         (ret           ) [ 000000000000000000000]
 </bind>
 </comp>
 
-<comp id="12187" class="1005" name="tmp_6_reg_12187">
+<comp id="12187" class="1005" name="tmp_8_reg_12187">
 <pin_list>
 <pin id="12188" dir="0" index="0" bw="8" slack="2"/>
 <pin id="12189" dir="1" index="1" bw="8" slack="2"/>
 </pin_list>
 <bind>
-<opset="tmp_6 "/>
+<opset="tmp_8 "/>
 </bind>
 </comp>
 
@@ -49887,23 +49887,23 @@ stg_2247         (ret           ) [ 000000000000000000000]
 	Port: sboxes_19 | {}
   - Chain level:
 	State 1
+		tmp_s : 1
+		tmp_1_1 : 1
+		tmp_1_2 : 1
+		tmp_1_3 : 1
+		tmp_1_4 : 1
+		tmp_1_5 : 1
+		tmp_1_6 : 1
+		tmp_1_7 : 1
+		tmp_1_8 : 1
+		tmp_1_9 : 1
+		tmp_1_s : 1
+		tmp_1_10 : 1
+		tmp_1_11 : 1
+		tmp_1_12 : 1
+		tmp_1_13 : 1
+		tmp_1_14 : 1
 		tmp_1 : 1
-		tmp_6_1 : 1
-		tmp_6_2 : 1
-		tmp_6_3 : 1
-		tmp_6_4 : 1
-		tmp_6_5 : 1
-		tmp_6_6 : 1
-		tmp_6_7 : 1
-		tmp_6_8 : 1
-		tmp_6_9 : 1
-		tmp_6_s : 1
-		tmp_6_10 : 1
-		tmp_6_11 : 1
-		tmp_6_12 : 1
-		tmp_6_13 : 1
-		tmp_6_14 : 1
-		tmp_2 : 1
 		sboxes_0_addr : 2
 		sboxes_0_load : 3
 		tmp_29_0_1 : 1
@@ -49954,7 +49954,7 @@ stg_2247         (ret           ) [ 000000000000000000000]
 		tmp_12 : 1
 		sboxes_16_addr : 2
 		sboxes_16_load : 3
-		tmp_13 : 1
+		tmp_17 : 1
 		sboxes_17_addr : 2
 		sboxes_17_load : 3
 		tmp_18 : 1
@@ -49966,7 +49966,7 @@ stg_2247         (ret           ) [ 000000000000000000000]
 		tmp : 1
 	State 2
 		x_assign : 1
-		tmp_3 : 1
+		tmp_6 : 1
 		e : 1
 		tmp_10 : 1
 		tmp_11 : 1
@@ -51379,11 +51379,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 		sboxes_19_addr_9 : 1
 		buf3 : 2
 	State 20
-		tmp_7 : 1
+		tmp_9 : 1
+		tmp_13 : 1
 		tmp_14 : 1
 		tmp_15 : 1
 		tmp_16 : 1
-		tmp_17 : 1
 		tmp289 : 1
 		tmp_38 : 1
 		tmp290 : 1
@@ -51424,25 +51424,25 @@ stg_2247         (ret           ) [ 000000000000000000000]
 |----------|------------------------------|---------|---------|
 | Operation|        Functional Unit       |    FF   |   LUT   |
 |----------|------------------------------|---------|---------|
-|          |         tmp_1_fu_2685        |    0    |    8    |
-|          |        tmp_6_1_fu_2691       |    0    |    8    |
-|          |        tmp_6_2_fu_2697       |    0    |    8    |
-|          |        tmp_6_3_fu_2703       |    0    |    8    |
-|          |        tmp_6_4_fu_2709       |    0    |    8    |
-|          |        tmp_6_5_fu_2715       |    0    |    8    |
-|          |        tmp_6_6_fu_2721       |    0    |    8    |
-|          |        tmp_6_7_fu_2727       |    0    |    8    |
-|          |        tmp_6_8_fu_2733       |    0    |    8    |
-|          |        tmp_6_9_fu_2739       |    0    |    8    |
-|          |        tmp_6_s_fu_2745       |    0    |    8    |
-|          |       tmp_6_10_fu_2751       |    0    |    8    |
-|          |       tmp_6_11_fu_2757       |    0    |    8    |
-|          |       tmp_6_12_fu_2763       |    0    |    8    |
-|          |       tmp_6_13_fu_2769       |    0    |    8    |
-|          |       tmp_6_14_fu_2775       |    0    |    8    |
+|          |         tmp_s_fu_2685        |    0    |    8    |
+|          |        tmp_1_1_fu_2691       |    0    |    8    |
+|          |        tmp_1_2_fu_2697       |    0    |    8    |
+|          |        tmp_1_3_fu_2703       |    0    |    8    |
+|          |        tmp_1_4_fu_2709       |    0    |    8    |
+|          |        tmp_1_5_fu_2715       |    0    |    8    |
+|          |        tmp_1_6_fu_2721       |    0    |    8    |
+|          |        tmp_1_7_fu_2727       |    0    |    8    |
+|          |        tmp_1_8_fu_2733       |    0    |    8    |
+|          |        tmp_1_9_fu_2739       |    0    |    8    |
+|          |        tmp_1_s_fu_2745       |    0    |    8    |
+|          |       tmp_1_10_fu_2751       |    0    |    8    |
+|          |       tmp_1_11_fu_2757       |    0    |    8    |
+|          |       tmp_1_12_fu_2763       |    0    |    8    |
+|          |       tmp_1_13_fu_2769       |    0    |    8    |
+|          |       tmp_1_14_fu_2775       |    0    |    8    |
 |          |          tmp_fu_2881         |    0    |    8    |
 |          |       x_assign_fu_2887       |    0    |    8    |
-|          |         tmp_3_fu_2893        |    0    |    8    |
+|          |         tmp_6_fu_2893        |    0    |    8    |
 |          |           e_fu_2899          |    0    |    8    |
 |          |         rv_1_fu_2919         |    0    |    8    |
 |          |      x_assign_1_fu_2933      |    0    |    8    |
@@ -52349,11 +52349,11 @@ stg_2247         (ret           ) [ 000000000000000000000]
 |          |     tmp_79_8_13_fu_11773     |    0    |    8    |
 |          |        tmp288_fu_11779       |    0    |    8    |
 |          |     tmp_79_8_14_fu_11785     |    0    |    8    |
-|          |        tmp_7_fu_11889        |    0    |    8    |
-|          |        tmp_14_fu_11895       |    0    |    8    |
-|          |        tmp_15_fu_11900       |    0    |    8    |
-|          |        tmp_16_fu_11905       |    0    |    8    |
-|          |        tmp_17_fu_11910       |    0    |    8    |
+|          |        tmp_9_fu_11889        |    0    |    8    |
+|          |        tmp_13_fu_11895       |    0    |    8    |
+|          |        tmp_14_fu_11900       |    0    |    8    |
+|          |        tmp_15_fu_11905       |    0    |    8    |
+|          |        tmp_16_fu_11910       |    0    |    8    |
 |          |        tmp289_fu_11915       |    0    |    8    |
 |          |        tmp_38_fu_11920       |    0    |    8    |
 |          |        tmp290_fu_11926       |    0    |    8    |
@@ -52533,7 +52533,7 @@ stg_2247         (ret           ) [ 000000000000000000000]
 |----------|------------------------------|---------|---------|
 |          |      p_Result_s_fu_2377      |    0    |    0    |
 |          |      p_Result_1_fu_2387      |    0    |    0    |
-|          |     p_Result_s_87_fu_2397    |    0    |    0    |
+|          |     p_Result_s_77_fu_2397    |    0    |    0    |
 |          |     p_Result_1_1_fu_2407     |    0    |    0    |
 |          |      p_Result_2_fu_2417      |    0    |    0    |
 |          |     p_Result_1_2_fu_2427     |    0    |    0    |
@@ -52562,10 +52562,10 @@ stg_2247         (ret           ) [ 000000000000000000000]
 |          |      p_Result_14_fu_2657     |    0    |    0    |
 |          |     p_Result_1_13_fu_2667    |    0    |    0    |
 |----------|------------------------------|---------|---------|
-|   trunc  |         tmp_5_fu_2677        |    0    |    0    |
-|          |         tmp_6_fu_2681        |    0    |    0    |
+|   trunc  |         tmp_7_fu_2677        |    0    |    0    |
+|          |         tmp_8_fu_2681        |    0    |    0    |
 |----------|------------------------------|---------|---------|
-|          |         tmp_2_fu_2781        |    0    |    0    |
+|          |         tmp_1_fu_2781        |    0    |    0    |
 |          |      tmp_29_0_1_fu_2786      |    0    |    0    |
 |          |      tmp_29_0_2_fu_2791      |    0    |    0    |
 |          |      tmp_29_0_3_fu_2796      |    0    |    0    |
@@ -52582,7 +52582,7 @@ stg_2247         (ret           ) [ 000000000000000000000]
 |          |      tmp_29_0_13_fu_2851     |    0    |    0    |
 |          |      tmp_29_0_14_fu_2856     |    0    |    0    |
 |          |        tmp_12_fu_2861        |    0    |    0    |
-|          |        tmp_13_fu_2866        |    0    |    0    |
+|          |        tmp_17_fu_2866        |    0    |    0    |
 |          |        tmp_18_fu_2871        |    0    |    0    |
 |          |        tmp_19_fu_2876        |    0    |    0    |
 |          |       tmp_29_1_fu_3780       |    0    |    0    |
@@ -52761,10 +52761,10 @@ stg_2247         (ret           ) [ 000000000000000000000]
 |          |      tmp_27_12_fu_11854      |    0    |    0    |
 |          |      tmp_27_13_fu_11859      |    0    |    0    |
 |          |      tmp_27_14_fu_11864      |    0    |    0    |
-|          |        tmp_8_fu_11869        |    0    |    0    |
-|          |        tmp_9_fu_11874        |    0    |    0    |
-|          |        tmp_s_fu_11879        |    0    |    0    |
-|          |        tmp_4_fu_11884        |    0    |    0    |
+|          |        tmp_2_fu_11869        |    0    |    0    |
+|          |        tmp_3_fu_11874        |    0    |    0    |
+|          |        tmp_4_fu_11879        |    0    |    0    |
+|          |        tmp_5_fu_11884        |    0    |    0    |
 |----------|------------------------------|---------|---------|
 |          |        tmp_10_fu_2905        |    0    |    0    |
 |          |        tmp_39_fu_2939        |    0    |    0    |
@@ -53578,7 +53578,6 @@ N/A
 |    tmp_69_4_reg_13636    |    8   |
 |    tmp_69_6_reg_14239    |    8   |
 |    tmp_69_8_reg_14892    |    8   |
-|      tmp_6_reg_12187     |    8   |
 |    tmp_70_2_reg_13035    |    8   |
 |    tmp_70_4_reg_13579    |    8   |
 |    tmp_70_6_reg_14246    |    8   |
@@ -53623,6 +53622,7 @@ N/A
 |   tmp_79_7_7_reg_14626   |    8   |
 |   tmp_79_8_10_reg_14975  |    8   |
 |   tmp_79_8_3_reg_14930   |    8   |
+|      tmp_8_reg_12187     |    8   |
 |     tmp_94_reg_12672     |    1   |
 |       tmp_reg_12294      |    8   |
 |  x_assign_0_2_reg_12340  |    8   |

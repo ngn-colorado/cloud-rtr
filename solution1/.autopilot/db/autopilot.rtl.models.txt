@@ -1,5 +1,5 @@
 aestest_sboxes_0
 aes_AXILiteS_s_axi
-aes_ddr_m_axi
+aes_ddr_V_m_axi
 aestest
 aes

@@ -39590,14 +39590,15 @@ typedef hls::stream<uint128_t> mem_stream;
 
 void aestest(ap_uint<128>*, ap_uint<128>*, ap_uint<128>*);
 #21 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp"
-bool aes(volatile unsigned char*, volatile unsigned, ap_uint<128>*,
+bool aes(volatile ap_uint<128>*, volatile unsigned, ap_uint<128>*,
   volatile unsigned, unsigned int);
 
 
 #ifndef HLS_FASTSIM
 #24 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp"
 int main(){
- volatile unsigned char ddr[0x3000];
+
+ volatile ap_uint<128> ddr[0x300];
  volatile unsigned int mm2s[500];
  volatile unsigned int s2mm[500];
  volatile unsigned source = 0x1000;
@@ -39605,8 +39606,8 @@ int main(){
  volatile ap_uint<128> fabric_dest_test(0);
  int iterations, outlen, i;
 
- for(i = 0; i<0x3000; i++){
-  ddr[i] = 0;
+ for(i = 0; i<0x300; i++){
+  ddr[i] = ap_uint<128>(0);
  }
 
 
@@ -39614,14 +39615,17 @@ int main(){
  volatile unsigned char data_to_encrypt[] = {0x01, 0x4B, 0xAF, 0x22, 0x78, 0xA6, 0x9D, 0x33, 0x1D, 0x51, 0x80, 0x10, 0x36, 0x43, 0xE9, 0x9A, '\0'};
  volatile unsigned char data_to_encrypt2[] = {0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, '\0'};
 
+
  ap_uint<128> data_to_encrypt_fabric("014BAF2278A69D331D5180103643E99A", 16);
  ap_uint<128> data_to_encrypt_fabric2("41414141414141414141414141414141", 16);
  unsigned char* encrypted_data = (unsigned char*)malloc(16);
- for(i = 0; i<16; i++){
-  encrypted_data[0] = 0;
-  ddr[0x1000+i] = data_to_encrypt[i];
-  ddr[0x1000+i+16] = data_to_encrypt2[i];
- }
+
+
+
+
+
+ ddr[0x100] = data_to_encrypt_fabric;
+ ddr[0x101] = data_to_encrypt_fabric2;
 
 
 
@@ -39664,44 +39668,53 @@ int main(){
 
  aes(ddr, source, &fabric_key, dest, (unsigned int)2);
 
- printf("\nEncrypted data as hex: 0x");
- for(i=0; i<16; i++){
-  printf("%02x", ddr[dest+i]);
- }
+ printf("\nEncrypted data as hex:");
+
+ printf("%s", ((ap_uint<128>)ddr[0x200]).to_string().c_str());
+
  printf(" - from fabric");
 
- printf("\nEncrypted data as hex: 0x");
- for(i=0; i<16; i++){
-  printf("%02x", ddr[dest+i+16]);
- }
+ printf("\nEncrypted data as hex:");
+
+ printf("%s", ((ap_uint<128>)ddr[0x201]).to_string().c_str());
+
  printf(" - from fabric #2");
-#117 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp"
- for(i=0; i<16; i++){
-  if(ddr[dest + i] != encrypted_data[i]){
-   return -1;
-  }
+
+
+ ap_uint<128> first_fabric = ddr[0x200];
+ ap_uint<128> second_fabric = ddr[0x201];
+ printf("\nEncrypted data as hex: %s - fabric 1", first_fabric.to_string().c_str());
+
+
+
+
+ char encrypted_answer[100];
+ sprintf(encrypted_answer, "0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", encrypted_data[0],encrypted_data[1],encrypted_data[2],encrypted_data[3],encrypted_data[4],encrypted_data[5],encrypted_data[6],encrypted_data[7],encrypted_data[8],encrypted_data[9],encrypted_data[10],encrypted_data[11],encrypted_data[12],encrypted_data[13],encrypted_data[14],encrypted_data[15]);
+ if(strcmp(encrypted_answer, first_fabric.to_string().c_str()) != 0){
+  printf("%s", encrypted_answer);
+  printf("%s", first_fabric.to_string().c_str());
+  return -1;
  }
+
+
+
+
+
  AES_encrypt((unsigned char*)data_to_encrypt2, encrypted_data, &aes_key);
-
-
-
-
-
-
+ sprintf(encrypted_answer, "0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", encrypted_data[0],encrypted_data[1],encrypted_data[2],encrypted_data[3],encrypted_data[4],encrypted_data[5],encrypted_data[6],encrypted_data[7],encrypted_data[8],encrypted_data[9],encrypted_data[10],encrypted_data[11],encrypted_data[12],encrypted_data[13],encrypted_data[14],encrypted_data[15]);
+ if(strcmp(encrypted_answer, second_fabric.to_string().c_str()) != 0){
+  printf("%s", encrypted_answer);
+  printf("%s", second_fabric.to_string().c_str());
+  return -1;
+ }
 
  printf("\nEncrypted data as hex: 0x");
  for(i = 0; i<16; i++){
   printf("%02x", encrypted_data[i]);
  }
- printf(" - second from openssl\n\n");
- for(i=0; i<16; i++){
-  if(ddr[dest + i + 16] != encrypted_data[i]){
-   return -1;
-  }
- }
-#150 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp"
+#156 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp"
  free(encrypted_data);
  return 0;
 }
 #endif
-#152 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp"
+#158 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner_testbench.cpp"

@@ -13,18 +13,18 @@ entity aes is
 generic (
     C_S_AXI_AXILITES_ADDR_WIDTH : INTEGER := 7;
     C_S_AXI_AXILITES_DATA_WIDTH : INTEGER := 32;
-    C_M_AXI_DDR_ADDR_WIDTH : INTEGER := 32;
-    C_M_AXI_DDR_ID_WIDTH : INTEGER := 1;
-    C_M_AXI_DDR_AWUSER_WIDTH : INTEGER := 1;
-    C_M_AXI_DDR_DATA_WIDTH : INTEGER := 32;
-    C_M_AXI_DDR_WUSER_WIDTH : INTEGER := 1;
-    C_M_AXI_DDR_ARUSER_WIDTH : INTEGER := 1;
-    C_M_AXI_DDR_RUSER_WIDTH : INTEGER := 1;
-    C_M_AXI_DDR_BUSER_WIDTH : INTEGER := 1;
-    C_M_AXI_DDR_CACHE_VALUE : INTEGER := 3;
-    C_M_AXI_DDR_TARGET_ADDR : INTEGER := 0;
-    C_M_AXI_DDR_USER_VALUE : INTEGER := 0;
-    C_M_AXI_DDR_PROT_VALUE : INTEGER := 0 );
+    C_M_AXI_DDR_V_ADDR_WIDTH : INTEGER := 32;
+    C_M_AXI_DDR_V_ID_WIDTH : INTEGER := 1;
+    C_M_AXI_DDR_V_AWUSER_WIDTH : INTEGER := 1;
+    C_M_AXI_DDR_V_DATA_WIDTH : INTEGER := 128;
+    C_M_AXI_DDR_V_WUSER_WIDTH : INTEGER := 1;
+    C_M_AXI_DDR_V_ARUSER_WIDTH : INTEGER := 1;
+    C_M_AXI_DDR_V_RUSER_WIDTH : INTEGER := 1;
+    C_M_AXI_DDR_V_BUSER_WIDTH : INTEGER := 1;
+    C_M_AXI_DDR_V_CACHE_VALUE : INTEGER := 3;
+    C_M_AXI_DDR_V_TARGET_ADDR : INTEGER := 0;
+    C_M_AXI_DDR_V_PROT_VALUE : INTEGER := 0;
+    C_M_AXI_DDR_V_USER_VALUE : INTEGER := 0 );
 port (
     s_axi_AXILiteS_AWVALID : IN STD_LOGIC;
     s_axi_AXILiteS_AWREADY : OUT STD_LOGIC;
@@ -45,51 +45,51 @@ port (
     s_axi_AXILiteS_BRESP : OUT STD_LOGIC_VECTOR (1 downto 0);
     ap_clk : IN STD_LOGIC;
     ap_rst_n : IN STD_LOGIC;
-    m_axi_ddr_AWVALID : OUT STD_LOGIC;
-    m_axi_ddr_AWREADY : IN STD_LOGIC;
-    m_axi_ddr_AWADDR : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_ADDR_WIDTH-1 downto 0);
-    m_axi_ddr_AWID : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_ID_WIDTH-1 downto 0);
-    m_axi_ddr_AWLEN : OUT STD_LOGIC_VECTOR (7 downto 0);
-    m_axi_ddr_AWSIZE : OUT STD_LOGIC_VECTOR (2 downto 0);
-    m_axi_ddr_AWBURST : OUT STD_LOGIC_VECTOR (1 downto 0);
-    m_axi_ddr_AWLOCK : OUT STD_LOGIC_VECTOR (1 downto 0);
-    m_axi_ddr_AWCACHE : OUT STD_LOGIC_VECTOR (3 downto 0);
-    m_axi_ddr_AWPROT : OUT STD_LOGIC_VECTOR (2 downto 0);
-    m_axi_ddr_AWQOS : OUT STD_LOGIC_VECTOR (3 downto 0);
-    m_axi_ddr_AWREGION : OUT STD_LOGIC_VECTOR (3 downto 0);
-    m_axi_ddr_AWUSER : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_AWUSER_WIDTH-1 downto 0);
-    m_axi_ddr_WVALID : OUT STD_LOGIC;
-    m_axi_ddr_WREADY : IN STD_LOGIC;
-    m_axi_ddr_WDATA : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_DATA_WIDTH-1 downto 0);
-    m_axi_ddr_WSTRB : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_DATA_WIDTH/8-1 downto 0);
-    m_axi_ddr_WLAST : OUT STD_LOGIC;
-    m_axi_ddr_WID : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_ID_WIDTH-1 downto 0);
-    m_axi_ddr_WUSER : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_WUSER_WIDTH-1 downto 0);
-    m_axi_ddr_ARVALID : OUT STD_LOGIC;
-    m_axi_ddr_ARREADY : IN STD_LOGIC;
-    m_axi_ddr_ARADDR : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_ADDR_WIDTH-1 downto 0);
-    m_axi_ddr_ARID : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_ID_WIDTH-1 downto 0);
-    m_axi_ddr_ARLEN : OUT STD_LOGIC_VECTOR (7 downto 0);
-    m_axi_ddr_ARSIZE : OUT STD_LOGIC_VECTOR (2 downto 0);
-    m_axi_ddr_ARBURST : OUT STD_LOGIC_VECTOR (1 downto 0);
-    m_axi_ddr_ARLOCK : OUT STD_LOGIC_VECTOR (1 downto 0);
-    m_axi_ddr_ARCACHE : OUT STD_LOGIC_VECTOR (3 downto 0);
-    m_axi_ddr_ARPROT : OUT STD_LOGIC_VECTOR (2 downto 0);
-    m_axi_ddr_ARQOS : OUT STD_LOGIC_VECTOR (3 downto 0);
-    m_axi_ddr_ARREGION : OUT STD_LOGIC_VECTOR (3 downto 0);
-    m_axi_ddr_ARUSER : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_ARUSER_WIDTH-1 downto 0);
-    m_axi_ddr_RVALID : IN STD_LOGIC;
-    m_axi_ddr_RREADY : OUT STD_LOGIC;
-    m_axi_ddr_RDATA : IN STD_LOGIC_VECTOR (C_M_AXI_DDR_DATA_WIDTH-1 downto 0);
-    m_axi_ddr_RLAST : IN STD_LOGIC;
-    m_axi_ddr_RID : IN STD_LOGIC_VECTOR (C_M_AXI_DDR_ID_WIDTH-1 downto 0);
-    m_axi_ddr_RUSER : IN STD_LOGIC_VECTOR (C_M_AXI_DDR_RUSER_WIDTH-1 downto 0);
-    m_axi_ddr_RRESP : IN STD_LOGIC_VECTOR (1 downto 0);
-    m_axi_ddr_BVALID : IN STD_LOGIC;
-    m_axi_ddr_BREADY : OUT STD_LOGIC;
-    m_axi_ddr_BRESP : IN STD_LOGIC_VECTOR (1 downto 0);
-    m_axi_ddr_BID : IN STD_LOGIC_VECTOR (C_M_AXI_DDR_ID_WIDTH-1 downto 0);
-    m_axi_ddr_BUSER : IN STD_LOGIC_VECTOR (C_M_AXI_DDR_BUSER_WIDTH-1 downto 0);
+    m_axi_ddr_V_AWVALID : OUT STD_LOGIC;
+    m_axi_ddr_V_AWREADY : IN STD_LOGIC;
+    m_axi_ddr_V_AWADDR : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_V_ADDR_WIDTH-1 downto 0);
+    m_axi_ddr_V_AWID : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_V_ID_WIDTH-1 downto 0);
+    m_axi_ddr_V_AWLEN : OUT STD_LOGIC_VECTOR (7 downto 0);
+    m_axi_ddr_V_AWSIZE : OUT STD_LOGIC_VECTOR (2 downto 0);
+    m_axi_ddr_V_AWBURST : OUT STD_LOGIC_VECTOR (1 downto 0);
+    m_axi_ddr_V_AWLOCK : OUT STD_LOGIC_VECTOR (1 downto 0);
+    m_axi_ddr_V_AWCACHE : OUT STD_LOGIC_VECTOR (3 downto 0);
+    m_axi_ddr_V_AWPROT : OUT STD_LOGIC_VECTOR (2 downto 0);
+    m_axi_ddr_V_AWQOS : OUT STD_LOGIC_VECTOR (3 downto 0);
+    m_axi_ddr_V_AWREGION : OUT STD_LOGIC_VECTOR (3 downto 0);
+    m_axi_ddr_V_AWUSER : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_V_AWUSER_WIDTH-1 downto 0);
+    m_axi_ddr_V_WVALID : OUT STD_LOGIC;
+    m_axi_ddr_V_WREADY : IN STD_LOGIC;
+    m_axi_ddr_V_WDATA : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_V_DATA_WIDTH-1 downto 0);
+    m_axi_ddr_V_WSTRB : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_V_DATA_WIDTH/8-1 downto 0);
+    m_axi_ddr_V_WLAST : OUT STD_LOGIC;
+    m_axi_ddr_V_WID : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_V_ID_WIDTH-1 downto 0);
+    m_axi_ddr_V_WUSER : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_V_WUSER_WIDTH-1 downto 0);
+    m_axi_ddr_V_ARVALID : OUT STD_LOGIC;
+    m_axi_ddr_V_ARREADY : IN STD_LOGIC;
+    m_axi_ddr_V_ARADDR : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_V_ADDR_WIDTH-1 downto 0);
+    m_axi_ddr_V_ARID : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_V_ID_WIDTH-1 downto 0);
+    m_axi_ddr_V_ARLEN : OUT STD_LOGIC_VECTOR (7 downto 0);
+    m_axi_ddr_V_ARSIZE : OUT STD_LOGIC_VECTOR (2 downto 0);
+    m_axi_ddr_V_ARBURST : OUT STD_LOGIC_VECTOR (1 downto 0);
+    m_axi_ddr_V_ARLOCK : OUT STD_LOGIC_VECTOR (1 downto 0);
+    m_axi_ddr_V_ARCACHE : OUT STD_LOGIC_VECTOR (3 downto 0);
+    m_axi_ddr_V_ARPROT : OUT STD_LOGIC_VECTOR (2 downto 0);
+    m_axi_ddr_V_ARQOS : OUT STD_LOGIC_VECTOR (3 downto 0);
+    m_axi_ddr_V_ARREGION : OUT STD_LOGIC_VECTOR (3 downto 0);
+    m_axi_ddr_V_ARUSER : OUT STD_LOGIC_VECTOR (C_M_AXI_DDR_V_ARUSER_WIDTH-1 downto 0);
+    m_axi_ddr_V_RVALID : IN STD_LOGIC;
+    m_axi_ddr_V_RREADY : OUT STD_LOGIC;
+    m_axi_ddr_V_RDATA : IN STD_LOGIC_VECTOR (C_M_AXI_DDR_V_DATA_WIDTH-1 downto 0);
+    m_axi_ddr_V_RLAST : IN STD_LOGIC;
+    m_axi_ddr_V_RID : IN STD_LOGIC_VECTOR (C_M_AXI_DDR_V_ID_WIDTH-1 downto 0);
+    m_axi_ddr_V_RUSER : IN STD_LOGIC_VECTOR (C_M_AXI_DDR_V_RUSER_WIDTH-1 downto 0);
+    m_axi_ddr_V_RRESP : IN STD_LOGIC_VECTOR (1 downto 0);
+    m_axi_ddr_V_BVALID : IN STD_LOGIC;
+    m_axi_ddr_V_BREADY : OUT STD_LOGIC;
+    m_axi_ddr_V_BRESP : IN STD_LOGIC_VECTOR (1 downto 0);
+    m_axi_ddr_V_BID : IN STD_LOGIC_VECTOR (C_M_AXI_DDR_V_ID_WIDTH-1 downto 0);
+    m_axi_ddr_V_BUSER : IN STD_LOGIC_VECTOR (C_M_AXI_DDR_V_BUSER_WIDTH-1 downto 0);
     interrupt : OUT STD_LOGIC );
 end;
 
@@ -126,30 +126,18 @@ architecture behav of aes is
     constant ap_ST_st24_fsm_23 : STD_LOGIC_VECTOR (4 downto 0) := "10111";
     constant ap_ST_st25_fsm_24 : STD_LOGIC_VECTOR (4 downto 0) := "11000";
     constant ap_ST_st26_fsm_25 : STD_LOGIC_VECTOR (4 downto 0) := "11001";
-    constant ap_ST_st27_fsm_26 : STD_LOGIC_VECTOR (4 downto 0) := "11010";
-    constant ap_ST_st28_fsm_27 : STD_LOGIC_VECTOR (4 downto 0) := "11011";
-    constant ap_ST_st29_fsm_28 : STD_LOGIC_VECTOR (4 downto 0) := "11100";
-    constant ap_ST_st30_fsm_29 : STD_LOGIC_VECTOR (4 downto 0) := "11101";
     constant ap_const_lv32_0 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
     constant ap_const_lv128_lc_1 : STD_LOGIC_VECTOR (127 downto 0) := "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
     constant C_DATA_WIDTH : INTEGER range 63 downto 0 := 20;
     constant ap_const_lv1_0 : STD_LOGIC_VECTOR (0 downto 0) := "0";
-    constant ap_const_lv5_0 : STD_LOGIC_VECTOR (4 downto 0) := "00000";
-    constant ap_const_lv4_0 : STD_LOGIC_VECTOR (3 downto 0) := "0000";
-    constant ap_const_lv8_80 : STD_LOGIC_VECTOR (7 downto 0) := "10000000";
     constant ap_const_lv32_1 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000001";
     constant ap_const_lv3_0 : STD_LOGIC_VECTOR (2 downto 0) := "000";
     constant ap_const_lv2_0 : STD_LOGIC_VECTOR (1 downto 0) := "00";
+    constant ap_const_lv4_0 : STD_LOGIC_VECTOR (3 downto 0) := "0000";
+    constant ap_const_lv16_FFFF : STD_LOGIC_VECTOR (15 downto 0) := "1111111111111111";
+    constant ap_const_lv32_4 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000100";
+    constant ap_const_lv32_1F : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000011111";
     constant ap_const_lv1_1 : STD_LOGIC_VECTOR (0 downto 0) := "1";
-    constant ap_const_lv5_10 : STD_LOGIC_VECTOR (4 downto 0) := "10000";
-    constant ap_const_lv5_1 : STD_LOGIC_VECTOR (4 downto 0) := "00001";
-    constant ap_const_lv7_7F : STD_LOGIC_VECTOR (6 downto 0) := "1111111";
-    constant ap_const_lv4_8 : STD_LOGIC_VECTOR (3 downto 0) := "1000";
-    constant ap_const_lv4_1 : STD_LOGIC_VECTOR (3 downto 0) := "0001";
-    constant ap_const_lv8_0 : STD_LOGIC_VECTOR (7 downto 0) := "00000000";
-    constant ap_const_lv32_7 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000111";
-    constant ap_const_lv7_78 : STD_LOGIC_VECTOR (6 downto 0) := "1111000";
-    constant ap_const_lv32_10 : STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000010000";
 
     signal ap_start : STD_LOGIC;
     signal ap_done : STD_LOGIC;
@@ -181,128 +169,89 @@ architecture behav of aes is
     signal length_r_ap_vld_in_sig : STD_LOGIC;
     signal length_r_ap_vld_preg : STD_LOGIC := '0';
     signal ap_return : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_AWVALID : STD_LOGIC;
-    signal ddr_AWREADY : STD_LOGIC;
-    signal ddr_AWADDR : STD_LOGIC_VECTOR (31 downto 0);
-    signal ddr_AWID : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_AWLEN : STD_LOGIC_VECTOR (31 downto 0);
-    signal ddr_AWSIZE : STD_LOGIC_VECTOR (2 downto 0);
-    signal ddr_AWBURST : STD_LOGIC_VECTOR (1 downto 0);
-    signal ddr_AWLOCK : STD_LOGIC_VECTOR (1 downto 0);
-    signal ddr_AWCACHE : STD_LOGIC_VECTOR (3 downto 0);
-    signal ddr_AWPROT : STD_LOGIC_VECTOR (2 downto 0);
-    signal ddr_AWQOS : STD_LOGIC_VECTOR (3 downto 0);
-    signal ddr_AWREGION : STD_LOGIC_VECTOR (3 downto 0);
-    signal ddr_AWUSER : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_WVALID : STD_LOGIC;
-    signal ddr_WREADY : STD_LOGIC;
-    signal ddr_WDATA : STD_LOGIC_VECTOR (7 downto 0);
-    signal ddr_WSTRB : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_WLAST : STD_LOGIC;
-    signal ddr_WID : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_WUSER : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_ARVALID : STD_LOGIC;
-    signal ddr_ARREADY : STD_LOGIC;
-    signal ddr_ARADDR : STD_LOGIC_VECTOR (31 downto 0);
-    signal ddr_ARID : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_ARLEN : STD_LOGIC_VECTOR (31 downto 0);
-    signal ddr_ARSIZE : STD_LOGIC_VECTOR (2 downto 0);
-    signal ddr_ARBURST : STD_LOGIC_VECTOR (1 downto 0);
-    signal ddr_ARLOCK : STD_LOGIC_VECTOR (1 downto 0);
-    signal ddr_ARCACHE : STD_LOGIC_VECTOR (3 downto 0);
-    signal ddr_ARPROT : STD_LOGIC_VECTOR (2 downto 0);
-    signal ddr_ARQOS : STD_LOGIC_VECTOR (3 downto 0);
-    signal ddr_ARREGION : STD_LOGIC_VECTOR (3 downto 0);
-    signal ddr_ARUSER : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_RVALID : STD_LOGIC;
-    signal ddr_RREADY : STD_LOGIC;
-    signal ddr_RDATA : STD_LOGIC_VECTOR (7 downto 0);
-    signal ddr_RLAST : STD_LOGIC;
-    signal ddr_RID : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_RUSER : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_RRESP : STD_LOGIC_VECTOR (1 downto 0);
-    signal ddr_BVALID : STD_LOGIC;
-    signal ddr_BREADY : STD_LOGIC;
-    signal ddr_BRESP : STD_LOGIC_VECTOR (1 downto 0);
-    signal ddr_BID : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_BUSER : STD_LOGIC_VECTOR (0 downto 0);
-    signal ap_sig_bdd_254 : BOOLEAN;
-    signal iterations_1_fu_352_p2 : STD_LOGIC_VECTOR (31 downto 0);
-    signal iterations_1_reg_601 : STD_LOGIC_VECTOR (31 downto 0);
-    signal i_3_fu_368_p2 : STD_LOGIC_VECTOR (4 downto 0);
-    signal i_3_reg_609 : STD_LOGIC_VECTOR (4 downto 0);
-    signal ddr_addr_reg_614 : STD_LOGIC_VECTOR (31 downto 0);
-    signal exitcond3_fu_362_p2 : STD_LOGIC_VECTOR (0 downto 0);
-    signal tmp_28_fu_402_p2 : STD_LOGIC_VECTOR (6 downto 0);
-    signal tmp_28_reg_620 : STD_LOGIC_VECTOR (6 downto 0);
-    signal j_1_fu_418_p2 : STD_LOGIC_VECTOR (3 downto 0);
-    signal j_1_reg_628 : STD_LOGIC_VECTOR (3 downto 0);
-    signal exitcond4_fu_412_p2 : STD_LOGIC_VECTOR (0 downto 0);
-    signal ap_sig_ioackin_ddr_ARREADY : STD_LOGIC;
-    signal i_assign_fu_424_p2 : STD_LOGIC_VECTOR (6 downto 0);
-    signal i_assign_reg_633 : STD_LOGIC_VECTOR (6 downto 0);
-    signal ddr_addr_read_reg_638 : STD_LOGIC_VECTOR (7 downto 0);
-    signal data_V_2_fu_455_p3 : STD_LOGIC_VECTOR (127 downto 0);
-    signal mask_2_fu_473_p1 : STD_LOGIC_VECTOR (7 downto 0);
-    signal grp_aestest_fu_284_ap_return : STD_LOGIC_VECTOR (127 downto 0);
-    signal encrypted_data_V_reg_653 : STD_LOGIC_VECTOR (127 downto 0);
-    signal i_2_fu_487_p2 : STD_LOGIC_VECTOR (4 downto 0);
-    signal i_2_reg_661 : STD_LOGIC_VECTOR (4 downto 0);
-    signal current_fu_534_p1 : STD_LOGIC_VECTOR (7 downto 0);
-    signal current_reg_666 : STD_LOGIC_VECTOR (7 downto 0);
-    signal exitcond_fu_481_p2 : STD_LOGIC_VECTOR (0 downto 0);
-    signal ddr_addr_1_reg_671 : STD_LOGIC_VECTOR (31 downto 0);
-    signal sourceAddressLocal_1_fu_554_p2 : STD_LOGIC_VECTOR (31 downto 0);
-    signal destinationAddressLocal_1_fu_560_p2 : STD_LOGIC_VECTOR (31 downto 0);
-    signal grp_aestest_fu_284_ap_rst : STD_LOGIC;
-    signal grp_aestest_fu_284_ap_start : STD_LOGIC;
-    signal grp_aestest_fu_284_ap_done : STD_LOGIC;
-    signal grp_aestest_fu_284_ap_idle : STD_LOGIC;
-    signal grp_aestest_fu_284_ap_ready : STD_LOGIC;
-    signal grp_aestest_fu_284_ap_ce : STD_LOGIC;
-    signal grp_aestest_fu_284_inptext_V_read : STD_LOGIC_VECTOR (127 downto 0);
-    signal grp_aestest_fu_284_key_V_read : STD_LOGIC_VECTOR (127 downto 0);
-    signal iterations_reg_183 : STD_LOGIC_VECTOR (31 downto 0);
-    signal sourceAddressLocal1_reg_194 : STD_LOGIC_VECTOR (31 downto 0);
-    signal destinationAddressLocal1_reg_204 : STD_LOGIC_VECTOR (31 downto 0);
-    signal data_V_reg_214 : STD_LOGIC_VECTOR (127 downto 0);
-    signal exitcond8_fu_347_p2 : STD_LOGIC_VECTOR (0 downto 0);
-    signal i_reg_226 : STD_LOGIC_VECTOR (4 downto 0);
-    signal p_Val2_1_reg_237 : STD_LOGIC_VECTOR (127 downto 0);
-    signal j_reg_249 : STD_LOGIC_VECTOR (3 downto 0);
-    signal mask_reg_260 : STD_LOGIC_VECTOR (7 downto 0);
-    signal i_1_reg_272 : STD_LOGIC_VECTOR (4 downto 0);
-    signal grp_aestest_fu_284_ap_start_ap_start_reg : STD_LOGIC := '0';
+    signal ddr_V_AWVALID : STD_LOGIC;
+    signal ddr_V_AWREADY : STD_LOGIC;
+    signal ddr_V_AWADDR : STD_LOGIC_VECTOR (31 downto 0);
+    signal ddr_V_AWID : STD_LOGIC_VECTOR (0 downto 0);
+    signal ddr_V_AWLEN : STD_LOGIC_VECTOR (31 downto 0);
+    signal ddr_V_AWSIZE : STD_LOGIC_VECTOR (2 downto 0);
+    signal ddr_V_AWBURST : STD_LOGIC_VECTOR (1 downto 0);
+    signal ddr_V_AWLOCK : STD_LOGIC_VECTOR (1 downto 0);
+    signal ddr_V_AWCACHE : STD_LOGIC_VECTOR (3 downto 0);
+    signal ddr_V_AWPROT : STD_LOGIC_VECTOR (2 downto 0);
+    signal ddr_V_AWQOS : STD_LOGIC_VECTOR (3 downto 0);
+    signal ddr_V_AWREGION : STD_LOGIC_VECTOR (3 downto 0);
+    signal ddr_V_AWUSER : STD_LOGIC_VECTOR (0 downto 0);
+    signal ddr_V_WVALID : STD_LOGIC;
+    signal ddr_V_WREADY : STD_LOGIC;
+    signal ddr_V_WDATA : STD_LOGIC_VECTOR (127 downto 0);
+    signal ddr_V_WSTRB : STD_LOGIC_VECTOR (15 downto 0);
+    signal ddr_V_WLAST : STD_LOGIC;
+    signal ddr_V_WID : STD_LOGIC_VECTOR (0 downto 0);
+    signal ddr_V_WUSER : STD_LOGIC_VECTOR (0 downto 0);
+    signal ddr_V_ARVALID : STD_LOGIC;
+    signal ddr_V_ARREADY : STD_LOGIC;
+    signal ddr_V_ARADDR : STD_LOGIC_VECTOR (31 downto 0);
+    signal ddr_V_ARID : STD_LOGIC_VECTOR (0 downto 0);
+    signal ddr_V_ARLEN : STD_LOGIC_VECTOR (31 downto 0);
+    signal ddr_V_ARSIZE : STD_LOGIC_VECTOR (2 downto 0);
+    signal ddr_V_ARBURST : STD_LOGIC_VECTOR (1 downto 0);
+    signal ddr_V_ARLOCK : STD_LOGIC_VECTOR (1 downto 0);
+    signal ddr_V_ARCACHE : STD_LOGIC_VECTOR (3 downto 0);
+    signal ddr_V_ARPROT : STD_LOGIC_VECTOR (2 downto 0);
+    signal ddr_V_ARQOS : STD_LOGIC_VECTOR (3 downto 0);
+    signal ddr_V_ARREGION : STD_LOGIC_VECTOR (3 downto 0);
+    signal ddr_V_ARUSER : STD_LOGIC_VECTOR (0 downto 0);
+    signal ddr_V_RVALID : STD_LOGIC;
+    signal ddr_V_RREADY : STD_LOGIC;
+    signal ddr_V_RDATA : STD_LOGIC_VECTOR (127 downto 0);
+    signal ddr_V_RLAST : STD_LOGIC;
+    signal ddr_V_RID : STD_LOGIC_VECTOR (0 downto 0);
+    signal ddr_V_RUSER : STD_LOGIC_VECTOR (0 downto 0);
+    signal ddr_V_RRESP : STD_LOGIC_VECTOR (1 downto 0);
+    signal ddr_V_BVALID : STD_LOGIC;
+    signal ddr_V_BREADY : STD_LOGIC;
+    signal ddr_V_BRESP : STD_LOGIC_VECTOR (1 downto 0);
+    signal ddr_V_BID : STD_LOGIC_VECTOR (0 downto 0);
+    signal ddr_V_BUSER : STD_LOGIC_VECTOR (0 downto 0);
+    signal ap_sig_bdd_250 : BOOLEAN;
+    signal sourceAddressLocal_2_fu_236_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal destinationAddressLocal_2_fu_253_p1 : STD_LOGIC_VECTOR (31 downto 0);
+    signal tmp_fu_257_p2 : STD_LOGIC_VECTOR (31 downto 0);
+    signal tmp_reg_333 : STD_LOGIC_VECTOR (31 downto 0);
+    signal exitcond_fu_262_p2 : STD_LOGIC_VECTOR (0 downto 0);
+    signal ap_sig_ioackin_ddr_V_ARREADY : STD_LOGIC;
+    signal sourceAddressLocal_1_fu_278_p2 : STD_LOGIC_VECTOR (31 downto 0);
+    signal sourceAddressLocal_1_reg_347 : STD_LOGIC_VECTOR (31 downto 0);
+    signal data_V_reg_352 : STD_LOGIC_VECTOR (127 downto 0);
+    signal grp_aestest_fu_167_ap_return : STD_LOGIC_VECTOR (127 downto 0);
+    signal encrypted_data_V_reg_357 : STD_LOGIC_VECTOR (127 downto 0);
+    signal ap_sig_ioackin_ddr_V_AWREADY : STD_LOGIC;
+    signal ap_sig_ioackin_ddr_V_WREADY : STD_LOGIC;
+    signal destinationAddressLocal_1_fu_295_p2 : STD_LOGIC_VECTOR (31 downto 0);
+    signal destinationAddressLocal_1_reg_367 : STD_LOGIC_VECTOR (31 downto 0);
+    signal grp_aestest_fu_167_ap_rst : STD_LOGIC;
+    signal grp_aestest_fu_167_ap_start : STD_LOGIC;
+    signal grp_aestest_fu_167_ap_done : STD_LOGIC;
+    signal grp_aestest_fu_167_ap_idle : STD_LOGIC;
+    signal grp_aestest_fu_167_ap_ready : STD_LOGIC;
+    signal grp_aestest_fu_167_ap_ce : STD_LOGIC;
+    signal grp_aestest_fu_167_inptext_V_read : STD_LOGIC_VECTOR (127 downto 0);
+    signal grp_aestest_fu_167_key_V_read : STD_LOGIC_VECTOR (127 downto 0);
+    signal sourceAddressLocal1_reg_147 : STD_LOGIC_VECTOR (31 downto 0);
+    signal destinationAddressLocal1_reg_156 : STD_LOGIC_VECTOR (31 downto 0);
+    signal grp_aestest_fu_167_ap_start_ap_start_reg : STD_LOGIC := '0';
     signal ap_NS_fsm : STD_LOGIC_VECTOR (4 downto 0);
-    signal tmp_26_fu_380_p1 : STD_LOGIC_VECTOR (63 downto 0);
-    signal tmp_31_fu_544_p1 : STD_LOGIC_VECTOR (63 downto 0);
-    signal ap_reg_ioackin_ddr_ARREADY : STD_LOGIC := '0';
-    signal ap_reg_ioackin_ddr_AWREADY : STD_LOGIC := '0';
-    signal ap_sig_ioackin_ddr_AWREADY : STD_LOGIC;
-    signal ap_sig_ioackin_ddr_WREADY : STD_LOGIC;
-    signal ap_reg_ioackin_ddr_WREADY : STD_LOGIC := '0';
-    signal sourceAddress_assign_fu_136 : STD_LOGIC_VECTOR (31 downto 0);
-    signal destinationAddress_assign_fu_140 : STD_LOGIC_VECTOR (31 downto 0);
-    signal i_cast5_fu_358_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal tmp_s_fu_374_p2 : STD_LOGIC_VECTOR (31 downto 0);
-    signal tmp_fu_390_p1 : STD_LOGIC_VECTOR (3 downto 0);
-    signal tmp_27_fu_394_p3 : STD_LOGIC_VECTOR (6 downto 0);
-    signal j_cast3_fu_408_p1 : STD_LOGIC_VECTOR (6 downto 0);
-    signal tmp_32_fu_429_p2 : STD_LOGIC_VECTOR (7 downto 0);
-    signal i_assign_cast_fu_440_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal tmp_33_fu_434_p2 : STD_LOGIC_VECTOR (0 downto 0);
-    signal p_Result_2_fu_443_p5 : STD_LOGIC_VECTOR (127 downto 0);
-    signal mask_1_fu_463_p4 : STD_LOGIC_VECTOR (6 downto 0);
-    signal tmp_325_fu_493_p1 : STD_LOGIC_VECTOR (3 downto 0);
-    signal tmp_29_fu_497_p3 : STD_LOGIC_VECTOR (6 downto 0);
-    signal Hi_assign_fu_505_p2 : STD_LOGIC_VECTOR (6 downto 0);
-    signal Lo_assign_fu_515_p2 : STD_LOGIC_VECTOR (6 downto 0);
-    signal Lo_assign_cast_fu_521_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal Hi_assign_cast_fu_511_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal p_Result_s_fu_525_p4 : STD_LOGIC_VECTOR (127 downto 0);
-    signal i_1_cast2_fu_477_p1 : STD_LOGIC_VECTOR (31 downto 0);
-    signal tmp_30_fu_538_p2 : STD_LOGIC_VECTOR (31 downto 0);
-    signal ap_sig_bdd_1830 : BOOLEAN;
+    signal tmp_1_fu_267_p1 : STD_LOGIC_VECTOR (63 downto 0);
+    signal tmp_2_fu_284_p1 : STD_LOGIC_VECTOR (63 downto 0);
+    signal ap_reg_ioackin_ddr_V_ARREADY : STD_LOGIC := '0';
+    signal ap_reg_ioackin_ddr_V_AWREADY : STD_LOGIC := '0';
+    signal ap_reg_ioackin_ddr_V_WREADY : STD_LOGIC := '0';
+    signal sourceAddress_assign_fu_100 : STD_LOGIC_VECTOR (31 downto 0);
+    signal destinationAddress_assign_fu_104 : STD_LOGIC_VECTOR (31 downto 0);
+    signal sourceAddressLocal_fu_226_p4 : STD_LOGIC_VECTOR (27 downto 0);
+    signal destinationAddressLocal_fu_243_p4 : STD_LOGIC_VECTOR (27 downto 0);
+    signal ap_sig_bdd_1781 : BOOLEAN;
 
     component aestest IS
     port (
@@ -360,7 +309,7 @@ architecture behav of aes is
     end component;
 
 
-    component aes_ddr_m_axi IS
+    component aes_ddr_V_m_axi IS
     generic (
         USER_DW : INTEGER;
         USER_AW : INTEGER;
@@ -440,7 +389,7 @@ architecture behav of aes is
         I_ARREGION : IN STD_LOGIC_VECTOR (3 downto 0);
         I_RVALID : OUT STD_LOGIC;
         I_RREADY : IN STD_LOGIC;
-        I_RDATA : OUT STD_LOGIC_VECTOR (7 downto 0);
+        I_RDATA : OUT STD_LOGIC_VECTOR (127 downto 0);
         I_RID : OUT STD_LOGIC_VECTOR (0 downto 0);
         I_RUSER : OUT STD_LOGIC_VECTOR (0 downto 0);
         I_RRESP : OUT STD_LOGIC_VECTOR (1 downto 0);
@@ -460,11 +409,11 @@ architecture behav of aes is
         I_AWREGION : IN STD_LOGIC_VECTOR (3 downto 0);
         I_WVALID : IN STD_LOGIC;
         I_WREADY : OUT STD_LOGIC;
-        I_WDATA : IN STD_LOGIC_VECTOR (7 downto 0);
+        I_WDATA : IN STD_LOGIC_VECTOR (127 downto 0);
         I_WID : IN STD_LOGIC_VECTOR (0 downto 0);
         I_WUSER : IN STD_LOGIC_VECTOR (0 downto 0);
         I_WLAST : IN STD_LOGIC;
-        I_WSTRB : IN STD_LOGIC_VECTOR (0 downto 0);
+        I_WSTRB : IN STD_LOGIC_VECTOR (15 downto 0);
         I_BVALID : OUT STD_LOGIC;
         I_BREADY : IN STD_LOGIC;
         I_BRESP : OUT STD_LOGIC_VECTOR (1 downto 0);
@@ -514,129 +463,129 @@ begin
         length_r => length_r,
         length_r_ap_vld => length_r_ap_vld);
 
-    aes_ddr_m_axi_U : component aes_ddr_m_axi
+    aes_ddr_V_m_axi_U : component aes_ddr_V_m_axi
     generic map (
-        USER_DW => 8,
+        USER_DW => 128,
         USER_AW => 32,
         USER_MAXREQS => 2,
-        C_ID_WIDTH => C_M_AXI_DDR_ID_WIDTH,
-        C_ADDR_WIDTH => C_M_AXI_DDR_ADDR_WIDTH,
-        C_DATA_WIDTH => C_M_AXI_DDR_DATA_WIDTH,
-        C_AWUSER_WIDTH => C_M_AXI_DDR_AWUSER_WIDTH,
-        C_ARUSER_WIDTH => C_M_AXI_DDR_ARUSER_WIDTH,
-        C_WUSER_WIDTH => C_M_AXI_DDR_WUSER_WIDTH,
-        C_RUSER_WIDTH => C_M_AXI_DDR_RUSER_WIDTH,
-        C_BUSER_WIDTH => C_M_AXI_DDR_BUSER_WIDTH,
-        C_TARGET_ADDR => C_M_AXI_DDR_TARGET_ADDR,
-        C_USER_VALUE => C_M_AXI_DDR_USER_VALUE,
-        C_PROT_VALUE => C_M_AXI_DDR_PROT_VALUE,
-        C_CACHE_VALUE => C_M_AXI_DDR_CACHE_VALUE)
+        C_ID_WIDTH => C_M_AXI_DDR_V_ID_WIDTH,
+        C_ADDR_WIDTH => C_M_AXI_DDR_V_ADDR_WIDTH,
+        C_DATA_WIDTH => C_M_AXI_DDR_V_DATA_WIDTH,
+        C_AWUSER_WIDTH => C_M_AXI_DDR_V_AWUSER_WIDTH,
+        C_ARUSER_WIDTH => C_M_AXI_DDR_V_ARUSER_WIDTH,
+        C_WUSER_WIDTH => C_M_AXI_DDR_V_WUSER_WIDTH,
+        C_RUSER_WIDTH => C_M_AXI_DDR_V_RUSER_WIDTH,
+        C_BUSER_WIDTH => C_M_AXI_DDR_V_BUSER_WIDTH,
+        C_TARGET_ADDR => C_M_AXI_DDR_V_TARGET_ADDR,
+        C_USER_VALUE => C_M_AXI_DDR_V_USER_VALUE,
+        C_PROT_VALUE => C_M_AXI_DDR_V_PROT_VALUE,
+        C_CACHE_VALUE => C_M_AXI_DDR_V_CACHE_VALUE)
     port map (
-        AWVALID => m_axi_ddr_AWVALID,
-        AWREADY => m_axi_ddr_AWREADY,
-        AWADDR => m_axi_ddr_AWADDR,
-        AWID => m_axi_ddr_AWID,
-        AWLEN => m_axi_ddr_AWLEN,
-        AWSIZE => m_axi_ddr_AWSIZE,
-        AWBURST => m_axi_ddr_AWBURST,
-        AWLOCK => m_axi_ddr_AWLOCK,
-        AWCACHE => m_axi_ddr_AWCACHE,
-        AWPROT => m_axi_ddr_AWPROT,
-        AWQOS => m_axi_ddr_AWQOS,
-        AWREGION => m_axi_ddr_AWREGION,
-        AWUSER => m_axi_ddr_AWUSER,
-        WVALID => m_axi_ddr_WVALID,
-        WREADY => m_axi_ddr_WREADY,
-        WDATA => m_axi_ddr_WDATA,
-        WSTRB => m_axi_ddr_WSTRB,
-        WLAST => m_axi_ddr_WLAST,
-        WID => m_axi_ddr_WID,
-        WUSER => m_axi_ddr_WUSER,
-        ARVALID => m_axi_ddr_ARVALID,
-        ARREADY => m_axi_ddr_ARREADY,
-        ARADDR => m_axi_ddr_ARADDR,
-        ARID => m_axi_ddr_ARID,
-        ARLEN => m_axi_ddr_ARLEN,
-        ARSIZE => m_axi_ddr_ARSIZE,
-        ARBURST => m_axi_ddr_ARBURST,
-        ARLOCK => m_axi_ddr_ARLOCK,
-        ARCACHE => m_axi_ddr_ARCACHE,
-        ARPROT => m_axi_ddr_ARPROT,
-        ARQOS => m_axi_ddr_ARQOS,
-        ARREGION => m_axi_ddr_ARREGION,
-        ARUSER => m_axi_ddr_ARUSER,
-        RVALID => m_axi_ddr_RVALID,
-        RREADY => m_axi_ddr_RREADY,
-        RDATA => m_axi_ddr_RDATA,
-        RLAST => m_axi_ddr_RLAST,
-        RID => m_axi_ddr_RID,
-        RUSER => m_axi_ddr_RUSER,
-        RRESP => m_axi_ddr_RRESP,
-        BVALID => m_axi_ddr_BVALID,
-        BREADY => m_axi_ddr_BREADY,
-        BRESP => m_axi_ddr_BRESP,
-        BID => m_axi_ddr_BID,
-        BUSER => m_axi_ddr_BUSER,
+        AWVALID => m_axi_ddr_V_AWVALID,
+        AWREADY => m_axi_ddr_V_AWREADY,
+        AWADDR => m_axi_ddr_V_AWADDR,
+        AWID => m_axi_ddr_V_AWID,
+        AWLEN => m_axi_ddr_V_AWLEN,
+        AWSIZE => m_axi_ddr_V_AWSIZE,
+        AWBURST => m_axi_ddr_V_AWBURST,
+        AWLOCK => m_axi_ddr_V_AWLOCK,
+        AWCACHE => m_axi_ddr_V_AWCACHE,
+        AWPROT => m_axi_ddr_V_AWPROT,
+        AWQOS => m_axi_ddr_V_AWQOS,
+        AWREGION => m_axi_ddr_V_AWREGION,
+        AWUSER => m_axi_ddr_V_AWUSER,
+        WVALID => m_axi_ddr_V_WVALID,
+        WREADY => m_axi_ddr_V_WREADY,
+        WDATA => m_axi_ddr_V_WDATA,
+        WSTRB => m_axi_ddr_V_WSTRB,
+        WLAST => m_axi_ddr_V_WLAST,
+        WID => m_axi_ddr_V_WID,
+        WUSER => m_axi_ddr_V_WUSER,
+        ARVALID => m_axi_ddr_V_ARVALID,
+        ARREADY => m_axi_ddr_V_ARREADY,
+        ARADDR => m_axi_ddr_V_ARADDR,
+        ARID => m_axi_ddr_V_ARID,
+        ARLEN => m_axi_ddr_V_ARLEN,
+        ARSIZE => m_axi_ddr_V_ARSIZE,
+        ARBURST => m_axi_ddr_V_ARBURST,
+        ARLOCK => m_axi_ddr_V_ARLOCK,
+        ARCACHE => m_axi_ddr_V_ARCACHE,
+        ARPROT => m_axi_ddr_V_ARPROT,
+        ARQOS => m_axi_ddr_V_ARQOS,
+        ARREGION => m_axi_ddr_V_ARREGION,
+        ARUSER => m_axi_ddr_V_ARUSER,
+        RVALID => m_axi_ddr_V_RVALID,
+        RREADY => m_axi_ddr_V_RREADY,
+        RDATA => m_axi_ddr_V_RDATA,
+        RLAST => m_axi_ddr_V_RLAST,
+        RID => m_axi_ddr_V_RID,
+        RUSER => m_axi_ddr_V_RUSER,
+        RRESP => m_axi_ddr_V_RRESP,
+        BVALID => m_axi_ddr_V_BVALID,
+        BREADY => m_axi_ddr_V_BREADY,
+        BRESP => m_axi_ddr_V_BRESP,
+        BID => m_axi_ddr_V_BID,
+        BUSER => m_axi_ddr_V_BUSER,
         ACLK => ap_clk,
         ARESETN => ap_rst_n,
-        I_ARVALID => ddr_ARVALID,
-        I_ARREADY => ddr_ARREADY,
-        I_ARADDR => ddr_ARADDR,
-        I_ARID => ddr_ARID,
-        I_ARLEN => ddr_ARLEN,
-        I_ARSIZE => ddr_ARSIZE,
-        I_ARLOCK => ddr_ARLOCK,
-        I_ARCACHE => ddr_ARCACHE,
-        I_ARQOS => ddr_ARQOS,
-        I_ARPROT => ddr_ARPROT,
-        I_ARUSER => ddr_ARUSER,
-        I_ARBURST => ddr_ARBURST,
-        I_ARREGION => ddr_ARREGION,
-        I_RVALID => ddr_RVALID,
-        I_RREADY => ddr_RREADY,
-        I_RDATA => ddr_RDATA,
-        I_RID => ddr_RID,
-        I_RUSER => ddr_RUSER,
-        I_RRESP => ddr_RRESP,
-        I_RLAST => ddr_RLAST,
-        I_AWVALID => ddr_AWVALID,
-        I_AWREADY => ddr_AWREADY,
-        I_AWADDR => ddr_AWADDR,
-        I_AWID => ddr_AWID,
-        I_AWLEN => ddr_AWLEN,
-        I_AWSIZE => ddr_AWSIZE,
-        I_AWLOCK => ddr_AWLOCK,
-        I_AWCACHE => ddr_AWCACHE,
-        I_AWQOS => ddr_AWQOS,
-        I_AWPROT => ddr_AWPROT,
-        I_AWUSER => ddr_AWUSER,
-        I_AWBURST => ddr_AWBURST,
-        I_AWREGION => ddr_AWREGION,
-        I_WVALID => ddr_WVALID,
-        I_WREADY => ddr_WREADY,
-        I_WDATA => ddr_WDATA,
-        I_WID => ddr_WID,
-        I_WUSER => ddr_WUSER,
-        I_WLAST => ddr_WLAST,
-        I_WSTRB => ddr_WSTRB,
-        I_BVALID => ddr_BVALID,
-        I_BREADY => ddr_BREADY,
-        I_BRESP => ddr_BRESP,
-        I_BID => ddr_BID,
-        I_BUSER => ddr_BUSER);
+        I_ARVALID => ddr_V_ARVALID,
+        I_ARREADY => ddr_V_ARREADY,
+        I_ARADDR => ddr_V_ARADDR,
+        I_ARID => ddr_V_ARID,
+        I_ARLEN => ddr_V_ARLEN,
+        I_ARSIZE => ddr_V_ARSIZE,
+        I_ARLOCK => ddr_V_ARLOCK,
+        I_ARCACHE => ddr_V_ARCACHE,
+        I_ARQOS => ddr_V_ARQOS,
+        I_ARPROT => ddr_V_ARPROT,
+        I_ARUSER => ddr_V_ARUSER,
+        I_ARBURST => ddr_V_ARBURST,
+        I_ARREGION => ddr_V_ARREGION,
+        I_RVALID => ddr_V_RVALID,
+        I_RREADY => ddr_V_RREADY,
+        I_RDATA => ddr_V_RDATA,
+        I_RID => ddr_V_RID,
+        I_RUSER => ddr_V_RUSER,
+        I_RRESP => ddr_V_RRESP,
+        I_RLAST => ddr_V_RLAST,
+        I_AWVALID => ddr_V_AWVALID,
+        I_AWREADY => ddr_V_AWREADY,
+        I_AWADDR => ddr_V_AWADDR,
+        I_AWID => ddr_V_AWID,
+        I_AWLEN => ddr_V_AWLEN,
+        I_AWSIZE => ddr_V_AWSIZE,
+        I_AWLOCK => ddr_V_AWLOCK,
+        I_AWCACHE => ddr_V_AWCACHE,
+        I_AWQOS => ddr_V_AWQOS,
+        I_AWPROT => ddr_V_AWPROT,
+        I_AWUSER => ddr_V_AWUSER,
+        I_AWBURST => ddr_V_AWBURST,
+        I_AWREGION => ddr_V_AWREGION,
+        I_WVALID => ddr_V_WVALID,
+        I_WREADY => ddr_V_WREADY,
+        I_WDATA => ddr_V_WDATA,
+        I_WID => ddr_V_WID,
+        I_WUSER => ddr_V_WUSER,
+        I_WLAST => ddr_V_WLAST,
+        I_WSTRB => ddr_V_WSTRB,
+        I_BVALID => ddr_V_BVALID,
+        I_BREADY => ddr_V_BREADY,
+        I_BRESP => ddr_V_BRESP,
+        I_BID => ddr_V_BID,
+        I_BUSER => ddr_V_BUSER);
 
-    grp_aestest_fu_284 : component aestest
+    grp_aestest_fu_167 : component aestest
     port map (
         ap_clk => ap_clk,
-        ap_rst => grp_aestest_fu_284_ap_rst,
-        ap_start => grp_aestest_fu_284_ap_start,
-        ap_done => grp_aestest_fu_284_ap_done,
-        ap_idle => grp_aestest_fu_284_ap_idle,
-        ap_ready => grp_aestest_fu_284_ap_ready,
-        ap_ce => grp_aestest_fu_284_ap_ce,
-        inptext_V_read => grp_aestest_fu_284_inptext_V_read,
-        key_V_read => grp_aestest_fu_284_key_V_read,
-        ap_return => grp_aestest_fu_284_ap_return);
+        ap_rst => grp_aestest_fu_167_ap_rst,
+        ap_start => grp_aestest_fu_167_ap_start,
+        ap_done => grp_aestest_fu_167_ap_done,
+        ap_idle => grp_aestest_fu_167_ap_idle,
+        ap_ready => grp_aestest_fu_167_ap_ready,
+        ap_ce => grp_aestest_fu_167_ap_ce,
+        inptext_V_read => grp_aestest_fu_167_inptext_V_read,
+        key_V_read => grp_aestest_fu_167_key_V_read,
+        ap_return => grp_aestest_fu_167_ap_return);
 
 
 
@@ -655,18 +604,18 @@ begin
     end process;
 
 
-    -- ap_reg_ioackin_ddr_ARREADY assign process. --
-    ap_reg_ioackin_ddr_ARREADY_assign_proc : process(ap_clk)
+    -- ap_reg_ioackin_ddr_V_ARREADY assign process. --
+    ap_reg_ioackin_ddr_V_ARREADY_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst_n = '0') then
-                ap_reg_ioackin_ddr_ARREADY <= ap_const_logic_0;
+                ap_reg_ioackin_ddr_V_ARREADY <= ap_const_logic_0;
             else
-                if (ap_sig_bdd_1830) then
-                    if (not(((ap_const_lv1_0 = exitcond4_fu_412_p2) and (ap_const_logic_0 = ap_sig_ioackin_ddr_ARREADY)))) then 
-                        ap_reg_ioackin_ddr_ARREADY <= ap_const_logic_0;
-                    elsif ((ap_const_logic_1 = ddr_ARREADY)) then 
-                        ap_reg_ioackin_ddr_ARREADY <= ap_const_logic_1;
+                if (ap_sig_bdd_1781) then
+                    if (not(((exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_sig_ioackin_ddr_V_ARREADY)))) then 
+                        ap_reg_ioackin_ddr_V_ARREADY <= ap_const_logic_0;
+                    elsif ((ap_const_logic_1 = ddr_V_ARREADY)) then 
+                        ap_reg_ioackin_ddr_V_ARREADY <= ap_const_logic_1;
                     end if;
                 end if; 
             end if;
@@ -674,18 +623,18 @@ begin
     end process;
 
 
-    -- ap_reg_ioackin_ddr_AWREADY assign process. --
-    ap_reg_ioackin_ddr_AWREADY_assign_proc : process(ap_clk)
+    -- ap_reg_ioackin_ddr_V_AWREADY assign process. --
+    ap_reg_ioackin_ddr_V_AWREADY_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst_n = '0') then
-                ap_reg_ioackin_ddr_AWREADY <= ap_const_logic_0;
+                ap_reg_ioackin_ddr_V_AWREADY <= ap_const_logic_0;
             else
-                if ((ap_ST_st29_fsm_28 = ap_CS_fsm)) then
-                    if (not(((ap_const_logic_0 = ap_sig_ioackin_ddr_AWREADY) or (ap_const_logic_0 = ap_sig_ioackin_ddr_WREADY)))) then 
-                        ap_reg_ioackin_ddr_AWREADY <= ap_const_logic_0;
-                    elsif ((ap_const_logic_1 = ddr_AWREADY)) then 
-                        ap_reg_ioackin_ddr_AWREADY <= ap_const_logic_1;
+                if ((ap_ST_st25_fsm_24 = ap_CS_fsm)) then
+                    if (not(((ap_const_logic_0 = ap_sig_ioackin_ddr_V_AWREADY) or (ap_const_logic_0 = ap_sig_ioackin_ddr_V_WREADY)))) then 
+                        ap_reg_ioackin_ddr_V_AWREADY <= ap_const_logic_0;
+                    elsif ((ap_const_logic_1 = ddr_V_AWREADY)) then 
+                        ap_reg_ioackin_ddr_V_AWREADY <= ap_const_logic_1;
                     end if;
                 end if; 
             end if;
@@ -693,18 +642,18 @@ begin
     end process;
 
 
-    -- ap_reg_ioackin_ddr_WREADY assign process. --
-    ap_reg_ioackin_ddr_WREADY_assign_proc : process(ap_clk)
+    -- ap_reg_ioackin_ddr_V_WREADY assign process. --
+    ap_reg_ioackin_ddr_V_WREADY_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst_n = '0') then
-                ap_reg_ioackin_ddr_WREADY <= ap_const_logic_0;
+                ap_reg_ioackin_ddr_V_WREADY <= ap_const_logic_0;
             else
-                if ((ap_ST_st29_fsm_28 = ap_CS_fsm)) then
-                    if (not(((ap_const_logic_0 = ap_sig_ioackin_ddr_AWREADY) or (ap_const_logic_0 = ap_sig_ioackin_ddr_WREADY)))) then 
-                        ap_reg_ioackin_ddr_WREADY <= ap_const_logic_0;
-                    elsif ((ap_const_logic_1 = ddr_WREADY)) then 
-                        ap_reg_ioackin_ddr_WREADY <= ap_const_logic_1;
+                if ((ap_ST_st25_fsm_24 = ap_CS_fsm)) then
+                    if (not(((ap_const_logic_0 = ap_sig_ioackin_ddr_V_AWREADY) or (ap_const_logic_0 = ap_sig_ioackin_ddr_V_WREADY)))) then 
+                        ap_reg_ioackin_ddr_V_WREADY <= ap_const_logic_0;
+                    elsif ((ap_const_logic_1 = ddr_V_WREADY)) then 
+                        ap_reg_ioackin_ddr_V_WREADY <= ap_const_logic_1;
                     end if;
                 end if; 
             end if;
@@ -719,7 +668,7 @@ begin
             if (ap_rst_n = '0') then
                 destinationAddress_ap_vld_preg <= ap_const_logic_0;
             else
-                if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not((ap_const_lv1_0 = exitcond8_fu_347_p2)))) then 
+                if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not(((exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_sig_ioackin_ddr_V_ARREADY))) and not((exitcond_fu_262_p2 = ap_const_lv1_0)))) then 
                     destinationAddress_ap_vld_preg <= ap_const_logic_0;
                 elsif ((not(((ap_ST_st1_fsm_0 = ap_CS_fsm) and (ap_const_logic_0 = ap_start))) and (ap_const_logic_1 = destinationAddress_ap_vld))) then 
                     destinationAddress_ap_vld_preg <= destinationAddress_ap_vld;
@@ -744,17 +693,17 @@ begin
     end process;
 
 
-    -- grp_aestest_fu_284_ap_start_ap_start_reg assign process. --
-    grp_aestest_fu_284_ap_start_ap_start_reg_assign_proc : process(ap_clk)
+    -- grp_aestest_fu_167_ap_start_ap_start_reg assign process. --
+    grp_aestest_fu_167_ap_start_ap_start_reg_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst_n = '0') then
-                grp_aestest_fu_284_ap_start_ap_start_reg <= ap_const_logic_0;
+                grp_aestest_fu_167_ap_start_ap_start_reg <= ap_const_logic_0;
             else
-                if (((ap_ST_st4_fsm_3 = ap_CS_fsm) and (ap_ST_st8_fsm_7 = ap_NS_fsm))) then 
-                    grp_aestest_fu_284_ap_start_ap_start_reg <= ap_const_logic_1;
-                elsif ((ap_const_logic_1 = grp_aestest_fu_284_ap_ready)) then 
-                    grp_aestest_fu_284_ap_start_ap_start_reg <= ap_const_logic_0;
+                if (((ap_ST_st4_fsm_3 = ap_CS_fsm) and (ap_ST_st5_fsm_4 = ap_NS_fsm))) then 
+                    grp_aestest_fu_167_ap_start_ap_start_reg <= ap_const_logic_1;
+                elsif ((ap_const_logic_1 = grp_aestest_fu_167_ap_ready)) then 
+                    grp_aestest_fu_167_ap_start_ap_start_reg <= ap_const_logic_0;
                 end if; 
             end if;
         end if;
@@ -768,7 +717,7 @@ begin
             if (ap_rst_n = '0') then
                 key_in_V_ap_vld_preg <= ap_const_logic_0;
             else
-                if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not((ap_const_lv1_0 = exitcond8_fu_347_p2)))) then 
+                if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not(((exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_sig_ioackin_ddr_V_ARREADY))) and not((exitcond_fu_262_p2 = ap_const_lv1_0)))) then 
                     key_in_V_ap_vld_preg <= ap_const_logic_0;
                 elsif ((not(((ap_ST_st1_fsm_0 = ap_CS_fsm) and (ap_const_logic_0 = ap_start))) and (ap_const_logic_1 = key_in_V_ap_vld))) then 
                     key_in_V_ap_vld_preg <= key_in_V_ap_vld;
@@ -800,7 +749,7 @@ begin
             if (ap_rst_n = '0') then
                 length_r_ap_vld_preg <= ap_const_logic_0;
             else
-                if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not((ap_const_lv1_0 = exitcond8_fu_347_p2)))) then 
+                if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not(((exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_sig_ioackin_ddr_V_ARREADY))) and not((exitcond_fu_262_p2 = ap_const_lv1_0)))) then 
                     length_r_ap_vld_preg <= ap_const_logic_0;
                 elsif ((not(((ap_ST_st1_fsm_0 = ap_CS_fsm) and (ap_const_logic_0 = ap_start))) and (ap_const_logic_1 = length_r_ap_vld))) then 
                     length_r_ap_vld_preg <= length_r_ap_vld;
@@ -832,7 +781,7 @@ begin
             if (ap_rst_n = '0') then
                 sourceAddress_ap_vld_preg <= ap_const_logic_0;
             else
-                if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not((ap_const_lv1_0 = exitcond8_fu_347_p2)))) then 
+                if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not(((exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_sig_ioackin_ddr_V_ARREADY))) and not((exitcond_fu_262_p2 = ap_const_lv1_0)))) then 
                     sourceAddress_ap_vld_preg <= ap_const_logic_0;
                 elsif (((ap_const_logic_1 = sourceAddress_ap_vld) and not(((ap_ST_st1_fsm_0 = ap_CS_fsm) and (ap_const_logic_0 = ap_start))))) then 
                     sourceAddress_ap_vld_preg <= sourceAddress_ap_vld;
@@ -857,110 +806,26 @@ begin
     end process;
 
 
-    -- data_V_reg_214 assign process. --
-    data_V_reg_214_assign_proc : process (ap_clk)
+    -- destinationAddressLocal1_reg_156 assign process. --
+    destinationAddressLocal1_reg_156_assign_proc : process (ap_clk)
     begin
         if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st5_fsm_4 = ap_CS_fsm) and not(((ap_const_lv1_0 = exitcond4_fu_412_p2) and (ap_const_logic_0 = ap_sig_ioackin_ddr_ARREADY))) and not((ap_const_lv1_0 = exitcond4_fu_412_p2)))) then 
-                data_V_reg_214 <= p_Val2_1_reg_237;
-            elsif (((ap_ST_st3_fsm_2 = ap_CS_fsm) and (ap_const_lv1_0 = exitcond8_fu_347_p2))) then 
-                data_V_reg_214 <= ap_const_lv128_lc_1;
-            end if; 
-        end if;
-    end process;
-
-    -- destinationAddressLocal1_reg_204 assign process. --
-    destinationAddressLocal1_reg_204_assign_proc : process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st28_fsm_27 = ap_CS_fsm) and not((ap_const_lv1_0 = exitcond_fu_481_p2)))) then 
-                destinationAddressLocal1_reg_204 <= destinationAddressLocal_1_fu_560_p2;
+            if (((ap_ST_st26_fsm_25 = ap_CS_fsm) and not((ddr_V_BVALID = ap_const_logic_0)))) then 
+                destinationAddressLocal1_reg_156 <= destinationAddressLocal_1_reg_367;
             elsif ((ap_ST_st2_fsm_1 = ap_CS_fsm)) then 
-                destinationAddressLocal1_reg_204 <= destinationAddress_assign_fu_140;
+                destinationAddressLocal1_reg_156 <= destinationAddressLocal_2_fu_253_p1;
             end if; 
         end if;
     end process;
 
-    -- i_1_reg_272 assign process. --
-    i_1_reg_272_assign_proc : process (ap_clk)
+    -- sourceAddressLocal1_reg_147 assign process. --
+    sourceAddressLocal1_reg_147_assign_proc : process (ap_clk)
     begin
         if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st30_fsm_29 = ap_CS_fsm) and not((ddr_BVALID = ap_const_logic_0)))) then 
-                i_1_reg_272 <= i_2_reg_661;
-            elsif ((ap_ST_st27_fsm_26 = ap_CS_fsm)) then 
-                i_1_reg_272 <= ap_const_lv5_0;
-            end if; 
-        end if;
-    end process;
-
-    -- i_reg_226 assign process. --
-    i_reg_226_assign_proc : process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st5_fsm_4 = ap_CS_fsm) and not(((ap_const_lv1_0 = exitcond4_fu_412_p2) and (ap_const_logic_0 = ap_sig_ioackin_ddr_ARREADY))) and not((ap_const_lv1_0 = exitcond4_fu_412_p2)))) then 
-                i_reg_226 <= i_3_reg_609;
-            elsif (((ap_ST_st3_fsm_2 = ap_CS_fsm) and (ap_const_lv1_0 = exitcond8_fu_347_p2))) then 
-                i_reg_226 <= ap_const_lv5_0;
-            end if; 
-        end if;
-    end process;
-
-    -- iterations_reg_183 assign process. --
-    iterations_reg_183_assign_proc : process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st28_fsm_27 = ap_CS_fsm) and not((ap_const_lv1_0 = exitcond_fu_481_p2)))) then 
-                iterations_reg_183 <= iterations_1_reg_601;
+            if (((ap_ST_st26_fsm_25 = ap_CS_fsm) and not((ddr_V_BVALID = ap_const_logic_0)))) then 
+                sourceAddressLocal1_reg_147 <= sourceAddressLocal_1_reg_347;
             elsif ((ap_ST_st2_fsm_1 = ap_CS_fsm)) then 
-                iterations_reg_183 <= ap_const_lv32_0;
-            end if; 
-        end if;
-    end process;
-
-    -- j_reg_249 assign process. --
-    j_reg_249_assign_proc : process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if ((ap_ST_st7_fsm_6 = ap_CS_fsm)) then 
-                j_reg_249 <= j_1_reg_628;
-            elsif (((ap_ST_st4_fsm_3 = ap_CS_fsm) and (exitcond3_fu_362_p2 = ap_const_lv1_0))) then 
-                j_reg_249 <= ap_const_lv4_0;
-            end if; 
-        end if;
-    end process;
-
-    -- mask_reg_260 assign process. --
-    mask_reg_260_assign_proc : process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if ((ap_ST_st7_fsm_6 = ap_CS_fsm)) then 
-                mask_reg_260 <= mask_2_fu_473_p1;
-            elsif (((ap_ST_st4_fsm_3 = ap_CS_fsm) and (exitcond3_fu_362_p2 = ap_const_lv1_0))) then 
-                mask_reg_260 <= ap_const_lv8_80;
-            end if; 
-        end if;
-    end process;
-
-    -- p_Val2_1_reg_237 assign process. --
-    p_Val2_1_reg_237_assign_proc : process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if ((ap_ST_st7_fsm_6 = ap_CS_fsm)) then 
-                p_Val2_1_reg_237 <= data_V_2_fu_455_p3;
-            elsif (((ap_ST_st4_fsm_3 = ap_CS_fsm) and (exitcond3_fu_362_p2 = ap_const_lv1_0))) then 
-                p_Val2_1_reg_237 <= data_V_reg_214;
-            end if; 
-        end if;
-    end process;
-
-    -- sourceAddressLocal1_reg_194 assign process. --
-    sourceAddressLocal1_reg_194_assign_proc : process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st28_fsm_27 = ap_CS_fsm) and not((ap_const_lv1_0 = exitcond_fu_481_p2)))) then 
-                sourceAddressLocal1_reg_194 <= sourceAddressLocal_1_fu_554_p2;
-            elsif ((ap_ST_st2_fsm_1 = ap_CS_fsm)) then 
-                sourceAddressLocal1_reg_194 <= sourceAddress_assign_fu_136;
+                sourceAddressLocal1_reg_147 <= sourceAddressLocal_2_fu_236_p1;
             end if; 
         end if;
     end process;
@@ -969,9 +834,8 @@ begin
     process (ap_clk)
     begin
         if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st28_fsm_27 = ap_CS_fsm) and (ap_const_lv1_0 = exitcond_fu_481_p2))) then
-                current_reg_666 <= current_fu_534_p1;
-                ddr_addr_1_reg_671 <= tmp_31_fu_544_p1(32 - 1 downto 0);
+            if (((ap_ST_st4_fsm_3 = ap_CS_fsm) and not((ddr_V_RVALID = ap_const_logic_0)))) then
+                data_V_reg_352 <= ddr_V_RDATA;
             end if;
         end if;
     end process;
@@ -980,8 +844,8 @@ begin
     process (ap_clk)
     begin
         if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st6_fsm_5 = ap_CS_fsm) and not((ddr_RVALID = ap_const_logic_0)))) then
-                ddr_addr_read_reg_638 <= ddr_RDATA;
+            if (((ap_ST_st25_fsm_24 = ap_CS_fsm) and not(((ap_const_logic_0 = ap_sig_ioackin_ddr_V_AWREADY) or (ap_const_logic_0 = ap_sig_ioackin_ddr_V_WREADY))))) then
+                destinationAddressLocal_1_reg_367 <= destinationAddressLocal_1_fu_295_p2;
             end if;
         end if;
     end process;
@@ -990,9 +854,9 @@ begin
     process (ap_clk)
     begin
         if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st4_fsm_3 = ap_CS_fsm) and (exitcond3_fu_362_p2 = ap_const_lv1_0))) then
-                ddr_addr_reg_614 <= tmp_26_fu_380_p1(32 - 1 downto 0);
-                tmp_28_reg_620 <= tmp_28_fu_402_p2;
+            if (((ap_ST_st1_fsm_0 = ap_CS_fsm) and not(ap_sig_bdd_250))) then
+                destinationAddress_assign_fu_104 <= destinationAddress_in_sig;
+                sourceAddress_assign_fu_100 <= sourceAddress_in_sig;
             end if;
         end if;
     end process;
@@ -1001,9 +865,8 @@ begin
     process (ap_clk)
     begin
         if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st1_fsm_0 = ap_CS_fsm) and not(ap_sig_bdd_254))) then
-                destinationAddress_assign_fu_140 <= destinationAddress_in_sig;
-                sourceAddress_assign_fu_136 <= sourceAddress_in_sig;
+            if ((ap_ST_st24_fsm_23 = ap_CS_fsm)) then
+                encrypted_data_V_reg_357 <= grp_aestest_fu_167_ap_return;
             end if;
         end if;
     end process;
@@ -1012,8 +875,8 @@ begin
     process (ap_clk)
     begin
         if (ap_clk'event and ap_clk = '1') then
-            if ((ap_ST_st27_fsm_26 = ap_CS_fsm)) then
-                encrypted_data_V_reg_653 <= grp_aestest_fu_284_ap_return;
+            if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and (exitcond_fu_262_p2 = ap_const_lv1_0) and not(((exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_sig_ioackin_ddr_V_ARREADY))))) then
+                sourceAddressLocal_1_reg_347 <= sourceAddressLocal_1_fu_278_p2;
             end if;
         end if;
     end process;
@@ -1022,58 +885,18 @@ begin
     process (ap_clk)
     begin
         if (ap_clk'event and ap_clk = '1') then
-            if ((ap_ST_st28_fsm_27 = ap_CS_fsm)) then
-                i_2_reg_661 <= i_2_fu_487_p2;
-            end if;
-        end if;
-    end process;
-
-    -- assign process. --
-    process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if ((ap_ST_st4_fsm_3 = ap_CS_fsm)) then
-                i_3_reg_609 <= i_3_fu_368_p2;
-            end if;
-        end if;
-    end process;
-
-    -- assign process. --
-    process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st5_fsm_4 = ap_CS_fsm) and (ap_const_lv1_0 = exitcond4_fu_412_p2) and not(((ap_const_lv1_0 = exitcond4_fu_412_p2) and (ap_const_logic_0 = ap_sig_ioackin_ddr_ARREADY))))) then
-                i_assign_reg_633 <= i_assign_fu_424_p2;
-            end if;
-        end if;
-    end process;
-
-    -- assign process. --
-    process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if ((ap_ST_st3_fsm_2 = ap_CS_fsm)) then
-                iterations_1_reg_601 <= iterations_1_fu_352_p2;
-            end if;
-        end if;
-    end process;
-
-    -- assign process. --
-    process (ap_clk)
-    begin
-        if (ap_clk'event and ap_clk = '1') then
-            if (((ap_ST_st5_fsm_4 = ap_CS_fsm) and not(((ap_const_lv1_0 = exitcond4_fu_412_p2) and (ap_const_logic_0 = ap_sig_ioackin_ddr_ARREADY))))) then
-                j_1_reg_628 <= j_1_fu_418_p2;
+            if ((ap_ST_st2_fsm_1 = ap_CS_fsm)) then
+                tmp_reg_333 <= tmp_fu_257_p2;
             end if;
         end if;
     end process;
 
     -- the next state (ap_NS_fsm) of the state machine. --
-    ap_NS_fsm_assign_proc : process (ap_CS_fsm , ddr_RVALID , ddr_BVALID , ap_sig_bdd_254 , exitcond3_fu_362_p2 , exitcond4_fu_412_p2 , ap_sig_ioackin_ddr_ARREADY , exitcond_fu_481_p2 , exitcond8_fu_347_p2 , ap_sig_ioackin_ddr_AWREADY , ap_sig_ioackin_ddr_WREADY)
+    ap_NS_fsm_assign_proc : process (ap_CS_fsm , ddr_V_RVALID , ddr_V_BVALID , ap_sig_bdd_250 , exitcond_fu_262_p2 , ap_sig_ioackin_ddr_V_ARREADY , ap_sig_ioackin_ddr_V_AWREADY , ap_sig_ioackin_ddr_V_WREADY)
     begin
         case ap_CS_fsm is
             when ap_ST_st1_fsm_0 => 
-                if (not(ap_sig_bdd_254)) then
+                if (not(ap_sig_bdd_250)) then
                     ap_NS_fsm <= ap_ST_st2_fsm_1;
                 else
                     ap_NS_fsm <= ap_ST_st1_fsm_0;
@@ -1081,33 +904,25 @@ begin
             when ap_ST_st2_fsm_1 => 
                 ap_NS_fsm <= ap_ST_st3_fsm_2;
             when ap_ST_st3_fsm_2 => 
-                if (not((ap_const_lv1_0 = exitcond8_fu_347_p2))) then
+                if ((not(((exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_sig_ioackin_ddr_V_ARREADY))) and not((exitcond_fu_262_p2 = ap_const_lv1_0)))) then
                     ap_NS_fsm <= ap_ST_st1_fsm_0;
-                else
+                elsif (((exitcond_fu_262_p2 = ap_const_lv1_0) and not(((exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_sig_ioackin_ddr_V_ARREADY))))) then
                     ap_NS_fsm <= ap_ST_st4_fsm_3;
+                else
+                    ap_NS_fsm <= ap_ST_st3_fsm_2;
                 end if;
             when ap_ST_st4_fsm_3 => 
-                if ((exitcond3_fu_362_p2 = ap_const_lv1_0)) then
+                if (not((ddr_V_RVALID = ap_const_logic_0))) then
                     ap_NS_fsm <= ap_ST_st5_fsm_4;
                 else
-                    ap_NS_fsm <= ap_ST_st8_fsm_7;
+                    ap_NS_fsm <= ap_ST_st4_fsm_3;
                 end if;
             when ap_ST_st5_fsm_4 => 
-                if (((ap_const_lv1_0 = exitcond4_fu_412_p2) and not(((ap_const_lv1_0 = exitcond4_fu_412_p2) and (ap_const_logic_0 = ap_sig_ioackin_ddr_ARREADY))))) then
-                    ap_NS_fsm <= ap_ST_st6_fsm_5;
-                elsif ((not(((ap_const_lv1_0 = exitcond4_fu_412_p2) and (ap_const_logic_0 = ap_sig_ioackin_ddr_ARREADY))) and not((ap_const_lv1_0 = exitcond4_fu_412_p2)))) then
-                    ap_NS_fsm <= ap_ST_st4_fsm_3;
-                else
-                    ap_NS_fsm <= ap_ST_st5_fsm_4;
-                end if;
+                ap_NS_fsm <= ap_ST_st6_fsm_5;
             when ap_ST_st6_fsm_5 => 
-                if (not((ddr_RVALID = ap_const_logic_0))) then
-                    ap_NS_fsm <= ap_ST_st7_fsm_6;
-                else
-                    ap_NS_fsm <= ap_ST_st6_fsm_5;
-                end if;
+                ap_NS_fsm <= ap_ST_st7_fsm_6;
             when ap_ST_st7_fsm_6 => 
-                ap_NS_fsm <= ap_ST_st5_fsm_4;
+                ap_NS_fsm <= ap_ST_st8_fsm_7;
             when ap_ST_st8_fsm_7 => 
                 ap_NS_fsm <= ap_ST_st9_fsm_8;
             when ap_ST_st9_fsm_8 => 
@@ -1143,42 +958,26 @@ begin
             when ap_ST_st24_fsm_23 => 
                 ap_NS_fsm <= ap_ST_st25_fsm_24;
             when ap_ST_st25_fsm_24 => 
-                ap_NS_fsm <= ap_ST_st26_fsm_25;
+                if (not(((ap_const_logic_0 = ap_sig_ioackin_ddr_V_AWREADY) or (ap_const_logic_0 = ap_sig_ioackin_ddr_V_WREADY)))) then
+                    ap_NS_fsm <= ap_ST_st26_fsm_25;
+                else
+                    ap_NS_fsm <= ap_ST_st25_fsm_24;
+                end if;
             when ap_ST_st26_fsm_25 => 
-                ap_NS_fsm <= ap_ST_st27_fsm_26;
-            when ap_ST_st27_fsm_26 => 
-                ap_NS_fsm <= ap_ST_st28_fsm_27;
-            when ap_ST_st28_fsm_27 => 
-                if (not((ap_const_lv1_0 = exitcond_fu_481_p2))) then
+                if (not((ddr_V_BVALID = ap_const_logic_0))) then
                     ap_NS_fsm <= ap_ST_st3_fsm_2;
                 else
-                    ap_NS_fsm <= ap_ST_st29_fsm_28;
-                end if;
-            when ap_ST_st29_fsm_28 => 
-                if (not(((ap_const_logic_0 = ap_sig_ioackin_ddr_AWREADY) or (ap_const_logic_0 = ap_sig_ioackin_ddr_WREADY)))) then
-                    ap_NS_fsm <= ap_ST_st30_fsm_29;
-                else
-                    ap_NS_fsm <= ap_ST_st29_fsm_28;
-                end if;
-            when ap_ST_st30_fsm_29 => 
-                if (not((ddr_BVALID = ap_const_logic_0))) then
-                    ap_NS_fsm <= ap_ST_st28_fsm_27;
-                else
-                    ap_NS_fsm <= ap_ST_st30_fsm_29;
+                    ap_NS_fsm <= ap_ST_st26_fsm_25;
                 end if;
             when others =>  
                 ap_NS_fsm <= "XXXXX";
         end case;
     end process;
-    Hi_assign_cast_fu_511_p1 <= std_logic_vector(resize(unsigned(Hi_assign_fu_505_p2),32));
-    Hi_assign_fu_505_p2 <= (tmp_29_fu_497_p3 xor ap_const_lv7_7F);
-    Lo_assign_cast_fu_521_p1 <= std_logic_vector(resize(unsigned(Lo_assign_fu_515_p2),32));
-    Lo_assign_fu_515_p2 <= std_logic_vector(unsigned(ap_const_lv7_78) - unsigned(tmp_29_fu_497_p3));
 
     -- ap_done assign process. --
-    ap_done_assign_proc : process(ap_CS_fsm, exitcond8_fu_347_p2)
+    ap_done_assign_proc : process(ap_CS_fsm, exitcond_fu_262_p2, ap_sig_ioackin_ddr_V_ARREADY)
     begin
-        if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not((ap_const_lv1_0 = exitcond8_fu_347_p2)))) then 
+        if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not(((exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_sig_ioackin_ddr_V_ARREADY))) and not((exitcond_fu_262_p2 = ap_const_lv1_0)))) then 
             ap_done <= ap_const_logic_1;
         else 
             ap_done <= ap_const_logic_0;
@@ -1198,9 +997,9 @@ begin
 
 
     -- ap_ready assign process. --
-    ap_ready_assign_proc : process(ap_CS_fsm, exitcond8_fu_347_p2)
+    ap_ready_assign_proc : process(ap_CS_fsm, exitcond_fu_262_p2, ap_sig_ioackin_ddr_V_ARREADY)
     begin
-        if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not((ap_const_lv1_0 = exitcond8_fu_347_p2)))) then 
+        if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and not(((exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_sig_ioackin_ddr_V_ARREADY))) and not((exitcond_fu_262_p2 = ap_const_lv1_0)))) then 
             ap_ready <= ap_const_logic_1;
         else 
             ap_ready <= ap_const_logic_0;
@@ -1209,139 +1008,137 @@ begin
 
     ap_return <= ap_const_lv1_1;
 
-    -- ap_sig_bdd_1830 assign process. --
-    ap_sig_bdd_1830_assign_proc : process(ap_CS_fsm, exitcond4_fu_412_p2)
+    -- ap_sig_bdd_1781 assign process. --
+    ap_sig_bdd_1781_assign_proc : process(ap_CS_fsm, exitcond_fu_262_p2)
     begin
-                ap_sig_bdd_1830 <= ((ap_ST_st5_fsm_4 = ap_CS_fsm) and (ap_const_lv1_0 = exitcond4_fu_412_p2));
+                ap_sig_bdd_1781 <= ((ap_ST_st3_fsm_2 = ap_CS_fsm) and (exitcond_fu_262_p2 = ap_const_lv1_0));
     end process;
 
 
-    -- ap_sig_bdd_254 assign process. --
-    ap_sig_bdd_254_assign_proc : process(ap_start, sourceAddress_ap_vld_in_sig, key_in_V_ap_vld_in_sig, destinationAddress_ap_vld_in_sig, length_r_ap_vld_in_sig)
+    -- ap_sig_bdd_250 assign process. --
+    ap_sig_bdd_250_assign_proc : process(ap_start, sourceAddress_ap_vld_in_sig, key_in_V_ap_vld_in_sig, destinationAddress_ap_vld_in_sig, length_r_ap_vld_in_sig)
     begin
-                ap_sig_bdd_254 <= ((length_r_ap_vld_in_sig = ap_const_logic_0) or (destinationAddress_ap_vld_in_sig = ap_const_logic_0) or (sourceAddress_ap_vld_in_sig = ap_const_logic_0) or (key_in_V_ap_vld_in_sig = ap_const_logic_0) or (ap_start = ap_const_logic_0));
+                ap_sig_bdd_250 <= ((length_r_ap_vld_in_sig = ap_const_logic_0) or (destinationAddress_ap_vld_in_sig = ap_const_logic_0) or (sourceAddress_ap_vld_in_sig = ap_const_logic_0) or (key_in_V_ap_vld_in_sig = ap_const_logic_0) or (ap_start = ap_const_logic_0));
     end process;
 
 
-    -- ap_sig_ioackin_ddr_ARREADY assign process. --
-    ap_sig_ioackin_ddr_ARREADY_assign_proc : process(ddr_ARREADY, ap_reg_ioackin_ddr_ARREADY)
+    -- ap_sig_ioackin_ddr_V_ARREADY assign process. --
+    ap_sig_ioackin_ddr_V_ARREADY_assign_proc : process(ddr_V_ARREADY, ap_reg_ioackin_ddr_V_ARREADY)
     begin
-        if ((ap_const_logic_0 = ap_reg_ioackin_ddr_ARREADY)) then 
-            ap_sig_ioackin_ddr_ARREADY <= ddr_ARREADY;
+        if ((ap_const_logic_0 = ap_reg_ioackin_ddr_V_ARREADY)) then 
+            ap_sig_ioackin_ddr_V_ARREADY <= ddr_V_ARREADY;
         else 
-            ap_sig_ioackin_ddr_ARREADY <= ap_const_logic_1;
+            ap_sig_ioackin_ddr_V_ARREADY <= ap_const_logic_1;
         end if; 
     end process;
 
 
-    -- ap_sig_ioackin_ddr_AWREADY assign process. --
-    ap_sig_ioackin_ddr_AWREADY_assign_proc : process(ddr_AWREADY, ap_reg_ioackin_ddr_AWREADY)
+    -- ap_sig_ioackin_ddr_V_AWREADY assign process. --
+    ap_sig_ioackin_ddr_V_AWREADY_assign_proc : process(ddr_V_AWREADY, ap_reg_ioackin_ddr_V_AWREADY)
     begin
-        if ((ap_const_logic_0 = ap_reg_ioackin_ddr_AWREADY)) then 
-            ap_sig_ioackin_ddr_AWREADY <= ddr_AWREADY;
+        if ((ap_const_logic_0 = ap_reg_ioackin_ddr_V_AWREADY)) then 
+            ap_sig_ioackin_ddr_V_AWREADY <= ddr_V_AWREADY;
         else 
-            ap_sig_ioackin_ddr_AWREADY <= ap_const_logic_1;
+            ap_sig_ioackin_ddr_V_AWREADY <= ap_const_logic_1;
         end if; 
     end process;
 
 
-    -- ap_sig_ioackin_ddr_WREADY assign process. --
-    ap_sig_ioackin_ddr_WREADY_assign_proc : process(ddr_WREADY, ap_reg_ioackin_ddr_WREADY)
+    -- ap_sig_ioackin_ddr_V_WREADY assign process. --
+    ap_sig_ioackin_ddr_V_WREADY_assign_proc : process(ddr_V_WREADY, ap_reg_ioackin_ddr_V_WREADY)
     begin
-        if ((ap_const_logic_0 = ap_reg_ioackin_ddr_WREADY)) then 
-            ap_sig_ioackin_ddr_WREADY <= ddr_WREADY;
+        if ((ap_const_logic_0 = ap_reg_ioackin_ddr_V_WREADY)) then 
+            ap_sig_ioackin_ddr_V_WREADY <= ddr_V_WREADY;
         else 
-            ap_sig_ioackin_ddr_WREADY <= ap_const_logic_1;
+            ap_sig_ioackin_ddr_V_WREADY <= ap_const_logic_1;
         end if; 
     end process;
 
-    current_fu_534_p1 <= p_Result_s_fu_525_p4(8 - 1 downto 0);
-    data_V_2_fu_455_p3 <= 
-        p_Val2_1_reg_237 when (tmp_33_fu_434_p2(0) = '1') else 
-        p_Result_2_fu_443_p5;
-    ddr_ARADDR <= ddr_addr_reg_614;
-    ddr_ARBURST <= ap_const_lv2_0;
-    ddr_ARCACHE <= ap_const_lv4_0;
-    ddr_ARID <= ap_const_lv1_0;
-    ddr_ARLEN <= ap_const_lv32_1;
-    ddr_ARLOCK <= ap_const_lv2_0;
-    ddr_ARPROT <= ap_const_lv3_0;
-    ddr_ARQOS <= ap_const_lv4_0;
-    ddr_ARREGION <= ap_const_lv4_0;
-    ddr_ARSIZE <= ap_const_lv3_0;
-    ddr_ARUSER <= ap_const_lv1_0;
+    ddr_V_ARADDR <= tmp_1_fu_267_p1(32 - 1 downto 0);
+    ddr_V_ARBURST <= ap_const_lv2_0;
+    ddr_V_ARCACHE <= ap_const_lv4_0;
+    ddr_V_ARID <= ap_const_lv1_0;
+    ddr_V_ARLEN <= ap_const_lv32_1;
+    ddr_V_ARLOCK <= ap_const_lv2_0;
+    ddr_V_ARPROT <= ap_const_lv3_0;
+    ddr_V_ARQOS <= ap_const_lv4_0;
+    ddr_V_ARREGION <= ap_const_lv4_0;
+    ddr_V_ARSIZE <= ap_const_lv3_0;
+    ddr_V_ARUSER <= ap_const_lv1_0;
 
-    -- ddr_ARVALID assign process. --
-    ddr_ARVALID_assign_proc : process(ap_CS_fsm, exitcond4_fu_412_p2, ap_reg_ioackin_ddr_ARREADY)
+    -- ddr_V_ARVALID assign process. --
+    ddr_V_ARVALID_assign_proc : process(ap_CS_fsm, exitcond_fu_262_p2, ap_reg_ioackin_ddr_V_ARREADY)
     begin
-        if (((ap_ST_st5_fsm_4 = ap_CS_fsm) and (ap_const_lv1_0 = exitcond4_fu_412_p2) and (ap_const_logic_0 = ap_reg_ioackin_ddr_ARREADY))) then 
-            ddr_ARVALID <= ap_const_logic_1;
+        if (((ap_ST_st3_fsm_2 = ap_CS_fsm) and (exitcond_fu_262_p2 = ap_const_lv1_0) and (ap_const_logic_0 = ap_reg_ioackin_ddr_V_ARREADY))) then 
+            ddr_V_ARVALID <= ap_const_logic_1;
         else 
-            ddr_ARVALID <= ap_const_logic_0;
+            ddr_V_ARVALID <= ap_const_logic_0;
         end if; 
     end process;
 
-    ddr_AWADDR <= ddr_addr_1_reg_671;
-    ddr_AWBURST <= ap_const_lv2_0;
-    ddr_AWCACHE <= ap_const_lv4_0;
-    ddr_AWID <= ap_const_lv1_0;
-    ddr_AWLEN <= ap_const_lv32_1;
-    ddr_AWLOCK <= ap_const_lv2_0;
-    ddr_AWPROT <= ap_const_lv3_0;
-    ddr_AWQOS <= ap_const_lv4_0;
-    ddr_AWREGION <= ap_const_lv4_0;
-    ddr_AWSIZE <= ap_const_lv3_0;
-    ddr_AWUSER <= ap_const_lv1_0;
+    ddr_V_AWADDR <= tmp_2_fu_284_p1(32 - 1 downto 0);
+    ddr_V_AWBURST <= ap_const_lv2_0;
+    ddr_V_AWCACHE <= ap_const_lv4_0;
+    ddr_V_AWID <= ap_const_lv1_0;
+    ddr_V_AWLEN <= ap_const_lv32_1;
+    ddr_V_AWLOCK <= ap_const_lv2_0;
+    ddr_V_AWPROT <= ap_const_lv3_0;
+    ddr_V_AWQOS <= ap_const_lv4_0;
+    ddr_V_AWREGION <= ap_const_lv4_0;
+    ddr_V_AWSIZE <= ap_const_lv3_0;
+    ddr_V_AWUSER <= ap_const_lv1_0;
 
-    -- ddr_AWVALID assign process. --
-    ddr_AWVALID_assign_proc : process(ap_CS_fsm, ap_reg_ioackin_ddr_AWREADY)
+    -- ddr_V_AWVALID assign process. --
+    ddr_V_AWVALID_assign_proc : process(ap_CS_fsm, ap_reg_ioackin_ddr_V_AWREADY)
     begin
-        if (((ap_ST_st29_fsm_28 = ap_CS_fsm) and (ap_const_logic_0 = ap_reg_ioackin_ddr_AWREADY))) then 
-            ddr_AWVALID <= ap_const_logic_1;
+        if (((ap_ST_st25_fsm_24 = ap_CS_fsm) and (ap_const_logic_0 = ap_reg_ioackin_ddr_V_AWREADY))) then 
+            ddr_V_AWVALID <= ap_const_logic_1;
         else 
-            ddr_AWVALID <= ap_const_logic_0;
+            ddr_V_AWVALID <= ap_const_logic_0;
         end if; 
     end process;
 
 
-    -- ddr_BREADY assign process. --
-    ddr_BREADY_assign_proc : process(ap_CS_fsm, ddr_BVALID)
+    -- ddr_V_BREADY assign process. --
+    ddr_V_BREADY_assign_proc : process(ap_CS_fsm, ddr_V_BVALID)
     begin
-        if (((ap_ST_st30_fsm_29 = ap_CS_fsm) and not((ddr_BVALID = ap_const_logic_0)))) then 
-            ddr_BREADY <= ap_const_logic_1;
+        if (((ap_ST_st26_fsm_25 = ap_CS_fsm) and not((ddr_V_BVALID = ap_const_logic_0)))) then 
+            ddr_V_BREADY <= ap_const_logic_1;
         else 
-            ddr_BREADY <= ap_const_logic_0;
+            ddr_V_BREADY <= ap_const_logic_0;
         end if; 
     end process;
 
 
-    -- ddr_RREADY assign process. --
-    ddr_RREADY_assign_proc : process(ap_CS_fsm, ddr_RVALID)
+    -- ddr_V_RREADY assign process. --
+    ddr_V_RREADY_assign_proc : process(ap_CS_fsm, ddr_V_RVALID)
     begin
-        if (((ap_ST_st6_fsm_5 = ap_CS_fsm) and not((ddr_RVALID = ap_const_logic_0)))) then 
-            ddr_RREADY <= ap_const_logic_1;
+        if (((ap_ST_st4_fsm_3 = ap_CS_fsm) and not((ddr_V_RVALID = ap_const_logic_0)))) then 
+            ddr_V_RREADY <= ap_const_logic_1;
         else 
-            ddr_RREADY <= ap_const_logic_0;
+            ddr_V_RREADY <= ap_const_logic_0;
         end if; 
     end process;
 
-    ddr_WDATA <= current_reg_666;
-    ddr_WID <= ap_const_lv1_0;
-    ddr_WLAST <= ap_const_logic_0;
-    ddr_WSTRB <= ap_const_lv1_1;
-    ddr_WUSER <= ap_const_lv1_0;
+    ddr_V_WDATA <= encrypted_data_V_reg_357;
+    ddr_V_WID <= ap_const_lv1_0;
+    ddr_V_WLAST <= ap_const_logic_0;
+    ddr_V_WSTRB <= ap_const_lv16_FFFF;
+    ddr_V_WUSER <= ap_const_lv1_0;
 
-    -- ddr_WVALID assign process. --
-    ddr_WVALID_assign_proc : process(ap_CS_fsm, ap_reg_ioackin_ddr_WREADY)
+    -- ddr_V_WVALID assign process. --
+    ddr_V_WVALID_assign_proc : process(ap_CS_fsm, ap_reg_ioackin_ddr_V_WREADY)
     begin
-        if (((ap_ST_st29_fsm_28 = ap_CS_fsm) and (ap_const_logic_0 = ap_reg_ioackin_ddr_WREADY))) then 
-            ddr_WVALID <= ap_const_logic_1;
+        if (((ap_ST_st25_fsm_24 = ap_CS_fsm) and (ap_const_logic_0 = ap_reg_ioackin_ddr_V_WREADY))) then 
+            ddr_V_WVALID <= ap_const_logic_1;
         else 
-            ddr_WVALID <= ap_const_logic_0;
+            ddr_V_WVALID <= ap_const_logic_0;
         end if; 
     end process;
 
-    destinationAddressLocal_1_fu_560_p2 <= std_logic_vector(unsigned(destinationAddressLocal1_reg_204) + unsigned(ap_const_lv32_10));
+    destinationAddressLocal_1_fu_295_p2 <= std_logic_vector(unsigned(destinationAddressLocal1_reg_156) + unsigned(ap_const_lv32_1));
+    destinationAddressLocal_2_fu_253_p1 <= std_logic_vector(resize(unsigned(destinationAddressLocal_fu_243_p4),32));
+    destinationAddressLocal_fu_243_p4 <= destinationAddress_assign_fu_104(31 downto 4);
 
     -- destinationAddress_ap_vld_in_sig assign process. --
     destinationAddress_ap_vld_in_sig_assign_proc : process(destinationAddress_ap_vld, destinationAddress_ap_vld_preg)
@@ -1364,30 +1161,18 @@ begin
         end if; 
     end process;
 
-    exitcond3_fu_362_p2 <= "1" when (i_reg_226 = ap_const_lv5_10) else "0";
-    exitcond4_fu_412_p2 <= "1" when (j_reg_249 = ap_const_lv4_8) else "0";
-    exitcond8_fu_347_p2 <= "1" when (iterations_reg_183 = length_r_in_sig) else "0";
-    exitcond_fu_481_p2 <= "1" when (i_1_reg_272 = ap_const_lv5_10) else "0";
-    grp_aestest_fu_284_ap_ce <= ap_const_logic_1;
+    exitcond_fu_262_p2 <= "1" when (sourceAddressLocal1_reg_147 = tmp_reg_333) else "0";
+    grp_aestest_fu_167_ap_ce <= ap_const_logic_1;
 
-    -- grp_aestest_fu_284_ap_rst assign process. --
-    grp_aestest_fu_284_ap_rst_assign_proc : process(ap_rst_n)
+    -- grp_aestest_fu_167_ap_rst assign process. --
+    grp_aestest_fu_167_ap_rst_assign_proc : process(ap_rst_n)
     begin
-                grp_aestest_fu_284_ap_rst <= not(ap_rst_n);
+                grp_aestest_fu_167_ap_rst <= not(ap_rst_n);
     end process;
 
-    grp_aestest_fu_284_ap_start <= grp_aestest_fu_284_ap_start_ap_start_reg;
-    grp_aestest_fu_284_inptext_V_read <= data_V_reg_214;
-    grp_aestest_fu_284_key_V_read <= key_in_V_in_sig;
-    i_1_cast2_fu_477_p1 <= std_logic_vector(resize(unsigned(i_1_reg_272),32));
-    i_2_fu_487_p2 <= std_logic_vector(unsigned(i_1_reg_272) + unsigned(ap_const_lv5_1));
-    i_3_fu_368_p2 <= std_logic_vector(unsigned(i_reg_226) + unsigned(ap_const_lv5_1));
-    i_assign_cast_fu_440_p1 <= std_logic_vector(resize(unsigned(i_assign_reg_633),32));
-    i_assign_fu_424_p2 <= std_logic_vector(unsigned(tmp_28_reg_620) - unsigned(j_cast3_fu_408_p1));
-    i_cast5_fu_358_p1 <= std_logic_vector(resize(unsigned(i_reg_226),32));
-    iterations_1_fu_352_p2 <= std_logic_vector(unsigned(iterations_reg_183) + unsigned(ap_const_lv32_1));
-    j_1_fu_418_p2 <= std_logic_vector(unsigned(j_reg_249) + unsigned(ap_const_lv4_1));
-    j_cast3_fu_408_p1 <= std_logic_vector(resize(unsigned(j_reg_249),7));
+    grp_aestest_fu_167_ap_start <= grp_aestest_fu_167_ap_start_ap_start_reg;
+    grp_aestest_fu_167_inptext_V_read <= data_V_reg_352;
+    grp_aestest_fu_167_key_V_read <= key_in_V_in_sig;
 
     -- key_in_V_ap_vld_in_sig assign process. --
     key_in_V_ap_vld_in_sig_assign_proc : process(key_in_V_ap_vld, key_in_V_ap_vld_preg)
@@ -1432,87 +1217,9 @@ begin
         end if; 
     end process;
 
-    mask_1_fu_463_p4 <= mask_reg_260(7 downto 1);
-    mask_2_fu_473_p1 <= std_logic_vector(resize(unsigned(mask_1_fu_463_p4),8));
-    
-    p_Result_2_fu_443_p5_proc : process(p_Val2_1_reg_237, i_assign_cast_fu_440_p1)
-    variable vlo_cpy : STD_LOGIC_VECTOR(128+32-1 downto 0);
-    variable vhi_cpy : STD_LOGIC_VECTOR(128+32-1 downto 0);
-    variable v1_shift : STD_LOGIC_VECTOR(128-1 downto 0);
-    variable tmp : STD_LOGIC_VECTOR(128-1 downto 0);
-    variable v1_reverse : boolean;
-    variable v1_cpy : STD_LOGIC_VECTOR(128+32-1 downto 0);
-    variable p_Result_2_fu_443_p5_i : integer;
-    variable tmp_v1, tmp_mask_low, tmp_mask_hi : STD_LOGIC_VECTOR(128-1 downto 0);
-    variable res_v1, res_mask, res_mask_low, res_mask_hi : STD_LOGIC_VECTOR(128- 1 downto 0);
-    begin
-        vlo_cpy := (others => '0');
-        vlo_cpy(7-1 downto 0) := i_assign_cast_fu_440_p1(7-1 downto 0);
-        vhi_cpy := (others => '0');
-        vhi_cpy(7-1 downto 0) := i_assign_cast_fu_440_p1(7-1 downto 0);
-        v1_shift := (others => '0');
-        v1_shift(7-1 downto 0) := vlo_cpy(7-1 downto 0);
-        v1_reverse := false;
-        if (vlo_cpy > vhi_cpy) then
-            v1_shift(7-1 downto 0) := std_logic_vector(128-1 -unsigned(vlo_cpy(7-1 downto 0)));
-            v1_reverse := true;
-            tmp := (others => '0');
-            tmp(7- 1 downto 0) := vhi_cpy(7-1 downto 0);
-            vhi_cpy(7-1 downto 0) := i_assign_cast_fu_440_p1(7-1 downto 0);
-            vlo_cpy(7-1 downto 0) := tmp(7-1 downto 0);
-        end if;
-        v1_cpy := (others => '0');
-        v1_cpy(32-1 downto 0) := ap_const_lv32_1;
-        tmp_mask_low := (others => '1');
-        res_mask_low := std_logic_vector(shift_left(unsigned(tmp_mask_low),to_integer(unsigned('0' & vlo_cpy(31-1 downto 0)))));
-        tmp_mask_hi := (others => '1');
-        res_mask_hi := std_logic_vector(shift_left(unsigned(tmp_mask_hi),to_integer(unsigned('0' & vhi_cpy(31-1 downto 0)))));
-        res_mask := (res_mask_hi(128-2 downto 0) & '0') or not res_mask_low;
-        tmp_v1 := std_logic_vector(shift_left(unsigned(v1_cpy(128-1 downto 0)),to_integer(unsigned('0' & v1_shift(31-1 downto 0)))));
-        if v1_reverse then
-            for p_Result_2_fu_443_p5_i in 0 to 128-1 loop
-                res_v1(p_Result_2_fu_443_p5_i) := tmp_v1(128-1-p_Result_2_fu_443_p5_i);
-            end loop;
-        else
-            res_v1 := tmp_v1;
-        end if;
-        p_Result_2_fu_443_p5 <= ((p_Val2_1_reg_237 and res_mask) or (res_v1 and not res_mask));
-    end process;
-
-    
-    p_Result_s_fu_525_p4_proc : process(encrypted_data_V_reg_653, Lo_assign_cast_fu_521_p1, Hi_assign_cast_fu_511_p1)
-    variable vlo_cpy : STD_LOGIC_VECTOR(128+32 - 1 downto 0);
-    variable vhi_cpy : STD_LOGIC_VECTOR(128+32 - 1 downto 0);
-    variable v0_cpy : STD_LOGIC_VECTOR(128 - 1 downto 0);
-    variable p_Result_s_fu_525_p4_i : integer;
-    variable section : STD_LOGIC_VECTOR(128 - 1 downto 0);
-    variable tmp_mask : STD_LOGIC_VECTOR(128 - 1 downto 0);
-    variable resvalue, res_value, res_mask : STD_LOGIC_VECTOR(128 - 1 downto 0);
-    begin
-        vlo_cpy := (others => '0');
-        vlo_cpy(7 - 1 downto 0) := Lo_assign_cast_fu_521_p1(7 - 1 downto 0);
-        vhi_cpy := (others => '0');
-        vhi_cpy(7 - 1 downto 0) := Hi_assign_cast_fu_511_p1(7 - 1 downto 0);
-        v0_cpy := encrypted_data_V_reg_653;
-        if (vlo_cpy(7 - 1 downto 0) > vhi_cpy(7 - 1 downto 0)) then
-            vhi_cpy(7-1 downto 0) := std_logic_vector(128-1-unsigned(Hi_assign_cast_fu_511_p1(7-1 downto 0)));
-            vlo_cpy(7-1 downto 0) := std_logic_vector(128-1-unsigned(Lo_assign_cast_fu_521_p1(7-1 downto 0)));
-            for p_Result_s_fu_525_p4_i in 0 to 128-1 loop
-                v0_cpy(p_Result_s_fu_525_p4_i) := encrypted_data_V_reg_653(128-1-p_Result_s_fu_525_p4_i);
-            end loop;
-        end if;
-        res_value := std_logic_vector(shift_right(unsigned(v0_cpy),to_integer(unsigned('0' & vlo_cpy(7-1 downto 0)))));
-
-        section := (others=>'0');
-        section(7-1 downto 0) := std_logic_vector(unsigned(vhi_cpy(7-1 downto 0)) - unsigned(vlo_cpy(7-1 downto 0)));
-        tmp_mask := (others => '1');
-        res_mask := std_logic_vector(shift_left(unsigned(tmp_mask),to_integer(unsigned('0' & section(31-1 downto 0)))));
-        res_mask := res_mask(128-2 downto 0) & '0';
-        resvalue := res_value and not res_mask;
-        p_Result_s_fu_525_p4 <= resvalue(128-1 downto 0);
-    end process;
-
-    sourceAddressLocal_1_fu_554_p2 <= std_logic_vector(unsigned(sourceAddressLocal1_reg_194) + unsigned(ap_const_lv32_10));
+    sourceAddressLocal_1_fu_278_p2 <= std_logic_vector(unsigned(sourceAddressLocal1_reg_147) + unsigned(ap_const_lv32_1));
+    sourceAddressLocal_2_fu_236_p1 <= std_logic_vector(resize(unsigned(sourceAddressLocal_fu_226_p4),32));
+    sourceAddressLocal_fu_226_p4 <= sourceAddress_assign_fu_100(31 downto 4);
 
     -- sourceAddress_ap_vld_in_sig assign process. --
     sourceAddress_ap_vld_in_sig_assign_proc : process(sourceAddress_ap_vld, sourceAddress_ap_vld_preg)
@@ -1535,15 +1242,7 @@ begin
         end if; 
     end process;
 
-    tmp_26_fu_380_p1 <= std_logic_vector(resize(unsigned(tmp_s_fu_374_p2),64));
-    tmp_27_fu_394_p3 <= (tmp_fu_390_p1 & ap_const_lv3_0);
-    tmp_28_fu_402_p2 <= (tmp_27_fu_394_p3 xor ap_const_lv7_7F);
-    tmp_29_fu_497_p3 <= (tmp_325_fu_493_p1 & ap_const_lv3_0);
-    tmp_30_fu_538_p2 <= std_logic_vector(unsigned(i_1_cast2_fu_477_p1) + unsigned(destinationAddressLocal1_reg_204));
-    tmp_31_fu_544_p1 <= std_logic_vector(resize(unsigned(tmp_30_fu_538_p2),64));
-    tmp_325_fu_493_p1 <= i_1_reg_272(4 - 1 downto 0);
-    tmp_32_fu_429_p2 <= (ddr_addr_read_reg_638 and mask_reg_260);
-    tmp_33_fu_434_p2 <= "1" when (tmp_32_fu_429_p2 = ap_const_lv8_0) else "0";
-    tmp_fu_390_p1 <= i_reg_226(4 - 1 downto 0);
-    tmp_s_fu_374_p2 <= std_logic_vector(unsigned(i_cast5_fu_358_p1) + unsigned(sourceAddressLocal1_reg_194));
+    tmp_1_fu_267_p1 <= std_logic_vector(resize(unsigned(sourceAddressLocal1_reg_147),64));
+    tmp_2_fu_284_p1 <= std_logic_vector(resize(unsigned(destinationAddressLocal1_reg_156),64));
+    tmp_fu_257_p2 <= std_logic_vector(unsigned(sourceAddressLocal_2_fu_236_p1) + unsigned(length_r_in_sig));
 end behav;

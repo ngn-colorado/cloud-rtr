@@ -335,12 +335,6 @@ void aestest::thread_ap_clk_no_reset_() {
         ap_reg_ppstg_tmp_69_6_reg_14239_pp0_it15 = ap_reg_ppstg_tmp_69_6_reg_14239_pp0_it14.read();
         ap_reg_ppstg_tmp_69_6_reg_14239_pp0_it16 = ap_reg_ppstg_tmp_69_6_reg_14239_pp0_it15.read();
         ap_reg_ppstg_tmp_69_8_reg_14892_pp0_it18 = tmp_69_8_reg_14892.read();
-        ap_reg_ppstg_tmp_6_reg_12187_pp0_it1 = tmp_6_reg_12187.read();
-        ap_reg_ppstg_tmp_6_reg_12187_pp0_it2 = ap_reg_ppstg_tmp_6_reg_12187_pp0_it1.read();
-        ap_reg_ppstg_tmp_6_reg_12187_pp0_it3 = ap_reg_ppstg_tmp_6_reg_12187_pp0_it2.read();
-        ap_reg_ppstg_tmp_6_reg_12187_pp0_it4 = ap_reg_ppstg_tmp_6_reg_12187_pp0_it3.read();
-        ap_reg_ppstg_tmp_6_reg_12187_pp0_it5 = ap_reg_ppstg_tmp_6_reg_12187_pp0_it4.read();
-        ap_reg_ppstg_tmp_6_reg_12187_pp0_it6 = ap_reg_ppstg_tmp_6_reg_12187_pp0_it5.read();
         ap_reg_ppstg_tmp_70_2_reg_13035_pp0_it6 = tmp_70_2_reg_13035.read();
         ap_reg_ppstg_tmp_70_2_reg_13035_pp0_it7 = ap_reg_ppstg_tmp_70_2_reg_13035_pp0_it6.read();
         ap_reg_ppstg_tmp_70_4_reg_13579_pp0_it10 = ap_reg_ppstg_tmp_70_4_reg_13579_pp0_it9.read();
@@ -398,6 +392,12 @@ void aestest::thread_ap_clk_no_reset_() {
         ap_reg_ppstg_tmp_74_7_reg_14559_pp0_it16 = tmp_74_7_reg_14559.read();
         ap_reg_ppstg_tmp_74_7_reg_14559_pp0_it17 = ap_reg_ppstg_tmp_74_7_reg_14559_pp0_it16.read();
         ap_reg_ppstg_tmp_74_7_reg_14559_pp0_it18 = ap_reg_ppstg_tmp_74_7_reg_14559_pp0_it17.read();
+        ap_reg_ppstg_tmp_8_reg_12187_pp0_it1 = tmp_8_reg_12187.read();
+        ap_reg_ppstg_tmp_8_reg_12187_pp0_it2 = ap_reg_ppstg_tmp_8_reg_12187_pp0_it1.read();
+        ap_reg_ppstg_tmp_8_reg_12187_pp0_it3 = ap_reg_ppstg_tmp_8_reg_12187_pp0_it2.read();
+        ap_reg_ppstg_tmp_8_reg_12187_pp0_it4 = ap_reg_ppstg_tmp_8_reg_12187_pp0_it3.read();
+        ap_reg_ppstg_tmp_8_reg_12187_pp0_it5 = ap_reg_ppstg_tmp_8_reg_12187_pp0_it4.read();
+        ap_reg_ppstg_tmp_8_reg_12187_pp0_it6 = ap_reg_ppstg_tmp_8_reg_12187_pp0_it5.read();
     }
     if ((esl_seteq<1,1,1>(ap_ST_pp0_stg0_fsm_0, ap_CS_fsm.read()) && esl_seteq<1,1,1>(ap_const_logic_1, ap_reg_ppiten_pp0_it0.read()) && !(esl_seteq<1,1,1>(ap_const_logic_1, ap_reg_ppiten_pp0_it0.read()) && esl_seteq<1,1,1>(ap_start.read(), ap_const_logic_0)) && esl_seteq<1,1,1>(ap_const_logic_1, ap_ce.read()))) {
         p_Result_1_10_reg_12161 = key_V_read.read().range(39, 32);
@@ -414,7 +414,7 @@ void aestest::thread_ap_clk_no_reset_() {
         p_Result_1_8_reg_12146 = key_V_read.read().range(63, 56);
         p_Result_1_9_reg_12151 = key_V_read.read().range(55, 48);
         p_Result_1_s_reg_12156 = key_V_read.read().range(47, 40);
-        tmp_6_reg_12187 = tmp_6_fu_2681_p1.read();
+        tmp_8_reg_12187 = tmp_8_fu_2681_p1.read();
         tmp_reg_12294 = tmp_fu_2881_p2.read();
     }
     if ((esl_seteq<1,1,1>(ap_ST_pp0_stg0_fsm_0, ap_CS_fsm.read()) && esl_seteq<1,1,1>(ap_const_logic_1, ap_reg_ppiten_pp0_it1.read()) && !(esl_seteq<1,1,1>(ap_const_logic_1, ap_reg_ppiten_pp0_it0.read()) && esl_seteq<1,1,1>(ap_start.read(), ap_const_logic_0)) && esl_seteq<1,1,1>(ap_const_logic_1, ap_ce.read()))) {

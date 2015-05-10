@@ -39302,7 +39302,7 @@ typedef hls::stream<uint128_t> mem_stream;
 #endif
 #define aes(...) AESL_ORIG_DUT_aes(__VA_ARGS__)
 #59 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
-bool aes(volatile unsigned char ddr[0x1FFFFFFF], volatile unsigned sourceAddress, ap_uint<128>* key_in,
+bool aes(volatile ap_uint<128> ddr[0x2000000], volatile unsigned sourceAddress, ap_uint<128>* key_in,
   volatile unsigned destinationAddress, unsigned int length){
 #pragma HLS INTERFACE m_axi port=ddr
 
@@ -39330,42 +39330,25 @@ bool aes(volatile unsigned char ddr[0x1FFFFFFF], volatile unsigned sourceAddress
 
  int i, j, iterations = length;
  unsigned char mask;
- unsigned sourceAddressLocal = sourceAddress;
- unsigned destinationAddressLocal = destinationAddress;
+ unsigned sourceAddressLocal = sourceAddress/0x10;
+
+ unsigned destinationAddressLocal = destinationAddress/0x10;
 
  ap_uint<128> key_local = *key_in;
-#122 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
+#123 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
  ap_uint<128> encrypted_data;
  for(iterations = 0; iterations<length; iterations++){
-  ap_uint<128> data(0);
-
-  for(i = 0; i<16; i++){
-   mask = 128;
-   for(j=0; j<8; j++){
-    if(ddr[sourceAddressLocal + i] & mask){
-     data.set((127 - 8*i) - j);
-    }
-    mask = mask >> 1;
-   }
-  }
-
-
-
+  ap_uint<128> data = ddr[sourceAddressLocal];
+#140 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
   aestest(&data, &key_local, &encrypted_data);
 
-  char current = 0;
-  for(i=0; i < 16; i++)
-  {
-   current = encrypted_data.range(127-i*8, (120)-i*8);
-   ddr[destinationAddressLocal + i] = current;
-  }
-
-
-  sourceAddressLocal += 16;
-  destinationAddressLocal += 16;
+  ddr[destinationAddressLocal] = encrypted_data;
+#151 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
+  sourceAddressLocal += 1;
+  destinationAddressLocal += 1;
  }
  return true;
 }
 #undef aes
 
-#152 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"
+#155 "/Xilinx/xilinx_workspace/aes_runner/source/aes_runner.cpp"

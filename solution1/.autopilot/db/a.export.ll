@@ -2,6 +2,13 @@
 target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v64:64:64-v128:128:128-a0:0:64-s0:64:64-f80:128:128-n8:16:32:64-S128"
 target triple = "x86_64-unknown-linux-gnu"
 
+@p_str = private unnamed_addr constant [6 x i8] c"m_axi\00", align 1
+@p_str1 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@p_str2 = private unnamed_addr constant [10 x i8] c"s_axilite\00", align 1
+@p_str3 = private unnamed_addr constant [11 x i8] c"ap_ctrl_hs\00", align 1
+@p_str4 = private unnamed_addr constant [7 x i8] c"ap_vld\00", align 1
+@llvm_global_ctors_0 = appending global [2 x i32] [i32 65535, i32 65535]
+@llvm_global_ctors_1 = appending global [2 x void ()*] [void ()* @_GLOBAL__I_a, void ()* @_GLOBAL__I_a18]
 @sboxes_0 = internal unnamed_addr constant [256 x i8] c"c|w{\F2ko\C50\01g+\FE\D7\ABv\CA\82\C9}\FAYG\F0\AD\D4\A2\AF\9C\A4r\C0\B7\FD\93&6?\F7\CC4\A5\E5\F1q\D81\15\04\C7#\C3\18\96\05\9A\07\12\80\E2\EB'\B2u\09\83,\1A\1BnZ\A0R;\D6\B3)\E3/\84S\D1\00\ED \FC\B1[j\CB\BE9JLX\CF\D0\EF\AA\FBCM3\85E\F9\02\7FP<\9F\A8Q\A3@\8F\92\9D8\F5\BC\B6\DA!\10\FF\F3\D2\CD\0C\13\EC_\97D\17\C4\A7~=d]\19s`\81O\DC\22*\90\88F\EE\B8\14\DE^\0B\DB\E02:\0AI\06$\5C\C2\D3\ACb\91\95\E4y\E7\C87m\8D\D5N\A9lV\F4\EAez\AE\08\BAx%.\1C\A6\B4\C6\E8\DDt\1FK\BD\8B\8Ap>\B5fH\03\F6\0Ea5W\B9\86\C1\1D\9E\E1\F8\98\11i\D9\8E\94\9B\1E\87\E9\CEU(\DF\8C\A1\89\0D\BF\E6BhA\99-\0F\B0T\BB\16"
 @sboxes_1 = internal unnamed_addr constant [256 x i8] c"c|w{\F2ko\C50\01g+\FE\D7\ABv\CA\82\C9}\FAYG\F0\AD\D4\A2\AF\9C\A4r\C0\B7\FD\93&6?\F7\CC4\A5\E5\F1q\D81\15\04\C7#\C3\18\96\05\9A\07\12\80\E2\EB'\B2u\09\83,\1A\1BnZ\A0R;\D6\B3)\E3/\84S\D1\00\ED \FC\B1[j\CB\BE9JLX\CF\D0\EF\AA\FBCM3\85E\F9\02\7FP<\9F\A8Q\A3@\8F\92\9D8\F5\BC\B6\DA!\10\FF\F3\D2\CD\0C\13\EC_\97D\17\C4\A7~=d]\19s`\81O\DC\22*\90\88F\EE\B8\14\DE^\0B\DB\E02:\0AI\06$\5C\C2\D3\ACb\91\95\E4y\E7\C87m\8D\D5N\A9lV\F4\EAez\AE\08\BAx%.\1C\A6\B4\C6\E8\DDt\1FK\BD\8B\8Ap>\B5fH\03\F6\0Ea5W\B9\86\C1\1D\9E\E1\F8\98\11i\D9\8E\94\9B\1E\87\E9\CEU(\DF\8C\A1\89\0D\BF\E6BhA\99-\0F\B0T\BB\16"
 @sboxes_2 = internal unnamed_addr constant [256 x i8] c"c|w{\F2ko\C50\01g+\FE\D7\ABv\CA\82\C9}\FAYG\F0\AD\D4\A2\AF\9C\A4r\C0\B7\FD\93&6?\F7\CC4\A5\E5\F1q\D81\15\04\C7#\C3\18\96\05\9A\07\12\80\E2\EB'\B2u\09\83,\1A\1BnZ\A0R;\D6\B3)\E3/\84S\D1\00\ED \FC\B1[j\CB\BE9JLX\CF\D0\EF\AA\FBCM3\85E\F9\02\7FP<\9F\A8Q\A3@\8F\92\9D8\F5\BC\B6\DA!\10\FF\F3\D2\CD\0C\13\EC_\97D\17\C4\A7~=d]\19s`\81O\DC\22*\90\88F\EE\B8\14\DE^\0B\DB\E02:\0AI\06$\5C\C2\D3\ACb\91\95\E4y\E7\C87m\8D\D5N\A9lV\F4\EAez\AE\08\BAx%.\1C\A6\B4\C6\E8\DDt\1FK\BD\8B\8Ap>\B5fH\03\F6\0Ea5W\B9\86\C1\1D\9E\E1\F8\98\11i\D9\8E\94\9B\1E\87\E9\CEU(\DF\8C\A1\89\0D\BF\E6BhA\99-\0F\B0T\BB\16"
@@ -22,24 +29,22 @@ target triple = "x86_64-unknown-linux-gnu"
 @sboxes_17 = internal unnamed_addr constant [256 x i8] c"c|w{\F2ko\C50\01g+\FE\D7\ABv\CA\82\C9}\FAYG\F0\AD\D4\A2\AF\9C\A4r\C0\B7\FD\93&6?\F7\CC4\A5\E5\F1q\D81\15\04\C7#\C3\18\96\05\9A\07\12\80\E2\EB'\B2u\09\83,\1A\1BnZ\A0R;\D6\B3)\E3/\84S\D1\00\ED \FC\B1[j\CB\BE9JLX\CF\D0\EF\AA\FBCM3\85E\F9\02\7FP<\9F\A8Q\A3@\8F\92\9D8\F5\BC\B6\DA!\10\FF\F3\D2\CD\0C\13\EC_\97D\17\C4\A7~=d]\19s`\81O\DC\22*\90\88F\EE\B8\14\DE^\0B\DB\E02:\0AI\06$\5C\C2\D3\ACb\91\95\E4y\E7\C87m\8D\D5N\A9lV\F4\EAez\AE\08\BAx%.\1C\A6\B4\C6\E8\DDt\1FK\BD\8B\8Ap>\B5fH\03\F6\0Ea5W\B9\86\C1\1D\9E\E1\F8\98\11i\D9\8E\94\9B\1E\87\E9\CEU(\DF\8C\A1\89\0D\BF\E6BhA\99-\0F\B0T\BB\16"
 @sboxes_18 = internal unnamed_addr constant [256 x i8] c"c|w{\F2ko\C50\01g+\FE\D7\ABv\CA\82\C9}\FAYG\F0\AD\D4\A2\AF\9C\A4r\C0\B7\FD\93&6?\F7\CC4\A5\E5\F1q\D81\15\04\C7#\C3\18\96\05\9A\07\12\80\E2\EB'\B2u\09\83,\1A\1BnZ\A0R;\D6\B3)\E3/\84S\D1\00\ED \FC\B1[j\CB\BE9JLX\CF\D0\EF\AA\FBCM3\85E\F9\02\7FP<\9F\A8Q\A3@\8F\92\9D8\F5\BC\B6\DA!\10\FF\F3\D2\CD\0C\13\EC_\97D\17\C4\A7~=d]\19s`\81O\DC\22*\90\88F\EE\B8\14\DE^\0B\DB\E02:\0AI\06$\5C\C2\D3\ACb\91\95\E4y\E7\C87m\8D\D5N\A9lV\F4\EAez\AE\08\BAx%.\1C\A6\B4\C6\E8\DDt\1FK\BD\8B\8Ap>\B5fH\03\F6\0Ea5W\B9\86\C1\1D\9E\E1\F8\98\11i\D9\8E\94\9B\1E\87\E9\CEU(\DF\8C\A1\89\0D\BF\E6BhA\99-\0F\B0T\BB\16"
 @sboxes_19 = internal unnamed_addr constant [256 x i8] c"c|w{\F2ko\C50\01g+\FE\D7\ABv\CA\82\C9}\FAYG\F0\AD\D4\A2\AF\9C\A4r\C0\B7\FD\93&6?\F7\CC4\A5\E5\F1q\D81\15\04\C7#\C3\18\96\05\9A\07\12\80\E2\EB'\B2u\09\83,\1A\1BnZ\A0R;\D6\B3)\E3/\84S\D1\00\ED \FC\B1[j\CB\BE9JLX\CF\D0\EF\AA\FBCM3\85E\F9\02\7FP<\9F\A8Q\A3@\8F\92\9D8\F5\BC\B6\DA!\10\FF\F3\D2\CD\0C\13\EC_\97D\17\C4\A7~=d]\19s`\81O\DC\22*\90\88F\EE\B8\14\DE^\0B\DB\E02:\0AI\06$\5C\C2\D3\ACb\91\95\E4y\E7\C87m\8D\D5N\A9lV\F4\EAez\AE\08\BAx%.\1C\A6\B4\C6\E8\DDt\1FK\BD\8B\8Ap>\B5fH\03\F6\0Ea5W\B9\86\C1\1D\9E\E1\F8\98\11i\D9\8E\94\9B\1E\87\E9\CEU(\DF\8C\A1\89\0D\BF\E6BhA\99-\0F\B0T\BB\16"
-@p_str1 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
-@llvm_global_ctors_0 = appending global [2 x i32] [i32 65535, i32 65535]
-@llvm_global_ctors_1 = appending global [2 x void ()*] [void ()* @_GLOBAL__I_a, void ()* @_GLOBAL__I_a14]
-@p_str5 = private unnamed_addr constant [6 x i8] c"m_axi\00", align 1
-@p_str16 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
-@p_str27 = private unnamed_addr constant [10 x i8] c"s_axilite\00", align 1
-@p_str38 = private unnamed_addr constant [11 x i8] c"ap_ctrl_hs\00", align 1
-@p_str49 = private unnamed_addr constant [7 x i8] c"ap_vld\00", align 1
+@p_str19 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
 @str = internal constant [4 x i8] c"aes\00"
+
+define weak void @_ssdm_op_SpecWire(...) nounwind {
+entry:
+  ret void
+}
 
 define internal fastcc i128 @aestest(i128 %inptext_V_read, i128 %key_V_read) readnone {
 .preheader86.preheader:
   %key_V_read_1 = call i128 @_ssdm_op_Read.ap_auto.i128(i128 %key_V_read)
   %inptext_V_read_1 = call i128 @_ssdm_op_Read.ap_auto.i128(i128 %inptext_V_read)
-  call void (...)* @_ssdm_op_SpecPipeline(i32 1, i32 1, i32 1, i32 0, [1 x i8]* @p_str1) nounwind
+  call void (...)* @_ssdm_op_SpecPipeline(i32 1, i32 1, i32 1, i32 0, [1 x i8]* @p_str19) nounwind
   %p_Result_s = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 120, i32 127)
   %p_Result_1 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 120, i32 127)
-  %p_Result_s_87 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
+  %p_Result_s_77 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
   %p_Result_1_1 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 112, i32 119)
   %p_Result_2 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 104, i32 111)
   %p_Result_1_2 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 104, i32 111)
@@ -67,75 +72,75 @@ define internal fastcc i128 @aestest(i128 %inptext_V_read, i128 %key_V_read) rea
   %p_Result_1_12 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 16, i32 23)
   %p_Result_14 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 8, i32 15)
   %p_Result_1_13 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 8, i32 15)
-  %tmp_5 = trunc i128 %inptext_V_read_1 to i8
-  %tmp_6 = trunc i128 %key_V_read_1 to i8
-  %tmp_1 = xor i8 %p_Result_s, %p_Result_1
-  %tmp_6_1 = xor i8 %p_Result_s_87, %p_Result_1_1
-  %tmp_6_2 = xor i8 %p_Result_2, %p_Result_1_2
-  %tmp_6_3 = xor i8 %p_Result_3, %p_Result_1_3
-  %tmp_6_4 = xor i8 %p_Result_4, %p_Result_1_4
-  %tmp_6_5 = xor i8 %p_Result_5, %p_Result_1_5
-  %tmp_6_6 = xor i8 %p_Result_6, %p_Result_1_6
-  %tmp_6_7 = xor i8 %p_Result_7, %p_Result_1_7
-  %tmp_6_8 = xor i8 %p_Result_8, %p_Result_1_8
-  %tmp_6_9 = xor i8 %p_Result_9, %p_Result_1_9
-  %tmp_6_s = xor i8 %p_Result_10, %p_Result_1_s
-  %tmp_6_10 = xor i8 %p_Result_11, %p_Result_1_10
-  %tmp_6_11 = xor i8 %p_Result_12, %p_Result_1_11
-  %tmp_6_12 = xor i8 %p_Result_13, %p_Result_1_12
-  %tmp_6_13 = xor i8 %p_Result_14, %p_Result_1_13
-  %tmp_6_14 = xor i8 %tmp_5, %tmp_6
-  %tmp_2 = zext i8 %tmp_1 to i64
-  %sboxes_0_addr = getelementptr [256 x i8]* @sboxes_0, i64 0, i64 %tmp_2
+  %tmp_7 = trunc i128 %inptext_V_read_1 to i8
+  %tmp_8 = trunc i128 %key_V_read_1 to i8
+  %tmp_s = xor i8 %p_Result_s, %p_Result_1
+  %tmp_1_1 = xor i8 %p_Result_s_77, %p_Result_1_1
+  %tmp_1_2 = xor i8 %p_Result_2, %p_Result_1_2
+  %tmp_1_3 = xor i8 %p_Result_3, %p_Result_1_3
+  %tmp_1_4 = xor i8 %p_Result_4, %p_Result_1_4
+  %tmp_1_5 = xor i8 %p_Result_5, %p_Result_1_5
+  %tmp_1_6 = xor i8 %p_Result_6, %p_Result_1_6
+  %tmp_1_7 = xor i8 %p_Result_7, %p_Result_1_7
+  %tmp_1_8 = xor i8 %p_Result_8, %p_Result_1_8
+  %tmp_1_9 = xor i8 %p_Result_9, %p_Result_1_9
+  %tmp_1_s = xor i8 %p_Result_10, %p_Result_1_s
+  %tmp_1_10 = xor i8 %p_Result_11, %p_Result_1_10
+  %tmp_1_11 = xor i8 %p_Result_12, %p_Result_1_11
+  %tmp_1_12 = xor i8 %p_Result_13, %p_Result_1_12
+  %tmp_1_13 = xor i8 %p_Result_14, %p_Result_1_13
+  %tmp_1_14 = xor i8 %tmp_7, %tmp_8
+  %tmp_1 = zext i8 %tmp_s to i64
+  %sboxes_0_addr = getelementptr [256 x i8]* @sboxes_0, i64 0, i64 %tmp_1
   %sboxes_0_load = load i8* %sboxes_0_addr, align 1
-  %tmp_29_0_1 = zext i8 %tmp_6_1 to i64
+  %tmp_29_0_1 = zext i8 %tmp_1_1 to i64
   %sboxes_1_addr = getelementptr [256 x i8]* @sboxes_1, i64 0, i64 %tmp_29_0_1
   %sboxes_1_load = load i8* %sboxes_1_addr, align 1
-  %tmp_29_0_2 = zext i8 %tmp_6_2 to i64
+  %tmp_29_0_2 = zext i8 %tmp_1_2 to i64
   %sboxes_2_addr = getelementptr [256 x i8]* @sboxes_2, i64 0, i64 %tmp_29_0_2
   %sboxes_2_load = load i8* %sboxes_2_addr, align 1
-  %tmp_29_0_3 = zext i8 %tmp_6_3 to i64
+  %tmp_29_0_3 = zext i8 %tmp_1_3 to i64
   %sboxes_3_addr = getelementptr [256 x i8]* @sboxes_3, i64 0, i64 %tmp_29_0_3
   %sboxes_3_load = load i8* %sboxes_3_addr, align 1
-  %tmp_29_0_4 = zext i8 %tmp_6_4 to i64
+  %tmp_29_0_4 = zext i8 %tmp_1_4 to i64
   %sboxes_4_addr = getelementptr [256 x i8]* @sboxes_4, i64 0, i64 %tmp_29_0_4
   %sboxes_4_load = load i8* %sboxes_4_addr, align 1
-  %tmp_29_0_5 = zext i8 %tmp_6_5 to i64
+  %tmp_29_0_5 = zext i8 %tmp_1_5 to i64
   %sboxes_5_addr = getelementptr [256 x i8]* @sboxes_5, i64 0, i64 %tmp_29_0_5
   %sboxes_5_load = load i8* %sboxes_5_addr, align 1
-  %tmp_29_0_6 = zext i8 %tmp_6_6 to i64
+  %tmp_29_0_6 = zext i8 %tmp_1_6 to i64
   %sboxes_6_addr = getelementptr [256 x i8]* @sboxes_6, i64 0, i64 %tmp_29_0_6
   %sboxes_6_load = load i8* %sboxes_6_addr, align 1
-  %tmp_29_0_7 = zext i8 %tmp_6_7 to i64
+  %tmp_29_0_7 = zext i8 %tmp_1_7 to i64
   %sboxes_7_addr = getelementptr [256 x i8]* @sboxes_7, i64 0, i64 %tmp_29_0_7
   %sboxes_7_load = load i8* %sboxes_7_addr, align 1
-  %tmp_29_0_8 = zext i8 %tmp_6_8 to i64
+  %tmp_29_0_8 = zext i8 %tmp_1_8 to i64
   %sboxes_8_addr = getelementptr [256 x i8]* @sboxes_8, i64 0, i64 %tmp_29_0_8
   %sboxes_8_load = load i8* %sboxes_8_addr, align 1
-  %tmp_29_0_9 = zext i8 %tmp_6_9 to i64
+  %tmp_29_0_9 = zext i8 %tmp_1_9 to i64
   %sboxes_9_addr = getelementptr [256 x i8]* @sboxes_9, i64 0, i64 %tmp_29_0_9
   %sboxes_9_load = load i8* %sboxes_9_addr, align 1
-  %tmp_29_0_s = zext i8 %tmp_6_s to i64
+  %tmp_29_0_s = zext i8 %tmp_1_s to i64
   %sboxes_10_addr = getelementptr [256 x i8]* @sboxes_10, i64 0, i64 %tmp_29_0_s
   %sboxes_10_load = load i8* %sboxes_10_addr, align 1
-  %tmp_29_0_10 = zext i8 %tmp_6_10 to i64
+  %tmp_29_0_10 = zext i8 %tmp_1_10 to i64
   %sboxes_11_addr = getelementptr [256 x i8]* @sboxes_11, i64 0, i64 %tmp_29_0_10
   %sboxes_11_load = load i8* %sboxes_11_addr, align 1
-  %tmp_29_0_11 = zext i8 %tmp_6_11 to i64
+  %tmp_29_0_11 = zext i8 %tmp_1_11 to i64
   %sboxes_12_addr = getelementptr [256 x i8]* @sboxes_12, i64 0, i64 %tmp_29_0_11
   %sboxes_12_load = load i8* %sboxes_12_addr, align 1
-  %tmp_29_0_12 = zext i8 %tmp_6_12 to i64
+  %tmp_29_0_12 = zext i8 %tmp_1_12 to i64
   %sboxes_13_addr = getelementptr [256 x i8]* @sboxes_13, i64 0, i64 %tmp_29_0_12
   %sboxes_13_load = load i8* %sboxes_13_addr, align 1
-  %tmp_29_0_13 = zext i8 %tmp_6_13 to i64
+  %tmp_29_0_13 = zext i8 %tmp_1_13 to i64
   %sboxes_14_addr = getelementptr [256 x i8]* @sboxes_14, i64 0, i64 %tmp_29_0_13
   %sboxes_14_load = load i8* %sboxes_14_addr, align 1
-  %tmp_29_0_14 = zext i8 %tmp_6_14 to i64
+  %tmp_29_0_14 = zext i8 %tmp_1_14 to i64
   %sboxes_15_addr = getelementptr [256 x i8]* @sboxes_15, i64 0, i64 %tmp_29_0_14
   %sboxes_15_load = load i8* %sboxes_15_addr, align 1
   %x_assign = xor i8 %sboxes_5_load, %sboxes_0_load
-  %tmp_3 = xor i8 %x_assign, %sboxes_10_load
-  %e = xor i8 %tmp_3, %sboxes_15_load
+  %tmp_6 = xor i8 %x_assign, %sboxes_10_load
+  %e = xor i8 %tmp_6, %sboxes_15_load
   %tmp_10 = shl i8 %x_assign, 1
   %tmp_11 = call i1 @_ssdm_op_BitSelect.i1.i8.i32(i8 %x_assign, i32 7)
   %rv_1 = xor i8 %tmp_10, 27
@@ -224,10 +229,10 @@ define internal fastcc i128 @aestest(i128 %inptext_V_read, i128 %key_V_read) rea
   %tmp_12 = zext i8 %p_Result_1_12 to i64
   %sboxes_16_addr = getelementptr [256 x i8]* @sboxes_16, i64 0, i64 %tmp_12
   %sboxes_16_load = load i8* %sboxes_16_addr, align 1
-  %tmp_13 = zext i8 %p_Result_1_13 to i64
-  %sboxes_17_addr = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_13
+  %tmp_17 = zext i8 %p_Result_1_13 to i64
+  %sboxes_17_addr = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_17
   %sboxes_17_load = load i8* %sboxes_17_addr, align 1
-  %tmp_18 = zext i8 %tmp_6 to i64
+  %tmp_18 = zext i8 %tmp_8 to i64
   %sboxes_18_addr = getelementptr [256 x i8]* @sboxes_18, i64 0, i64 %tmp_18
   %sboxes_18_load = load i8* %sboxes_18_addr, align 1
   %tmp_19 = zext i8 %p_Result_1_11 to i64
@@ -249,7 +254,7 @@ define internal fastcc i128 @aestest(i128 %inptext_V_read, i128 %key_V_read) rea
   %tmp_32 = xor i8 %p_Result_1_11, %tmp_28
   %tmp_33 = xor i8 %p_Result_1_12, %tmp_29
   %tmp_34 = xor i8 %p_Result_1_13, %tmp_30
-  %tmp_35 = xor i8 %tmp_6, %tmp_31
+  %tmp_35 = xor i8 %tmp_8, %tmp_31
   %tmp1 = xor i8 %rv_2, %e
   %tmp2 = xor i8 %sboxes_0_load, %tmp_20
   %tmp_36 = xor i8 %tmp2, %tmp1
@@ -259,7 +264,7 @@ define internal fastcc i128 @aestest(i128 %inptext_V_read, i128 %key_V_read) rea
   %tmp5 = xor i8 %rv_8, %e
   %tmp6 = xor i8 %sboxes_10_load, %tmp_22
   %tmp_79_0_2 = xor i8 %tmp6, %tmp5
-  %tmp7 = xor i8 %tmp_3, %tmp_23
+  %tmp7 = xor i8 %tmp_6, %tmp_23
   %tmp_79_0_3 = xor i8 %tmp7, %rv_3
   %tmp8 = xor i8 %rv_2_0_1, %e_0_1
   %tmp9 = xor i8 %sboxes_4_load, %tmp_24
@@ -454,7 +459,7 @@ define internal fastcc i128 @aestest(i128 %inptext_V_read, i128 %key_V_read) rea
   %tmp_71_1 = xor i8 %p_Result_1_11, %tmp_63_1
   %tmp_72_1 = xor i8 %p_Result_1_12, %tmp_64_1
   %tmp_73_1 = xor i8 %p_Result_1_13, %tmp_65_1
-  %tmp_74_1 = xor i8 %tmp_6, %tmp_66_1
+  %tmp_74_1 = xor i8 %tmp_8, %tmp_66_1
   %tmp29 = xor i8 %rv_2_1, %e_1
   %tmp30 = xor i8 %sboxes_0_load_1, %tmp_59_1
   %tmp_79_1 = xor i8 %tmp30, %tmp29
@@ -872,7 +877,7 @@ define internal fastcc i128 @aestest(i128 %inptext_V_read, i128 %key_V_read) rea
   %tmp_71_3 = xor i8 %p_Result_1_11, %tmp_58_3
   %tmp_72_3 = xor i8 %p_Result_1_12, %sboxes_17_load_3
   %tmp_73_3 = xor i8 %p_Result_1_13, %sboxes_18_load_3
-  %tmp_74_3 = xor i8 %tmp_6, %sboxes_19_load_3
+  %tmp_74_3 = xor i8 %tmp_8, %sboxes_19_load_3
   %tmp94 = xor i8 %rv_2_3, %e_3
   %tmp95 = xor i8 %sboxes_0_load_3, %tmp_59_3
   %tmp_79_3 = xor i8 %tmp95, %tmp94
@@ -2014,50 +2019,50 @@ define internal fastcc i128 @aestest(i128 %inptext_V_read, i128 %key_V_read) rea
   %tmp_27_14 = zext i8 %tmp_79_8_14 to i64
   %sboxes_15_addr_9 = getelementptr [256 x i8]* @sboxes_15, i64 0, i64 %tmp_27_14
   %sboxes_15_load_9 = load i8* %sboxes_15_addr_9, align 1
-  %tmp_8 = zext i8 %tmp_72_8 to i64
-  %sboxes_16_addr_9 = getelementptr [256 x i8]* @sboxes_16, i64 0, i64 %tmp_8
+  %tmp_2 = zext i8 %tmp_72_8 to i64
+  %sboxes_16_addr_9 = getelementptr [256 x i8]* @sboxes_16, i64 0, i64 %tmp_2
   %buf0 = load i8* %sboxes_16_addr_9, align 1
-  %tmp_9 = zext i8 %tmp_73_8 to i64
-  %sboxes_17_addr_9 = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_9
+  %tmp_3 = zext i8 %tmp_73_8 to i64
+  %sboxes_17_addr_9 = getelementptr [256 x i8]* @sboxes_17, i64 0, i64 %tmp_3
   %buf1 = load i8* %sboxes_17_addr_9, align 1
-  %tmp_s = zext i8 %tmp_74_8 to i64
-  %sboxes_18_addr_9 = getelementptr [256 x i8]* @sboxes_18, i64 0, i64 %tmp_s
+  %tmp_4 = zext i8 %tmp_74_8 to i64
+  %sboxes_18_addr_9 = getelementptr [256 x i8]* @sboxes_18, i64 0, i64 %tmp_4
   %buf2 = load i8* %sboxes_18_addr_9, align 1
-  %tmp_4 = zext i8 %tmp_71_8 to i64
-  %sboxes_19_addr_9 = getelementptr [256 x i8]* @sboxes_19, i64 0, i64 %tmp_4
+  %tmp_5 = zext i8 %tmp_71_8 to i64
+  %sboxes_19_addr_9 = getelementptr [256 x i8]* @sboxes_19, i64 0, i64 %tmp_5
   %buf3 = load i8* %sboxes_19_addr_9, align 1
-  %tmp_7 = xor i8 %buf0, 54
-  %tmp_14 = xor i8 %tmp_63_7, %tmp_7
-  %tmp_15 = xor i8 %tmp_64_7, %buf1
-  %tmp_16 = xor i8 %tmp_65_7, %buf2
-  %tmp_17 = xor i8 %tmp_66_7, %buf3
+  %tmp_9 = xor i8 %buf0, 54
+  %tmp_13 = xor i8 %tmp_63_7, %tmp_9
+  %tmp_14 = xor i8 %tmp_64_7, %buf1
+  %tmp_15 = xor i8 %tmp_65_7, %buf2
+  %tmp_16 = xor i8 %tmp_66_7, %buf3
   %tmp289 = xor i8 %tmp_59_8, %sboxes_0_load_9
-  %tmp_38 = xor i8 %tmp289, %tmp_7
+  %tmp_38 = xor i8 %tmp289, %tmp_9
   %tmp290 = xor i8 %buf1, %sboxes_5_load_9
   %tmp_32_1 = xor i8 %tmp290, %tmp_60_8
   %tmp291 = xor i8 %buf2, %temp_1
   %tmp_32_2 = xor i8 %tmp291, %tmp_61_8
   %tmp292 = xor i8 %buf3, %sboxes_15_load_9
   %tmp_32_3 = xor i8 %tmp292, %tmp_62_8
-  %tmp_32_4 = xor i8 %sboxes_4_load_9, %tmp_14
-  %tmp_32_5 = xor i8 %sboxes_9_load_9, %tmp_15
-  %tmp_32_6 = xor i8 %temp_2, %tmp_16
-  %tmp_32_7 = xor i8 %temp_3, %tmp_17
-  %tmp293 = xor i8 %tmp_14, %sboxes_8_load_9
+  %tmp_32_4 = xor i8 %sboxes_4_load_9, %tmp_13
+  %tmp_32_5 = xor i8 %sboxes_9_load_9, %tmp_14
+  %tmp_32_6 = xor i8 %temp_2, %tmp_15
+  %tmp_32_7 = xor i8 %temp_3, %tmp_16
+  %tmp293 = xor i8 %tmp_13, %sboxes_8_load_9
   %tmp_32_8 = xor i8 %tmp293, %tmp_67_8
-  %tmp294 = xor i8 %tmp_15, %sboxes_13_load_9
+  %tmp294 = xor i8 %tmp_14, %sboxes_13_load_9
   %tmp_32_9 = xor i8 %tmp294, %tmp_68_8
-  %tmp295 = xor i8 %tmp_16, %sboxes_2_load_9
+  %tmp295 = xor i8 %tmp_15, %sboxes_2_load_9
   %tmp_32_s = xor i8 %tmp295, %tmp_69_8
-  %tmp296 = xor i8 %tmp_17, %sboxes_7_load_9
+  %tmp296 = xor i8 %tmp_16, %sboxes_7_load_9
   %tmp_32_10 = xor i8 %tmp296, %tmp_70_8
-  %tmp297 = xor i8 %tmp_14, %sboxes_12_load_9
+  %tmp297 = xor i8 %tmp_13, %sboxes_12_load_9
   %tmp_32_11 = xor i8 %tmp297, %tmp_71_7
-  %tmp298 = xor i8 %tmp_15, %temp
+  %tmp298 = xor i8 %tmp_14, %temp
   %tmp_32_12 = xor i8 %tmp298, %tmp_72_7
-  %tmp299 = xor i8 %tmp_16, %sboxes_6_load_9
+  %tmp299 = xor i8 %tmp_15, %sboxes_6_load_9
   %tmp_32_13 = xor i8 %tmp299, %tmp_73_7
-  %tmp300 = xor i8 %tmp_17, %sboxes_11_load_9
+  %tmp300 = xor i8 %tmp_16, %sboxes_11_load_9
   %tmp_32_14 = xor i8 %tmp300, %tmp_74_7
   %p_Result_3_s = call i128 @_ssdm_op_BitConcatenate.i128.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8(i8 %tmp_38, i8 %tmp_32_1, i8 %tmp_32_2, i8 %tmp_32_3, i8 %tmp_32_4, i8 %tmp_32_5, i8 %tmp_32_6, i8 %tmp_32_7, i8 %tmp_32_8, i8 %tmp_32_9, i8 %tmp_32_s, i8 %tmp_32_10, i8 %tmp_32_11, i8 %tmp_32_12, i8 %tmp_32_13, i8 %tmp_32_14)
   ret i128 %p_Result_3_s
@@ -2067,15 +2072,6 @@ define weak void @_ssdm_op_SpecPipeline(...) nounwind {
 entry:
   ret void
 }
-
-declare i128 @llvm.part.select.i128(i128, i32, i32) nounwind readnone
-
-define weak void @_ssdm_op_SpecWire(...) nounwind {
-entry:
-  ret void
-}
-
-declare i128 @llvm.part.set.i128.i32(i128, i32, i32, i32) nounwind readnone
 
 declare void @llvm.dbg.value(metadata, i64, metadata) nounwind readnone
 
@@ -2091,10 +2087,10 @@ entry:
 
 declare void @_GLOBAL__I_a() nounwind section ".text.startup"
 
-declare void @_GLOBAL__I_a14() nounwind section ".text.startup"
+declare void @_GLOBAL__I_a18() nounwind section ".text.startup"
 
-define i1 @aes(i8* %ddr, i32 %sourceAddress, i128* %key_in_V, i32 %destinationAddress, i32 %length_r) {
-  call void (...)* @_ssdm_op_SpecBitsMap(i8* %ddr), !map !7
+define i1 @aes(i128* %ddr_V, i32 %sourceAddress, i128* %key_in_V, i32 %destinationAddress, i32 %length_r) {
+  call void (...)* @_ssdm_op_SpecBitsMap(i128* %ddr_V), !map !7
   call void (...)* @_ssdm_op_SpecBitsMap(i32 %sourceAddress), !map !13
   call void (...)* @_ssdm_op_SpecBitsMap(i128* %key_in_V), !map !19
   call void (...)* @_ssdm_op_SpecBitsMap(i32 %destinationAddress), !map !25
@@ -2108,232 +2104,159 @@ define i1 @aes(i8* %ddr, i32 %sourceAddress, i128* %key_in_V, i32 %destinationAd
   %destinationAddress_assign = alloca i32, align 4
   store volatile i32 %sourceAddress_read, i32* %sourceAddress_assign, align 4
   store volatile i32 %destinationAddress_read, i32* %destinationAddress_assign, align 4
-  call void (...)* @_ssdm_op_SpecWire(i8* %ddr, [6 x i8]* @p_str5, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16)
-  call void (...)* @_ssdm_op_SpecWire(i32 %length_r, [10 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %destinationAddress, [10 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i128* %key_in_V, [10 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %sourceAddress, [10 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 0, [11 x i8]* @p_str38, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 0, [10 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %length_r, [7 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %destinationAddress, [7 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i128* %key_in_V, [7 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %sourceAddress, [7 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  %sourceAddressLocal = load volatile i32* %sourceAddress_assign, align 4
-  %destinationAddressLocal = load volatile i32* %destinationAddress_assign, align 4
+  call void (...)* @_ssdm_op_SpecWire(i128* %ddr_V, [6 x i8]* @p_str, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1)
+  call void (...)* @_ssdm_op_SpecWire(i32 %length_r, [10 x i8]* @p_str2, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %destinationAddress, [10 x i8]* @p_str2, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i128* %key_in_V, [10 x i8]* @p_str2, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %sourceAddress, [10 x i8]* @p_str2, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 0, [11 x i8]* @p_str3, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 0, [10 x i8]* @p_str2, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %length_r, [7 x i8]* @p_str4, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %destinationAddress, [7 x i8]* @p_str4, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i128* %key_in_V, [7 x i8]* @p_str4, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %sourceAddress, [7 x i8]* @p_str4, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str1, [1 x i8]* @p_str1, [1 x i8]* @p_str1) nounwind
+  %sourceAddress_assign_load = load volatile i32* %sourceAddress_assign, align 4
+  %sourceAddressLocal = call i28 @_ssdm_op_PartSelect.i28.i32.i32.i32(i32 %sourceAddress_assign_load, i32 4, i32 31)
+  %sourceAddressLocal_2 = zext i28 %sourceAddressLocal to i32
+  %destinationAddress_assign_load = load volatile i32* %destinationAddress_assign, align 4
+  %destinationAddressLocal = call i28 @_ssdm_op_PartSelect.i28.i32.i32.i32(i32 %destinationAddress_assign_load, i32 4, i32 31)
+  %destinationAddressLocal_2 = zext i28 %destinationAddressLocal to i32
   %key_local_V = call i128 @_ssdm_op_Read.ap_vld.i128P(i128* %key_in_V)
+  %tmp = add i32 %sourceAddressLocal_2, %length_read
   br label %1
 
-; <label>:1                                       ; preds = %5, %0
-  %iterations = phi i32 [ 0, %0 ], [ %iterations_1, %5 ]
-  %sourceAddressLocal1 = phi i32 [ %sourceAddressLocal, %0 ], [ %sourceAddressLocal_1, %5 ]
-  %destinationAddressLocal1 = phi i32 [ %destinationAddressLocal, %0 ], [ %destinationAddressLocal_1, %5 ]
-  %exitcond8 = icmp eq i32 %iterations, %length_read
-  %iterations_1 = add nsw i32 %iterations, 1
-  br i1 %exitcond8, label %6, label %.preheader2
+; <label>:1                                       ; preds = %2, %0
+  %sourceAddressLocal1 = phi i32 [ %sourceAddressLocal_2, %0 ], [ %sourceAddressLocal_1, %2 ]
+  %destinationAddressLocal1 = phi i32 [ %destinationAddressLocal_2, %0 ], [ %destinationAddressLocal_1, %2 ]
+  %exitcond = icmp eq i32 %sourceAddressLocal1, %tmp
+  br i1 %exitcond, label %3, label %2
 
-.preheader2:                                      ; preds = %.preheader, %1
-  %data_V = phi i128 [ 0, %1 ], [ %p_Val2_1, %.preheader ]
-  %i = phi i5 [ 0, %1 ], [ %i_3, %.preheader ]
-  %i_cast5 = zext i5 %i to i32
-  %exitcond3 = icmp eq i5 %i, -16
-  %empty = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 16, i64 16, i64 16)
-  %i_3 = add i5 %i, 1
-  br i1 %exitcond3, label %2, label %.preheader.preheader
-
-.preheader.preheader:                             ; preds = %.preheader2
-  %tmp_s = add i32 %i_cast5, %sourceAddressLocal1
-  %tmp_26 = zext i32 %tmp_s to i64
-  %ddr_addr = getelementptr i8* %ddr, i64 %tmp_26
-  %tmp = trunc i5 %i to i4
-  %tmp_27 = call i7 @_ssdm_op_BitConcatenate.i7.i4.i3(i4 %tmp, i3 0)
-  %tmp_28 = xor i7 %tmp_27, -1
-  br label %.preheader
-
-.preheader:                                       ; preds = %_ifconv, %.preheader.preheader
-  %p_Val2_1 = phi i128 [ %data_V, %.preheader.preheader ], [ %data_V_2, %_ifconv ]
-  %j = phi i4 [ 0, %.preheader.preheader ], [ %j_1, %_ifconv ]
-  %mask = phi i8 [ -128, %.preheader.preheader ], [ %mask_2, %_ifconv ]
-  %j_cast3 = zext i4 %j to i7
-  %exitcond4 = icmp eq i4 %j, -8
-  %empty_88 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 8, i64 8, i64 8)
-  %j_1 = add i4 %j, 1
-  br i1 %exitcond4, label %.preheader2, label %_ifconv
-
-_ifconv:                                          ; preds = %.preheader
-  %ddr_load_req = call i1 @_ssdm_op_ReadReq.m_axi.i8P(i8* %ddr_addr, i32 1)
-  %ddr_addr_read = call i8 @_ssdm_op_Read.m_axi.volatile.i8P(i8* %ddr_addr)
-  %tmp_32 = and i8 %ddr_addr_read, %mask
-  %tmp_33 = icmp eq i8 %tmp_32, 0
-  %i_assign = sub i7 %tmp_28, %j_cast3
-  %i_assign_cast = zext i7 %i_assign to i32
-  %p_Result_2 = call i128 @llvm.part.set.i128.i32(i128 %p_Val2_1, i32 1, i32 %i_assign_cast, i32 %i_assign_cast) nounwind
-  %data_V_2 = select i1 %tmp_33, i128 %p_Val2_1, i128 %p_Result_2
-  %mask_1 = call i7 @_ssdm_op_PartSelect.i7.i8.i32.i32(i8 %mask, i32 1, i32 7)
-  %mask_2 = zext i7 %mask_1 to i8
-  br label %.preheader
-
-; <label>:2                                       ; preds = %.preheader2
+; <label>:2                                       ; preds = %1
+  %tmp_1 = zext i32 %sourceAddressLocal1 to i64
+  %ddr_V_addr = getelementptr i128* %ddr_V, i64 %tmp_1
+  %data_V_req = call i1 @_ssdm_op_ReadReq.m_axi.i128P(i128* %ddr_V_addr, i32 1)
+  %data_V = call i128 @_ssdm_op_Read.m_axi.volatile.i128P(i128* %ddr_V_addr)
   %encrypted_data_V = call fastcc i128 @aestest(i128 %data_V, i128 %key_local_V)
-  br label %3
-
-; <label>:3                                       ; preds = %4, %2
-  %i_1 = phi i5 [ 0, %2 ], [ %i_2, %4 ]
-  %i_1_cast2 = zext i5 %i_1 to i32
-  %exitcond = icmp eq i5 %i_1, -16
-  %empty_89 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 16, i64 16, i64 16)
-  %i_2 = add i5 %i_1, 1
-  br i1 %exitcond, label %5, label %4
-
-; <label>:4                                       ; preds = %3
-  %tmp_325 = trunc i5 %i_1 to i4
-  %tmp_29 = call i7 @_ssdm_op_BitConcatenate.i7.i4.i3(i4 %tmp_325, i3 0)
-  %Hi_assign = xor i7 %tmp_29, -1
-  %Hi_assign_cast = zext i7 %Hi_assign to i32
-  %Lo_assign = sub i7 -8, %tmp_29
-  %Lo_assign_cast = zext i7 %Lo_assign to i32
-  %p_Result_s = call i128 @llvm.part.select.i128(i128 %encrypted_data_V, i32 %Lo_assign_cast, i32 %Hi_assign_cast) nounwind
-  %current = trunc i128 %p_Result_s to i8
-  %tmp_30 = add i32 %i_1_cast2, %destinationAddressLocal1
-  %tmp_31 = zext i32 %tmp_30 to i64
-  %ddr_addr_1 = getelementptr i8* %ddr, i64 %tmp_31
-  %ddr_addr_1_req = call i1 @_ssdm_op_WriteReq.m_axi.i8P(i8* %ddr_addr_1, i32 1)
-  call void @_ssdm_op_Write.m_axi.volatile.i8P(i8* %ddr_addr_1, i8 %current)
-  %ddr_addr_1_resp = call i1 @_ssdm_op_WriteResp.m_axi.i8P(i8* %ddr_addr_1)
-  br label %3
-
-; <label>:5                                       ; preds = %3
-  %sourceAddressLocal_1 = add i32 %sourceAddressLocal1, 16
-  %destinationAddressLocal_1 = add i32 %destinationAddressLocal1, 16
+  %tmp_2 = zext i32 %destinationAddressLocal1 to i64
+  %ddr_V_addr_1 = getelementptr i128* %ddr_V, i64 %tmp_2
+  %ddr_V_addr_1_req = call i1 @_ssdm_op_WriteReq.m_axi.i128P(i128* %ddr_V_addr_1, i32 1)
+  call void @_ssdm_op_Write.m_axi.volatile.i128P(i128* %ddr_V_addr_1, i128 %encrypted_data_V)
+  %ddr_V_addr_1_resp = call i1 @_ssdm_op_WriteResp.m_axi.i128P(i128* %ddr_V_addr_1)
+  %sourceAddressLocal_1 = add i32 %sourceAddressLocal1, 1
+  %destinationAddressLocal_1 = add i32 %destinationAddressLocal1, 1
   br label %1
 
-; <label>:6                                       ; preds = %1
+; <label>:3                                       ; preds = %1
   ret i1 true
 }
 
 define weak i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128, i32, i32) nounwind readnone {
 entry:
   %empty = call i128 @llvm.part.select.i128(i128 %0, i32 %1, i32 %2)
-  %empty_90 = trunc i128 %empty to i8
-  ret i8 %empty_90
+  %empty_78 = trunc i128 %empty to i8
+  ret i8 %empty_78
 }
 
 define weak i128 @_ssdm_op_BitConcatenate.i128.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8(i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8, i8) nounwind readnone {
 entry:
   %empty = zext i8 %14 to i16
-  %empty_91 = zext i8 %15 to i16
-  %empty_92 = trunc i16 %empty to i8
-  %empty_93 = call i8 @_ssdm_op_PartSelect.i8.i16.i32.i32(i16 %empty_91, i32 8, i32 15)
+  %empty_79 = zext i8 %15 to i16
+  %empty_80 = trunc i16 %empty to i8
+  %empty_81 = call i8 @_ssdm_op_PartSelect.i8.i16.i32.i32(i16 %empty_79, i32 8, i32 15)
+  %empty_82 = or i8 %empty_80, %empty_81
+  %empty_83 = call i16 @_ssdm_op_PartSet.i16.i16.i8.i32.i32(i16 %empty_79, i8 %empty_82, i32 8, i32 15)
+  %empty_84 = zext i8 %13 to i24
+  %empty_85 = zext i16 %empty_83 to i24
+  %empty_86 = trunc i24 %empty_84 to i8
+  %empty_87 = call i8 @_ssdm_op_PartSelect.i8.i24.i32.i32(i24 %empty_85, i32 16, i32 23)
+  %empty_88 = or i8 %empty_86, %empty_87
+  %empty_89 = call i24 @_ssdm_op_PartSet.i24.i24.i8.i32.i32(i24 %empty_85, i8 %empty_88, i32 16, i32 23)
+  %empty_90 = zext i8 %12 to i32
+  %empty_91 = zext i24 %empty_89 to i32
+  %empty_92 = trunc i32 %empty_90 to i8
+  %empty_93 = call i8 @_ssdm_op_PartSelect.i8.i32.i32.i32(i32 %empty_91, i32 24, i32 31)
   %empty_94 = or i8 %empty_92, %empty_93
-  %empty_95 = call i16 @_ssdm_op_PartSet.i16.i16.i8.i32.i32(i16 %empty_91, i8 %empty_94, i32 8, i32 15)
-  %empty_96 = zext i8 %13 to i24
-  %empty_97 = zext i16 %empty_95 to i24
-  %empty_98 = trunc i24 %empty_96 to i8
-  %empty_99 = call i8 @_ssdm_op_PartSelect.i8.i24.i32.i32(i24 %empty_97, i32 16, i32 23)
+  %empty_95 = call i32 @_ssdm_op_PartSet.i32.i32.i8.i32.i32(i32 %empty_91, i8 %empty_94, i32 24, i32 31)
+  %empty_96 = zext i8 %11 to i40
+  %empty_97 = zext i32 %empty_95 to i40
+  %empty_98 = trunc i40 %empty_96 to i8
+  %empty_99 = call i8 @_ssdm_op_PartSelect.i8.i40.i32.i32(i40 %empty_97, i32 32, i32 39)
   %empty_100 = or i8 %empty_98, %empty_99
-  %empty_101 = call i24 @_ssdm_op_PartSet.i24.i24.i8.i32.i32(i24 %empty_97, i8 %empty_100, i32 16, i32 23)
-  %empty_102 = zext i8 %12 to i32
-  %empty_103 = zext i24 %empty_101 to i32
-  %empty_104 = trunc i32 %empty_102 to i8
-  %empty_105 = call i8 @_ssdm_op_PartSelect.i8.i32.i32.i32(i32 %empty_103, i32 24, i32 31)
+  %empty_101 = call i40 @_ssdm_op_PartSet.i40.i40.i8.i32.i32(i40 %empty_97, i8 %empty_100, i32 32, i32 39)
+  %empty_102 = zext i8 %10 to i48
+  %empty_103 = zext i40 %empty_101 to i48
+  %empty_104 = trunc i48 %empty_102 to i8
+  %empty_105 = call i8 @_ssdm_op_PartSelect.i8.i48.i32.i32(i48 %empty_103, i32 40, i32 47)
   %empty_106 = or i8 %empty_104, %empty_105
-  %empty_107 = call i32 @_ssdm_op_PartSet.i32.i32.i8.i32.i32(i32 %empty_103, i8 %empty_106, i32 24, i32 31)
-  %empty_108 = zext i8 %11 to i40
-  %empty_109 = zext i32 %empty_107 to i40
-  %empty_110 = trunc i40 %empty_108 to i8
-  %empty_111 = call i8 @_ssdm_op_PartSelect.i8.i40.i32.i32(i40 %empty_109, i32 32, i32 39)
+  %empty_107 = call i48 @_ssdm_op_PartSet.i48.i48.i8.i32.i32(i48 %empty_103, i8 %empty_106, i32 40, i32 47)
+  %empty_108 = zext i8 %9 to i56
+  %empty_109 = zext i48 %empty_107 to i56
+  %empty_110 = trunc i56 %empty_108 to i8
+  %empty_111 = call i8 @_ssdm_op_PartSelect.i8.i56.i32.i32(i56 %empty_109, i32 48, i32 55)
   %empty_112 = or i8 %empty_110, %empty_111
-  %empty_113 = call i40 @_ssdm_op_PartSet.i40.i40.i8.i32.i32(i40 %empty_109, i8 %empty_112, i32 32, i32 39)
-  %empty_114 = zext i8 %10 to i48
-  %empty_115 = zext i40 %empty_113 to i48
-  %empty_116 = trunc i48 %empty_114 to i8
-  %empty_117 = call i8 @_ssdm_op_PartSelect.i8.i48.i32.i32(i48 %empty_115, i32 40, i32 47)
+  %empty_113 = call i56 @_ssdm_op_PartSet.i56.i56.i8.i32.i32(i56 %empty_109, i8 %empty_112, i32 48, i32 55)
+  %empty_114 = zext i8 %8 to i64
+  %empty_115 = zext i56 %empty_113 to i64
+  %empty_116 = trunc i64 %empty_114 to i8
+  %empty_117 = call i8 @_ssdm_op_PartSelect.i8.i64.i32.i32(i64 %empty_115, i32 56, i32 63)
   %empty_118 = or i8 %empty_116, %empty_117
-  %empty_119 = call i48 @_ssdm_op_PartSet.i48.i48.i8.i32.i32(i48 %empty_115, i8 %empty_118, i32 40, i32 47)
-  %empty_120 = zext i8 %9 to i56
-  %empty_121 = zext i48 %empty_119 to i56
-  %empty_122 = trunc i56 %empty_120 to i8
-  %empty_123 = call i8 @_ssdm_op_PartSelect.i8.i56.i32.i32(i56 %empty_121, i32 48, i32 55)
+  %empty_119 = call i64 @_ssdm_op_PartSet.i64.i64.i8.i32.i32(i64 %empty_115, i8 %empty_118, i32 56, i32 63)
+  %empty_120 = zext i8 %7 to i72
+  %empty_121 = zext i64 %empty_119 to i72
+  %empty_122 = trunc i72 %empty_120 to i8
+  %empty_123 = call i8 @_ssdm_op_PartSelect.i8.i72.i32.i32(i72 %empty_121, i32 64, i32 71)
   %empty_124 = or i8 %empty_122, %empty_123
-  %empty_125 = call i56 @_ssdm_op_PartSet.i56.i56.i8.i32.i32(i56 %empty_121, i8 %empty_124, i32 48, i32 55)
-  %empty_126 = zext i8 %8 to i64
-  %empty_127 = zext i56 %empty_125 to i64
-  %empty_128 = trunc i64 %empty_126 to i8
-  %empty_129 = call i8 @_ssdm_op_PartSelect.i8.i64.i32.i32(i64 %empty_127, i32 56, i32 63)
+  %empty_125 = call i72 @_ssdm_op_PartSet.i72.i72.i8.i32.i32(i72 %empty_121, i8 %empty_124, i32 64, i32 71)
+  %empty_126 = zext i8 %6 to i80
+  %empty_127 = zext i72 %empty_125 to i80
+  %empty_128 = trunc i80 %empty_126 to i8
+  %empty_129 = call i8 @_ssdm_op_PartSelect.i8.i80.i32.i32(i80 %empty_127, i32 72, i32 79)
   %empty_130 = or i8 %empty_128, %empty_129
-  %empty_131 = call i64 @_ssdm_op_PartSet.i64.i64.i8.i32.i32(i64 %empty_127, i8 %empty_130, i32 56, i32 63)
-  %empty_132 = zext i8 %7 to i72
-  %empty_133 = zext i64 %empty_131 to i72
-  %empty_134 = trunc i72 %empty_132 to i8
-  %empty_135 = call i8 @_ssdm_op_PartSelect.i8.i72.i32.i32(i72 %empty_133, i32 64, i32 71)
+  %empty_131 = call i80 @_ssdm_op_PartSet.i80.i80.i8.i32.i32(i80 %empty_127, i8 %empty_130, i32 72, i32 79)
+  %empty_132 = zext i8 %5 to i88
+  %empty_133 = zext i80 %empty_131 to i88
+  %empty_134 = trunc i88 %empty_132 to i8
+  %empty_135 = call i8 @_ssdm_op_PartSelect.i8.i88.i32.i32(i88 %empty_133, i32 80, i32 87)
   %empty_136 = or i8 %empty_134, %empty_135
-  %empty_137 = call i72 @_ssdm_op_PartSet.i72.i72.i8.i32.i32(i72 %empty_133, i8 %empty_136, i32 64, i32 71)
-  %empty_138 = zext i8 %6 to i80
-  %empty_139 = zext i72 %empty_137 to i80
-  %empty_140 = trunc i80 %empty_138 to i8
-  %empty_141 = call i8 @_ssdm_op_PartSelect.i8.i80.i32.i32(i80 %empty_139, i32 72, i32 79)
+  %empty_137 = call i88 @_ssdm_op_PartSet.i88.i88.i8.i32.i32(i88 %empty_133, i8 %empty_136, i32 80, i32 87)
+  %empty_138 = zext i8 %4 to i96
+  %empty_139 = zext i88 %empty_137 to i96
+  %empty_140 = trunc i96 %empty_138 to i8
+  %empty_141 = call i8 @_ssdm_op_PartSelect.i8.i96.i32.i32(i96 %empty_139, i32 88, i32 95)
   %empty_142 = or i8 %empty_140, %empty_141
-  %empty_143 = call i80 @_ssdm_op_PartSet.i80.i80.i8.i32.i32(i80 %empty_139, i8 %empty_142, i32 72, i32 79)
-  %empty_144 = zext i8 %5 to i88
-  %empty_145 = zext i80 %empty_143 to i88
-  %empty_146 = trunc i88 %empty_144 to i8
-  %empty_147 = call i8 @_ssdm_op_PartSelect.i8.i88.i32.i32(i88 %empty_145, i32 80, i32 87)
+  %empty_143 = call i96 @_ssdm_op_PartSet.i96.i96.i8.i32.i32(i96 %empty_139, i8 %empty_142, i32 88, i32 95)
+  %empty_144 = zext i8 %3 to i104
+  %empty_145 = zext i96 %empty_143 to i104
+  %empty_146 = trunc i104 %empty_144 to i8
+  %empty_147 = call i8 @_ssdm_op_PartSelect.i8.i104.i32.i32(i104 %empty_145, i32 96, i32 103)
   %empty_148 = or i8 %empty_146, %empty_147
-  %empty_149 = call i88 @_ssdm_op_PartSet.i88.i88.i8.i32.i32(i88 %empty_145, i8 %empty_148, i32 80, i32 87)
-  %empty_150 = zext i8 %4 to i96
-  %empty_151 = zext i88 %empty_149 to i96
-  %empty_152 = trunc i96 %empty_150 to i8
-  %empty_153 = call i8 @_ssdm_op_PartSelect.i8.i96.i32.i32(i96 %empty_151, i32 88, i32 95)
+  %empty_149 = call i104 @_ssdm_op_PartSet.i104.i104.i8.i32.i32(i104 %empty_145, i8 %empty_148, i32 96, i32 103)
+  %empty_150 = zext i8 %2 to i112
+  %empty_151 = zext i104 %empty_149 to i112
+  %empty_152 = trunc i112 %empty_150 to i8
+  %empty_153 = call i8 @_ssdm_op_PartSelect.i8.i112.i32.i32(i112 %empty_151, i32 104, i32 111)
   %empty_154 = or i8 %empty_152, %empty_153
-  %empty_155 = call i96 @_ssdm_op_PartSet.i96.i96.i8.i32.i32(i96 %empty_151, i8 %empty_154, i32 88, i32 95)
-  %empty_156 = zext i8 %3 to i104
-  %empty_157 = zext i96 %empty_155 to i104
-  %empty_158 = trunc i104 %empty_156 to i8
-  %empty_159 = call i8 @_ssdm_op_PartSelect.i8.i104.i32.i32(i104 %empty_157, i32 96, i32 103)
+  %empty_155 = call i112 @_ssdm_op_PartSet.i112.i112.i8.i32.i32(i112 %empty_151, i8 %empty_154, i32 104, i32 111)
+  %empty_156 = zext i8 %1 to i120
+  %empty_157 = zext i112 %empty_155 to i120
+  %empty_158 = trunc i120 %empty_156 to i8
+  %empty_159 = call i8 @_ssdm_op_PartSelect.i8.i120.i32.i32(i120 %empty_157, i32 112, i32 119)
   %empty_160 = or i8 %empty_158, %empty_159
-  %empty_161 = call i104 @_ssdm_op_PartSet.i104.i104.i8.i32.i32(i104 %empty_157, i8 %empty_160, i32 96, i32 103)
-  %empty_162 = zext i8 %2 to i112
-  %empty_163 = zext i104 %empty_161 to i112
-  %empty_164 = trunc i112 %empty_162 to i8
-  %empty_165 = call i8 @_ssdm_op_PartSelect.i8.i112.i32.i32(i112 %empty_163, i32 104, i32 111)
+  %empty_161 = call i120 @_ssdm_op_PartSet.i120.i120.i8.i32.i32(i120 %empty_157, i8 %empty_160, i32 112, i32 119)
+  %empty_162 = zext i8 %0 to i128
+  %empty_163 = zext i120 %empty_161 to i128
+  %empty_164 = trunc i128 %empty_162 to i8
+  %empty_165 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %empty_163, i32 120, i32 127)
   %empty_166 = or i8 %empty_164, %empty_165
-  %empty_167 = call i112 @_ssdm_op_PartSet.i112.i112.i8.i32.i32(i112 %empty_163, i8 %empty_166, i32 104, i32 111)
-  %empty_168 = zext i8 %1 to i120
-  %empty_169 = zext i112 %empty_167 to i120
-  %empty_170 = trunc i120 %empty_168 to i8
-  %empty_171 = call i8 @_ssdm_op_PartSelect.i8.i120.i32.i32(i120 %empty_169, i32 112, i32 119)
-  %empty_172 = or i8 %empty_170, %empty_171
-  %empty_173 = call i120 @_ssdm_op_PartSet.i120.i120.i8.i32.i32(i120 %empty_169, i8 %empty_172, i32 112, i32 119)
-  %empty_174 = zext i8 %0 to i128
-  %empty_175 = zext i120 %empty_173 to i128
-  %empty_176 = trunc i128 %empty_174 to i8
-  %empty_177 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %empty_175, i32 120, i32 127)
-  %empty_178 = or i8 %empty_176, %empty_177
-  %empty_179 = call i128 @_ssdm_op_PartSet.i128.i128.i8.i32.i32(i128 %empty_175, i8 %empty_178, i32 120, i32 127)
-  ret i128 %empty_179
+  %empty_167 = call i128 @_ssdm_op_PartSet.i128.i128.i8.i32.i32(i128 %empty_163, i8 %empty_166, i32 120, i32 127)
+  ret i128 %empty_167
 }
 
-define weak i32 @_ssdm_op_SpecLoopTripCount(...) {
+define weak i28 @_ssdm_op_PartSelect.i28.i32.i32.i32(i32, i32, i32) nounwind readnone {
 entry:
-  ret i32 0
-}
-
-define weak i7 @_ssdm_op_PartSelect.i7.i8.i32.i32(i8, i32, i32) nounwind readnone {
-entry:
-  %empty = call i8 @llvm.part.select.i8(i8 %0, i32 %1, i32 %2)
-  %empty_180 = trunc i8 %empty to i7
-  ret i7 %empty_180
-}
-
-define weak i7 @_ssdm_op_BitConcatenate.i7.i4.i3(i4, i3) nounwind readnone {
-entry:
-  %empty = zext i4 %0 to i7
-  %empty_181 = zext i3 %1 to i7
-  %empty_182 = trunc i7 %empty to i4
-  %empty_183 = call i4 @_ssdm_op_PartSelect.i4.i7.i32.i32(i7 %empty_181, i32 3, i32 6)
-  %empty_184 = or i4 %empty_182, %empty_183
-  %empty_185 = call i7 @_ssdm_op_PartSet.i7.i7.i4.i32.i32(i7 %empty_181, i4 %empty_184, i32 3, i32 6)
-  ret i7 %empty_185
+  %empty = call i32 @llvm.part.select.i32(i32 %0, i32 %1, i32 %2)
+  %empty_168 = trunc i32 %empty to i28
+  ret i28 %empty_168
 }
 
 define weak i32 @_ssdm_op_Read.ap_vld.i32(i32) {
@@ -2341,29 +2264,29 @@ entry:
   ret i32 %0
 }
 
-define weak void @_ssdm_op_Write.m_axi.volatile.i8P(i8*, i8) {
+define weak void @_ssdm_op_Write.m_axi.volatile.i128P(i128*, i128) {
 entry:
-  store i8 %1, i8* %0
+  store i128 %1, i128* %0
   ret void
 }
 
-define weak i1 @_ssdm_op_WriteReq.m_axi.i8P(i8*, i32) {
+define weak i1 @_ssdm_op_WriteReq.m_axi.i128P(i128*, i32) {
 entry:
   ret i1 true
 }
 
-define weak i1 @_ssdm_op_WriteResp.m_axi.i8P(i8*) {
+define weak i1 @_ssdm_op_WriteResp.m_axi.i128P(i128*) {
 entry:
   ret i1 true
 }
 
-define weak i8 @_ssdm_op_Read.m_axi.volatile.i8P(i8*) {
+define weak i128 @_ssdm_op_Read.m_axi.volatile.i128P(i128*) {
 entry:
-  %empty = load i8* %0
-  ret i8 %empty
+  %empty = load i128* %0
+  ret i128 %empty
 }
 
-define weak i1 @_ssdm_op_ReadReq.m_axi.i8P(i8*, i32) {
+define weak i1 @_ssdm_op_ReadReq.m_axi.i128P(i128*, i32) {
 entry:
   ret i1 true
 }
@@ -2382,23 +2305,25 @@ entry:
 define weak i1 @_ssdm_op_BitSelect.i1.i8.i32(i8, i32) nounwind readnone {
 entry:
   %empty = trunc i32 %1 to i8
-  %empty_186 = shl i8 1, %empty
-  %empty_187 = and i8 %0, %empty_186
-  %empty_188 = icmp ne i8 %empty_187, 0
-  ret i1 %empty_188
+  %empty_169 = shl i8 1, %empty
+  %empty_170 = and i8 %0, %empty_169
+  %empty_171 = icmp ne i8 %empty_170, 0
+  ret i1 %empty_171
 }
 
-declare i8 @llvm.part.select.i8(i8, i32, i32) nounwind readnone
+declare i128 @llvm.part.select.i128(i128, i32, i32) nounwind readnone
+
+declare i32 @llvm.part.select.i32(i32, i32, i32) nounwind readnone
+
+declare i7 @_ssdm_op_PartSelect.i7.i8.i32.i32(i8, i32, i32) nounwind readnone
 
 declare i8 @_ssdm_op_BitConcatenate.i8.i7.i1(i7, i1) nounwind readnone
-
-declare i4 @_ssdm_op_PartSelect.i4.i5.i32.i32(i5, i32, i32) nounwind readnone
 
 define weak i8 @_ssdm_op_PartSelect.i8.i16.i32.i32(i16, i32, i32) nounwind readnone {
 entry:
   %empty = call i16 @llvm.part.select.i16(i16 %0, i32 %1, i32 %2)
-  %empty_189 = trunc i16 %empty to i8
-  ret i8 %empty_189
+  %empty_172 = trunc i16 %empty to i8
+  ret i8 %empty_172
 }
 
 define weak i16 @_ssdm_op_PartSet.i16.i16.i8.i32.i32(i16, i8, i32, i32) nounwind readnone {
@@ -2410,8 +2335,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i24.i32.i32(i24, i32, i32) nounwind readnone {
 entry:
   %empty = call i24 @llvm.part.select.i24(i24 %0, i32 %1, i32 %2)
-  %empty_190 = trunc i24 %empty to i8
-  ret i8 %empty_190
+  %empty_173 = trunc i24 %empty to i8
+  ret i8 %empty_173
 }
 
 define weak i24 @_ssdm_op_PartSet.i24.i24.i8.i32.i32(i24, i8, i32, i32) nounwind readnone {
@@ -2423,8 +2348,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i32.i32.i32(i32, i32, i32) nounwind readnone {
 entry:
   %empty = call i32 @llvm.part.select.i32(i32 %0, i32 %1, i32 %2)
-  %empty_191 = trunc i32 %empty to i8
-  ret i8 %empty_191
+  %empty_174 = trunc i32 %empty to i8
+  ret i8 %empty_174
 }
 
 define weak i32 @_ssdm_op_PartSet.i32.i32.i8.i32.i32(i32, i8, i32, i32) nounwind readnone {
@@ -2436,8 +2361,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i40.i32.i32(i40, i32, i32) nounwind readnone {
 entry:
   %empty = call i40 @llvm.part.select.i40(i40 %0, i32 %1, i32 %2)
-  %empty_192 = trunc i40 %empty to i8
-  ret i8 %empty_192
+  %empty_175 = trunc i40 %empty to i8
+  ret i8 %empty_175
 }
 
 define weak i40 @_ssdm_op_PartSet.i40.i40.i8.i32.i32(i40, i8, i32, i32) nounwind readnone {
@@ -2449,8 +2374,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i48.i32.i32(i48, i32, i32) nounwind readnone {
 entry:
   %empty = call i48 @llvm.part.select.i48(i48 %0, i32 %1, i32 %2)
-  %empty_193 = trunc i48 %empty to i8
-  ret i8 %empty_193
+  %empty_176 = trunc i48 %empty to i8
+  ret i8 %empty_176
 }
 
 define weak i48 @_ssdm_op_PartSet.i48.i48.i8.i32.i32(i48, i8, i32, i32) nounwind readnone {
@@ -2462,8 +2387,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i56.i32.i32(i56, i32, i32) nounwind readnone {
 entry:
   %empty = call i56 @llvm.part.select.i56(i56 %0, i32 %1, i32 %2)
-  %empty_194 = trunc i56 %empty to i8
-  ret i8 %empty_194
+  %empty_177 = trunc i56 %empty to i8
+  ret i8 %empty_177
 }
 
 define weak i56 @_ssdm_op_PartSet.i56.i56.i8.i32.i32(i56, i8, i32, i32) nounwind readnone {
@@ -2475,8 +2400,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i64.i32.i32(i64, i32, i32) nounwind readnone {
 entry:
   %empty = call i64 @llvm.part.select.i64(i64 %0, i32 %1, i32 %2)
-  %empty_195 = trunc i64 %empty to i8
-  ret i8 %empty_195
+  %empty_178 = trunc i64 %empty to i8
+  ret i8 %empty_178
 }
 
 define weak i64 @_ssdm_op_PartSet.i64.i64.i8.i32.i32(i64, i8, i32, i32) nounwind readnone {
@@ -2488,8 +2413,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i72.i32.i32(i72, i32, i32) nounwind readnone {
 entry:
   %empty = call i72 @llvm.part.select.i72(i72 %0, i32 %1, i32 %2)
-  %empty_196 = trunc i72 %empty to i8
-  ret i8 %empty_196
+  %empty_179 = trunc i72 %empty to i8
+  ret i8 %empty_179
 }
 
 define weak i72 @_ssdm_op_PartSet.i72.i72.i8.i32.i32(i72, i8, i32, i32) nounwind readnone {
@@ -2501,8 +2426,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i80.i32.i32(i80, i32, i32) nounwind readnone {
 entry:
   %empty = call i80 @llvm.part.select.i80(i80 %0, i32 %1, i32 %2)
-  %empty_197 = trunc i80 %empty to i8
-  ret i8 %empty_197
+  %empty_180 = trunc i80 %empty to i8
+  ret i8 %empty_180
 }
 
 define weak i80 @_ssdm_op_PartSet.i80.i80.i8.i32.i32(i80, i8, i32, i32) nounwind readnone {
@@ -2514,8 +2439,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i88.i32.i32(i88, i32, i32) nounwind readnone {
 entry:
   %empty = call i88 @llvm.part.select.i88(i88 %0, i32 %1, i32 %2)
-  %empty_198 = trunc i88 %empty to i8
-  ret i8 %empty_198
+  %empty_181 = trunc i88 %empty to i8
+  ret i8 %empty_181
 }
 
 define weak i88 @_ssdm_op_PartSet.i88.i88.i8.i32.i32(i88, i8, i32, i32) nounwind readnone {
@@ -2527,8 +2452,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i96.i32.i32(i96, i32, i32) nounwind readnone {
 entry:
   %empty = call i96 @llvm.part.select.i96(i96 %0, i32 %1, i32 %2)
-  %empty_199 = trunc i96 %empty to i8
-  ret i8 %empty_199
+  %empty_182 = trunc i96 %empty to i8
+  ret i8 %empty_182
 }
 
 define weak i96 @_ssdm_op_PartSet.i96.i96.i8.i32.i32(i96, i8, i32, i32) nounwind readnone {
@@ -2540,8 +2465,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i104.i32.i32(i104, i32, i32) nounwind readnone {
 entry:
   %empty = call i104 @llvm.part.select.i104(i104 %0, i32 %1, i32 %2)
-  %empty_200 = trunc i104 %empty to i8
-  ret i8 %empty_200
+  %empty_183 = trunc i104 %empty to i8
+  ret i8 %empty_183
 }
 
 define weak i104 @_ssdm_op_PartSet.i104.i104.i8.i32.i32(i104, i8, i32, i32) nounwind readnone {
@@ -2553,8 +2478,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i112.i32.i32(i112, i32, i32) nounwind readnone {
 entry:
   %empty = call i112 @llvm.part.select.i112(i112 %0, i32 %1, i32 %2)
-  %empty_201 = trunc i112 %empty to i8
-  ret i8 %empty_201
+  %empty_184 = trunc i112 %empty to i8
+  ret i8 %empty_184
 }
 
 define weak i112 @_ssdm_op_PartSet.i112.i112.i8.i32.i32(i112, i8, i32, i32) nounwind readnone {
@@ -2566,8 +2491,8 @@ entry:
 define weak i8 @_ssdm_op_PartSelect.i8.i120.i32.i32(i120, i32, i32) nounwind readnone {
 entry:
   %empty = call i120 @llvm.part.select.i120(i120 %0, i32 %1, i32 %2)
-  %empty_202 = trunc i120 %empty to i8
-  ret i8 %empty_202
+  %empty_185 = trunc i120 %empty to i8
+  ret i8 %empty_185
 }
 
 define weak i120 @_ssdm_op_PartSet.i120.i120.i8.i32.i32(i120, i8, i32, i32) nounwind readnone {
@@ -2582,19 +2507,6 @@ entry:
   ret i128 %empty
 }
 
-define weak i4 @_ssdm_op_PartSelect.i4.i7.i32.i32(i7, i32, i32) nounwind readnone {
-entry:
-  %empty = call i7 @llvm.part.select.i7(i7 %0, i32 %1, i32 %2)
-  %empty_203 = trunc i7 %empty to i4
-  ret i4 %empty_203
-}
-
-define weak i7 @_ssdm_op_PartSet.i7.i7.i4.i32.i32(i7, i4, i32, i32) nounwind readnone {
-entry:
-  %empty = call i7 @llvm.part.set.i7.i4(i7 %0, i4 %1, i32 %2, i32 %3)
-  ret i7 %empty
-}
-
 declare i16 @llvm.part.select.i16(i16, i32, i32) nounwind readnone
 
 declare i16 @llvm.part.set.i16.i8(i16, i8, i32, i32) nounwind readnone
@@ -2602,8 +2514,6 @@ declare i16 @llvm.part.set.i16.i8(i16, i8, i32, i32) nounwind readnone
 declare i24 @llvm.part.select.i24(i24, i32, i32) nounwind readnone
 
 declare i24 @llvm.part.set.i24.i8(i24, i8, i32, i32) nounwind readnone
-
-declare i32 @llvm.part.select.i32(i32, i32, i32) nounwind readnone
 
 declare i32 @llvm.part.set.i32.i8(i32, i8, i32, i32) nounwind readnone
 
@@ -2653,10 +2563,6 @@ declare i120 @llvm.part.set.i120.i8(i120, i8, i32, i32) nounwind readnone
 
 declare i128 @llvm.part.set.i128.i8(i128, i8, i32, i32) nounwind readnone
 
-declare i7 @llvm.part.select.i7(i7, i32, i32) nounwind readnone
-
-declare i7 @llvm.part.set.i7.i4(i7, i4, i32, i32) nounwind readnone
-
 !llvm.map.gv = !{!0}
 
 !0 = metadata !{metadata !1, [2 x i32]* @llvm_global_ctors_0}
@@ -2667,11 +2573,11 @@ declare i7 @llvm.part.set.i7.i4(i7, i4, i32, i32) nounwind readnone
 !5 = metadata !{metadata !6}
 !6 = metadata !{i32 0, i32 1, i32 1}
 !7 = metadata !{metadata !8}
-!8 = metadata !{i32 0, i32 7, metadata !9}
+!8 = metadata !{i32 0, i32 127, metadata !9}
 !9 = metadata !{metadata !10}
-!10 = metadata !{metadata !"ddr", metadata !11, metadata !"unsigned char"}
+!10 = metadata !{metadata !"ddr.V", metadata !11, metadata !"uint128"}
 !11 = metadata !{metadata !12}
-!12 = metadata !{i32 0, i32 536870910, i32 1}
+!12 = metadata !{i32 0, i32 33554431, i32 1}
 !13 = metadata !{metadata !14}
 !14 = metadata !{i32 0, i32 31, metadata !15}
 !15 = metadata !{metadata !16}
@@ -2695,6 +2601,6 @@ declare i7 @llvm.part.set.i7.i4(i7, i4, i32, i32) nounwind readnone
 !33 = metadata !{metadata !34}
 !34 = metadata !{i32 0, i32 0, metadata !35}
 !35 = metadata !{metadata !36}
-!36 = metadata !{metadata !"return", metadata !37, metadata !""}
+!36 = metadata !{metadata !"return", metadata !37, metadata !"bool"}
 !37 = metadata !{metadata !38}
 !38 = metadata !{i32 0, i32 1, i32 0}

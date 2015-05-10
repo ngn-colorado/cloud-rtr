@@ -56,7 +56,7 @@ typedef ap_uint<128> uint128_t;
 typedef hls::stream<uint128_t> mem_stream;
 
 
-bool aes(volatile unsigned char ddr[0x1FFFFFFF], volatile unsigned sourceAddress, ap_uint<128>* key_in,
+bool aes(volatile ap_uint<128> ddr[0x2000000], volatile unsigned sourceAddress, ap_uint<128>* key_in,
 		volatile unsigned destinationAddress, unsigned int length){
 #pragma HLS INTERFACE m_axi port=ddr
 
@@ -84,9 +84,10 @@ bool aes(volatile unsigned char ddr[0x1FFFFFFF], volatile unsigned sourceAddress
 	//increment the source and dest address by 128 bits each time
 	int i, j, iterations = length;
 	unsigned char mask;
-	unsigned sourceAddressLocal = sourceAddress;
-	unsigned destinationAddressLocal = destinationAddress;
-
+	unsigned sourceAddressLocal = sourceAddress/0x10;
+//	printf("\nSource address local: %i", sourceAddressLocal);
+	unsigned destinationAddressLocal = destinationAddress/0x10;
+//	printf("\nDestination address local: %i", destinationAddressLocal);
 	ap_uint<128> key_local = *key_in;
 //	m_mm2s_ctl[0] &= 0;
 //	m_s2mm_ctl[12] &= 0;
@@ -121,32 +122,34 @@ bool aes(volatile unsigned char ddr[0x1FFFFFFF], volatile unsigned sourceAddress
 //
 	ap_uint<128> encrypted_data;
 	for(iterations = 0; iterations<length; iterations++){
-		ap_uint<128> data(0);
-//
-		for(i = 0; i<16; i++){
-			mask = 128;
-			for(j=0; j<8; j++){
-				if(ddr[sourceAddressLocal + i] & mask){
-					data.set((127 - 8*i) - j);
-				}
-				mask = mask >> 1;
-			}
-		}
+		ap_uint<128> data = ddr[sourceAddressLocal];
+//		ap_uint<128> data(0);
+////
+//		for(i = 0; i<16; i++){
+//			mask = 128;
+//			for(j=0; j<8; j++){
+//				if(ddr[sourceAddressLocal + i] & mask){
+//					data.set((127 - 8*i) - j);
+//				}
+//				mask = mask >> 1;
+//			}
+//		}
 //		ap_uint<128> data = s_in.read();
 //			printf("\nData in fabric: %s", data.to_string().c_str());
 //			printf("\nKey in fabric: %s", ((ap_uint<128>*)key_in)->to_string().c_str());
 		aestest(&data, &key_local, &encrypted_data);
 //			printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
-		char current = 0;
-		for(i=0; i < 16; i++)
-		{
-			current = encrypted_data.range(127-i*8, (120)-i*8);
-			ddr[destinationAddressLocal + i] = current;
-		}
+		ddr[destinationAddressLocal] = encrypted_data;
+//		char current = 0;
+//		for(i=0; i < 16; i++)
+//		{
+//			current = encrypted_data.range(127-i*8, (120)-i*8);
+//			ddr[destinationAddressLocal + i] = current;
+//		}
 //		s_out.write(encrypted_data);
 
-		sourceAddressLocal += 16;
-		destinationAddressLocal += 16;
+		sourceAddressLocal += 1;
+		destinationAddressLocal += 1;
 	}
 	return true;
 }

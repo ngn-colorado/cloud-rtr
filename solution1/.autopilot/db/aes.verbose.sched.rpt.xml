@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vivado HLS Report for 'aes'" level="0">
-<item name = "Date">Sat May  9 16:20:26 2015
+<item name = "Date">Sat May  9 23:39:32 2015
 </item>
 <item name = "Version">2014.1 (build date: Fri Apr 04 13:20:25 PM 2014)</item>
 <item name = "Project">aes_runner</item>
@@ -35,10 +35,7 @@
 </item>
 <item name = "Loop"><table name="" hasTotal="0">
 <keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
-<column name="- Loop 1">?, ?, 487, -, -, ?, no</column>
-<column name=" + Loop 1.1">416, 416, 26, -, -, 16, no</column>
-<column name="  ++ Loop 1.1.1">24, 24, 3, -, -, 8, no</column>
-<column name=" + Loop 1.2">48, 48, 3, -, -, 16, no</column>
+<column name="- Loop 1">?, ?, 24, -, -, ?, no</column>
 </table>
 </item>
 </section>

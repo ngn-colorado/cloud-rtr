@@ -289,14 +289,14 @@ set gport25 [list $gportName25 $gportInterface25 $gportData25 $gportPointer25 $g
 lappend globalVariable $gport25
 set staticVariable ""
 set moduleName "aes"
-set rawDecl [list "bool" "aes\(volatile unsigned char ddr\[0x1FFFFFFF\], volatile unsigned sourceAddress, ap_uint<128>* key_in,
+set rawDecl [list "bool" "aes\(volatile ap_uint<128> ddr\[0x2000000\], volatile unsigned sourceAddress, ap_uint<128>* key_in,
   volatile unsigned destinationAddress, unsigned int length\)"]
 set argAPint ""
 set returnAPint ""
 set portList ""
 set portName0 "ddr"
 set portInterface0 "[list axi_master 0]"
-set portData0 "unsigned char"
+set portData0 "[list ap_uint "128" ]"
 set portPointer0 "1"
 set portArrayDim0 [list 0]
 set portConst0 "0"

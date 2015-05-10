@@ -71,15 +71,15 @@ eval "::AESL_LIB_XILADAPTER::m_axi_gen { \
     id 5 \
     corename {m_axi} \
     op interface \
-    name {aes_ddr_m_axi} \
+    name {aes_ddr_V_m_axi} \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find AXI interface model in the library. Ignored generation of AXI interface for 'ddr'"
+puts "@W \[IMPL-110\] Cannot find AXI interface model in the library. Ignored generation of AXI interface for 'ddr_V'"
 }
 }
 
 if {${::AESL::PGuard_rtl_comp_handler}} {
-	::AP::rtl_comp_handler aes_ddr_m_axi
+	::AP::rtl_comp_handler aes_ddr_V_m_axi
 }
 
 # Direct connection:

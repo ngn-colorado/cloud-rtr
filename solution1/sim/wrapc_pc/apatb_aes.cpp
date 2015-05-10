@@ -24,8 +24,8 @@ using namespace sc_dt;
 
 
 
-   #define AUTOTB_TVIN_ddr  "../tv/cdatafile/c.aes.autotvin_ddr.dat"
-   #define AUTOTB_TVOUT_ddr  "../tv/cdatafile/c.aes.autotvout_ddr.dat"
+   #define AUTOTB_TVIN_ddr_V  "../tv/cdatafile/c.aes.autotvin_ddr_V.dat"
+   #define AUTOTB_TVOUT_ddr_V  "../tv/cdatafile/c.aes.autotvout_ddr_V.dat"
    #define AUTOTB_TVIN_sourceAddress  "../tv/cdatafile/c.aes.autotvin_sourceAddress.dat"
    #define AUTOTB_TVIN_key_in_V  "../tv/cdatafile/c.aes.autotvin_key_in_V.dat"
    #define AUTOTB_TVIN_destinationAddress  "../tv/cdatafile/c.aes.autotvin_destinationAddress.dat"
@@ -33,7 +33,7 @@ using namespace sc_dt;
    #define AUTOTB_TVOUT_ap_return  "../tv/cdatafile/c.aes.autotvout_ap_return.dat"
    #define INTER_TCL  "../tv/cdatafile/ref.tcl"
 
-   #define AUTOTB_TVOUT_PC_ddr  "../tv/rtldatafile/rtl.aes.autotvout_ddr.dat"
+   #define AUTOTB_TVOUT_PC_ddr_V  "../tv/rtldatafile/rtl.aes.autotvout_ddr_V.dat"
    #define AUTOTB_TVOUT_PC_ap_return  "../tv/rtldatafile/rtl.aes.autotvout_ap_return.dat"
 
 class INTER_TCL_FILE {
@@ -41,7 +41,7 @@ class INTER_TCL_FILE {
 //functions
         INTER_TCL_FILE(const char* name) {
             mName = name;
-            ddr_depth = 0;
+            ddr_V_depth = 0;
             sourceAddress_depth = 0;
             key_in_V_depth = 0;
             destinationAddress_depth = 0;
@@ -64,7 +64,7 @@ class INTER_TCL_FILE {
         }
         string get_depth_list () {
             stringstream total_list;
-            total_list<<"   {ddr "<< ddr_depth << "}\n";
+            total_list<<"   {ddr_V "<< ddr_V_depth << "}\n";
             total_list<<"   {sourceAddress "<< sourceAddress_depth << "}\n";
             total_list<<"   {key_in_V "<< key_in_V_depth << "}\n";
             total_list<<"   {destinationAddress "<< destinationAddress_depth << "}\n";
@@ -77,7 +77,7 @@ class INTER_TCL_FILE {
         }
     public:
 //variables
-        int ddr_depth;
+        int ddr_V_depth;
         int sourceAddress_depth;
         int key_in_V_depth;
         int destinationAddress_depth;
@@ -90,9 +90,9 @@ class INTER_TCL_FILE {
 };
 
 #define aes AESL_ORIG_DUT_aes
-extern bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_uint<128>* key_in, volatile unsigned int destinationAddress,  unsigned int length);
+extern bool aes (volatile ap_uint<128>* ddr, volatile unsigned int sourceAddress,  ap_uint<128>* key_in, volatile unsigned int destinationAddress,  unsigned int length);
 #undef aes
-bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_uint<128>* key_in, volatile unsigned int destinationAddress,  unsigned int length) {
+bool aes (volatile ap_uint<128>* ddr, volatile unsigned int sourceAddress,  ap_uint<128>* key_in, volatile unsigned int destinationAddress,  unsigned int length) {
 
     fstream wrapc_switch_file_token;
 
@@ -112,7 +112,7 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
         bool AESL_return;
 
-        aesl_fh.read(AUTOTB_TVOUT_PC_ddr, AESL_token); //[[transaction]]
+        aesl_fh.read(AUTOTB_TVOUT_PC_ddr_V, AESL_token); //[[transaction]]
 
         if ( AESL_token != "[[transaction]]") {
 
@@ -120,13 +120,13 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
         }
 
-        aesl_fh.read(AUTOTB_TVOUT_PC_ddr, AESL_num); //transaction number
+        aesl_fh.read(AUTOTB_TVOUT_PC_ddr_V, AESL_num); //transaction number
 
         if (atoi(AESL_num.c_str()) == AESL_transaction_pc ) {
 
-            aesl_fh.read(AUTOTB_TVOUT_PC_ddr, AESL_token); //data
+            aesl_fh.read(AUTOTB_TVOUT_PC_ddr_V, AESL_token); //data
 
-            sc_bv<8> *ddr_pc_buffer = new sc_bv<8>[536870911];
+            sc_bv<128> *ddr_V_pc_buffer = new sc_bv<128>[33554432];
 
             int i = 0;
 
@@ -144,7 +144,7 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
                     if (!err) {
 
-                        cerr << "@W [SIM-201] RTL produces unknown value 'X' on port 'ddr', possible cause: There are uninitialized variables in the C design." << endl; 
+                        cerr << "@W [SIM-201] RTL produces unknown value 'X' on port 'ddr_V', possible cause: There are uninitialized variables in the C design." << endl; 
 
                         err = true;
 
@@ -170,7 +170,7 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
                     if (!err) {
 
-                        cerr << "@W [SIM-201] RTL produces unknown value 'X' on port 'ddr', possible cause: There are uninitialized variables in the C design." << endl; 
+                        cerr << "@W [SIM-201] RTL produces unknown value 'X' on port 'ddr_V', possible cause: There are uninitialized variables in the C design." << endl; 
 
                         err = true;
 
@@ -188,15 +188,15 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
                 if (AESL_token != "") {
 
-                    ddr_pc_buffer[i] = AESL_token.c_str();
+                    ddr_V_pc_buffer[i] = AESL_token.c_str();
 
                     i++;
 
                 }
 
-                aesl_fh.read(AUTOTB_TVOUT_PC_ddr, AESL_token); //data or [[/transaction]]
+                aesl_fh.read(AUTOTB_TVOUT_PC_ddr_V, AESL_token); //data or [[/transaction]]
 
-                if (AESL_token == "[[[/runtime]]]" || aesl_fh.eof(AUTOTB_TVOUT_PC_ddr)) {
+                if (AESL_token == "[[[/runtime]]]" || aesl_fh.eof(AUTOTB_TVOUT_PC_ddr_V)) {
 
                    exit(1);
 
@@ -208,9 +208,9 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
                 AESL_i = 0; //subscript for rtl array
 
-                for (int i_0 = 0; i_0 <= 536870910 ; i_0+= 1) {
+                for (int i_0 = 0; i_0 <= 33554431 ; i_0+= 1) {
 
-                    *(ddr) = (sc_bv<8>(ddr_pc_buffer[0 + AESL_i].range(7, 0))).to_uint64();
+                    *(ddr) = (sc_bv<128>(ddr_V_pc_buffer[0 + AESL_i].range(127, 0))).to_string(SC_BIN).c_str();
 
                     AESL_i++;
 
@@ -218,7 +218,7 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
                 }
 
-            delete [] ddr_pc_buffer;
+            delete [] ddr_V_pc_buffer;
 
         }
 
@@ -336,9 +336,9 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
         static AESL_FILE_HANDLER aesl_fh;
 
-        char* tvin_ddr = new char[50];
+        char* tvin_ddr_V = new char[50];
 
-        char* tvout_ddr = new char[50];
+        char* tvout_ddr_V = new char[50];
 
         char* tvin_sourceAddress = new char[50];
 
@@ -355,37 +355,37 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
         int leading_zero;
 
-        sprintf(tvin_ddr, "[[transaction]] %d\n", AESL_transaction);
+        sprintf(tvin_ddr_V, "[[transaction]] %d\n", AESL_transaction);
 
-        aesl_fh.write(AUTOTB_TVIN_ddr, tvin_ddr);
+        aesl_fh.write(AUTOTB_TVIN_ddr_V, tvin_ddr_V);
 
-        sc_bv<8> *ddr_tvin_wrapc_buffer = new sc_bv<8>[536870911];
+        sc_bv<128> *ddr_V_tvin_wrapc_buffer = new sc_bv<128>[33554432];
 
         AESL_i = 0; //subscript for rtl array
 
-        for (int i_0 = 0; i_0 <= 536870910 ; i_0+= 1) {
+        for (int i_0 = 0; i_0 <= 33554431 ; i_0+= 1) {
 
-            ddr_tvin_wrapc_buffer[0 + AESL_i].range(7, 0) = *(ddr);
+            ddr_V_tvin_wrapc_buffer[0 + AESL_i].range(127, 0) = (*(ddr)).to_string(2).c_str();
 
             AESL_i++;
 
         }
 
-        for (int i = 0; i < 536870911 ; i++) {
+        for (int i = 0; i < 33554432 ; i++) {
 
-            sprintf(tvin_ddr, "%s\n", (ddr_tvin_wrapc_buffer[i]).to_string(SC_HEX).c_str());
+            sprintf(tvin_ddr_V, "%s\n", (ddr_V_tvin_wrapc_buffer[i]).to_string(SC_HEX).c_str());
 
-            aesl_fh.write(AUTOTB_TVIN_ddr, tvin_ddr);
+            aesl_fh.write(AUTOTB_TVIN_ddr_V, tvin_ddr_V);
 
         }
 
-        tcl_file.set_num(536870911,&tcl_file.ddr_depth);
+        tcl_file.set_num(33554432,&tcl_file.ddr_V_depth);
 
-        sprintf(tvin_ddr, "[[/transaction]] \n");
+        sprintf(tvin_ddr_V, "[[/transaction]] \n");
 
-        aesl_fh.write(AUTOTB_TVIN_ddr, tvin_ddr);
+        aesl_fh.write(AUTOTB_TVIN_ddr_V, tvin_ddr_V);
 
-        delete [] ddr_tvin_wrapc_buffer;
+        delete [] ddr_V_tvin_wrapc_buffer;
 
         sprintf(tvin_sourceAddress, "[[transaction]] %d\n", AESL_transaction);
 
@@ -499,37 +499,37 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
         bool AESL_return = AESL_ORIG_DUT_aes(ddr,sourceAddress,key_in,destinationAddress,length);
 
-        sprintf(tvout_ddr, "[[transaction]] %d\n", AESL_transaction);
+        sprintf(tvout_ddr_V, "[[transaction]] %d\n", AESL_transaction);
 
-        aesl_fh.write(AUTOTB_TVOUT_ddr, tvout_ddr);
+        aesl_fh.write(AUTOTB_TVOUT_ddr_V, tvout_ddr_V);
 
-        sc_bv<8> *ddr_tvout_wrapc_buffer = new sc_bv<8>[536870911];
+        sc_bv<128> *ddr_V_tvout_wrapc_buffer = new sc_bv<128>[33554432];
 
         AESL_i = 0; //subscript for rtl array
 
-        for (int i_0 = 0; i_0 <= 536870910 ; i_0+= 1) {
+        for (int i_0 = 0; i_0 <= 33554431 ; i_0+= 1) {
 
-            ddr_tvout_wrapc_buffer[0 + AESL_i].range(7, 0) = *(ddr);
+            ddr_V_tvout_wrapc_buffer[0 + AESL_i].range(127, 0) = (*(ddr)).to_string(2).c_str();
 
             AESL_i++;
 
         }
 
-        for (int i = 0; i < 536870911 ; i++) {
+        for (int i = 0; i < 33554432 ; i++) {
 
-            sprintf(tvout_ddr, "%s\n", (ddr_tvout_wrapc_buffer[i]).to_string(SC_HEX).c_str());
+            sprintf(tvout_ddr_V, "%s\n", (ddr_V_tvout_wrapc_buffer[i]).to_string(SC_HEX).c_str());
 
-            aesl_fh.write(AUTOTB_TVOUT_ddr, tvout_ddr);
+            aesl_fh.write(AUTOTB_TVOUT_ddr_V, tvout_ddr_V);
 
         }
 
-        tcl_file.set_num(536870911,&tcl_file.ddr_depth);
+        tcl_file.set_num(33554432,&tcl_file.ddr_V_depth);
 
-        sprintf(tvout_ddr, "[[/transaction]] \n");
+        sprintf(tvout_ddr_V, "[[/transaction]] \n");
 
-        aesl_fh.write(AUTOTB_TVOUT_ddr, tvout_ddr);
+        aesl_fh.write(AUTOTB_TVOUT_ddr_V, tvout_ddr_V);
 
-        delete [] ddr_tvout_wrapc_buffer;
+        delete [] ddr_V_tvout_wrapc_buffer;
 
         sprintf(tvout_ap_return, "[[transaction]] %d\n", AESL_transaction);
 
@@ -557,9 +557,9 @@ bool aes (volatile unsigned char* ddr, volatile unsigned int sourceAddress,  ap_
 
         aesl_fh.write(AUTOTB_TVOUT_ap_return, tvout_ap_return);
 
-        delete [] tvin_ddr;
+        delete [] tvin_ddr_V;
 
-        delete [] tvout_ddr;
+        delete [] tvout_ddr_V;
 
         delete [] tvin_sourceAddress;
 

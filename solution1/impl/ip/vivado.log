@@ -2,8 +2,8 @@
 # Vivado v2014.1 (64-bit)
 # SW Build 881834 on Fri Apr  4 14:00:25 MDT 2014
 # IP Build 877625 on Fri Mar 28 16:29:15 MDT 2014
-# Start of session at: Sat May  9 16:22:32 2015
-# Process ID: 4550
+# Start of session at: Sat May  9 23:39:51 2015
+# Process ID: 4556
 # Log file: /Xilinx/xilinx_workspace/aes_runner/solution1/impl/ip/vivado.log
 # Journal file: /Xilinx/xilinx_workspace/aes_runner/solution1/impl/ip/vivado.jou
 #-----------------------------------------------------------
@@ -11,4 +11,4 @@ source run_ippack.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/Xilinx/Vivado/2014.1/data/ip'.
-INFO: [Common 17-206] Exiting Vivado at Sat May  9 16:22:51 2015...
+INFO: [Common 17-206] Exiting Vivado at Sat May  9 23:40:11 2015...

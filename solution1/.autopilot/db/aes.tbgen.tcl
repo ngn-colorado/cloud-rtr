@@ -8,19 +8,19 @@ set isOneStateSeq 0
 set C_modelName aes
 set C_modelType { int 1 }
 set C_modelArgList { 
-	{ ddr int 8 regular {axi_master 2}  }
+	{ ddr_V int 128 regular {axi_master 2}  }
 	{ sourceAddress int 32 regular {axi_slave 0}  }
 	{ key_in_V int 128 regular {axi_slave 0}  }
 	{ destinationAddress int 32 regular {axi_slave 0}  }
 	{ length_r int 32 regular {axi_slave 0}  }
 }
 set C_modelArgMapList {[ 
-	{ "Name" : "ddr", "interface" : "axi_master", "bitwidth" : 8,"bitSlice":[{"low":0,"up":7,"cElement": [{"cName": "ddr","cData": "unsigned char","cArray": [{"low" : 0,"up" : 536870910,"step" : 1}]}]}]} , 
+	{ "Name" : "ddr_V", "interface" : "axi_master", "bitwidth" : 128,"bitSlice":[{"low":0,"up":127,"cElement": [{"cName": "ddr.V","cData": "uint128","cArray": [{"low" : 0,"up" : 33554431,"step" : 1}]}]}]} , 
  	{ "Name" : "sourceAddress", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "sourceAddress","cData": "unsigned int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":24}]} , 
  	{ "Name" : "key_in_V", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 128,"bitSlice":[{"low":0,"up":127,"cElement": [{"cName": "key_in.V","cData": "uint128","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}], "offset" : [{"in":32}]} , 
  	{ "Name" : "destinationAddress", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "destinationAddress","cData": "unsigned int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":52}]} , 
  	{ "Name" : "length_r", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "length","cData": "unsigned int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":60}]} , 
- 	{ "Name" : "ap_return", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_none","bitwidth" : 1,"bitSlice":[{"low":0,"up":0,"cElement": [{"cName": "return","cData": "","cArray": [{"low" : 0,"up" : 1,"step" : 0}]}]}], "offset" : [{"out":16}]} ]}
+ 	{ "Name" : "ap_return", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_none","bitwidth" : 1,"bitSlice":[{"low":0,"up":0,"cElement": [{"cName": "return","cData": "bool","cArray": [{"low" : 0,"up" : 1,"step" : 0}]}]}], "offset" : [{"out":16}]} ]}
 # RTL Port declarations: 
 set portNum 65
 set portList { 
@@ -43,51 +43,51 @@ set portList {
 	{ s_axi_AXILiteS_BRESP sc_out sc_lv 2 signal -1 } 
 	{ ap_clk sc_in sc_logic 1 clock -1 } 
 	{ ap_rst_n sc_in sc_logic 1 reset -1 active_low_sync } 
-	{ m_axi_ddr_AWVALID sc_out sc_logic 1 signal 0 } 
-	{ m_axi_ddr_AWREADY sc_in sc_logic 1 signal 0 } 
-	{ m_axi_ddr_AWADDR sc_out sc_lv 32 signal 0 } 
-	{ m_axi_ddr_AWID sc_out sc_lv 1 signal 0 } 
-	{ m_axi_ddr_AWLEN sc_out sc_lv 8 signal 0 } 
-	{ m_axi_ddr_AWSIZE sc_out sc_lv 3 signal 0 } 
-	{ m_axi_ddr_AWBURST sc_out sc_lv 2 signal 0 } 
-	{ m_axi_ddr_AWLOCK sc_out sc_lv 2 signal 0 } 
-	{ m_axi_ddr_AWCACHE sc_out sc_lv 4 signal 0 } 
-	{ m_axi_ddr_AWPROT sc_out sc_lv 3 signal 0 } 
-	{ m_axi_ddr_AWQOS sc_out sc_lv 4 signal 0 } 
-	{ m_axi_ddr_AWREGION sc_out sc_lv 4 signal 0 } 
-	{ m_axi_ddr_AWUSER sc_out sc_lv 1 signal 0 } 
-	{ m_axi_ddr_WVALID sc_out sc_logic 1 signal 0 } 
-	{ m_axi_ddr_WREADY sc_in sc_logic 1 signal 0 } 
-	{ m_axi_ddr_WDATA sc_out sc_lv 32 signal 0 } 
-	{ m_axi_ddr_WSTRB sc_out sc_lv 4 signal 0 } 
-	{ m_axi_ddr_WLAST sc_out sc_logic 1 signal 0 } 
-	{ m_axi_ddr_WID sc_out sc_lv 1 signal 0 } 
-	{ m_axi_ddr_WUSER sc_out sc_lv 1 signal 0 } 
-	{ m_axi_ddr_ARVALID sc_out sc_logic 1 signal 0 } 
-	{ m_axi_ddr_ARREADY sc_in sc_logic 1 signal 0 } 
-	{ m_axi_ddr_ARADDR sc_out sc_lv 32 signal 0 } 
-	{ m_axi_ddr_ARID sc_out sc_lv 1 signal 0 } 
-	{ m_axi_ddr_ARLEN sc_out sc_lv 8 signal 0 } 
-	{ m_axi_ddr_ARSIZE sc_out sc_lv 3 signal 0 } 
-	{ m_axi_ddr_ARBURST sc_out sc_lv 2 signal 0 } 
-	{ m_axi_ddr_ARLOCK sc_out sc_lv 2 signal 0 } 
-	{ m_axi_ddr_ARCACHE sc_out sc_lv 4 signal 0 } 
-	{ m_axi_ddr_ARPROT sc_out sc_lv 3 signal 0 } 
-	{ m_axi_ddr_ARQOS sc_out sc_lv 4 signal 0 } 
-	{ m_axi_ddr_ARREGION sc_out sc_lv 4 signal 0 } 
-	{ m_axi_ddr_ARUSER sc_out sc_lv 1 signal 0 } 
-	{ m_axi_ddr_RVALID sc_in sc_logic 1 signal 0 } 
-	{ m_axi_ddr_RREADY sc_out sc_logic 1 signal 0 } 
-	{ m_axi_ddr_RDATA sc_in sc_lv 32 signal 0 } 
-	{ m_axi_ddr_RLAST sc_in sc_logic 1 signal 0 } 
-	{ m_axi_ddr_RID sc_in sc_lv 1 signal 0 } 
-	{ m_axi_ddr_RUSER sc_in sc_lv 1 signal 0 } 
-	{ m_axi_ddr_RRESP sc_in sc_lv 2 signal 0 } 
-	{ m_axi_ddr_BVALID sc_in sc_logic 1 signal 0 } 
-	{ m_axi_ddr_BREADY sc_out sc_logic 1 signal 0 } 
-	{ m_axi_ddr_BRESP sc_in sc_lv 2 signal 0 } 
-	{ m_axi_ddr_BID sc_in sc_lv 1 signal 0 } 
-	{ m_axi_ddr_BUSER sc_in sc_lv 1 signal 0 } 
+	{ m_axi_ddr_V_AWVALID sc_out sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_AWREADY sc_in sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_AWADDR sc_out sc_lv 32 signal 0 } 
+	{ m_axi_ddr_V_AWID sc_out sc_lv 1 signal 0 } 
+	{ m_axi_ddr_V_AWLEN sc_out sc_lv 8 signal 0 } 
+	{ m_axi_ddr_V_AWSIZE sc_out sc_lv 3 signal 0 } 
+	{ m_axi_ddr_V_AWBURST sc_out sc_lv 2 signal 0 } 
+	{ m_axi_ddr_V_AWLOCK sc_out sc_lv 2 signal 0 } 
+	{ m_axi_ddr_V_AWCACHE sc_out sc_lv 4 signal 0 } 
+	{ m_axi_ddr_V_AWPROT sc_out sc_lv 3 signal 0 } 
+	{ m_axi_ddr_V_AWQOS sc_out sc_lv 4 signal 0 } 
+	{ m_axi_ddr_V_AWREGION sc_out sc_lv 4 signal 0 } 
+	{ m_axi_ddr_V_AWUSER sc_out sc_lv 1 signal 0 } 
+	{ m_axi_ddr_V_WVALID sc_out sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_WREADY sc_in sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_WDATA sc_out sc_lv 128 signal 0 } 
+	{ m_axi_ddr_V_WSTRB sc_out sc_lv 16 signal 0 } 
+	{ m_axi_ddr_V_WLAST sc_out sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_WID sc_out sc_lv 1 signal 0 } 
+	{ m_axi_ddr_V_WUSER sc_out sc_lv 1 signal 0 } 
+	{ m_axi_ddr_V_ARVALID sc_out sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_ARREADY sc_in sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_ARADDR sc_out sc_lv 32 signal 0 } 
+	{ m_axi_ddr_V_ARID sc_out sc_lv 1 signal 0 } 
+	{ m_axi_ddr_V_ARLEN sc_out sc_lv 8 signal 0 } 
+	{ m_axi_ddr_V_ARSIZE sc_out sc_lv 3 signal 0 } 
+	{ m_axi_ddr_V_ARBURST sc_out sc_lv 2 signal 0 } 
+	{ m_axi_ddr_V_ARLOCK sc_out sc_lv 2 signal 0 } 
+	{ m_axi_ddr_V_ARCACHE sc_out sc_lv 4 signal 0 } 
+	{ m_axi_ddr_V_ARPROT sc_out sc_lv 3 signal 0 } 
+	{ m_axi_ddr_V_ARQOS sc_out sc_lv 4 signal 0 } 
+	{ m_axi_ddr_V_ARREGION sc_out sc_lv 4 signal 0 } 
+	{ m_axi_ddr_V_ARUSER sc_out sc_lv 1 signal 0 } 
+	{ m_axi_ddr_V_RVALID sc_in sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_RREADY sc_out sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_RDATA sc_in sc_lv 128 signal 0 } 
+	{ m_axi_ddr_V_RLAST sc_in sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_RID sc_in sc_lv 1 signal 0 } 
+	{ m_axi_ddr_V_RUSER sc_in sc_lv 1 signal 0 } 
+	{ m_axi_ddr_V_RRESP sc_in sc_lv 2 signal 0 } 
+	{ m_axi_ddr_V_BVALID sc_in sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_BREADY sc_out sc_logic 1 signal 0 } 
+	{ m_axi_ddr_V_BRESP sc_in sc_lv 2 signal 0 } 
+	{ m_axi_ddr_V_BID sc_in sc_lv 1 signal 0 } 
+	{ m_axi_ddr_V_BUSER sc_in sc_lv 1 signal 0 } 
 	{ interrupt sc_out sc_logic 1 signal -1 } 
 }
 set NewPortList {[ 
@@ -110,54 +110,54 @@ set NewPortList {[
 	{ "name": "s_axi_AXILiteS_BRESP", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "AXILiteS", "role": "BRESP" } }, 
  	{ "name": "ap_clk", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "clock", "bundle":{"name": "ap_clk", "role": "default" }} , 
  	{ "name": "ap_rst_n", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "reset", "bundle":{"name": "ap_rst_n", "role": "default" }} , 
- 	{ "name": "m_axi_ddr_AWVALID", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "AWVALID" }} , 
- 	{ "name": "m_axi_ddr_AWREADY", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "AWREADY" }} , 
- 	{ "name": "m_axi_ddr_AWADDR", "direction": "out", "datatype": "sc_lv", "bitwidth":32, "type": "signal", "bundle":{"name": "ddr", "role": "AWADDR" }} , 
- 	{ "name": "m_axi_ddr_AWID", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "AWID" }} , 
- 	{ "name": "m_axi_ddr_AWLEN", "direction": "out", "datatype": "sc_lv", "bitwidth":8, "type": "signal", "bundle":{"name": "ddr", "role": "AWLEN" }} , 
- 	{ "name": "m_axi_ddr_AWSIZE", "direction": "out", "datatype": "sc_lv", "bitwidth":3, "type": "signal", "bundle":{"name": "ddr", "role": "AWSIZE" }} , 
- 	{ "name": "m_axi_ddr_AWBURST", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr", "role": "AWBURST" }} , 
- 	{ "name": "m_axi_ddr_AWLOCK", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr", "role": "AWLOCK" }} , 
- 	{ "name": "m_axi_ddr_AWCACHE", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr", "role": "AWCACHE" }} , 
- 	{ "name": "m_axi_ddr_AWPROT", "direction": "out", "datatype": "sc_lv", "bitwidth":3, "type": "signal", "bundle":{"name": "ddr", "role": "AWPROT" }} , 
- 	{ "name": "m_axi_ddr_AWQOS", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr", "role": "AWQOS" }} , 
- 	{ "name": "m_axi_ddr_AWREGION", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr", "role": "AWREGION" }} , 
- 	{ "name": "m_axi_ddr_AWUSER", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "AWUSER" }} , 
- 	{ "name": "m_axi_ddr_WVALID", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "WVALID" }} , 
- 	{ "name": "m_axi_ddr_WREADY", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "WREADY" }} , 
- 	{ "name": "m_axi_ddr_WDATA", "direction": "out", "datatype": "sc_lv", "bitwidth":32, "type": "signal", "bundle":{"name": "ddr", "role": "WDATA" }} , 
- 	{ "name": "m_axi_ddr_WSTRB", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr", "role": "WSTRB" }} , 
- 	{ "name": "m_axi_ddr_WLAST", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "WLAST" }} , 
- 	{ "name": "m_axi_ddr_WID", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "WID" }} , 
- 	{ "name": "m_axi_ddr_WUSER", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "WUSER" }} , 
- 	{ "name": "m_axi_ddr_ARVALID", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "ARVALID" }} , 
- 	{ "name": "m_axi_ddr_ARREADY", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "ARREADY" }} , 
- 	{ "name": "m_axi_ddr_ARADDR", "direction": "out", "datatype": "sc_lv", "bitwidth":32, "type": "signal", "bundle":{"name": "ddr", "role": "ARADDR" }} , 
- 	{ "name": "m_axi_ddr_ARID", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "ARID" }} , 
- 	{ "name": "m_axi_ddr_ARLEN", "direction": "out", "datatype": "sc_lv", "bitwidth":8, "type": "signal", "bundle":{"name": "ddr", "role": "ARLEN" }} , 
- 	{ "name": "m_axi_ddr_ARSIZE", "direction": "out", "datatype": "sc_lv", "bitwidth":3, "type": "signal", "bundle":{"name": "ddr", "role": "ARSIZE" }} , 
- 	{ "name": "m_axi_ddr_ARBURST", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr", "role": "ARBURST" }} , 
- 	{ "name": "m_axi_ddr_ARLOCK", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr", "role": "ARLOCK" }} , 
- 	{ "name": "m_axi_ddr_ARCACHE", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr", "role": "ARCACHE" }} , 
- 	{ "name": "m_axi_ddr_ARPROT", "direction": "out", "datatype": "sc_lv", "bitwidth":3, "type": "signal", "bundle":{"name": "ddr", "role": "ARPROT" }} , 
- 	{ "name": "m_axi_ddr_ARQOS", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr", "role": "ARQOS" }} , 
- 	{ "name": "m_axi_ddr_ARREGION", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr", "role": "ARREGION" }} , 
- 	{ "name": "m_axi_ddr_ARUSER", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "ARUSER" }} , 
- 	{ "name": "m_axi_ddr_RVALID", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "RVALID" }} , 
- 	{ "name": "m_axi_ddr_RREADY", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "RREADY" }} , 
- 	{ "name": "m_axi_ddr_RDATA", "direction": "in", "datatype": "sc_lv", "bitwidth":32, "type": "signal", "bundle":{"name": "ddr", "role": "RDATA" }} , 
- 	{ "name": "m_axi_ddr_RLAST", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "RLAST" }} , 
- 	{ "name": "m_axi_ddr_RID", "direction": "in", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "RID" }} , 
- 	{ "name": "m_axi_ddr_RUSER", "direction": "in", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "RUSER" }} , 
- 	{ "name": "m_axi_ddr_RRESP", "direction": "in", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr", "role": "RRESP" }} , 
- 	{ "name": "m_axi_ddr_BVALID", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "BVALID" }} , 
- 	{ "name": "m_axi_ddr_BREADY", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "BREADY" }} , 
- 	{ "name": "m_axi_ddr_BRESP", "direction": "in", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr", "role": "BRESP" }} , 
- 	{ "name": "m_axi_ddr_BID", "direction": "in", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "BID" }} , 
- 	{ "name": "m_axi_ddr_BUSER", "direction": "in", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr", "role": "BUSER" }} , 
+ 	{ "name": "m_axi_ddr_V_AWVALID", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWVALID" }} , 
+ 	{ "name": "m_axi_ddr_V_AWREADY", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWREADY" }} , 
+ 	{ "name": "m_axi_ddr_V_AWADDR", "direction": "out", "datatype": "sc_lv", "bitwidth":32, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWADDR" }} , 
+ 	{ "name": "m_axi_ddr_V_AWID", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWID" }} , 
+ 	{ "name": "m_axi_ddr_V_AWLEN", "direction": "out", "datatype": "sc_lv", "bitwidth":8, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWLEN" }} , 
+ 	{ "name": "m_axi_ddr_V_AWSIZE", "direction": "out", "datatype": "sc_lv", "bitwidth":3, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWSIZE" }} , 
+ 	{ "name": "m_axi_ddr_V_AWBURST", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWBURST" }} , 
+ 	{ "name": "m_axi_ddr_V_AWLOCK", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWLOCK" }} , 
+ 	{ "name": "m_axi_ddr_V_AWCACHE", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWCACHE" }} , 
+ 	{ "name": "m_axi_ddr_V_AWPROT", "direction": "out", "datatype": "sc_lv", "bitwidth":3, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWPROT" }} , 
+ 	{ "name": "m_axi_ddr_V_AWQOS", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWQOS" }} , 
+ 	{ "name": "m_axi_ddr_V_AWREGION", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWREGION" }} , 
+ 	{ "name": "m_axi_ddr_V_AWUSER", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "AWUSER" }} , 
+ 	{ "name": "m_axi_ddr_V_WVALID", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "WVALID" }} , 
+ 	{ "name": "m_axi_ddr_V_WREADY", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "WREADY" }} , 
+ 	{ "name": "m_axi_ddr_V_WDATA", "direction": "out", "datatype": "sc_lv", "bitwidth":128, "type": "signal", "bundle":{"name": "ddr_V", "role": "WDATA" }} , 
+ 	{ "name": "m_axi_ddr_V_WSTRB", "direction": "out", "datatype": "sc_lv", "bitwidth":16, "type": "signal", "bundle":{"name": "ddr_V", "role": "WSTRB" }} , 
+ 	{ "name": "m_axi_ddr_V_WLAST", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "WLAST" }} , 
+ 	{ "name": "m_axi_ddr_V_WID", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "WID" }} , 
+ 	{ "name": "m_axi_ddr_V_WUSER", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "WUSER" }} , 
+ 	{ "name": "m_axi_ddr_V_ARVALID", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARVALID" }} , 
+ 	{ "name": "m_axi_ddr_V_ARREADY", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARREADY" }} , 
+ 	{ "name": "m_axi_ddr_V_ARADDR", "direction": "out", "datatype": "sc_lv", "bitwidth":32, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARADDR" }} , 
+ 	{ "name": "m_axi_ddr_V_ARID", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARID" }} , 
+ 	{ "name": "m_axi_ddr_V_ARLEN", "direction": "out", "datatype": "sc_lv", "bitwidth":8, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARLEN" }} , 
+ 	{ "name": "m_axi_ddr_V_ARSIZE", "direction": "out", "datatype": "sc_lv", "bitwidth":3, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARSIZE" }} , 
+ 	{ "name": "m_axi_ddr_V_ARBURST", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARBURST" }} , 
+ 	{ "name": "m_axi_ddr_V_ARLOCK", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARLOCK" }} , 
+ 	{ "name": "m_axi_ddr_V_ARCACHE", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARCACHE" }} , 
+ 	{ "name": "m_axi_ddr_V_ARPROT", "direction": "out", "datatype": "sc_lv", "bitwidth":3, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARPROT" }} , 
+ 	{ "name": "m_axi_ddr_V_ARQOS", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARQOS" }} , 
+ 	{ "name": "m_axi_ddr_V_ARREGION", "direction": "out", "datatype": "sc_lv", "bitwidth":4, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARREGION" }} , 
+ 	{ "name": "m_axi_ddr_V_ARUSER", "direction": "out", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "ARUSER" }} , 
+ 	{ "name": "m_axi_ddr_V_RVALID", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "RVALID" }} , 
+ 	{ "name": "m_axi_ddr_V_RREADY", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "RREADY" }} , 
+ 	{ "name": "m_axi_ddr_V_RDATA", "direction": "in", "datatype": "sc_lv", "bitwidth":128, "type": "signal", "bundle":{"name": "ddr_V", "role": "RDATA" }} , 
+ 	{ "name": "m_axi_ddr_V_RLAST", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "RLAST" }} , 
+ 	{ "name": "m_axi_ddr_V_RID", "direction": "in", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "RID" }} , 
+ 	{ "name": "m_axi_ddr_V_RUSER", "direction": "in", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "RUSER" }} , 
+ 	{ "name": "m_axi_ddr_V_RRESP", "direction": "in", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr_V", "role": "RRESP" }} , 
+ 	{ "name": "m_axi_ddr_V_BVALID", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "BVALID" }} , 
+ 	{ "name": "m_axi_ddr_V_BREADY", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "BREADY" }} , 
+ 	{ "name": "m_axi_ddr_V_BRESP", "direction": "in", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "ddr_V", "role": "BRESP" }} , 
+ 	{ "name": "m_axi_ddr_V_BID", "direction": "in", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "BID" }} , 
+ 	{ "name": "m_axi_ddr_V_BUSER", "direction": "in", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "ddr_V", "role": "BUSER" }} , 
  	{ "name": "interrupt", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "interrupt", "role": "default" }}  ]}
 set Spec2ImplPortList { 
-	ddr { m_axi {  { m_axi_ddr_AWVALID VALID 1 1 }  { m_axi_ddr_AWREADY READY 0 1 }  { m_axi_ddr_AWADDR ADDR 1 32 }  { m_axi_ddr_AWID ID 1 1 }  { m_axi_ddr_AWLEN LEN 1 8 }  { m_axi_ddr_AWSIZE SIZE 1 3 }  { m_axi_ddr_AWBURST BURST 1 2 }  { m_axi_ddr_AWLOCK LOCK 1 2 }  { m_axi_ddr_AWCACHE CACHE 1 4 }  { m_axi_ddr_AWPROT PROT 1 3 }  { m_axi_ddr_AWQOS QOS 1 4 }  { m_axi_ddr_AWREGION REGION 1 4 }  { m_axi_ddr_AWUSER USER 1 1 }  { m_axi_ddr_WVALID VALID 1 1 }  { m_axi_ddr_WREADY READY 0 1 }  { m_axi_ddr_WDATA DATA 1 32 }  { m_axi_ddr_WSTRB STRB 1 4 }  { m_axi_ddr_WLAST LAST 1 1 }  { m_axi_ddr_WID ID 1 1 }  { m_axi_ddr_WUSER USER 1 1 }  { m_axi_ddr_ARVALID VALID 1 1 }  { m_axi_ddr_ARREADY READY 0 1 }  { m_axi_ddr_ARADDR ADDR 1 32 }  { m_axi_ddr_ARID ID 1 1 }  { m_axi_ddr_ARLEN LEN 1 8 }  { m_axi_ddr_ARSIZE SIZE 1 3 }  { m_axi_ddr_ARBURST BURST 1 2 }  { m_axi_ddr_ARLOCK LOCK 1 2 }  { m_axi_ddr_ARCACHE CACHE 1 4 }  { m_axi_ddr_ARPROT PROT 1 3 }  { m_axi_ddr_ARQOS QOS 1 4 }  { m_axi_ddr_ARREGION REGION 1 4 }  { m_axi_ddr_ARUSER USER 1 1 }  { m_axi_ddr_RVALID VALID 0 1 }  { m_axi_ddr_RREADY READY 1 1 }  { m_axi_ddr_RDATA DATA 0 32 }  { m_axi_ddr_RLAST LAST 0 1 }  { m_axi_ddr_RID ID 0 1 }  { m_axi_ddr_RUSER USER 0 1 }  { m_axi_ddr_RRESP RESP 0 2 }  { m_axi_ddr_BVALID VALID 0 1 }  { m_axi_ddr_BREADY READY 1 1 }  { m_axi_ddr_BRESP RESP 0 2 }  { m_axi_ddr_BID ID 0 1 }  { m_axi_ddr_BUSER USER 0 1 } } }
+	ddr_V { m_axi {  { m_axi_ddr_V_AWVALID VALID 1 1 }  { m_axi_ddr_V_AWREADY READY 0 1 }  { m_axi_ddr_V_AWADDR ADDR 1 32 }  { m_axi_ddr_V_AWID ID 1 1 }  { m_axi_ddr_V_AWLEN LEN 1 8 }  { m_axi_ddr_V_AWSIZE SIZE 1 3 }  { m_axi_ddr_V_AWBURST BURST 1 2 }  { m_axi_ddr_V_AWLOCK LOCK 1 2 }  { m_axi_ddr_V_AWCACHE CACHE 1 4 }  { m_axi_ddr_V_AWPROT PROT 1 3 }  { m_axi_ddr_V_AWQOS QOS 1 4 }  { m_axi_ddr_V_AWREGION REGION 1 4 }  { m_axi_ddr_V_AWUSER USER 1 1 }  { m_axi_ddr_V_WVALID VALID 1 1 }  { m_axi_ddr_V_WREADY READY 0 1 }  { m_axi_ddr_V_WDATA DATA 1 128 }  { m_axi_ddr_V_WSTRB STRB 1 16 }  { m_axi_ddr_V_WLAST LAST 1 1 }  { m_axi_ddr_V_WID ID 1 1 }  { m_axi_ddr_V_WUSER USER 1 1 }  { m_axi_ddr_V_ARVALID VALID 1 1 }  { m_axi_ddr_V_ARREADY READY 0 1 }  { m_axi_ddr_V_ARADDR ADDR 1 32 }  { m_axi_ddr_V_ARID ID 1 1 }  { m_axi_ddr_V_ARLEN LEN 1 8 }  { m_axi_ddr_V_ARSIZE SIZE 1 3 }  { m_axi_ddr_V_ARBURST BURST 1 2 }  { m_axi_ddr_V_ARLOCK LOCK 1 2 }  { m_axi_ddr_V_ARCACHE CACHE 1 4 }  { m_axi_ddr_V_ARPROT PROT 1 3 }  { m_axi_ddr_V_ARQOS QOS 1 4 }  { m_axi_ddr_V_ARREGION REGION 1 4 }  { m_axi_ddr_V_ARUSER USER 1 1 }  { m_axi_ddr_V_RVALID VALID 0 1 }  { m_axi_ddr_V_RREADY READY 1 1 }  { m_axi_ddr_V_RDATA DATA 0 128 }  { m_axi_ddr_V_RLAST LAST 0 1 }  { m_axi_ddr_V_RID ID 0 1 }  { m_axi_ddr_V_RUSER USER 0 1 }  { m_axi_ddr_V_RRESP RESP 0 2 }  { m_axi_ddr_V_BVALID VALID 0 1 }  { m_axi_ddr_V_BREADY READY 1 1 }  { m_axi_ddr_V_BRESP RESP 0 2 }  { m_axi_ddr_V_BID ID 0 1 }  { m_axi_ddr_V_BUSER USER 0 1 } } }
 }
 
 # RTL port scheduling information:
