@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <synLog/>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <synLog>
+        <logs message="@W [RTGEN-101] Legalizing port name 'simple_fft/out' to 'simple_fft/out_r'." projectName="simple_fft" solutionName="solution1" date="2015-03-11T13:31:24.360-0600" type="Warning"/>
+        <logs message="@W [RTGEN-101] Legalizing port name 'simple_fft/in' to 'simple_fft/in_r'." projectName="simple_fft" solutionName="solution1" date="2015-03-11T13:31:24.349-0600" type="Warning"/>
+        <logs message="@W [SYN-103] Legalizing function name 'fft&lt;config1>' to 'fft_config1_s'." projectName="simple_fft" solutionName="solution1" date="2015-03-11T13:31:24.336-0600" type="Warning"/>
+        <logs message="@W [XFORM-631] Renaming function 'hls::fft&lt;config1>' (C:/Xilinx/Vivado_HLS/2014.1/common/technology/autopilot\hls_fft.h:863) into fft&lt;config1>." projectName="simple_fft" solutionName="solution1" date="2015-03-11T13:31:24.205-0600" type="Warning"/>
+        <logs message="@W [HLS-40] Directive 'INTERFACE' cannot be applied: Variable 'ovflo' is not declared in 'simple_fft'." projectName="simple_fft" solutionName="solution1" date="2015-03-11T13:31:23.181-0600" type="Warning"/>
+      </synLog>
+      <simLog/>
+      <mgLog/>
+      <packageLog>
+        <logs message="@W [IMPL-206] Turned on option '-evaluate verilog' as export format 'syn_dcp' requires option '-evaluate'." projectName="simple_fft" solutionName="solution1" date="2015-03-12T16:49:07.723-0600" type="Warning"/>
+        <logs message="@W [IMPL-206] Turned on option '-evaluate verilog' as export format 'syn_dcp' requires option '-evaluate'." projectName="simple_fft" solutionName="solution1" date="2015-03-11T13:33:36.399-0600" type="Warning"/>
+      </packageLog>
+      <csimLog/>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

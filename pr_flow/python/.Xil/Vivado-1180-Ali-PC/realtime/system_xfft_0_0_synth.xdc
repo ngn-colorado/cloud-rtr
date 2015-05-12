@@ -1,0 +1,8 @@
+set_property SRC_FILE_INFO {cfile:C:/Users/Ali/Documents/Research/ResourceUtil/GPU_FFT_PR/pr_flow/HLS_RM_IP/system_xfft_0_0/system_xfft_0_0/solution1/impl/ip/constraints/system_xfft_0_0_ooc.xdc rfile:../../../../HLS_RM_IP/system_xfft_0_0/system_xfft_0_0/solution1/impl/ip/constraints/system_xfft_0_0_ooc.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:C:/Users/Ali/Documents/Research/ResourceUtil/GPU_FFT_PR/pr_flow/HLS_RM_IP/system_xfft_0_0/system_xfft_0_0/solution1/impl/ip/constraints/system_xfft_0_0_ooc.xdc rfile:../../../../HLS_RM_IP/system_xfft_0_0/system_xfft_0_0/solution1/impl/ip/constraints/system_xfft_0_0_ooc.xdc id:2} [current_design]
+set_property src_info {type:XDC file:1 line:7 export:INPUT save:INPUT read:READ} [current_design]
+set_property HD.CLK_SRC BUFGCTRL_X0Y0 [get_ports aclk]
+set_property src_info {type:XDC file:2 line:6 export:INPUT save:INPUT read:READ} [current_design]
+create_clock -period 10.000 -name aclk [get_ports aclk]
+set_property src_info {type:XDC file:1 line:6 export:INPUT save:INPUT read:READ} [current_design]
+create_clock -period 10.000 -name aclk [get_ports aclk]

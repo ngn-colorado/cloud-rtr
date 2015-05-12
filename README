@@ -1,0 +1,74 @@
+8 Slot FFT Reference Design
+
+This file contains the details of all the contents of this reference design. It also contains the steps to complete the design.
+
+This reference designs contains the following folders:
+
+1. library
+2. projects
+3. HLS_IP
+4. Update_FFT
+5. pr_flow
+
+It contains the following tcl scripts:
+
+1.build.tcl
+
+-------------------------------------------------------------------------------------------------------------------------------
+LIBRARY
+-------------------------------------------------------------------------------------------------------------------------------
+
+Library contains all the hardware to support HDMI output. This project requires a GPU to output an android GUI. All of this 
+hardware was provided by a reference design that can located at the following linke:
+
+http://zedboard.org/user?redirect=sites/default/files/design/ZedBoard_HDMI_Ref_Des_2013_4.zip
+
+Note that this reference design was slightly modified to work in 2014 version of Vivado
+
+-------------------------------------------------------------------------------------------------------------------------------
+PROJECTS
+-------------------------------------------------------------------------------------------------------------------------------
+
+Projects contains the top level design and scripts for the HDMI design. This folder has also been taken from the HDMI reference
+design mentioned above. We also modified this file slightly to accommodate partial reconfiguration. The scripts in this project
+folder, with a few modifications, allows us to introduce new designs that will serve as black boxes for reconfigurable
+partitions (RPs).
+
+-------------------------------------------------------------------------------------------------------------------------------
+UPDATE_FFT
+-------------------------------------------------------------------------------------------------------------------------------
+This folder contains a python file that manipulates a top level design
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+DESIGN FLOW
+-------------------------------------------------------------------------------------------------------------------------------
+First, we have to create a static general design that will house the black boxes for partial reconfiguration. Since we are
+using the HDMI reference design, this will be our starting point.
+
+STEP 1
+Run vivado and source the provided build.tcl file.
+
+vivado
+source build.tcl
+
+STEP 2
+After the base HDMI hardware has been set, we now need to add hardware blocks that will later become black boxes and then 
+RPs. To do this, first we must add our FFT hardware design to the base HDMI design. 
+
+First add the HLS_IP folder to the IP repository so we can add FFTs to the design.
+tools->project settings
+click on IP
+click on add repository
+Navigate to the location of HLS_IP (your IP)
+Click select then ok
+
+STEP 3
+Now that we have added the IP to vivado, we must now add them to the design. If n slots are needed, then we add n FFTs.
+

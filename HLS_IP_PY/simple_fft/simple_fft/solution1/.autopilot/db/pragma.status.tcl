@@ -1,0 +1,5 @@
+lappend pragmaStatus0 {pragma "INTERFACE" source "C:/Users/Ali/Documents/Research/HLS_IP_PY/simple_fft/simple_fft.cpp" location "simple_fft" found 1 funcFound 1 applied 1 ambiguous 0 reason "null"}
+lappend pragmaStatus1 {pragma "RESOURCE" source "C:/Users/Ali/Documents/Research/HLS_IP_PY/simple_fft/simple_fft.cpp" location "simple_fft" found 1 funcFound 1 applied 1 ambiguous 0 reason "null"}
+lappend pragmaStatus2 {pragma "INTERFACE" source "C:/Users/Ali/Documents/Research/HLS_IP_PY/simple_fft/simple_fft.cpp" location "simple_fft" found 1 funcFound 1 applied 1 ambiguous 0 reason "null"}
+lappend pragmaStatus3 {pragma "RESOURCE" source "C:/Users/Ali/Documents/Research/HLS_IP_PY/simple_fft/simple_fft.cpp" location "simple_fft" found 1 funcFound 1 applied 1 ambiguous 0 reason "null"}
+lappend pragmaStatus4 {pragma "INTERFACE" source "C:/Users/Ali/Documents/Research/HLS_IP_PY/simple_fft/simple_fft.cpp" location "simple_fft" found 0 funcFound 0 applied 0 ambiguous 0 reason "Directive 'INTERFACE' cannot be applied: Variable 'ovflo' is not declared in 'simple_fft'."}

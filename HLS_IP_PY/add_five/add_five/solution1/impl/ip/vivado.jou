@@ -1,0 +1,10 @@
+#-----------------------------------------------------------
+# Vivado v2014.1 (64-bit)
+# SW Build 881834 on Fri Apr  4 14:15:54 MDT 2014
+# IP Build 877625 on Fri Mar 28 16:29:15 MDT 2014
+# Start of session at: Fri Sep 05 13:56:24 2014
+# Process ID: 8284
+# Log file: C:/Users/Ali/Documents/Research/HLS_IP/add_five/add_five/solution1/impl/ip/vivado.log
+# Journal file: C:/Users/Ali/Documents/Research/HLS_IP/add_five/add_five/solution1/impl/ip\vivado.jou
+#-----------------------------------------------------------
+source run_ippack.tcl -notrace

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <synLog/>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <synLog>
+        <logs message="@W [RTGEN-101] Port 'output_r' with mode 'ap_none' may require an associated data valid signal to correctly communicate with other blocks or a test bench; automatic C/RTL co-simulation may not be able to verify such a port." projectName="add_five" solutionName="solution1" date="2014-09-05T13:55:45.295-0600" type="Warning"/>
+        <logs message="@W [RTGEN-101] Legalizing port name 'add_five/output' to 'add_five/output_r'." projectName="add_five" solutionName="solution1" date="2014-09-05T13:55:44.679-0600" type="Warning"/>
+        <logs message="@W [RTGEN-101] Legalizing port name 'add_five/input' to 'add_five/input_r'." projectName="add_five" solutionName="solution1" date="2014-09-05T13:55:44.666-0600" type="Warning"/>
+      </synLog>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

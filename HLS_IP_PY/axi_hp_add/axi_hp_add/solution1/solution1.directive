@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoPilot:ProjectResources xmlns:AutoPilot="com.autoesl.autopilot.ui.directiveView">
+  <sourceFile name="axi_hp_add.cpp">
+    <directive functionName="axi_hp_add" label=" " functionLabel=" ">
+      <pragma name="RESOURCE">
+        <option name="variable" value="input" positionalBoolean="4"/>
+        <option name="core" value="AXI4M"/>
+      </pragma>
+    </directive>
+  </sourceFile>
+</AutoPilot:ProjectResources>
