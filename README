@@ -37,7 +37,8 @@ partitions (RPs).
 -------------------------------------------------------------------------------------------------------------------------------
 UPDATE_FFT
 -------------------------------------------------------------------------------------------------------------------------------
-This folder contains a python file that manipulates a top level design
+This folder contains a python file that manipulates a top level design so it reflects black boxes instead of actual FFT hardwa-
+re.
 
 
 
