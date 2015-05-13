@@ -74,7 +74,7 @@ def main(argv):
    #Keep an eye on this
    #Might need to remove '-1' or place constraints depeneding on type of file
    #Or make mod_begin 2 instead of 1
-   mod_len = mod_end_index - mod_begin_index
+   mod_len = mod_end_index - mod_begin_index - 1
 
    #DEBUG - Determine Module Length
    #print(mod_len)
@@ -102,7 +102,7 @@ def main(argv):
       #DEBUG
       #if i == 0:
          #print(temp_line.strip(' '))
-      for line2 in itertools.islice(top_list,top_mod_indicies[0] + 1, top_mod_indicies[0] + mod_len):
+      for line2 in itertools.islice(top_list,top_mod_indicies[0] + 1, top_mod_indicies[0] + mod_len + 1):
          #DEBUG
          #if i == 0:
          #   print(line2)
@@ -181,7 +181,7 @@ def main(argv):
    #Add black box definitions to the end of the modified file
    if ext == 'v':
       mod_ports = next(it).strip(';\n')
-      while count_ports != 12:
+      while count_ports != mod_len:
          if 'parameter' in mod_ports:
             while 'parameter' in mod_ports:
                parameters.append(mod_ports.split(' ',1)[1])
