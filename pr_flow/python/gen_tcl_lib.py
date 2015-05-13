@@ -30,7 +30,7 @@ class pr(object):
     static_xdc_loc = "../Static_Design/static_constratins.xdc"
     static_routed_loc = static_impl_path + "/static_routed.dcp"
     xdc_available = 0
-    fp_impl_paths = open("impl_paths.txt","w+")
+    fp_impl_paths = open("impl_paths.txt","r+")
     fp_stored_mods = open("reconfig_mods.txt", "r+")
 
     def __init__(self,tcl_file):
@@ -47,17 +47,17 @@ class pr(object):
         #Slot 2
         self.first_add_RM(pr.static_RMs[1],pr.RM_dcps[0],"SLICE_X20Y0:SLICE_X39Y49", "DSP48_X1Y0:DSP48_X2Y19", "RAMB18_X1Y0:RAMB18_X2Y19", "RAMB36_X1Y0:RAMB36_X2Y9")
         #Slot 3
-        self.first_add_RM(pr.static_RMs[2],pr.RM_dcps[0],"SLICE_X94Y0:SLICE_X113Y49", "DSP48_X4Y0:DSP48_X4Y19", "RAMB18_X5Y0:RAMB18_X5Y19", "RAMB36_X5Y0:RAMB36_X5Y9")
+        #self.first_add_RM(pr.static_RMs[2],pr.RM_dcps[0],"SLICE_X94Y0:SLICE_X113Y49", "DSP48_X4Y0:DSP48_X4Y19", "RAMB18_X5Y0:RAMB18_X5Y19", "RAMB36_X5Y0:RAMB36_X5Y9")
         #Slot 4
-        self.first_add_RM(pr.static_RMs[3],pr.RM_dcps[0],"SLICE_X56Y0:SLICE_X93Y49", "DSP48_X3Y0:DSP48_X3Y19", "RAMB18_X4Y0:RAMB18_X4Y19", "RAMB36_X4Y0:RAMB36_X4Y9")
+        #self.first_add_RM(pr.static_RMs[3],pr.RM_dcps[0],"SLICE_X56Y0:SLICE_X93Y49", "DSP48_X3Y0:DSP48_X3Y19", "RAMB18_X4Y0:RAMB18_X4Y19", "RAMB36_X4Y0:RAMB36_X4Y9")
         #Slot 5
-        self.first_add_RM(pr.static_RMs[4],pr.RM_dcps[0],"SLICE_X94Y50:SLICE_X113Y99", "DSP48_X4Y20:DSP48_X4Y39", "RAMB18_X5Y20:RAMB18_X5Y39", "RAMB36_X5Y10:RAMB36_X5Y19")
+        #self.first_add_RM(pr.static_RMs[4],pr.RM_dcps[0],"SLICE_X94Y50:SLICE_X113Y99", "DSP48_X4Y20:DSP48_X4Y39", "RAMB18_X5Y20:RAMB18_X5Y39", "RAMB36_X5Y10:RAMB36_X5Y19")
         #Slot 6
-        self.first_add_RM(pr.static_RMs[5],pr.RM_dcps[0],"SLICE_X26Y50:SLICE_X47Y99", "DSP48_X2Y20:DSP48_X2Y39", "RAMB18_X2Y20:RAMB18_X2Y39", "RAMB36_X2Y10:RAMB36_X2Y19")
+        #self.first_add_RM(pr.static_RMs[5],pr.RM_dcps[0],"SLICE_X26Y50:SLICE_X47Y99", "DSP48_X2Y20:DSP48_X2Y39", "RAMB18_X2Y20:RAMB18_X2Y39", "RAMB36_X2Y10:RAMB36_X2Y19")
         #Slot 7
-        self.first_add_RM(pr.static_RMs[6],pr.RM_dcps[0],"SLICE_X94Y100:SLICE_X113Y149", "DSP48_X4Y40:DSP48_X4Y59", "RAMB18_X5Y40:RAMB18_X5Y59", "RAMB36_X5Y20:RAMB36_X5Y29")
+        #self.first_add_RM(pr.static_RMs[6],pr.RM_dcps[0],"SLICE_X94Y100:SLICE_X113Y149", "DSP48_X4Y40:DSP48_X4Y59", "RAMB18_X5Y40:RAMB18_X5Y59", "RAMB36_X5Y20:RAMB36_X5Y29")
         #Slot 8
-        self.first_add_RM(pr.static_RMs[7],pr.RM_dcps[0],"SLICE_X26Y100:SLICE_X47Y149", "DSP48_X2Y40:DSP48_X2Y59", "RAMB18_X2Y40:RAMB18_X2Y59", "RAMB36_X2Y20:RAMB36_X2Y29")
+        #self.first_add_RM(pr.static_RMs[7],pr.RM_dcps[0],"SLICE_X26Y100:SLICE_X47Y149", "DSP48_X2Y40:DSP48_X2Y59", "RAMB18_X2Y40:RAMB18_X2Y59", "RAMB36_X2Y20:RAMB36_X2Y29")
         self.locate_implement("mod0base0_mod1base0")
         pr.fp_impl_paths.write(str(pr.impl_checkpoints[0]))
         pr.fp_impl_paths.close()
@@ -65,7 +65,8 @@ class pr(object):
             self.carve_RM(rm)
         self.write_impl_static_checkpoint(pr.static_routed_loc)
         self.fp.write("close_project\n")
-
+        self.write_bitstreams(pr.RMs[0] + "_base",pr.impl_checkpoints[0])
+        self.fp.write("exit\n")
     def add_PR_process(self):
         self.iden_synth_IP(pr.ip_checkpoints)
         self.open_impl_static_checkpoint()
@@ -79,8 +80,8 @@ class pr(object):
             self.locate_implement("mod0_" + pr.RMs[i] + "_mod1_" + pr.RMs[i])
             self.fp.write("close_project\n")
         self.verify_post_pr()
-        #self.write_bitstreams(pr.RMs[0] + "_bit",pr.impl_checkpoints[0])
-
+        self.write_bitstreams(pr.RMs[0] + "_bit",pr.impl_checkpoints[0])
+        self.fp.write("exit\n")
     def iden_synth_IP(self, location):
         for ip_name in os.listdir(location):
             pr.RM_dcps.append(location + '/' + ip_name)
