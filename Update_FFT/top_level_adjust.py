@@ -11,7 +11,7 @@ def main(argv):
    missing_ports = []
    write_ports = []
    port_found = 0
-   NUM_OF_SLOTS = 8
+   NUM_OF_SLOTS = 0
 
    #Read arguments from python run
    try:
@@ -86,6 +86,7 @@ def main(argv):
          #print(line)
          fp_store_mods.write(line.split(' ')[1])
          top_mod_indicies.append(top_list.index(line))
+         NUM_OF_SLOTS = NUM_OF_SLOTS + 1
    #DEBUG - Determine the Module base name
    #print(mod_name)
    #print(top_mod_indicies)
