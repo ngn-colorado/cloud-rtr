@@ -1,0 +1,6 @@
+the_ROM_image:
+{
+	[bootloader]/Xilinx/hdl/projects/adv7511/zed/adv7511_zed.sdk/fsbl/Debug/fsbl.elf
+	/Xilinx/AndroidRTR/pr_flow/Bitstreams/aes_1_bit.bit
+	/Xilinx/xilinx_bootfiles/u-boot.elf
+}
