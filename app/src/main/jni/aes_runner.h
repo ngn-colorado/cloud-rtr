@@ -8,8 +8,10 @@
 #include <stdio.h>
 #include <time.h>
 #include "xaes.h"
+#include "xreset_axi.h"
 #include <android/log.h>
 
 int run();
+char *int2bin(int, char*, int);
 
 #endif

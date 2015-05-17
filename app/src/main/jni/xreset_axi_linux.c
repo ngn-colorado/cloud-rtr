@@ -126,7 +126,7 @@ int XReset_axi_Initialize(XReset_axi *InstancePtr, const char* InstanceName) {
     }
 
     // NOTE: slave interface 'Axi4lites' should be mapped to uioX/map0
-    InstancePtr->Axi4lites_BaseAddress = (u32)mmap(NULL, InfoPtr->maps[0].size, PROT_READ|PROT_WRITE, MAP_SHARED, InfoPtr->uio_fd, 0 * getpagesize());
+    InstancePtr->Axi4lites_BaseAddress = (u32)mmap(NULL, InfoPtr->maps[0].size, PROT_READ|PROT_WRITE, MAP_SHARED, InfoPtr->uio_fd, 0 * sysconf(_SC_PAGESIZE));
     assert(InstancePtr->Axi4lites_BaseAddress);
 
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;

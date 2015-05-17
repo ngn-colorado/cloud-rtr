@@ -158,6 +158,15 @@ int run(){
 		}
 	}
 
+	XReset_axi reset_axi;
+	if(XReset_axi_Initialize(&reset_axi, "axi-reset") != XST_SUCCESS){
+		__android_log_print(ANDROID_LOG_DEBUG, "ndktest_jni", "\nCould not initialize axi reset device");
+		return -1;
+	}
+	XReset_axi_SetIn_reset(&reset_axi, 1);
+	XReset_axi_SetIn_reset(&reset_axi, 0);
+	XReset_axi_Release(&reset_axi);
+
 //	AES_KEY aes_key;
 //	AES_set_encrypt_key(key, 128, &aes_key);
 
@@ -176,7 +185,7 @@ int run(){
 //	 __android_log_print(ANDROID_LOG_DEBUG, "ndktest_jni", "It took %f clicks (%f seconds) in openssl.\n",(float)ticks,((float)ticks)/CLOCKS_PER_SEC);
 	int source = SHARED_MEM_BASE;
 	int length = SHARED_MEM_LENGTH;
-	shared_memory shared_system_mem = getUioMemoryArea("/dev/uio1");//getSharedMemoryArea(source, length);
+	shared_memory shared_system_mem = getUioMemoryArea("/dev/uio1", 0x10000);//getSharedMemoryArea(source, length);
 	__android_log_print(ANDROID_LOG_DEBUG, "ndktest_jni", "TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	if(shared_system_mem == NULL){
 		 __android_log_print(ANDROID_LOG_DEBUG, "ndktest_jni", "Error getting shared system memory pointer");
@@ -207,7 +216,8 @@ int run(){
 //		printf("\nCould not allocate memory for aes device");
 //		return -1;
 //	}
-	if(XAes_Initialize(aes_device, "aestest") != XST_SUCCESS){
+//	if(XAes_Initialize(aes_device, "aestest") != XST_SUCCESS){
+	if(XAes_Initialize(aes_device, "qam") != XST_SUCCESS){
 		 __android_log_print(ANDROID_LOG_DEBUG, "ndktest_jni", "\nCould not initialize aes device");
 		return -1;
 	}

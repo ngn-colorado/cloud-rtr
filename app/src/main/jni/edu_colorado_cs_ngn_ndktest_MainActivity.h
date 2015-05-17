@@ -48,8 +48,29 @@ extern "C" {
  * Method:    getNdkText
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_edu_colorado_cs_ngn_ndktest_MainActivity_getNdkText
-  (JNIEnv *, jobject);
+JNIEXPORT
+jstring
+JNICALL
+Java_edu_colorado_cs_ngn_ndktest_MainActivity_getNdkText
+(JNIEnv *, jobject);
+
+JNIEXPORT
+jint
+JNICALL
+Java_edu_colorado_cs_ngn_ndktest_MainActivity_writeAesDataToMemory
+(JNIEnv *, jobject, jbyteArray, jint);
+
+JNIEXPORT
+jint
+JNICALL
+Java_edu_colorado_cs_ngn_ndktest_MainActivity_encryptAesData
+(JNIEnv *, jobject, jint, jint);
+
+JNIEXPORT
+jint
+JNICALL
+Java_edu_colorado_cs_ngn_ndktest_MainActivity_verifyAesData
+(JNIEnv *, jobject, jbyteArray, jint, jint);
 
 #ifdef __cplusplus
 }

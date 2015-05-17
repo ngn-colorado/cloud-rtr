@@ -126,7 +126,7 @@ int XAes_Initialize(XAes *InstancePtr, const char* InstanceName) {
     }
 
     // NOTE: slave interface 'Axilites' should be mapped to uioX/map0
-    InstancePtr->Axilites_BaseAddress = (u32)mmap(NULL, InfoPtr->maps[0].size, PROT_READ|PROT_WRITE, MAP_SHARED, InfoPtr->uio_fd, 0 * getpagesize());
+    InstancePtr->Axilites_BaseAddress = (u32)mmap(NULL, InfoPtr->maps[0].size, PROT_READ|PROT_WRITE, MAP_SHARED, InfoPtr->uio_fd, 0 * sysconf(_SC_PAGESIZE));
     assert(InstancePtr->Axilites_BaseAddress);
 
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
