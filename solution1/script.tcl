@@ -7,7 +7,7 @@ open_project aes_runner
 set_top aes
 add_files aes_runner/source/aes_runner.cpp
 add_files aes_runner/source/aes.cpp
-add_files -tb aes_runner/source/aes_runner_testbench.cpp -cflags "-I../../usr/local/ssl/include -ldl -L/usr/local/ssl/lib/. -lcrypto -lssl"
+add_files -tb aes_runner/source/aes_runner_testbench.cpp -cflags "-I../usr/local/ssl/include -ldl -L/usr/local/ssl/lib/. -lcrypto -lssl"
 open_solution "solution1"
 set_part {xc7z020clg484-1}
 create_clock -period 10 -name default

@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vivado HLS Report for 'aes'" level="0">
-<item name = "Date">Sun Apr 19 01:10:19 2015
+<item name = "Date">Sat May 16 00:00:38 2015
 </item>
 <item name = "Version">2014.1 (build date: Fri Apr 04 13:20:25 PM 2014)</item>
 <item name = "Project">aes_runner</item>
@@ -50,7 +50,7 @@
 <keys size="5">Name, BRAM_18K, DSP48E, FF, LUT</keys>
 <column name="Expression">-, -, 0, 76</column>
 <column name="FIFO">-, -, -, -</column>
-<column name="Instance">100, -, 3145, 9249</column>
+<column name="Instance">100, -, 3145, 9250</column>
 <column name="Memory">-, -, -, -</column>
 <column name="Multiplexer">-, -, -, 416</column>
 <column name="Register">-, -, 556, -</column>
@@ -62,7 +62,7 @@
 <section name = "" level="1">
 <item name = "Instance"><table name="" hasTotal="1">
 <keys size="6">Instance, Module, BRAM_18K, DSP48E, FF, LUT</keys>
-<column name="grp_aestest_fu_229">aestest, 100, 0, 3145, 9249</column>
+<column name="grp_aestest_fu_229">aestest, 100, 0, 3145, 9250</column>
 </table>
 </item>
 <item name = "Memory"><table name="" hasTotal="1">

@@ -1,5 +1,5 @@
-# 1 "/D/xilinx_workspace/aes_runner/solution1/.autopilot/db/aes_runner.pragma.1.cpp"
-# 1 "/D/xilinx_workspace/aes_runner/solution1/.autopilot/db/aes_runner.pragma.1.cpp" 1
+# 1 "/Xilinx/aes_runner/solution1/.autopilot/db/aes_runner.pragma.1.cpp"
+# 1 "/Xilinx/aes_runner/solution1/.autopilot/db/aes_runner.pragma.1.cpp" 1
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 155 "<built-in>" 3
@@ -161,7 +161,7 @@ extern "C" {
 #define _ssdm_op_Delayed(X) X */
 # 8 "<command line>" 2
 # 1 "<built-in>" 2
-# 1 "/D/xilinx_workspace/aes_runner/solution1/.autopilot/db/aes_runner.pragma.1.cpp" 2
+# 1 "/Xilinx/aes_runner/solution1/.autopilot/db/aes_runner.pragma.1.cpp" 2
 class aesl_keep_name_class;
 # 1 "aes_runner/source/aes_runner.cpp"
 # 1 "aes_runner/source/aes_runner.cpp" 1
@@ -38409,7 +38409,7 @@ _ssdm_op_SpecWire(&sourceAddress, "ap_vld", 0, 0, 0, 0, "", "", "");
  m_mm2s_ctl[6] = sourceAddress;
  //calculate # of bytes that will be read from s_in in total
  //read_length = #encryptions X #bytes/encryption
- int read_length = length*16;
+ int read_length = length*sizeof(ap_uint<128>);
  m_mm2s_ctl[10] = read_length;
 
  //--------Program write DMA s2mm--------

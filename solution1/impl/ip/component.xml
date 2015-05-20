@@ -3402,15 +3402,11 @@
 				<spirit:userFileType>USED_IN_implementation</spirit:userFileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/verilog/aes.v</spirit:name>
+				<spirit:name>hdl/verilog/aes_m_mm2s_ctl_m_axi.v</spirit:name>
 				<spirit:fileType>verilogSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/verilog/aestest.v</spirit:name>
-				<spirit:fileType>verilogSource</spirit:fileType>
-			</spirit:file>
-			<spirit:file>
-				<spirit:name>hdl/verilog/aestest_sboxes_0.v</spirit:name>
+				<spirit:name>hdl/verilog/aes_AXILiteS_s_axi.v</spirit:name>
 				<spirit:fileType>verilogSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
@@ -3418,30 +3414,30 @@
 				<spirit:userFileType>mif</spirit:userFileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/verilog/aes_AXILiteS_s_axi.v</spirit:name>
-				<spirit:fileType>verilogSource</spirit:fileType>
-			</spirit:file>
-			<spirit:file>
-				<spirit:name>hdl/verilog/aes_m_mm2s_ctl_m_axi.v</spirit:name>
+				<spirit:name>hdl/verilog/aestest_sboxes_0.v</spirit:name>
 				<spirit:fileType>verilogSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
 				<spirit:name>hdl/verilog/aes_m_s2mm_ctl_m_axi.v</spirit:name>
+				<spirit:fileType>verilogSource</spirit:fileType>
+			</spirit:file>
+			<spirit:file>
+				<spirit:name>hdl/verilog/aes.v</spirit:name>
+				<spirit:fileType>verilogSource</spirit:fileType>
+			</spirit:file>
+			<spirit:file>
+				<spirit:name>hdl/verilog/aestest.v</spirit:name>
 				<spirit:fileType>verilogSource</spirit:fileType>
 			</spirit:file>
 		</spirit:fileSet>
 		<spirit:fileSet>
 			<spirit:name>xilinx_verilogbehavioralsimulation_view_fileset</spirit:name>
 			<spirit:file>
-				<spirit:name>hdl/verilog/aes.v</spirit:name>
+				<spirit:name>hdl/verilog/aes_m_mm2s_ctl_m_axi.v</spirit:name>
 				<spirit:fileType>verilogSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/verilog/aestest.v</spirit:name>
-				<spirit:fileType>verilogSource</spirit:fileType>
-			</spirit:file>
-			<spirit:file>
-				<spirit:name>hdl/verilog/aestest_sboxes_0.v</spirit:name>
+				<spirit:name>hdl/verilog/aes_AXILiteS_s_axi.v</spirit:name>
 				<spirit:fileType>verilogSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
@@ -3449,15 +3445,19 @@
 				<spirit:userFileType>mif</spirit:userFileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/verilog/aes_AXILiteS_s_axi.v</spirit:name>
-				<spirit:fileType>verilogSource</spirit:fileType>
-			</spirit:file>
-			<spirit:file>
-				<spirit:name>hdl/verilog/aes_m_mm2s_ctl_m_axi.v</spirit:name>
+				<spirit:name>hdl/verilog/aestest_sboxes_0.v</spirit:name>
 				<spirit:fileType>verilogSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
 				<spirit:name>hdl/verilog/aes_m_s2mm_ctl_m_axi.v</spirit:name>
+				<spirit:fileType>verilogSource</spirit:fileType>
+			</spirit:file>
+			<spirit:file>
+				<spirit:name>hdl/verilog/aes.v</spirit:name>
+				<spirit:fileType>verilogSource</spirit:fileType>
+			</spirit:file>
+			<spirit:file>
+				<spirit:name>hdl/verilog/aestest.v</spirit:name>
 				<spirit:fileType>verilogSource</spirit:fileType>
 			</spirit:file>
 		</spirit:fileSet>
@@ -3471,15 +3471,11 @@
 				<spirit:userFileType>USED_IN_implementation</spirit:userFileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/vhdl/aes.vhd</spirit:name>
-				<spirit:fileType>vhdlSource</spirit:fileType>
-			</spirit:file>
-			<spirit:file>
 				<spirit:name>hdl/vhdl/aestest.vhd</spirit:name>
 				<spirit:fileType>vhdlSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/vhdl/aestest_sboxes_0.vhd</spirit:name>
+				<spirit:name>hdl/vhdl/aes_m_s2mm_ctl_m_axi.vhd</spirit:name>
 				<spirit:fileType>vhdlSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
@@ -3487,27 +3483,27 @@
 				<spirit:fileType>vhdlSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/vhdl/aes_m_mm2s_ctl_m_axi.vhd</spirit:name>
+				<spirit:name>hdl/vhdl/aes.vhd</spirit:name>
 				<spirit:fileType>vhdlSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/vhdl/aes_m_s2mm_ctl_m_axi.vhd</spirit:name>
+				<spirit:name>hdl/vhdl/aestest_sboxes_0.vhd</spirit:name>
 				<spirit:fileType>vhdlSource</spirit:fileType>
-				<spirit:userFileType>CHECKSUM_38ded6ea</spirit:userFileType>
+			</spirit:file>
+			<spirit:file>
+				<spirit:name>hdl/vhdl/aes_m_mm2s_ctl_m_axi.vhd</spirit:name>
+				<spirit:fileType>vhdlSource</spirit:fileType>
+				<spirit:userFileType>CHECKSUM_309c93df</spirit:userFileType>
 			</spirit:file>
 		</spirit:fileSet>
 		<spirit:fileSet>
 			<spirit:name>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:name>
 			<spirit:file>
-				<spirit:name>hdl/vhdl/aes.vhd</spirit:name>
-				<spirit:fileType>vhdlSource</spirit:fileType>
-			</spirit:file>
-			<spirit:file>
 				<spirit:name>hdl/vhdl/aestest.vhd</spirit:name>
 				<spirit:fileType>vhdlSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/vhdl/aestest_sboxes_0.vhd</spirit:name>
+				<spirit:name>hdl/vhdl/aes_m_s2mm_ctl_m_axi.vhd</spirit:name>
 				<spirit:fileType>vhdlSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
@@ -3515,31 +3511,27 @@
 				<spirit:fileType>vhdlSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/vhdl/aes_m_mm2s_ctl_m_axi.vhd</spirit:name>
+				<spirit:name>hdl/vhdl/aes.vhd</spirit:name>
 				<spirit:fileType>vhdlSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>hdl/vhdl/aes_m_s2mm_ctl_m_axi.vhd</spirit:name>
+				<spirit:name>hdl/vhdl/aestest_sboxes_0.vhd</spirit:name>
+				<spirit:fileType>vhdlSource</spirit:fileType>
+			</spirit:file>
+			<spirit:file>
+				<spirit:name>hdl/vhdl/aes_m_mm2s_ctl_m_axi.vhd</spirit:name>
 				<spirit:fileType>vhdlSource</spirit:fileType>
 			</spirit:file>
 		</spirit:fileSet>
 		<spirit:fileSet>
 			<spirit:name>xilinx_softwaredriver_view_fileset</spirit:name>
 			<spirit:file>
-				<spirit:name>drivers/aes_v1_0/data/aes.mdd</spirit:name>
-				<spirit:userFileType>mdd</spirit:userFileType>
-			</spirit:file>
-			<spirit:file>
 				<spirit:name>drivers/aes_v1_0/data/aes.tcl</spirit:name>
 				<spirit:fileType>tclSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
-				<spirit:name>drivers/aes_v1_0/src/Makefile</spirit:name>
-				<spirit:fileType>unknown</spirit:fileType>
-			</spirit:file>
-			<spirit:file>
-				<spirit:name>drivers/aes_v1_0/src/xaes.c</spirit:name>
-				<spirit:fileType>cSource</spirit:fileType>
+				<spirit:name>drivers/aes_v1_0/data/aes.mdd</spirit:name>
+				<spirit:userFileType>mdd</spirit:userFileType>
 			</spirit:file>
 			<spirit:file>
 				<spirit:name>drivers/aes_v1_0/src/xaes.h</spirit:name>
@@ -3554,8 +3546,16 @@
 				<spirit:fileType>cSource</spirit:fileType>
 			</spirit:file>
 			<spirit:file>
+				<spirit:name>drivers/aes_v1_0/src/xaes.c</spirit:name>
+				<spirit:fileType>cSource</spirit:fileType>
+			</spirit:file>
+			<spirit:file>
 				<spirit:name>drivers/aes_v1_0/src/xaes_sinit.c</spirit:name>
 				<spirit:fileType>cSource</spirit:fileType>
+			</spirit:file>
+			<spirit:file>
+				<spirit:name>drivers/aes_v1_0/src/Makefile</spirit:name>
+				<spirit:fileType>unknown</spirit:fileType>
 			</spirit:file>
 		</spirit:fileSet>
 		<spirit:fileSet>
@@ -3858,8 +3858,8 @@
 				<xilinx:taxonomy>/VIVADO_HLS_IP</xilinx:taxonomy>
 			</xilinx:taxonomies>
 			<xilinx:displayName>Aes</xilinx:displayName>
-			<xilinx:coreRevision>1504190110</xilinx:coreRevision>
-			<xilinx:coreCreationDateTime>2015-04-19T07:10:33Z</xilinx:coreCreationDateTime>
+			<xilinx:coreRevision>1505160000</xilinx:coreRevision>
+			<xilinx:coreCreationDateTime>2015-05-16T06:01:09Z</xilinx:coreCreationDateTime>
 		</xilinx:coreExtensions>
 		<xilinx:packagingInfo>
 			<xilinx:xilinxVersion>2014.1</xilinx:xilinxVersion>

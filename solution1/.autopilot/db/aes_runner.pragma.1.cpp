@@ -38419,7 +38419,7 @@ _ssdm_op_SpecWire(&sourceAddress, "ap_vld", 0, 0, 0, 0, "", "", "");
  m_mm2s_ctl[6] = sourceAddress;
  //calculate # of bytes that will be read from s_in in total
  //read_length = #encryptions X #bytes/encryption
- int read_length = length*16;
+ int read_length = length*sizeof(ap_uint<128>);
  m_mm2s_ctl[10] = read_length;
 
  //--------Program write DMA s2mm--------

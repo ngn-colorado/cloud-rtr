@@ -96,7 +96,7 @@
 								<listOptionValue builtIn="false" value="../../../../usr/local/ssl/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/systemc/include"/>
-								<listOptionValue builtIn="false" value="/D/xilinx_workspace"/>
+								<listOptionValue builtIn="false" value="/Xilinx"/>
 								<listOptionValue builtIn="false" value="/usr/local/ssl/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include/ap_sysc"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/auto_cc/include"/>
@@ -202,7 +202,7 @@
 								<listOptionValue builtIn="false" value="../../../../usr/local/ssl/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/systemc/include"/>
-								<listOptionValue builtIn="false" value="/D/xilinx_workspace"/>
+								<listOptionValue builtIn="false" value="/Xilinx"/>
 								<listOptionValue builtIn="false" value="/usr/local/ssl/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include/ap_sysc"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/auto_cc/include"/>

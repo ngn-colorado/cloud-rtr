@@ -38419,7 +38419,7 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
  m_mm2s_ctl[6] = sourceAddress;
  //calculate # of bytes that will be read from s_in in total
  //read_length = #encryptions X #bytes/encryption
- int read_length = length*16;
+ int read_length = length*sizeof(ap_uint<128>);
  m_mm2s_ctl[10] = read_length;
 
  //--------Program write DMA s2mm--------
