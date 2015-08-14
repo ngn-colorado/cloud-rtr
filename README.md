@@ -1,5 +1,6 @@
-Zedroid -Android 5.0 and later on Zedboard(Zynq-7000)-
+Android manifest to build Android 5 for the Zedboard.
 
-See this manual -How to Use(Build) this project- :
-https://www.slideshare.net/noritsuna/zedroid-android-50-and-later-on-zedboard/
+Fork of Zedroid manifests available at https://github.com/noritsuna/zedroid_manifests
 
+See the manual provided there to build Android 5 and a corresponding Xilinx BSP for the Zedboard for now.
+Instructions and/or a wiki may follow be available in future.
