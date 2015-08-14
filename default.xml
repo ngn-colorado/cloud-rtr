@@ -503,6 +503,17 @@
   <project path="tools/tradefederation" name="platform/tools/tradefederation" groups="notdefault,tradefed" />
 
 
+  <!-- Superuser and Busybox -->
+  <remote name="chainsdd" 
+	  fetch="https://github.com/ChainsDD" />
+  <remote name="cyanogenmod"
+	  fetch="https://github.com/CyanogenMod/"
+	  review="review.cyanogenmod.com" />
+
+  <project path="external/busybox" name="android_external_busybox" remote="cyanogenmod" revision="cm-12.0" />
+  <project path="system/su" name="su-binary" remote="chainsdd" />
+  <project path="packages/apps/Superuser" name="Superuser" remote="chainsdd" />
+
   <!-- Add zedboard -->
   <remote name="noritsuna" fetch="https://github.com/noritsuna"/>
 
