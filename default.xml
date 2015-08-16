@@ -511,8 +511,8 @@
 	  review="review.cyanogenmod.com" />
 
   <project path="external/busybox" name="android_external_busybox" remote="cyanogenmod" revision="cm-12.0" />
-  <project path="system/su" name="su-binary" remote="chainsdd" />
-  <project path="packages/apps/Superuser" name="Superuser" remote="chainsdd" />
+<!--  <project path="system/su" name="su-binary" remote="chainsdd" /> -->
+  <project path="packages/apps/Superuser" name="Superuser" remote="cyanogenmod" revision="cm-12.0" />
 
   <!-- Add zedboard -->
   <remote name="noritsuna" fetch="https://github.com/noritsuna"/>
