@@ -4,29 +4,22 @@
   <remote  name="aosp"
            fetch="https://android.googlesource.com/" />
   <remote  name="origin"
-	  fetch=".." />
+	  fetch="https://github.com/mcoughli/" />
   <remote name="chainsdd"
 	  fetch="https://github.com/ChainsDD" />
   <remote name="cyanogenmod"
 	  fetch="https://github.com/CyanogenMod/"
 	  review="review.cyanogenmod.com" />
-  <default revision="android-zynq-1.0"
-           remote="origin"
+  <default revision="gingerbread-release"
+           remote="aosp"
            sync-j="4" />
 
-  <project path="build" name="platform/build">
-    <copyfile src="core/root.mk" dest="Makefile" />
-    <copyfile src="core/Makefile.zynq" dest="Makefile.zynq" />
-  </project>
-  <project path="external/busybox" name="android_external_busybox" remote="cyanogenmod" revision="gingerbread" />
-  <project path="system/su" name="su-binary" remote="chainsdd" revision="2x" />
-  <project path="packages/apps/Superuser" name="Superuser" remote="chainsdd" revision="2x" />
-  <project path="bionic" name="platform/bionic" />
+<!-- AOSP -->
+
   <project path="bootable/bootloader/legacy" name="platform/bootable/bootloader/legacy" />
   <project path="bootable/diskinstaller" name="platform/bootable/diskinstaller" />
   <project path="bootable/recovery" name="platform/bootable/recovery" />
   <project path="cts" name="platform/cts" />
-  <project path="dalvik" name="platform/dalvik" />
   <project path="development" name="platform/development" />
   <project path="device/common" name="device/common" />
   <project path="device/google/accessory/arduino" name="device/google/accessory/arduino" />
@@ -37,7 +30,7 @@
   <project path="device/sample" name="device/sample" />
   <project path="device/samsung/crespo" name="device/samsung/crespo" />
   <project path="device/samsung/crespo4g" name="device/samsung/crespo4g" />
-  <project path="external/apache-http" name="platform/external/apache/http" />
+  <project path="external/apache-http" name="platform/external/apache-http" />
   <project path="external/astl" name="platform/external/astl" />
   <project path="external/bison" name="platform/external/bison" />
   <project path="external/blktrace" name="platform/external/blktrace" />
@@ -71,14 +64,14 @@
   <project path="external/guava" name="platform/external/guava" />
   <project path="external/icu4c" name="platform/external/icu4c" />
   <project path="external/iproute2" name="platform/external/iproute2" />
-  <project path="external/ipsec-tools" name="platform/external/ipsec/tools" />
+  <project path="external/ipsec-tools" name="platform/external/ipsec-tools" />
   <project path="external/iptables" name="platform/external/iptables" />
   <project path="external/jdiff" name="platform/external/jdiff" />
   <project path="external/jhead" name="platform/external/jhead" />
   <project path="external/jpeg" name="platform/external/jpeg" />
   <project path="external/jsr305" name="platform/external/jsr305" />
   <project path="external/junit" name="platform/external/junit" />
-  <project path="external/kernel-headers" name="platform/external/kernel/headers" />
+  <project path="external/kernel-headers" name="platform/external/kernel-headers" />
   <project path="external/libffi" name="platform/external/libffi" />
   <project path="external/libgsm" name="platform/external/libgsm" />
   <project path="external/libnfc-nxp" name="platform/external/libnfc/nxp" />
@@ -90,7 +83,7 @@
   <project path="external/netcat" name="platform/external/netcat" />
   <project path="external/netperf" name="platform/external/netperf" />
   <project path="external/neven" name="platform/external/neven" />
-  <project path="external/nist-sip" name="platform/external/nist/sip" />
+  <project path="external/nist-sip" name="platform/external/nist-sip" />
   <project path="external/oauth" name="platform/external/oauth" />
   <project path="external/openssl" name="platform/external/openssl" />
   <project path="external/oprofile" name="platform/external/oprofile" />
@@ -100,7 +93,7 @@
   <project path="external/protobuf" name="platform/external/protobuf" />
   <project path="external/qemu" name="platform/external/qemu" />
   <project path="external/quake" name="platform/external/quake" />
-  <project path="external/safe-iop" name="platform/external/safe/iop" />
+  <project path="external/safe-iop" name="platform/external/safe-iop" />
   <project path="external/skia" name="platform/external/skia" />
   <project path="external/sonivox" name="platform/external/sonivox" />
   <project path="external/speex" name="platform/external/speex" />
@@ -113,18 +106,15 @@
   <project path="external/tcpdump" name="platform/external/tcpdump" />
   <project path="external/tinyxml" name="platform/external/tinyxml" />
   <project path="external/tremolo" name="platform/external/tremolo" />
-  <project path="external/v8" name="platform/external/v8" />
   <project path="external/webkit" name="platform/external/webkit" remote="aosp" revision="gingerbread-release" />
   <project path="external/wpa_supplicant" name="platform/external/wpa_supplicant" />
   <project path="external/wpa_supplicant_6" name="platform/external/wpa_supplicant_6" />
   <project path="external/xmlwriter" name="platform/external/xmlwriter" />
   <project path="external/yaffs2" name="platform/external/yaffs2" />
   <project path="external/zlib" name="platform/external/zlib" />
-  <project path="frameworks/base" name="platform/frameworks/base" />
   <project path="frameworks/ex" name="platform/frameworks/ex" />
   <project path="frameworks/opt/emoji" name="platform/frameworks/opt/emoji" />
   <project path="hardware/broadcom/wlan" name="platform/hardware/broadcom/wlan" />
-  <project path="hardware/libhardware" name="platform/hardware/libhardware" />
   <project path="hardware/libhardware_legacy" name="platform/hardware/libhardware_legacy" />
   <project path="hardware/msm7k" name="platform/hardware/msm7k" />
   <project path="hardware/qcom/gps" name="platform/hardware/qcom/gps" />
@@ -181,13 +171,30 @@
   <project path="packages/wallpapers/MagicSmoke" name="platform/packages/wallpapers/MagicSmoke" />
   <project path="packages/wallpapers/MusicVisualization" name="platform/packages/wallpapers/MusicVisualization" />
   <project path="prebuilt" name="platform/prebuilt" remote="aosp" revision="gingerbread-release" />
-  <project path="sdk" name="platform/sdk" />
   <project path="system/bluetooth" name="platform/system/bluetooth" />
-  <project path="system/core" name="platform/system/core" />
-  <project path="system/extras" name="platform/system/extras" />
   <project path="system/media" name="platform/system/media" />
   <project path="system/netd" name="platform/system/netd" />
   <project path="system/vold" name="platform/system/vold" />
   <project path="system/wlan/ti" name="platform/system/wlan/ti" />
+
+<!-- repositories modified by me or Xilinx/Iveia -->
+  <project path="build" name="platform/build">
+    <copyfile src="core/root.mk" dest="Makefile" />
+    <copyfile src="core/Makefile.zynq" dest="Makefile.zynq" />
+  </project>
+  <project path="bionic" name="platform-bionic" remote="origin" revision="android-zynq-1.0"/>
+  <project path="dalvik" name="platform-dalvik" remote="origin" revision="android-zynq-1.0"/>
+  <project path="external/v8" name="platform-external-v8" remote="origin" revision="android-zynq-1.0"/>
+<!--  <project path="external/webkit" name="platform/external/webkit" remote="aosp" revision="gingerbread-release" /> -->
+  <project path="hardware/libhardware" name="platform-hardware-libhardware" remote="origin" revision="android-zynq-1.0"/>
+  <project path="frameworks/base" name="platform-frameworks-base" remote="origin" revision="android-zynq-1.0"/>
+  <project path="sdk" name="platform-sdk" remote="origin" revision="android-zynq-1.0"/>
+  <project path="system/core" name="platform-system-core" remote="origin" revision="android-zynq-1.0"/>
+  <project path="system/extras" name="platform-system-extras" remote="origin" revision="android-zynq-1.0"/>
+
+<!-- repositories needed for root -->
+  <project path="external/busybox" name="android_external_busybox" remote="cyanogenmod" revision="gingerbread" />
+  <project path="system/su" name="su-binary" remote="chainsdd" revision="2x" />
+  <project path="packages/apps/Superuser" name="Superuser" remote="chainsdd" revision="2x" />
 
 </manifest>
