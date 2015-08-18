@@ -509,12 +509,15 @@
   <remote name="cyanogenmod"
 	  fetch="https://github.com/CyanogenMod/"
 	  review="review.cyanogenmod.com" />
+  <remote name="slimrom"
+	  fetch="https://github.com/SlimRoms/" />
 
   <project path="external/busybox" name="android_external_busybox" remote="cyanogenmod" revision="cm-12.0" />
 <!--  <project path="system/su" name="su-binary" remote="chainsdd" /> -->
-  <project path="system/extras/su" name="android_system_extras_su" remote="cyanogenmod" revision="cm-12.0" />
-  <project name="Widgets" path="external/cyanogenmod/Widgets" remote="cyanogenmod" revision="cm-12.0" />
-  <project path="external/cyanogenmod/Superuser" name="Superuser" remote="cyanogenmod" revision="cm-12.0" />
+<!--  <project path="system/extras/su" name="android_system_extras_su" remote="cyanogenmod" revision="cm-12.0" /> -->
+<!--  <project name="Widgets" path="external/cyanogenmod/Widgets" remote="cyanogenmod" revision="cm-12.0" />-->
+<!--  <project path="external/cyanogenmod/Superuser" name="Superuser" remote="cyanogenmod" revision="cm-12.0" />-->
+  <project path="external/slimrom/Superuser" name="Superuser" remote="slimrom" revision="lp5.0" />
 
   <!-- Add zedboard -->
   <remote name="noritsuna" fetch="https://github.com/noritsuna"/>
