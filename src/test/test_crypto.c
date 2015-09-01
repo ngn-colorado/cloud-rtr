@@ -14,6 +14,10 @@
 #include "crypto_ed25519.h"
 #include "ed25519_vectors.inc"
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+#include "aes_fpga.h"
+
 extern const char AUTHORITY_SIGNKEY_3[];
 extern const char AUTHORITY_SIGNKEY_A_DIGEST[];
 extern const char AUTHORITY_SIGNKEY_A_DIGEST256[];
@@ -104,7 +108,7 @@ test_crypto_rng(void *arg)
  done:
   ;
 }
-
+//TODO: modify this function first for FPGA -------------------------------------------------
 /** Run unit tests for our AES functionality */
 static void
 test_crypto_aes(void *arg)
@@ -118,9 +122,17 @@ test_crypto_aes(void *arg)
   evaluate_evp_for_aes(use_evp);
   evaluate_ctr_for_aes();
 
-  data1 = tor_malloc(1024);
-  data2 = tor_malloc(1024);
-  data3 = tor_malloc(1024);
+  unsigned shared_size = 8*1024*1024;
+  unsigned base_address = 0x1f101000;
+  shared_memory shared_mem = getUioMemoryArea("qam", shared_size);
+  memmgr_init(shared_mem->ptr, shared_size, base_address);
+
+//  data1 = tor_malloc(1024);
+  data1 = memmgr_alloc(1024);
+//  data2 = tor_malloc(1024);
+  data2 = memmgr_alloc(1024);
+//  data3 = tor_malloc(1024);
+  data3 = memmgr_alloc(1024);
 
   /* Now, test encryption and decryption with stream cipher. */
   data1[0]='\0';
@@ -134,23 +146,47 @@ test_crypto_aes(void *arg)
   env2 = crypto_cipher_new(crypto_cipher_get_key(env1));
   tt_ptr_op(env2, OP_NE, NULL);
 
+  FPGA_AES *cipher1 = NULL;
+  FPGA_AES *cipher2 = NULL;
+  //TODO: correct these hardcoded values if needed
+  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, 0x1f010000, "qam", "axi-reset")) == NULL){
+    printf("\nCould not allocate cipher1");
+    abort();
+  }
+
+  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, 0x1f010000, "qam", "axi-reset")) == NULL){
+    printf("\nCould not allocate cipher2");
+    abort();
+  }
+
   /* Try encrypting 512 chars. */
-  crypto_cipher_encrypt(env1, data2, data1, 512);
+  //MOFIFY for FPGA -------------------------------------------------------------------
+//  crypto_cipher_encrypt(env1, data2, data1, 512);
+  Aes_encrypt_memmgr(cipher1, data2, data1, 512);
+  //MODIFY for FPGA -------------------------------------------------------------------
   crypto_cipher_decrypt(env2, data3, data2, 512);
+//  Aes_encrypt_memmgr(cipher1, data2, data1, 512);
+
+
   tt_mem_op(data1,OP_EQ, data3, 512);
   tt_mem_op(data1,OP_NE, data2, 512);
 
   /* Now encrypt 1 at a time, and get 1 at a time. */
+  //MODIFY for FPGA -------------------------------------------------------------------
   for (j = 512; j < 560; ++j) {
-    crypto_cipher_encrypt(env1, data2+j, data1+j, 1);
+   // crypto_cipher_encrypt(env1, data2+j, data1+j, 1);
+    Aes_encrypt_memmgr(cipher1, data2+j, data1+j, 1);
   }
   for (j = 512; j < 560; ++j) {
-    crypto_cipher_decrypt(env2, data3+j, data2+j, 1);
+   // crypto_cipher_decrypt(env2, data3+j, data2+j, 1);
+    Aes_encrypt_memmgr(cipher2, data3+j, data2+j, 1);
   }
   tt_mem_op(data1,OP_EQ, data3, 560);
   /* Now encrypt 3 at a time, and get 5 at a time. */
+  //MODIFY for FPGA -------------------------------------------------------------------
   for (j = 560; j < 1024-5; j += 3) {
-    crypto_cipher_encrypt(env1, data2+j, data1+j, 3);
+  //  crypto_cipher_encrypt(env1, data2+j, data1+j, 3);
+    Aes_encrypt_memmgr(cipher1, data2+j, data1+j, 3);
   }
   for (j = 560; j < 1024-5; j += 5) {
     crypto_cipher_decrypt(env2, data3+j, data2+j, 5);
@@ -163,9 +199,18 @@ test_crypto_aes(void *arg)
 
   memset(data3, 0, 1024);
   env2 = crypto_cipher_new(crypto_cipher_get_key(env1));
+
+
+  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, 0x1f010000, "qam", "axi-reset")) == NULL){
+    printf("\nCould not allocate cipher2");
+    abort();
+  }
+
   tt_ptr_op(env2, OP_NE, NULL);
+  //MODIFY for FPGA -------------------------------------------------------------------
   for (j = 0; j < 1024-16; j += 17) {
-    crypto_cipher_encrypt(env2, data3+j, data1+j, 17);
+  //  crypto_cipher_encrypt(env2, data3+j, data1+j, 17);
+    Aes_encrypt_memmgr(cipher2, data3+j, data1+j, 17);
   }
   for (j= 0; j < 1024-16; ++j) {
     if (data2[j] != data3[j]) {
@@ -182,6 +227,8 @@ test_crypto_aes(void *arg)
   /* IV starts at 0 */
   env1 = crypto_cipher_new("\x80\x00\x00\x00\x00\x00\x00\x00"
                            "\x00\x00\x00\x00\x00\x00\x00\x00");
+
+  //MODIFY for FPGA ------------------------------------------------------------------
   crypto_cipher_encrypt(env1, data1,
                         "\x00\x00\x00\x00\x00\x00\x00\x00"
                         "\x00\x00\x00\x00\x00\x00\x00\x00", 16);
@@ -196,6 +243,7 @@ test_crypto_aes(void *arg)
                                    "\x00\x00\x00\x00\x00\x00\x00\x00"
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
   memset(data2, 0,  1024);
+  //MODIFY for FPGA -----------------------------------------------------------------
   crypto_cipher_encrypt(env1, data1, data2, 32);
   test_memeq_hex(data1, "335fe6da56f843199066c14a00a40231"
                         "cdd0b917dbc7186908a6bfb5ffd574d3");
@@ -206,6 +254,7 @@ test_crypto_aes(void *arg)
                                    "\x00\x00\x00\x00\xff\xff\xff\xff"
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
   memset(data2, 0,  1024);
+  //MODIFY for FPGA ---------------------------------------------------------------------
   crypto_cipher_encrypt(env1, data1, data2, 32);
   test_memeq_hex(data1, "e627c6423fa2d77832a02b2794094b73"
                         "3e63c721df790d2c6469cc1953a3ffac");
@@ -216,6 +265,7 @@ test_crypto_aes(void *arg)
                                    "\xff\xff\xff\xff\xff\xff\xff\xff"
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
   memset(data2, 0,  1024);
+  //MODIFY for FPGA -------------------------------------------------------------------
   crypto_cipher_encrypt(env1, data1, data2, 32);
   test_memeq_hex(data1, "2aed2bff0de54f9328efd070bf48f70a"
                         "0EDD33D3C621E546455BD8BA1418BEC8");
@@ -227,6 +277,7 @@ test_crypto_aes(void *arg)
                                    "\x00\x00\x00\x00\x00\x00\x00\x00",
                                    "\xff\xff\xff\xff\xff\xff\xff\xff"
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
+  //MODIFY for FPGA -----------------------------------------------------------------
   crypto_cipher_crypt_inplace(env1, data2, 64);
   test_memeq_hex(data2, "2aed2bff0de54f9328efd070bf48f70a"
                         "0EDD33D3C621E546455BD8BA1418BEC8"
@@ -238,6 +289,7 @@ test_crypto_aes(void *arg)
                                    "\x00\x00\x00\x00\x00\x00\x00\x00",
                                    "\xff\xff\xff\xff\xff\xff\xff\xff"
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
+  //MODIFY for FPGA -----------------------------------------------------------------
   crypto_cipher_crypt_inplace(env1, data2, 64);
   tt_assert(tor_mem_is_zero(data2, 64));
 
@@ -714,6 +766,7 @@ static void
 test_crypto_aes_iv(void *arg)
 {
   char *plain, *encrypted1, *encrypted2, *decrypted1, *decrypted2;
+  //Allocate in FPGA ------------------------------------------------------------------------
   char plain_1[1], plain_15[15], plain_16[16], plain_17[17];
   char key1[16], key2[16];
   ssize_t encrypted_size, decrypted_size;
@@ -721,13 +774,17 @@ test_crypto_aes_iv(void *arg)
   int use_evp = !strcmp(arg,"evp");
   evaluate_evp_for_aes(use_evp);
 
+  //Allocate in FPGA ------------------------------------------------------------------------
   plain = tor_malloc(4095);
+  //Allocate in FPGA ------------------------------------------------------------------------
   encrypted1 = tor_malloc(4095 + 1 + 16);
+  //Allocate in FPGA ------------------------------------------------------------------------
   encrypted2 = tor_malloc(4095 + 1 + 16);
   decrypted1 = tor_malloc(4095 + 1);
   decrypted2 = tor_malloc(4095 + 1);
 
   crypto_rand(plain, 4095);
+  //Allocate in FPGA -----------------------------------------------------------------------
   crypto_rand(key1, 16);
   crypto_rand(key2, 16);
   crypto_rand(plain_1, 1);
@@ -743,6 +800,9 @@ test_crypto_aes_iv(void *arg)
   tt_assert(encrypted_size > 0); /* This is obviously true, since 4111 is
                                    * greater than 0, but its truth is not
                                    * obvious to all analysis tools. */
+
+
+//Replace with FPGA -----------------------------------------------------------------------
   decrypted_size = crypto_cipher_decrypt_with_iv(key1, decrypted1, 4095,
                                              encrypted1, encrypted_size);
 
@@ -750,6 +810,8 @@ test_crypto_aes_iv(void *arg)
   tt_assert(decrypted_size > 0);
   tt_mem_op(plain,OP_EQ, decrypted1, 4095);
   /* Encrypt a second time (with a new random initialization vector). */
+
+//Replcae with FPGA --------------------------------------------------------------------
   encrypted_size = crypto_cipher_encrypt_with_iv(key1, encrypted2, 16 + 4095,
                                              plain, 4095);
 
@@ -773,6 +835,8 @@ test_crypto_aes_iv(void *arg)
   tt_int_op(decrypted_size,OP_EQ, 4095);
   tt_mem_op(plain,OP_NE, decrypted2, 4095);
   /* Special length case: 1. */
+
+//Replace with FPGA ----------------------------------------------------------------------
   encrypted_size = crypto_cipher_encrypt_with_iv(key1, encrypted1, 16 + 1,
                                              plain_1, 1);
   tt_int_op(encrypted_size,OP_EQ, 16 + 1);
@@ -783,6 +847,8 @@ test_crypto_aes_iv(void *arg)
   tt_assert(decrypted_size > 0);
   tt_mem_op(plain_1,OP_EQ, decrypted1, 1);
   /* Special length case: 15. */
+
+//Replace with FPGA ----------------------------------------------------------------------
   encrypted_size = crypto_cipher_encrypt_with_iv(key1, encrypted1, 16 + 15,
                                              plain_15, 15);
   tt_int_op(encrypted_size,OP_EQ, 16 + 15);
@@ -793,6 +859,8 @@ test_crypto_aes_iv(void *arg)
   tt_assert(decrypted_size > 0);
   tt_mem_op(plain_15,OP_EQ, decrypted1, 15);
   /* Special length case: 16. */
+
+//Replace with FPGA ---------------------------------------------------------------------
   encrypted_size = crypto_cipher_encrypt_with_iv(key1, encrypted1, 16 + 16,
                                              plain_16, 16);
   tt_int_op(encrypted_size,OP_EQ, 16 + 16);
@@ -803,6 +871,8 @@ test_crypto_aes_iv(void *arg)
   tt_assert(decrypted_size > 0);
   tt_mem_op(plain_16,OP_EQ, decrypted1, 16);
   /* Special length case: 17. */
+
+//Replace with FPGA ---------------------------------------------------------------------
   encrypted_size = crypto_cipher_encrypt_with_iv(key1, encrypted1, 16 + 17,
                                              plain_17, 17);
   tt_int_op(encrypted_size,OP_EQ, 16 + 17);
