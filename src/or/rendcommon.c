@@ -259,6 +259,8 @@ rend_encrypt_v2_intro_points_basic(char **encrypted_out,
 {
   int r = -1, i, pos, enclen, client_blocks;
   size_t len, client_entries_len;
+
+//TODO: MODIFY session_key variable for FPGA ----------------------------------------
   char *enc = NULL, iv[CIPHER_IV_LEN], *client_part = NULL,
        session_key[CIPHER_KEY_LEN];
   smartlist_t *encrypted_session_keys = NULL;
@@ -304,9 +306,11 @@ rend_encrypt_v2_intro_points_basic(char **encrypted_out,
    * in a smartlist. */
   encrypted_session_keys = smartlist_new();
   SMARTLIST_FOREACH_BEGIN(client_cookies, const char *, cookie) {
+//TODO: MODIFY for FPGA --------------------------------------------------------------
     client_part = tor_malloc_zero(REND_BASIC_AUTH_CLIENT_ENTRY_LEN);
     /* Encrypt session key. */
     cipher = crypto_cipher_new(cookie);
+//TODO: MODIFY for FPGA----------------------------------------------------------------
     if (crypto_cipher_encrypt(cipher, client_part +
                                   REND_BASIC_AUTH_CLIENT_ID_LEN,
                               session_key, CIPHER_KEY_LEN) < 0) {

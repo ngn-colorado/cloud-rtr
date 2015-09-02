@@ -229,7 +229,8 @@ test_crypto_aes(void *arg)
                            "\x00\x00\x00\x00\x00\x00\x00\x00");
 
   //MODIFY for FPGA ------------------------------------------------------------------
-  crypto_cipher_encrypt(env1, data1,
+  //crypto_cipher_encrypt(env1, data1,
+  Aes_encrypt_memmgr(cipher1, data1,
                         "\x00\x00\x00\x00\x00\x00\x00\x00"
                         "\x00\x00\x00\x00\x00\x00\x00\x00", 16);
   test_memeq_hex(data1, "0EDD33D3C621E546455BD8BA1418BEC8");
@@ -244,7 +245,8 @@ test_crypto_aes(void *arg)
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
   memset(data2, 0,  1024);
   //MODIFY for FPGA -----------------------------------------------------------------
-  crypto_cipher_encrypt(env1, data1, data2, 32);
+//  crypto_cipher_encrypt(env1, data1, data2, 32);
+  Aes_encrypt_memmgr(cipher1, data1, data2, 32);
   test_memeq_hex(data1, "335fe6da56f843199066c14a00a40231"
                         "cdd0b917dbc7186908a6bfb5ffd574d3");
   crypto_cipher_free(env1);
@@ -255,7 +257,8 @@ test_crypto_aes(void *arg)
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
   memset(data2, 0,  1024);
   //MODIFY for FPGA ---------------------------------------------------------------------
-  crypto_cipher_encrypt(env1, data1, data2, 32);
+//  crypto_cipher_encrypt(env1, data1, data2, 32);
+  Aes_encrypt_memmgr(cipher1, data2, data2, 32);
   test_memeq_hex(data1, "e627c6423fa2d77832a02b2794094b73"
                         "3e63c721df790d2c6469cc1953a3ffac");
   crypto_cipher_free(env1);
@@ -266,7 +269,8 @@ test_crypto_aes(void *arg)
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
   memset(data2, 0,  1024);
   //MODIFY for FPGA -------------------------------------------------------------------
-  crypto_cipher_encrypt(env1, data1, data2, 32);
+//  crypto_cipher_encrypt(env1, data1, data2, 32);
+  Aes_encrypt_memmgr(cipher1, data1, data2, 32);
   test_memeq_hex(data1, "2aed2bff0de54f9328efd070bf48f70a"
                         "0EDD33D3C621E546455BD8BA1418BEC8");
 
@@ -299,9 +303,12 @@ test_crypto_aes(void *arg)
     crypto_cipher_free(env1);
   if (env2)
     crypto_cipher_free(env2);
-  tor_free(data1);
-  tor_free(data2);
-  tor_free(data3);
+//  tor_free(data1);
+//  tor_free(data2);
+//  tor_free(data3);
+  memmgr_free(data1);
+  memmgr_free(data2);
+  memmgr_free(data3);
 }
 
 /** Run unit tests for our SHA-1 functionality */
