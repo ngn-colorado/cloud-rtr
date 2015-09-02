@@ -123,7 +123,7 @@ test_crypto_aes(void *arg)
   evaluate_ctr_for_aes();
 
   unsigned shared_size = 8*1024*1024;
-  unsigned base_address = 0x1f101000;
+  unsigned base_address = 0x1f410000;
   shared_memory shared_mem = getUioMemoryArea("qam", shared_size);
   memmgr_init(shared_mem->ptr, shared_size, base_address);
 
