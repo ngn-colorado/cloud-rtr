@@ -124,7 +124,7 @@ test_crypto_aes(void *arg)
 
   unsigned shared_size = 8*1024*1024;
   unsigned base_address = 0x1f410000;
-  shared_memory shared_mem = getUioMemoryArea("qam", shared_size);
+  shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
   memmgr_init(shared_mem->ptr, shared_size, base_address);
 
 //  data1 = tor_malloc(1024);
