@@ -124,7 +124,8 @@ test_crypto_aes(void *arg)
 
   unsigned shared_size = 8*1024*1024;
   unsigned base_address = 0x1f410000;
-  shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
+  char* sharedUioDevice = "/dev/uio1";
+  shared_memory shared_mem = getUioMemoryArea(sharedUioDevice, shared_size);
   memmgr_init(shared_mem->ptr, shared_size, base_address);
 
 //  data1 = tor_malloc(1024);
@@ -149,12 +150,12 @@ test_crypto_aes(void *arg)
   FPGA_AES *cipher1 = NULL;
   FPGA_AES *cipher2 = NULL;
   //TODO: correct these hardcoded values if needed
-  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, 0x1f010000, "qam", "axi-reset")) == NULL){
+  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, base_address, sharedUioDevice, "axi-reset")) == NULL){
     printf("\nCould not allocate cipher1");
     abort();
   }
 
-  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, 0x1f010000, "qam", "axi-reset")) == NULL){
+  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, baseAddress, sharedUioDevice, "axi-reset")) == NULL){
     printf("\nCould not allocate cipher2");
     abort();
   }
@@ -201,7 +202,7 @@ test_crypto_aes(void *arg)
   env2 = crypto_cipher_new(crypto_cipher_get_key(env1));
 
 
-  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, 0x1f010000, "qam", "axi-reset")) == NULL){
+  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, baseAddress, sharedUioDevice, "axi-reset")) == NULL){
     printf("\nCould not allocate cipher2");
     abort();
   }
