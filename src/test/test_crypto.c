@@ -155,7 +155,7 @@ test_crypto_aes(void *arg)
     abort();
   }
 
-  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, baseAddress, sharedUioDevice, "axi-reset")) == NULL){
+  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, base_address, sharedUioDevice, "axi-reset")) == NULL){
     printf("\nCould not allocate cipher2");
     abort();
   }
@@ -202,7 +202,7 @@ test_crypto_aes(void *arg)
   env2 = crypto_cipher_new(crypto_cipher_get_key(env1));
 
 
-  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, baseAddress, sharedUioDevice, "axi-reset")) == NULL){
+  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, base_address, sharedUioDevice, "axi-reset")) == NULL){
     printf("\nCould not allocate cipher2");
     abort();
   }
