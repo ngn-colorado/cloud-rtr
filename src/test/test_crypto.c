@@ -209,7 +209,9 @@ test_crypto_aes(void *arg)
 	printf("%02x", data1[i]);
   }
 //  Aes_encrypt_memmgr(cipher2, data2, data1, 512);
-  Aes_encrypt_run(cipher1, data1, 512, data2, d1_addr, d2_addr);
+//  Aes_encrypt_run(cipher1, data1, 512, data2, d1_addr, d2_addr);
+  printf("\nTesting our FPGA AES with software ctr function");
+  Aes_encrypt_ctr_run(cipher1, data1, 512, data2, d1_addr, d2_addr);
   //MODIFY for FPGA -------------------------------------------------------------------
   crypto_cipher_decrypt(env2, data3, data2, 512);
 //  Aes_encrypt_memmgr(cipher1, data2, data1, 512);
