@@ -17,6 +17,7 @@
 #include "memmgr.h"
 #include "user_mmap_driver.h"
 #include "aes_fpga.h"
+#include "stdio.h"
 
 extern const char AUTHORITY_SIGNKEY_3[];
 extern const char AUTHORITY_SIGNKEY_A_DIGEST[];
@@ -122,17 +123,28 @@ test_crypto_aes(void *arg)
   evaluate_evp_for_aes(use_evp);
   evaluate_ctr_for_aes();
 
-  unsigned shared_size = 8*1024*1024;
+  unsigned shared_size = 0x70000;//8*1024*1024;
   unsigned base_address = 0x1f410000;
-  shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
-  memmgr_init(shared_mem->ptr, shared_size, base_address);
+  char* aes_device = "aes-qam";
+  char* rst_device = "axi-reset";
+//  shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
+  shared_memory shared_mem = getSharedMemoryArea(base_address, shared_size);
+//  memmgr_init(shared_mem->ptr, shared_size, base_address);
+
+  char* shared = (char*)(shared_mem->ptr);
 
 //  data1 = tor_malloc(1024);
-  data1 = memmgr_alloc(1024);
+//  data1 = memmgr_alloc(1024);
+  data1 = shared;
+  unsigned d1_addr = base_address;
 //  data2 = tor_malloc(1024);
-  data2 = memmgr_alloc(1024);
+//  data2 = memmgr_alloc(1024);
+  data2 = shared + 1024;
+  unsigned d2_addr = base_address + 1024;
 //  data3 = tor_malloc(1024);
-  data3 = memmgr_alloc(1024);
+//  data3 = memmgr_alloc(1024);
+  data3 = shared + 2048;
+  unsigned d3_addr = base_address + 2048;
 
   /* Now, test encryption and decryption with stream cipher. */
   data1[0]='\0';
@@ -146,26 +158,76 @@ test_crypto_aes(void *arg)
   env2 = crypto_cipher_new(crypto_cipher_get_key(env1));
   tt_ptr_op(env2, OP_NE, NULL);
 
+  char* env1key = (char*)crypto_cipher_get_key(env1);
+  char* env2key = (char*)crypto_cipher_get_key(env2);
+
+  printf("\nEnv1 key:\n0x");
+  for(i=0; i<16; i++){
+	printf("%02x", env1key[i]);
+  }
+
+  printf("\nEnv2 key:\n0x");
+  for(i=0; i<16; i++){
+	printf("%02x", env2key[i]);
+  }
+  
+  printf("\nTor cipher key length: %i",  CIPHER_KEY_LEN);
+  printf("\nTor iv lenght: %i", CIPHER_IV_LEN);
+
   FPGA_AES *cipher1 = NULL;
   FPGA_AES *cipher2 = NULL;
   //TODO: correct these hardcoded values if needed
-  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, 0x1f010000, "qam", "axi-reset")) == NULL){
+  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, base_address, aes_device, rst_device)) == NULL){
     printf("\nCould not allocate cipher1");
     abort();
   }
 
-  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, 0x1f010000, "qam", "axi-reset")) == NULL){
+  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, base_address, aes_device, rst_device)) == NULL){
     printf("\nCould not allocate cipher2");
     abort();
   }
 
+  printf("\nCipher1 key:\n0x");
+  for(i=0; i<16; i++){
+	printf("%02x", ((struct FPGA_AES*)cipher1)->key[i]);
+  }
+
+  printf("\nCipher2 key:\n0x");
+  for(i=0; i<16; i++){
+	printf("%02x", cipher2->key[i]);
+  }
+
   /* Try encrypting 512 chars. */
   //MOFIFY for FPGA -------------------------------------------------------------------
-//  crypto_cipher_encrypt(env1, data2, data1, 512);
-  Aes_encrypt_memmgr(cipher1, data2, data1, 512);
+  char temp1[1024];
+  crypto_cipher_encrypt(env1, temp1, data1, 512);
+  printf("\nInput");
+  for(i=0; i<32; i++){
+	if(i%16==0){
+		printf("\n0x");
+ 	}
+	printf("%02x", data1[i]);
+  }
+//  Aes_encrypt_memmgr(cipher2, data2, data1, 512);
+  Aes_encrypt_run(cipher1, data1, 512, data2, d1_addr, d2_addr);
   //MODIFY for FPGA -------------------------------------------------------------------
   crypto_cipher_decrypt(env2, data3, data2, 512);
 //  Aes_encrypt_memmgr(cipher1, data2, data1, 512);
+  printf("\n--------------------------------");
+  printf("\nFPGA\t\t|\t\tTor");
+  for(i=0; i<2; i++){
+//	printf("\n0x%02x\t|\t0x%02x", data2[i], temp1[i]);	
+    printf("\n0x");
+    for(j=0; j<16; j++){
+	printf("%02x", data2[j]);
+    }
+    printf(" 0x");
+    for(j=0; j<16; j++){
+	printf("%02x", temp1[j]);
+    }
+  }
+  printf("\n--------------------------------");
+
 
 
   tt_mem_op(data1,OP_EQ, data3, 512);
@@ -175,18 +237,21 @@ test_crypto_aes(void *arg)
   //MODIFY for FPGA -------------------------------------------------------------------
   for (j = 512; j < 560; ++j) {
    // crypto_cipher_encrypt(env1, data2+j, data1+j, 1);
-    Aes_encrypt_memmgr(cipher1, data2+j, data1+j, 1);
+//    Aes_encrypt_memmgr(cipher1, data2+j, data1+j, 1);
+    Aes_encrypt_run(cipher1, data1+j, 1, data2+j, d1_addr+j, d2_addr+j);
   }
   for (j = 512; j < 560; ++j) {
    // crypto_cipher_decrypt(env2, data3+j, data2+j, 1);
-    Aes_encrypt_memmgr(cipher2, data3+j, data2+j, 1);
+//    Aes_encrypt_memmgr(cipher2, data3+j, data2+j, 1);
+    Aes_encrypt_run(cipher2, data2+j, 1, data3+j, d2_addr+j, d3_addr+j);
   }
   tt_mem_op(data1,OP_EQ, data3, 560);
   /* Now encrypt 3 at a time, and get 5 at a time. */
   //MODIFY for FPGA -------------------------------------------------------------------
   for (j = 560; j < 1024-5; j += 3) {
   //  crypto_cipher_encrypt(env1, data2+j, data1+j, 3);
-    Aes_encrypt_memmgr(cipher1, data2+j, data1+j, 3);
+//    Aes_encrypt_memmgr(cipher1, data2+j, data1+j, 3);
+    Aes_encrypt_run(cipher1, data1+j, 3, data2+j, d1_addr+j, d2_addr+j);
   }
   for (j = 560; j < 1024-5; j += 5) {
     crypto_cipher_decrypt(env2, data3+j, data2+j, 5);
@@ -201,7 +266,7 @@ test_crypto_aes(void *arg)
   env2 = crypto_cipher_new(crypto_cipher_get_key(env1));
 
 
-  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, 0x1f010000, "qam", "axi-reset")) == NULL){
+  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, base_address, aes_device, rst_device)) == NULL){
     printf("\nCould not allocate cipher2");
     abort();
   }
@@ -210,7 +275,8 @@ test_crypto_aes(void *arg)
   //MODIFY for FPGA -------------------------------------------------------------------
   for (j = 0; j < 1024-16; j += 17) {
   //  crypto_cipher_encrypt(env2, data3+j, data1+j, 17);
-    Aes_encrypt_memmgr(cipher2, data3+j, data1+j, 17);
+//    Aes_encrypt_memmgr(cipher2, data3+j, data1+j, 17);
+    Aes_encrypt_run(cipher2, data1+j, 17, data3+j, d1_addr+j, d3_addr+j);
   }
   for (j= 0; j < 1024-16; ++j) {
     if (data2[j] != data3[j]) {
@@ -228,11 +294,23 @@ test_crypto_aes(void *arg)
   env1 = crypto_cipher_new("\x80\x00\x00\x00\x00\x00\x00\x00"
                            "\x00\x00\x00\x00\x00\x00\x00\x00");
 
+  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, base_address, aes_device, rst_device)) == NULL){
+    printf("\nCould not allocate cipher1");
+    abort();
+  }
   //MODIFY for FPGA ------------------------------------------------------------------
+  //length 16
+  char* newData1 = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+  char* data4 = shared+3072;
+  unsigned d4_addr = base_address + 3072;
+  for(i=0; i<16; i++){
+	data4[i] = newData1[i];
+  }
   //crypto_cipher_encrypt(env1, data1,
-  Aes_encrypt_memmgr(cipher1, data1,
-                        "\x00\x00\x00\x00\x00\x00\x00\x00"
-                        "\x00\x00\x00\x00\x00\x00\x00\x00", 16);
+//  Aes_encrypt_memmgr(cipher1, data1,
+  //                      "\x00\x00\x00\x00\x00\x00\x00\x00"
+    //                    "\x00\x00\x00\x00\x00\x00\x00\x00", 16);
+  Aes_encrypt_run(cipher1, data4, 16, data1, d4_addr, d1_addr);
   test_memeq_hex(data1, "0EDD33D3C621E546455BD8BA1418BEC8");
 
   /* Now test rollover.  All these values are originally from a python
@@ -244,9 +322,14 @@ test_crypto_aes(void *arg)
                                    "\x00\x00\x00\x00\x00\x00\x00\x00"
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
   memset(data2, 0,  1024);
+  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, base_address, aes_device, rst_device)) == NULL){
+    printf("\nCould not allocate cipher1");
+    abort();
+  }
   //MODIFY for FPGA -----------------------------------------------------------------
-//  crypto_cipher_encrypt(env1, data1, data2, 32);
-  Aes_encrypt_memmgr(cipher1, data1, data2, 32);
+  crypto_cipher_encrypt(env1, data1, data2, 32);
+  //Aes_encrypt_memmgr(cipher1, data1, data2, 32);
+//  Aes_encrypt_run(cipher1, data2, 32, data1, d2_addr, d1_addr);
   test_memeq_hex(data1, "335fe6da56f843199066c14a00a40231"
                         "cdd0b917dbc7186908a6bfb5ffd574d3");
   crypto_cipher_free(env1);
@@ -257,8 +340,8 @@ test_crypto_aes(void *arg)
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
   memset(data2, 0,  1024);
   //MODIFY for FPGA ---------------------------------------------------------------------
-//  crypto_cipher_encrypt(env1, data1, data2, 32);
-  Aes_encrypt_memmgr(cipher1, data2, data2, 32);
+  crypto_cipher_encrypt(env1, data1, data2, 32);
+//  Aes_encrypt_memmgr(cipher1, data2, data2, 32);
   test_memeq_hex(data1, "e627c6423fa2d77832a02b2794094b73"
                         "3e63c721df790d2c6469cc1953a3ffac");
   crypto_cipher_free(env1);
@@ -269,8 +352,8 @@ test_crypto_aes(void *arg)
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
   memset(data2, 0,  1024);
   //MODIFY for FPGA -------------------------------------------------------------------
-//  crypto_cipher_encrypt(env1, data1, data2, 32);
-  Aes_encrypt_memmgr(cipher1, data1, data2, 32);
+  crypto_cipher_encrypt(env1, data1, data2, 32);
+//  Aes_encrypt_memmgr(cipher1, data1, data2, 32);
   test_memeq_hex(data1, "2aed2bff0de54f9328efd070bf48f70a"
                         "0EDD33D3C621E546455BD8BA1418BEC8");
 
@@ -306,9 +389,12 @@ test_crypto_aes(void *arg)
 //  tor_free(data1);
 //  tor_free(data2);
 //  tor_free(data3);
-  memmgr_free(data1);
-  memmgr_free(data2);
-  memmgr_free(data3);
+//  memmgr_free(data1);
+//  memmgr_free(data2);
+//  memmgr_free(data3);
+  fpga_aes_free(cipher1);
+  fpga_aes_free(cipher2);
+  cleanupSharedMemoryPointer(shared_mem);
 }
 
 /** Run unit tests for our SHA-1 functionality */
