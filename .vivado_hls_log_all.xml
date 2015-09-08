@@ -12,8 +12,7 @@
   <warningLogs>
     <logs>
       <synLog>
-        <logs message="@W [RTGEN-101] Legalizing port name 'aes/length' to 'aes/length_r'." projectName="aes_runner" solutionName="solution1" date="2015-05-16T00:00:26.635-0600" type="Warning"/>
-        <logs message="@W [SYNCHK-23] aes_runner/source/aes.cpp:178: variable-indexed range selection may cause suboptimal QoR." projectName="aes_runner" solutionName="solution1" date="2015-05-16T00:00:19.257-0600" type="Warning"/>
+        <logs message="@W [SYNCHK-23] aes_runner/source/aes.cpp:178: variable-indexed range selection may cause suboptimal QoR." projectName="aes_runner" solutionName="solution1" date="2015-09-07T17:49:28.613-0600" type="Warning"/>
       </synLog>
       <simLog/>
       <mgLog/>

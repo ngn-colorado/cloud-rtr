@@ -3,7 +3,7 @@
 ================================================================
 == Vivado HLS Report for 'aestest'
 ================================================================
-* Date:           Sat May 16 00:00:30 2015
+* Date:           Mon Sep  7 17:49:43 2015
 
 * Version:        2014.1 (build date: Fri Apr 04 13:20:25 PM 2014)
 * Project:        aes_runner
@@ -165,11 +165,11 @@ IsGatedGlobalClock: 0
 20 --> 
 * FSM state operations: 
 
- <State 1>: 3.76ns
-ST_1: key_V_read_1 [1/1] 0.00ns
+ <State 1>: 4.69ns
+ST_1: key_V_read_1 [1/1] 0.93ns
 .preheader86.preheader:0  %key_V_read_1 = call i128 @_ssdm_op_Read.ap_auto.i128(i128 %key_V_read)
 
-ST_1: inptext_V_read_1 [1/1] 0.00ns
+ST_1: inptext_V_read_1 [1/1] 0.93ns
 .preheader86.preheader:1  %inptext_V_read_1 = call i128 @_ssdm_op_Read.ap_auto.i128(i128 %inptext_V_read)
 
 ST_1: p_Result_s [1/1] 0.00ns
@@ -178,8 +178,8 @@ ST_1: p_Result_s [1/1] 0.00ns
 ST_1: p_Result_1 [1/1] 0.00ns
 .preheader86.preheader:4  %p_Result_1 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 120, i32 127)
 
-ST_1: p_Result_s_92 [1/1] 0.00ns
-.preheader86.preheader:5  %p_Result_s_92 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
+ST_1: p_Result_s_95 [1/1] 0.00ns
+.preheader86.preheader:5  %p_Result_s_95 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %inptext_V_read_1, i32 112, i32 119)
 
 ST_1: p_Result_1_1 [1/1] 0.00ns
 .preheader86.preheader:6  %p_Result_1_1 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %key_V_read_1, i32 112, i32 119)
@@ -272,7 +272,7 @@ ST_1: tmp_1 [1/1] 1.37ns
 .preheader86.preheader:35  %tmp_1 = xor i8 %p_Result_s, %p_Result_1
 
 ST_1: tmp_6_1 [1/1] 1.37ns
-.preheader86.preheader:36  %tmp_6_1 = xor i8 %p_Result_s_92, %p_Result_1_1
+.preheader86.preheader:36  %tmp_6_1 = xor i8 %p_Result_s_95, %p_Result_1_1
 
 ST_1: tmp_6_2 [1/1] 1.37ns
 .preheader86.preheader:37  %tmp_6_2 = xor i8 %p_Result_2, %p_Result_1_2
@@ -1519,6 +1519,9 @@ ST_4: tmp31 [1/1] 1.37ns
 ST_4: tmp33 [1/1] 1.37ns
 .preheader86.preheader:427  %tmp33 = xor i8 %rv_8_1, %e_1
 
+ST_4: tmp34 [1/1] 1.37ns
+.preheader86.preheader:428  %tmp34 = xor i8 %sboxes_10_load_1, %tmp_61_1
+
 ST_4: tmp35 [1/1] 1.37ns
 .preheader86.preheader:430  %tmp35 = xor i8 %tmp_41_1, %tmp_62_1
 
@@ -1613,9 +1616,6 @@ ST_5: tmp32 [1/1] 1.37ns
 
 ST_5: tmp_79_1_1 [1/1] 1.37ns
 .preheader86.preheader:426  %tmp_79_1_1 = xor i8 %tmp32, %tmp31
-
-ST_5: tmp34 [1/1] 1.37ns
-.preheader86.preheader:428  %tmp34 = xor i8 %sboxes_10_load_1, %tmp_61_1
 
 ST_5: tmp_79_1_2 [1/1] 1.37ns
 .preheader86.preheader:429  %tmp_79_1_2 = xor i8 %tmp34, %tmp33
@@ -1877,6 +1877,9 @@ ST_5: sboxes_19_addr_2 [1/1] 0.00ns
 
 ST_5: sboxes_19_load_2 [2/2] 2.39ns
 .preheader86.preheader:616  %sboxes_19_load_2 = load i8* %sboxes_19_addr_2, align 1
+
+ST_5: tmp61 [1/1] 1.37ns
+.preheader86.preheader:617  %tmp61 = xor i8 %tmp_59_1, 4
 
 
  <State 6>: 7.87ns
@@ -2174,9 +2177,6 @@ ST_6: sboxes_18_load_2 [1/2] 2.39ns
 ST_6: sboxes_19_load_2 [1/2] 2.39ns
 .preheader86.preheader:616  %sboxes_19_load_2 = load i8* %sboxes_19_addr_2, align 1
 
-ST_6: tmp61 [1/1] 1.37ns
-.preheader86.preheader:617  %tmp61 = xor i8 %tmp_59_1, 4
-
 ST_6: tmp_59_2 [1/1] 1.37ns
 .preheader86.preheader:618  %tmp_59_2 = xor i8 %tmp61, %sboxes_16_load_2
 
@@ -2188,9 +2188,6 @@ ST_6: tmp_61_2 [1/1] 1.37ns
 
 ST_6: tmp_62_2 [1/1] 1.37ns
 .preheader86.preheader:621  %tmp_62_2 = xor i8 %tmp_62_1, %sboxes_19_load_2
-
-ST_6: tmp_67_2 [1/1] 1.37ns
-.preheader86.preheader:622  %tmp_67_2 = xor i8 %tmp_28, %tmp_59_2
 
 ST_6: tmp_70_2 [1/1] 1.37ns
 .preheader86.preheader:625  %tmp_70_2 = xor i8 %tmp_31, %tmp_62_2
@@ -2237,9 +2234,6 @@ ST_6: tmp78 [1/1] 1.37ns
 ST_6: tmp80 [1/1] 1.37ns
 .preheader86.preheader:656  %tmp80 = xor i8 %rv_2_2_2, %e_2_2
 
-ST_6: tmp81 [1/1] 1.37ns
-.preheader86.preheader:657  %tmp81 = xor i8 %sboxes_8_load_2, %tmp_67_2
-
 ST_6: tmp82 [1/1] 1.37ns
 .preheader86.preheader:659  %tmp82 = xor i8 %rv_5_2_2, %e_2_2
 
@@ -2283,6 +2277,9 @@ ST_7: rv_10_2_3 [1/1] 1.37ns
 
 ST_7: rv_11_2_3 [1/1] 1.37ns
 .preheader86.preheader:604  %rv_11_2_3 = select i1 %tmp_132, i8 %rv_10_2_3, i8 %tmp_131
+
+ST_7: tmp_67_2 [1/1] 1.37ns
+.preheader86.preheader:622  %tmp_67_2 = xor i8 %tmp_28, %tmp_59_2
 
 ST_7: tmp_68_2 [1/1] 1.37ns
 .preheader86.preheader:623  %tmp_68_2 = xor i8 %tmp_29, %tmp_60_2
@@ -2340,6 +2337,9 @@ ST_7: tmp79 [1/1] 1.37ns
 
 ST_7: tmp_79_2_7 [1/1] 1.37ns
 .preheader86.preheader:655  %tmp_79_2_7 = xor i8 %tmp79, %tmp78
+
+ST_7: tmp81 [1/1] 1.37ns
+.preheader86.preheader:657  %tmp81 = xor i8 %sboxes_8_load_2, %tmp_67_2
 
 ST_7: tmp_79_2_8 [1/1] 1.37ns
 .preheader86.preheader:658  %tmp_79_2_8 = xor i8 %tmp81, %tmp80
@@ -3670,6 +3670,9 @@ ST_10: tmp148 [1/1] 1.37ns
 ST_10: tmp149 [1/1] 1.37ns
 .preheader86.preheader:1080  %tmp149 = xor i8 %rv_8_4_2, %e_4_2
 
+ST_10: tmp150 [1/1] 1.37ns
+.preheader86.preheader:1081  %tmp150 = xor i8 %sboxes_2_load_4, %tmp_69_4
+
 ST_10: tmp151 [1/1] 1.37ns
 .preheader86.preheader:1083  %tmp151 = xor i8 %tmp_41_4_2, %tmp_70_4
 
@@ -3767,9 +3770,6 @@ ST_11: tmp_79_4_8 [1/1] 1.37ns
 
 ST_11: tmp_79_4_9 [1/1] 1.37ns
 .preheader86.preheader:1079  %tmp_79_4_9 = xor i8 %tmp148, %tmp147
-
-ST_11: tmp150 [1/1] 1.37ns
-.preheader86.preheader:1081  %tmp150 = xor i8 %sboxes_2_load_4, %tmp_69_4
 
 ST_11: tmp_79_4_s [1/1] 1.37ns
 .preheader86.preheader:1082  %tmp_79_4_s = xor i8 %tmp150, %tmp149
@@ -4313,9 +4313,6 @@ ST_12: tmp_74_5 [1/1] 1.37ns
 ST_12: tmp159 [1/1] 1.37ns
 .preheader86.preheader:1257  %tmp159 = xor i8 %rv_2_5, %e_5
 
-ST_12: tmp160 [1/1] 1.37ns
-.preheader86.preheader:1258  %tmp160 = xor i8 %sboxes_0_load_5, %tmp_59_5
-
 ST_12: tmp161 [1/1] 1.37ns
 .preheader86.preheader:1260  %tmp161 = xor i8 %rv_5_5, %e_5
 
@@ -4324,6 +4321,9 @@ ST_12: tmp162 [1/1] 1.37ns
 
 ST_12: tmp163 [1/1] 1.37ns
 .preheader86.preheader:1263  %tmp163 = xor i8 %rv_8_5, %e_5
+
+ST_12: tmp164 [1/1] 1.37ns
+.preheader86.preheader:1264  %tmp164 = xor i8 %sboxes_10_load_5, %tmp_61_5
 
 ST_12: tmp165 [1/1] 1.37ns
 .preheader86.preheader:1266  %tmp165 = xor i8 %tmp_41_5, %tmp_62_5
@@ -4411,14 +4411,14 @@ ST_13: tmp_72_5 [1/1] 1.37ns
 ST_13: tmp_73_5 [1/1] 1.37ns
 .preheader86.preheader:1255  %tmp_73_5 = xor i8 %tmp_73_3, %tmp_65_5
 
+ST_13: tmp160 [1/1] 1.37ns
+.preheader86.preheader:1258  %tmp160 = xor i8 %sboxes_0_load_5, %tmp_59_5
+
 ST_13: tmp_79_5 [1/1] 1.37ns
 .preheader86.preheader:1259  %tmp_79_5 = xor i8 %tmp160, %tmp159
 
 ST_13: tmp_79_5_1 [1/1] 1.37ns
 .preheader86.preheader:1262  %tmp_79_5_1 = xor i8 %tmp162, %tmp161
-
-ST_13: tmp164 [1/1] 1.37ns
-.preheader86.preheader:1264  %tmp164 = xor i8 %sboxes_10_load_5, %tmp_61_5
 
 ST_13: tmp_79_5_2 [1/1] 1.37ns
 .preheader86.preheader:1265  %tmp_79_5_2 = xor i8 %tmp164, %tmp163
@@ -4647,6 +4647,9 @@ ST_13: sboxes_18_load_6 [1/2] 2.39ns
 
 ST_13: sboxes_19_load_6 [1/2] 2.39ns
 .preheader86.preheader:1452  %sboxes_19_load_6 = load i8* %sboxes_19_addr_6, align 1
+
+ST_13: tmp191 [1/1] 1.37ns
+.preheader86.preheader:1453  %tmp191 = xor i8 %tmp_59_5, 64
 
 ST_13: tmp_61_6 [1/1] 1.37ns
 .preheader86.preheader:1456  %tmp_61_6 = xor i8 %tmp_61_5, %sboxes_18_load_6
@@ -4974,9 +4977,6 @@ ST_14: sboxes_16_load_6 [1/2] 2.39ns
 ST_14: sboxes_17_load_6 [1/2] 2.39ns
 .preheader86.preheader:1446  %sboxes_17_load_6 = load i8* %sboxes_17_addr_6, align 1
 
-ST_14: tmp191 [1/1] 1.37ns
-.preheader86.preheader:1453  %tmp191 = xor i8 %tmp_59_5, 64
-
 ST_14: tmp_59_6 [1/1] 1.37ns
 .preheader86.preheader:1454  %tmp_59_6 = xor i8 %tmp191, %sboxes_16_load_6
 
@@ -5022,6 +5022,12 @@ ST_14: tmp_79_6_3 [1/1] 1.37ns
 ST_14: tmp199 [1/1] 1.37ns
 .preheader86.preheader:1477  %tmp199 = xor i8 %rv_2_6_1, %e_6_1
 
+ST_14: tmp201 [1/1] 1.37ns
+.preheader86.preheader:1478  %tmp201 = xor i8 %tmp_59_6, %tmp_63_5
+
+ST_14: tmp200 [1/1] 1.37ns
+.preheader86.preheader:1479  %tmp200 = xor i8 %tmp201, %sboxes_4_load_6
+
 ST_14: tmp202 [1/1] 1.37ns
 .preheader86.preheader:1481  %tmp202 = xor i8 %rv_5_6_1, %e_6_1
 
@@ -5039,6 +5045,9 @@ ST_14: tmp212 [1/1] 1.37ns
 
 ST_14: tmp214 [1/1] 1.37ns
 .preheader86.preheader:1498  %tmp214 = xor i8 %rv_8_6_2, %e_6_2
+
+ST_14: tmp215 [1/1] 1.37ns
+.preheader86.preheader:1499  %tmp215 = xor i8 %sboxes_2_load_6, %tmp_69_6
 
 ST_14: tmp216 [1/1] 1.37ns
 .preheader86.preheader:1501  %tmp216 = xor i8 %tmp_41_6_2, %tmp_70_6
@@ -5105,12 +5114,6 @@ ST_15: tmp_79_6_1 [1/1] 1.37ns
 ST_15: tmp_79_6_2 [1/1] 1.37ns
 .preheader86.preheader:1474  %tmp_79_6_2 = xor i8 %tmp197, %tmp196
 
-ST_15: tmp201 [1/1] 1.37ns
-.preheader86.preheader:1478  %tmp201 = xor i8 %tmp_59_6, %tmp_63_5
-
-ST_15: tmp200 [1/1] 1.37ns
-.preheader86.preheader:1479  %tmp200 = xor i8 %tmp201, %sboxes_4_load_6
-
 ST_15: tmp_79_6_4 [1/1] 1.37ns
 .preheader86.preheader:1480  %tmp_79_6_4 = xor i8 %tmp200, %tmp199
 
@@ -5149,9 +5152,6 @@ ST_15: tmp213 [1/1] 1.37ns
 
 ST_15: tmp_79_6_9 [1/1] 1.37ns
 .preheader86.preheader:1497  %tmp_79_6_9 = xor i8 %tmp213, %tmp212
-
-ST_15: tmp215 [1/1] 1.37ns
-.preheader86.preheader:1499  %tmp215 = xor i8 %sboxes_2_load_6, %tmp_69_6
 
 ST_15: tmp_79_6_s [1/1] 1.37ns
 .preheader86.preheader:1500  %tmp_79_6_s = xor i8 %tmp215, %tmp214
@@ -5707,6 +5707,9 @@ ST_16: tmp225 [1/1] 1.37ns
 ST_16: tmp226 [1/1] 1.37ns
 .preheader86.preheader:1678  %tmp226 = xor i8 %rv_5_7, %e_7
 
+ST_16: tmp227 [1/1] 1.37ns
+.preheader86.preheader:1679  %tmp227 = xor i8 %sboxes_5_load_7, %tmp_60_7
+
 ST_16: tmp228 [1/1] 1.37ns
 .preheader86.preheader:1681  %tmp228 = xor i8 %rv_8_7, %e_7
 
@@ -5776,16 +5779,10 @@ ST_16: tmp255 [1/1] 1.37ns
 ST_16: tmp_79_7_14 [1/1] 1.37ns
 .preheader86.preheader:1722  %tmp_79_7_14 = xor i8 %tmp255, %rv_11_7_3
 
-ST_16: tmp256 [1/1] 1.37ns
-.preheader86.preheader:1871  %tmp256 = xor i8 %tmp_59_7, 27
-
 
  <State 17>: 6.50ns
 ST_17: tmp_79_7 [1/1] 1.37ns
 .preheader86.preheader:1677  %tmp_79_7 = xor i8 %tmp225, %tmp224
-
-ST_17: tmp227 [1/1] 1.37ns
-.preheader86.preheader:1679  %tmp227 = xor i8 %sboxes_5_load_7, %tmp_60_7
 
 ST_17: tmp_79_7_1 [1/1] 1.37ns
 .preheader86.preheader:1680  %tmp_79_7_1 = xor i8 %tmp227, %tmp226
@@ -6323,6 +6320,9 @@ ST_18: sboxes_18_load_8 [1/2] 2.39ns
 ST_18: sboxes_19_load_8 [1/2] 2.39ns
 .preheader86.preheader:1870  %sboxes_19_load_8 = load i8* %sboxes_19_addr_8, align 1
 
+ST_18: tmp256 [1/1] 1.37ns
+.preheader86.preheader:1871  %tmp256 = xor i8 %tmp_59_7, 27
+
 ST_18: tmp_59_8 [1/1] 1.37ns
 .preheader86.preheader:1872  %tmp_59_8 = xor i8 %tmp256, %sboxes_16_load_8
 
@@ -6347,14 +6347,8 @@ ST_18: tmp_70_8 [1/1] 1.37ns
 ST_18: tmp257 [1/1] 1.37ns
 .preheader86.preheader:1884  %tmp257 = xor i8 %rv_2_8, %e_8
 
-ST_18: tmp258 [1/1] 1.37ns
-.preheader86.preheader:1885  %tmp258 = xor i8 %sboxes_0_load_8, %tmp_59_8
-
 ST_18: tmp259 [1/1] 1.37ns
 .preheader86.preheader:1887  %tmp259 = xor i8 %rv_5_8, %e_8
-
-ST_18: tmp260 [1/1] 1.37ns
-.preheader86.preheader:1888  %tmp260 = xor i8 %sboxes_5_load_8, %tmp_60_8
 
 ST_18: tmp261 [1/1] 1.37ns
 .preheader86.preheader:1890  %tmp261 = xor i8 %rv_8_8, %e_8
@@ -6442,8 +6436,14 @@ ST_19: tmp_73_8 [1/1] 1.37ns
 ST_19: tmp_74_8 [1/1] 1.37ns
 .preheader86.preheader:1883  %tmp_74_8 = xor i8 %tmp_74_7, %tmp_70_8
 
+ST_19: tmp258 [1/1] 1.37ns
+.preheader86.preheader:1885  %tmp258 = xor i8 %sboxes_0_load_8, %tmp_59_8
+
 ST_19: tmp_79_8 [1/1] 1.37ns
 .preheader86.preheader:1886  %tmp_79_8 = xor i8 %tmp258, %tmp257
+
+ST_19: tmp260 [1/1] 1.37ns
+.preheader86.preheader:1888  %tmp260 = xor i8 %sboxes_5_load_8, %tmp_60_8
 
 ST_19: tmp_79_8_1 [1/1] 1.37ns
 .preheader86.preheader:1889  %tmp_79_8_1 = xor i8 %tmp260, %tmp259

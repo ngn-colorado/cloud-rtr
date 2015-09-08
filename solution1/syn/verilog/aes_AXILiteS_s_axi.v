@@ -42,10 +42,14 @@ module aes_AXILiteS_s_axi
     output wire                      sourceAddress_ap_vld,
     output wire [127:0]              key_in_V,
     output wire                      key_in_V_ap_vld,
+    output wire [127:0]              iv_V,
+    output wire                      iv_V_ap_vld,
     output wire [31:0]               destinationAddress,
     output wire                      destinationAddress_ap_vld,
-    output wire [31:0]               length_r,
-    output wire                      length_r_ap_vld
+    output wire [31:0]               numBytes,
+    output wire                      numBytes_ap_vld,
+    output wire [31:0]               mode,
+    output wire                      mode_ap_vld
 );
 //------------------------Address Info-------------------
 // 0x00 : Control signals
@@ -85,15 +89,31 @@ module aes_AXILiteS_s_axi
 // 0x30 : Control signal of key_in_V
 //        bit 0  - key_in_V_ap_vld (Read/Write/SC)
 //        others - reserved
-// 0x34 : Data signal of destinationAddress
+// 0x34 : Data signal of iv_V
+//        bit 31~0 - iv_V[31:0] (Read/Write)
+// 0x38 : Data signal of iv_V
+//        bit 31~0 - iv_V[63:32] (Read/Write)
+// 0x3c : Data signal of iv_V
+//        bit 31~0 - iv_V[95:64] (Read/Write)
+// 0x40 : Data signal of iv_V
+//        bit 31~0 - iv_V[127:96] (Read/Write)
+// 0x44 : Control signal of iv_V
+//        bit 0  - iv_V_ap_vld (Read/Write/SC)
+//        others - reserved
+// 0x48 : Data signal of destinationAddress
 //        bit 31~0 - destinationAddress[31:0] (Read/Write)
-// 0x38 : Control signal of destinationAddress
+// 0x4c : Control signal of destinationAddress
 //        bit 0  - destinationAddress_ap_vld (Read/Write/SC)
 //        others - reserved
-// 0x3c : Data signal of length_r
-//        bit 31~0 - length_r[31:0] (Read/Write)
-// 0x40 : Control signal of length_r
-//        bit 0  - length_r_ap_vld (Read/Write/SC)
+// 0x50 : Data signal of numBytes
+//        bit 31~0 - numBytes[31:0] (Read/Write)
+// 0x54 : Control signal of numBytes
+//        bit 0  - numBytes_ap_vld (Read/Write/SC)
+//        others - reserved
+// 0x58 : Data signal of mode
+//        bit 31~0 - mode[31:0] (Read/Write)
+// 0x5c : Control signal of mode
+//        bit 0  - mode_ap_vld (Read/Write/SC)
 //        others - reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
@@ -116,10 +136,17 @@ localparam
     ADDR_KEY_IN_V_DATA_2           = 7'h28,
     ADDR_KEY_IN_V_DATA_3           = 7'h2c,
     ADDR_KEY_IN_V_CTRL             = 7'h30,
-    ADDR_DESTINATIONADDRESS_DATA_0 = 7'h34,
-    ADDR_DESTINATIONADDRESS_CTRL   = 7'h38,
-    ADDR_LENGTH_R_DATA_0           = 7'h3c,
-    ADDR_LENGTH_R_CTRL             = 7'h40;
+    ADDR_IV_V_DATA_0               = 7'h34,
+    ADDR_IV_V_DATA_1               = 7'h38,
+    ADDR_IV_V_DATA_2               = 7'h3c,
+    ADDR_IV_V_DATA_3               = 7'h40,
+    ADDR_IV_V_CTRL                 = 7'h44,
+    ADDR_DESTINATIONADDRESS_DATA_0 = 7'h48,
+    ADDR_DESTINATIONADDRESS_CTRL   = 7'h4c,
+    ADDR_NUMBYTES_DATA_0           = 7'h50,
+    ADDR_NUMBYTES_CTRL             = 7'h54,
+    ADDR_MODE_DATA_0               = 7'h58,
+    ADDR_MODE_CTRL                 = 7'h5c;
 
 // axi write fsm
 localparam
@@ -160,10 +187,14 @@ reg  [31:0]          int_sourceAddress;
 reg                  int_sourceAddress_ap_vld;
 reg  [127:0]         int_key_in_V;
 reg                  int_key_in_V_ap_vld;
+reg  [127:0]         int_iv_V;
+reg                  int_iv_V_ap_vld;
 reg  [31:0]          int_destinationAddress;
 reg                  int_destinationAddress_ap_vld;
-reg  [31:0]          int_length_r;
-reg                  int_length_r_ap_vld;
+reg  [31:0]          int_numBytes;
+reg                  int_numBytes_ap_vld;
+reg  [31:0]          int_mode;
+reg                  int_mode_ap_vld;
 
 //------------------------Body---------------------------
 //++++++++++++++++++++++++axi write++++++++++++++++++++++
@@ -292,17 +323,38 @@ always @(posedge ACLK) begin
             ADDR_KEY_IN_V_CTRL: begin
                 rdata[0] <= int_key_in_V_ap_vld;
             end
+            ADDR_IV_V_DATA_0: begin
+                rdata <= int_iv_V[31:0];
+            end
+            ADDR_IV_V_DATA_1: begin
+                rdata <= int_iv_V[63:32];
+            end
+            ADDR_IV_V_DATA_2: begin
+                rdata <= int_iv_V[95:64];
+            end
+            ADDR_IV_V_DATA_3: begin
+                rdata <= int_iv_V[127:96];
+            end
+            ADDR_IV_V_CTRL: begin
+                rdata[0] <= int_iv_V_ap_vld;
+            end
             ADDR_DESTINATIONADDRESS_DATA_0: begin
                 rdata <= int_destinationAddress[31:0];
             end
             ADDR_DESTINATIONADDRESS_CTRL: begin
                 rdata[0] <= int_destinationAddress_ap_vld;
             end
-            ADDR_LENGTH_R_DATA_0: begin
-                rdata <= int_length_r[31:0];
+            ADDR_NUMBYTES_DATA_0: begin
+                rdata <= int_numBytes[31:0];
             end
-            ADDR_LENGTH_R_CTRL: begin
-                rdata[0] <= int_length_r_ap_vld;
+            ADDR_NUMBYTES_CTRL: begin
+                rdata[0] <= int_numBytes_ap_vld;
+            end
+            ADDR_MODE_DATA_0: begin
+                rdata <= int_mode[31:0];
+            end
+            ADDR_MODE_CTRL: begin
+                rdata[0] <= int_mode_ap_vld;
             end
         endcase
     end
@@ -319,10 +371,14 @@ assign sourceAddress             = int_sourceAddress;
 assign sourceAddress_ap_vld      = int_sourceAddress_ap_vld;
 assign key_in_V                  = int_key_in_V;
 assign key_in_V_ap_vld           = int_key_in_V_ap_vld;
+assign iv_V                      = int_iv_V;
+assign iv_V_ap_vld               = int_iv_V_ap_vld;
 assign destinationAddress        = int_destinationAddress;
 assign destinationAddress_ap_vld = int_destinationAddress_ap_vld;
-assign length_r                  = int_length_r;
-assign length_r_ap_vld           = int_length_r_ap_vld;
+assign numBytes                  = int_numBytes;
+assign numBytes_ap_vld           = int_numBytes_ap_vld;
+assign mode                      = int_mode;
+assign mode_ap_vld               = int_mode_ap_vld;
 
 // int_ap_start
 always @(posedge ACLK) begin
@@ -438,6 +494,40 @@ always @(posedge ACLK) begin
         int_key_in_V_ap_vld <= 1'b0; // self clear
 end
 
+// int_iv_V[31:0]
+always @(posedge ACLK) begin
+    if (w_hs && waddr == ADDR_IV_V_DATA_0)
+        int_iv_V[31:0] <= (WDATA[31:0] & wmask) | (int_iv_V[31:0] & ~wmask);
+end
+
+// int_iv_V[63:32]
+always @(posedge ACLK) begin
+    if (w_hs && waddr == ADDR_IV_V_DATA_1)
+        int_iv_V[63:32] <= (WDATA[31:0] & wmask) | (int_iv_V[63:32] & ~wmask);
+end
+
+// int_iv_V[95:64]
+always @(posedge ACLK) begin
+    if (w_hs && waddr == ADDR_IV_V_DATA_2)
+        int_iv_V[95:64] <= (WDATA[31:0] & wmask) | (int_iv_V[95:64] & ~wmask);
+end
+
+// int_iv_V[127:96]
+always @(posedge ACLK) begin
+    if (w_hs && waddr == ADDR_IV_V_DATA_3)
+        int_iv_V[127:96] <= (WDATA[31:0] & wmask) | (int_iv_V[127:96] & ~wmask);
+end
+
+// int_iv_V_ap_vld
+always @(posedge ACLK) begin
+    if (~ARESETN)
+        int_iv_V_ap_vld <= 1'b0;
+    else if (w_hs && waddr == ADDR_IV_V_CTRL && WSTRB[0] && WDATA[0])
+        int_iv_V_ap_vld <= 1'b1;
+    else
+        int_iv_V_ap_vld <= 1'b0; // self clear
+end
+
 // int_destinationAddress[31:0]
 always @(posedge ACLK) begin
     if (w_hs && waddr == ADDR_DESTINATIONADDRESS_DATA_0)
@@ -454,20 +544,36 @@ always @(posedge ACLK) begin
         int_destinationAddress_ap_vld <= 1'b0; // self clear
 end
 
-// int_length_r[31:0]
+// int_numBytes[31:0]
 always @(posedge ACLK) begin
-    if (w_hs && waddr == ADDR_LENGTH_R_DATA_0)
-        int_length_r[31:0] <= (WDATA[31:0] & wmask) | (int_length_r[31:0] & ~wmask);
+    if (w_hs && waddr == ADDR_NUMBYTES_DATA_0)
+        int_numBytes[31:0] <= (WDATA[31:0] & wmask) | (int_numBytes[31:0] & ~wmask);
 end
 
-// int_length_r_ap_vld
+// int_numBytes_ap_vld
 always @(posedge ACLK) begin
     if (~ARESETN)
-        int_length_r_ap_vld <= 1'b0;
-    else if (w_hs && waddr == ADDR_LENGTH_R_CTRL && WSTRB[0] && WDATA[0])
-        int_length_r_ap_vld <= 1'b1;
+        int_numBytes_ap_vld <= 1'b0;
+    else if (w_hs && waddr == ADDR_NUMBYTES_CTRL && WSTRB[0] && WDATA[0])
+        int_numBytes_ap_vld <= 1'b1;
     else
-        int_length_r_ap_vld <= 1'b0; // self clear
+        int_numBytes_ap_vld <= 1'b0; // self clear
+end
+
+// int_mode[31:0]
+always @(posedge ACLK) begin
+    if (w_hs && waddr == ADDR_MODE_DATA_0)
+        int_mode[31:0] <= (WDATA[31:0] & wmask) | (int_mode[31:0] & ~wmask);
+end
+
+// int_mode_ap_vld
+always @(posedge ACLK) begin
+    if (~ARESETN)
+        int_mode_ap_vld <= 1'b0;
+    else if (w_hs && waddr == ADDR_MODE_CTRL && WSTRB[0] && WDATA[0])
+        int_mode_ap_vld <= 1'b1;
+    else
+        int_mode_ap_vld <= 1'b0; // self clear
 end
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -50,7 +50,7 @@ IFLAG += -D__SIM_FFT__
 
 IFLAG += -D__SIM_FIR__
 
-IFLAG += -I../../../../usr/local/ssl/include  -L/usr/local/ssl/lib/.  
+IFLAG += -I../../../usr/local/ssl/include  -L/usr/local/ssl/lib/.  
 LFLAG += -lcrypto -lssl -ldl
 IFLAG += -g
 
@@ -64,7 +64,7 @@ all: $(TARGET)
 
 $(ObjDir)/aes_runner_testbench.o: ../../../source/aes_runner_testbench.cpp $(ObjDir)/.dir
 	$(Echo) "   Compiling ../../../source/aes_runner_testbench.cpp in $(BuildMode) mode" $(AVE_DIR_DLOG)
-	$(Verb)  $(CC) -c -MMD  -I../../../../../../usr/local/ssl/include    -L/usr/local/ssl/lib/.  $(IFLAG) $(DFLAG)  $< -o $@ ; \
+	$(Verb)  $(CC) -c -MMD  -I../../../../../usr/local/ssl/include    -L/usr/local/ssl/lib/.  $(IFLAG) $(DFLAG)  $< -o $@ ; \
 
 -include $(ObjDir)/aes_runner_testbench.d
 

@@ -38017,6 +38017,8 @@ struct ap_ufixed: ap_fixed_base<_AP_W, _AP_I, false, _AP_Q, _AP_O, _AP_N> {
 #pragma empty_line
 };
 #pragma line 2 "aes_runner/source/aes_runner.cpp" 2
+//#include <ap_cint.h>
+#pragma empty_line
 #pragma line 1 "/Xilinx/Vivado_HLS/2014.1/common/technology/autopilot/hls_stream.h" 1
 /* -*- c++ -*-*/
 /*
@@ -38216,7 +38218,7 @@ class stream
 };
 #pragma empty_line
 } // namespace hls
-#pragma line 3 "aes_runner/source/aes_runner.cpp" 2
+#pragma line 4 "aes_runner/source/aes_runner.cpp" 2
 #pragma empty_line
 void aestest(ap_uint<128>*, ap_uint<128>*, ap_uint<128>*);
 #pragma empty_line
@@ -38272,11 +38274,28 @@ void aestest(ap_uint<128>*, ap_uint<128>*, ap_uint<128>*);
 typedef ap_uint<128> uint128_t;
 typedef hls::stream<uint128_t> mem_stream;
 #pragma empty_line
+//typedef ap_uint<8> uint8_t;
+typedef unsigned char uint8_t;
+typedef hls::stream<uint8_t> mem_stream8;
 #pragma empty_line
-bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128>* key_in,
-  volatile unsigned destinationAddress, unsigned int length,
-  mem_stream& s_in, mem_stream& s_out){
-#pragma HLS INTERFACE s_axilite port=length
+//I implement PKCS padding, as that seems to be what OpenSSL does. The buffers pointed to by the src and dest addresses
+//need to have enough space for the final block, else the FPGA will clobber them
+#pragma empty_line
+#pragma empty_line
+bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
+  volatile unsigned destinationAddress, unsigned int numBytes,
+  mem_stream8& s_in, mem_stream8& s_out, int mode){
+#pragma HLS INTERFACE s_axilite port=iv
+#pragma empty_line
+#pragma HLS INTERFACE ap_vld port=iv
+#pragma empty_line
+#pragma HLS INTERFACE s_axilite port=numBytes
+#pragma empty_line
+#pragma HLS INTERFACE ap_vld port=numBytes
+#pragma empty_line
+#pragma HLS INTERFACE s_axilite port=mode
+#pragma empty_line
+#pragma HLS INTERFACE ap_vld port=mode
 #pragma empty_line
 #pragma HLS INTERFACE s_axilite port=destinationAddress
 #pragma empty_line
@@ -38296,8 +38315,6 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 #pragma empty_line
 #pragma HLS INTERFACE axis depth=1000 port=s_in
 #pragma empty_line
-#pragma HLS INTERFACE ap_vld port=length
-#pragma empty_line
 #pragma HLS INTERFACE ap_vld port=destinationAddress
 #pragma empty_line
 #pragma HLS INTERFACE ap_vld port=key_in
@@ -38306,12 +38323,29 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 #pragma empty_line
  //for i to length, fetch 128 bits of data, call aes function on data, and write data back out
  //increment the source and dest address by 128 bits each time
- int i, j, iterations;
+ int i, j, iterations, numIterations;
+#pragma empty_line
+ unsigned remainingBytes;
  unsigned char mask;
  unsigned sourceAddressLocal = sourceAddress;
  unsigned destinationAddressLocal = destinationAddress;
+ char temp_buffer_in[16];
+ char temp_buffer_out[16];
+ char plaintext_buffer[16];
+ char tempBuf[16];
 #pragma empty_line
- ap_uint<128> key_local = *key_in;
+ ap_uint<8> temp;
+#pragma empty_line
+ ap_uint<128> key_local; //= *key_in;
+ ap_uint<128> iv_local;
+ ap_uint<128> count = 0;
+#pragma empty_line
+ //calculate the number of iterations. since we implement padding, this should be
+ //ceil(numBytes/16). Also need to keep track of the number of bytes we have done
+ //to check if we need to pad the current input
+ numIterations = numBytes/16 + (numBytes % 16 != 0);
+ remainingBytes = numBytes;
+#pragma empty_line
  m_mm2s_ctl[0] &= 0;
  m_s2mm_ctl[12] &= 0;
 #pragma empty_line
@@ -38330,7 +38364,12 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
  m_mm2s_ctl[6] = sourceAddress;
  //calculate # of bytes that will be read from s_in in total
  //read_length = #encryptions X #bytes/encryption
- int read_length = length*sizeof(ap_uint<128>);
+ int read_length;
+//	if(mode==2){
+//		read_length = numBytes;
+//	} else{
+  read_length = numIterations*16;//length*sizeof(ap_uint<128>);
+//	}
  m_mm2s_ctl[10] = read_length;
 #pragma empty_line
  //--------Program write DMA s2mm--------
@@ -38343,8 +38382,22 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
  //write write length as the same as read length
  m_s2mm_ctl[22] = read_length;
 #pragma empty_line
+ //Now reverse the key and the iv
+ for(i=0; i<16; i++){
+#pragma HLS UNROLL
+ tempBuf[i] = key_in->range(i*8 + 7, i*8);
+  ap_uint<8> tmp(tempBuf[i]);
+  key_local = key_local.concat(tmp);
+#pragma empty_line
+  tempBuf[i] = iv->range(i*8 + 7, i*8);
+  ap_uint<8> tmp2(tempBuf[i]);
+  iv_local = iv_local.concat(tmp2);
+ }
+#pragma empty_line
  ap_uint<128> encrypted_data;
- for(iterations = 0; iterations<length; iterations++){
+#pragma empty_line
+#pragma empty_line
+ for(iterations = 0; iterations<numIterations; iterations++){
 //		ap_uint<128> data(0);
 //
 //		for(i = 0; i<16; i++){
@@ -38356,19 +38409,74 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 //				mask = mask >> 1;
 //			}
 //		}
-  ap_uint<128> data = s_in.read();
-//			printf("\nData in fabric: %s", data.to_string().c_str());
-//			printf("\nKey in fabric: %s", ((ap_uint<128>*)key_in)->to_string().c_str());
-  aestest(&data, &key_local, &encrypted_data);
-//			printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
+  //Need to pull out the 16 input bytes from the stream and place them in the correct place.
+   //first, loop through and concatenate them onto the variable
+  ap_uint<128> data(0); //s_in.read();
+  ap_uint<8> tempData[16];
+#pragma empty_line
+#pragma empty_line
+  //read them in and put into the byte-reversed position. if on the last cell that needs padding,
+  //only read in the number of bytes that are left to encrypt
+  for(i=0; i<16; i++){
+#pragma HLS UNROLL
+ temp = s_in.read();
+   plaintext_buffer[i] = temp;
+   temp_buffer_in[i] = temp;
+  }
+  for(i=0; i<16; i++){
+#pragma HLS UNROLL
+ temp = temp_buffer_in[15-i];
+   ap_uint<8> tmp(temp);
+   data = data.concat(temp);
+  }
+//		printf("\nFabric data final:   %s", ((ap_uint<128>)data).to_string().c_str());
+#pragma empty_line
+  /*
+		 * MODES:
+		 * 	0: ECB mode - standard block-cipher mode with no iv (Electronic Code Book mode)
+		 * 	1: CBC mode - Cipher Block Chaining mode - XOR 1st plaintext with iv before AES, XOR subsequent plaintext with ciphertext of previous run before AES
+		 * 	2: CTR mode - Counter mode - Use iv as a counter. Encrypt the counter in AES each iteration. XOR the output with plaintext to get cipher text. Increment counter and repeat for each chunk
+		 */
+#pragma empty_line
+  if(mode == 1){
+   if(count == 0){
+    data = data^iv_local;
+   } else{
+    data = data^encrypted_data;
+   }
+   aestest(&data, &key_local, &encrypted_data);
+   count++;
+  } else if(mode == 2){
+   aestest(&count, &key_local, &encrypted_data);
+   encrypted_data = encrypted_data^data;
+   count++;
+  } else{
+   aestest(&data, &key_local, &encrypted_data);
+  }
+#pragma empty_line
+  for(i=0; i<16; i++){
+#pragma HLS UNROLL
+ temp_buffer_out[i] = encrypted_data.range(i*8 + 7, i*8);
+  }
+#pragma empty_line
+//		printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
 //		char current = 0;
 //		for(i=0; i < 16; i++)
 //		{
 //			current = encrypted_data.range(127-i*8, (120)-i*8);
 //			ddr[destinationAddressLocal + i] = current;
 //		}
-  s_out.write(encrypted_data);
+  //s_out.write(encrypted_data);
 #pragma empty_line
+  //Now need to write them out in reverse order
+  for(i=0; i<16; i++){
+#pragma HLS UNROLL
+ temp = ap_uint<8>(temp_buffer_out[i]);
+#pragma empty_line
+   s_out.write(temp);
+  }
+#pragma empty_line
+  remainingBytes -= 16;
   sourceAddressLocal += 16;
   destinationAddressLocal += 16;
  }

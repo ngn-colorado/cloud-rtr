@@ -93,7 +93,7 @@
 							<option id="gnu.cpp.compiler.option.other.other.1060932257" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0" valueType="string"/>
 							<option id="gnu.cpp.compiler.option.preprocessor.def.1250327481" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
 							<option id="gnu.cpp.compiler.option.include.paths.950733479" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-								<listOptionValue builtIn="false" value="../../../../usr/local/ssl/include"/>
+								<listOptionValue builtIn="false" value="../../../usr/local/ssl/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/systemc/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx"/>
@@ -199,7 +199,7 @@
 						<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release.1515464368.1996134808" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release.1515464368">
 							<option id="gnu.cpp.compiler.option.preprocessor.def.730894503" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
 							<option id="gnu.cpp.compiler.option.include.paths.810528633" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-								<listOptionValue builtIn="false" value="../../../../usr/local/ssl/include"/>
+								<listOptionValue builtIn="false" value="../../../usr/local/ssl/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx/Vivado_HLS/2014.1/lnx64/tools/systemc/include"/>
 								<listOptionValue builtIn="false" value="/Xilinx"/>

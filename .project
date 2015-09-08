@@ -98,6 +98,11 @@
 			<location>/usr/local/ssl/include/openssl/aes.h</location>
 		</link>
 		<link>
+			<name>.reference/ap_cint.h</name>
+			<type>1</type>
+			<location>/Xilinx/Vivado_HLS/2014.1/include/ap_cint.h</location>
+		</link>
+		<link>
 			<name>.reference/ap_int.h</name>
 			<type>1</type>
 			<location>/Xilinx/Vivado_HLS/2014.1/include/ap_int.h</location>
@@ -116,6 +121,11 @@
 			<name>.reference/hls_stream.h</name>
 			<type>1</type>
 			<location>/Xilinx/Vivado_HLS/2014.1/include/hls_stream.h</location>
+		</link>
+		<link>
+			<name>.reference/stdint.h</name>
+			<type>1</type>
+			<location>/usr/include/stdint.h</location>
 		</link>
 		<link>
 			<name>solution1/constraints</name>

@@ -37795,9 +37795,6 @@ struct ap_uint: ap_int_base<_AP_W, false> {
 
 friend class ::aesl_keep_name_class;
 #234 "/Xilinx/Vivado_HLS/2014.1/common/technology/autopilot/ap_int.h"
-
-friend class ::aesl_keep_name_class;
-#234 "/Xilinx/Vivado_HLS/2014.1/common/technology/autopilot/ap_int.h"
 };
 
 
@@ -38044,6 +38041,8 @@ struct ap_ufixed: ap_fixed_base<_AP_W, _AP_I, false, _AP_Q, _AP_O, _AP_N> {
 
 };
 #2 "aes_runner/source/aes_runner.cpp" 2
+//#include <ap_cint.h>
+
 #1 "/Xilinx/Vivado_HLS/2014.1/common/technology/autopilot/hls_stream.h" 1
 /* -*- c++ -*-*/
 /*
@@ -38246,7 +38245,7 @@ friend class ::aesl_keep_name_class;
 };
 
 } // namespace hls
-#3 "aes_runner/source/aes_runner.cpp" 2
+#4 "aes_runner/source/aes_runner.cpp" 2
 
 void aestest(ap_uint<128>*, ap_uint<128>*, ap_uint<128>*);
 
@@ -38302,6 +38301,13 @@ void aestest(ap_uint<128>*, ap_uint<128>*, ap_uint<128>*);
 typedef ap_uint<128> uint128_t;
 typedef hls::stream<uint128_t> mem_stream;
 
+//typedef ap_uint<8> uint8_t;
+typedef unsigned char uint8_t;
+typedef hls::stream<uint8_t> mem_stream8;
+
+//I implement PKCS padding, as that seems to be what OpenSSL does. The buffers pointed to by the src and dest addresses
+//need to have enough space for the final block, else the FPGA will clobber them
+
 
 
 class aesl_keep_name_class {
@@ -38324,48 +38330,52 @@ public:
 inline __attribute__((always_inline)) static void aesl_keep_name_ssdm_int_key_in(ssdm_int< _AP_W, _AP_S >* key_in) {SSDM_KEEP_name(key_in.V, &key_in->V); }
 
 };
-template< typename __STREAM_T__ >
-class aesl_keep_name_class_stream_s_in{ 
+template< int _AP_W >
+class aesl_keep_name_class_ap_uint_iv{ 
 public: 
-inline __attribute__((always_inline)) static void aesl_keep_name_stream_s_in(hls::stream< ap_uint< 128 > >& s_in) {aesl_keep_name_class_ap_int_base_ap_uint_s_in_V< 128 >::aesl_keep_name_ap_int_base_s_in_V(&s_in.V);}
+inline __attribute__((always_inline)) static void aesl_keep_name_ap_uint_iv(ap_uint< 128 >* iv) {aesl_keep_name_class_ap_int_base_ap_uint_iv< 128 >::aesl_keep_name_ap_int_base_iv(iv);}
 
 };
 template< int _AP_W >
-class aesl_keep_name_class_ap_int_base_ap_uint_s_in_V{ 
+class aesl_keep_name_class_ap_int_base_ap_uint_iv{ 
 public: 
-inline __attribute__((always_inline)) static void aesl_keep_name_ap_int_base_s_in_V(ap_int_base< _AP_W, false >* s_in_V) {aesl_keep_name_class_ssdm_int_ap_int_base_s_in_V< _AP_W, false >::aesl_keep_name_ssdm_int_s_in_V(s_in_V);}
+inline __attribute__((always_inline)) static void aesl_keep_name_ap_int_base_iv(ap_int_base< _AP_W, false >* iv) {aesl_keep_name_class_ssdm_int_ap_int_base_iv< _AP_W, false >::aesl_keep_name_ssdm_int_iv(iv);}
 
 };
 template< int _AP_W, bool _AP_S >
-class aesl_keep_name_class_ssdm_int_ap_int_base_s_in_V{ 
+class aesl_keep_name_class_ssdm_int_ap_int_base_iv{ 
 public: 
-inline __attribute__((always_inline)) static void aesl_keep_name_ssdm_int_s_in_V(ssdm_int< _AP_W, _AP_S >* s_in_V) {SSDM_KEEP_name(s_in.V.V, &s_in_V->V); }
+inline __attribute__((always_inline)) static void aesl_keep_name_ssdm_int_iv(ssdm_int< _AP_W, _AP_S >* iv) {SSDM_KEEP_name(iv.V, &iv->V); }
+
+};
+template< typename __STREAM_T__ >
+class aesl_keep_name_class_stream_s_in{ 
+public: 
+inline __attribute__((always_inline)) static void aesl_keep_name_stream_s_in(hls::stream< uint8_t >& s_in) {SSDM_KEEP_name(s_in.V, &s_in.V); }
 
 };
 template< typename __STREAM_T__ >
 class aesl_keep_name_class_stream_s_out{ 
 public: 
-inline __attribute__((always_inline)) static void aesl_keep_name_stream_s_out(hls::stream< ap_uint< 128 > >& s_out) {aesl_keep_name_class_ap_int_base_ap_uint_s_out_V< 128 >::aesl_keep_name_ap_int_base_s_out_V(&s_out.V);}
-
-};
-template< int _AP_W >
-class aesl_keep_name_class_ap_int_base_ap_uint_s_out_V{ 
-public: 
-inline __attribute__((always_inline)) static void aesl_keep_name_ap_int_base_s_out_V(ap_int_base< _AP_W, false >* s_out_V) {aesl_keep_name_class_ssdm_int_ap_int_base_s_out_V< _AP_W, false >::aesl_keep_name_ssdm_int_s_out_V(s_out_V);}
-
-};
-template< int _AP_W, bool _AP_S >
-class aesl_keep_name_class_ssdm_int_ap_int_base_s_out_V{ 
-public: 
-inline __attribute__((always_inline)) static void aesl_keep_name_ssdm_int_s_out_V(ssdm_int< _AP_W, _AP_S >* s_out_V) {SSDM_KEEP_name(s_out.V.V, &s_out_V->V); }
+inline __attribute__((always_inline)) static void aesl_keep_name_stream_s_out(hls::stream< uint8_t >& s_out) {SSDM_KEEP_name(s_out.V, &s_out.V); }
 
 };
 };
-#59 "aes_runner/source/aes_runner.cpp"
-bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128>* key_in,
-  volatile unsigned destinationAddress, unsigned int length,
-  mem_stream& s_in, mem_stream& s_out){_ssdm_SpecArrayDimSize(m_s2mm_ctl,500);_ssdm_SpecArrayDimSize(m_mm2s_ctl,500);::aesl_keep_name_class::aesl_keep_name_class_stream_s_out< ap_uint< 128 > >::aesl_keep_name_stream_s_out(s_out);::aesl_keep_name_class::aesl_keep_name_class_stream_s_in< ap_uint< 128 > >::aesl_keep_name_stream_s_in(s_in);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_key_in< 128 >::aesl_keep_name_ap_uint_key_in(key_in);
-#pragma HLS INTERFACE s_axilite port=&length
+#67 "aes_runner/source/aes_runner.cpp"
+bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
+  volatile unsigned destinationAddress, unsigned int numBytes,
+  mem_stream8& s_in, mem_stream8& s_out, int mode){_ssdm_SpecArrayDimSize(m_s2mm_ctl,500);_ssdm_SpecArrayDimSize(m_mm2s_ctl,500);::aesl_keep_name_class::aesl_keep_name_class_stream_s_out< uint8_t >::aesl_keep_name_stream_s_out(s_out);::aesl_keep_name_class::aesl_keep_name_class_stream_s_in< uint8_t >::aesl_keep_name_stream_s_in(s_in);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_iv< 128 >::aesl_keep_name_ap_uint_iv(iv);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_key_in< 128 >::aesl_keep_name_ap_uint_key_in(key_in);
+#pragma HLS INTERFACE s_axilite port=iv
+
+#pragma HLS INTERFACE ap_vld port=iv
+
+#pragma HLS INTERFACE s_axilite port=&numBytes
+
+#pragma HLS INTERFACE ap_vld port=&numBytes
+
+#pragma HLS INTERFACE s_axilite port=&mode
+
+#pragma HLS INTERFACE ap_vld port=&mode
 
 #pragma HLS INTERFACE s_axilite port=&destinationAddress
 
@@ -38385,8 +38395,6 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 
 #pragma HLS INTERFACE axis depth=1000 port=&s_in
 
-#pragma HLS INTERFACE ap_vld port=&length
-
 #pragma HLS INTERFACE ap_vld port=&destinationAddress
 
 #pragma HLS INTERFACE ap_vld port=key_in
@@ -38395,12 +38403,29 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 
  //for i to length, fetch 128 bits of data, call aes function on data, and write data back out
  //increment the source and dest address by 128 bits each time
- int i, j, iterations;
+ int i, j, iterations, numIterations;
+
+ unsigned remainingBytes;
  unsigned char mask;
  unsigned sourceAddressLocal = sourceAddress;
  unsigned destinationAddressLocal = destinationAddress;
+ char temp_buffer_in[16];
+ char temp_buffer_out[16];
+ char plaintext_buffer[16];
+ char tempBuf[16];
 
- ap_uint<128> key_local = *key_in;
+ ap_uint<8> temp;
+
+ ap_uint<128> key_local; //= *key_in;
+ ap_uint<128> iv_local;
+ ap_uint<128> count = 0;
+
+ //calculate the number of iterations. since we implement padding, this should be
+ //ceil(numBytes/16). Also need to keep track of the number of bytes we have done
+ //to check if we need to pad the current input
+ numIterations = numBytes/16 + (numBytes % 16 != 0);
+ remainingBytes = numBytes;
+
  m_mm2s_ctl[0] &= 0;
  m_s2mm_ctl[12] &= 0;
 
@@ -38419,7 +38444,12 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
  m_mm2s_ctl[6] = sourceAddress;
  //calculate # of bytes that will be read from s_in in total
  //read_length = #encryptions X #bytes/encryption
- int read_length = length*sizeof(ap_uint<128>);
+ int read_length;
+//	if(mode==2){
+//		read_length = numBytes;
+//	} else{
+  read_length = numIterations*16;//length*sizeof(ap_uint<128>);
+//	}
  m_mm2s_ctl[10] = read_length;
 
  //--------Program write DMA s2mm--------
@@ -38432,8 +38462,22 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
  //write write length as the same as read length
  m_s2mm_ctl[22] = read_length;
 
+ //Now reverse the key and the iv
+ for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_0");
+#pragma HLS UNROLL
+ tempBuf[i] = key_in->range(i*8 + 7, i*8);
+  ap_uint<8> tmp(tempBuf[i]);
+  key_local = key_local.concat(tmp);
+
+  tempBuf[i] = iv->range(i*8 + 7, i*8);
+  ap_uint<8> tmp2(tempBuf[i]);
+  iv_local = iv_local.concat(tmp2);
+ _ssdm_RegionEnd("hls_label_0");}
+
  ap_uint<128> encrypted_data;
- for(iterations = 0; iterations<length; iterations++){
+
+
+ for(iterations = 0; iterations<numIterations; iterations++){
 //		ap_uint<128> data(0);
 //
 //		for(i = 0; i<16; i++){
@@ -38445,19 +38489,74 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 //				mask = mask >> 1;
 //			}
 //		}
-  ap_uint<128> data = s_in.read();
-//			printf("\nData in fabric: %s", data.to_string().c_str());
-//			printf("\nKey in fabric: %s", ((ap_uint<128>*)key_in)->to_string().c_str());
-  aestest(&data, &key_local, &encrypted_data);
-//			printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
+  //Need to pull out the 16 input bytes from the stream and place them in the correct place.
+   //first, loop through and concatenate them onto the variable
+  ap_uint<128> data(0); //s_in.read();
+  ap_uint<8> tempData[16];
+
+
+  //read them in and put into the byte-reversed position. if on the last cell that needs padding,
+  //only read in the number of bytes that are left to encrypt
+  for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_1");
+#pragma HLS UNROLL
+ temp = s_in.read();
+   plaintext_buffer[i] = temp;
+   temp_buffer_in[i] = temp;
+  _ssdm_RegionEnd("hls_label_1");}
+  for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_2");
+#pragma HLS UNROLL
+ temp = temp_buffer_in[15-i];
+   ap_uint<8> tmp(temp);
+   data = data.concat(temp);
+  _ssdm_RegionEnd("hls_label_2");}
+//		printf("\nFabric data final:   %s", ((ap_uint<128>)data).to_string().c_str());
+
+  /*
+		 * MODES:
+		 * 	0: ECB mode - standard block-cipher mode with no iv (Electronic Code Book mode)
+		 * 	1: CBC mode - Cipher Block Chaining mode - XOR 1st plaintext with iv before AES, XOR subsequent plaintext with ciphertext of previous run before AES
+		 * 	2: CTR mode - Counter mode - Use iv as a counter. Encrypt the counter in AES each iteration. XOR the output with plaintext to get cipher text. Increment counter and repeat for each chunk
+		 */
+
+  if(mode == 1){
+   if(count == 0){
+    data = data^iv_local;
+   } else{
+    data = data^encrypted_data;
+   }
+   aestest(&data, &key_local, &encrypted_data);
+   count++;
+  } else if(mode == 2){
+   aestest(&count, &key_local, &encrypted_data);
+   encrypted_data = encrypted_data^data;
+   count++;
+  } else{
+   aestest(&data, &key_local, &encrypted_data);
+  }
+
+  for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_3");
+#pragma HLS UNROLL
+ temp_buffer_out[i] = encrypted_data.range(i*8 + 7, i*8);
+  _ssdm_RegionEnd("hls_label_3");}
+
+//		printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
 //		char current = 0;
 //		for(i=0; i < 16; i++)
 //		{
 //			current = encrypted_data.range(127-i*8, (120)-i*8);
 //			ddr[destinationAddressLocal + i] = current;
 //		}
-  s_out.write(encrypted_data);
+  //s_out.write(encrypted_data);
 
+  //Now need to write them out in reverse order
+  for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_4");
+#pragma HLS UNROLL
+ temp = ap_uint<8>(temp_buffer_out[i]);
+
+   s_out.write(temp);
+  _ssdm_RegionEnd("hls_label_4");}
+
+  remainingBytes -= 16;
   sourceAddressLocal += 16;
   destinationAddressLocal += 16;
  }

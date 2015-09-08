@@ -40,6 +40,16 @@
 <InvalidType>0</InvalidType>
 </RtlPorts>
 <RtlPorts>
+<name>iv_V</name>
+<CType>
+<TypeName>ap_uint 128</TypeName>
+<TypeWidth>128</TypeWidth>
+<PhysicalWidth>128</PhysicalWidth>
+</CType>
+<CFractionWidth>0</CFractionWidth>
+<InvalidType>0</InvalidType>
+</RtlPorts>
+<RtlPorts>
 <name>destinationAddress</name>
 <CType>
 <TypeName>unsigned int</TypeName>
@@ -50,7 +60,7 @@
 <InvalidType>0</InvalidType>
 </RtlPorts>
 <RtlPorts>
-<name>length_r</name>
+<name>numBytes</name>
 <CType>
 <TypeName>unsigned int</TypeName>
 <TypeWidth>32</TypeWidth>
@@ -60,21 +70,31 @@
 <InvalidType>0</InvalidType>
 </RtlPorts>
 <RtlPorts>
-<name>s_in_V_V</name>
+<name>s_in_V</name>
 <CType>
-<TypeName>ap_uint 128</TypeName>
-<TypeWidth>128</TypeWidth>
-<PhysicalWidth>128</PhysicalWidth>
+<TypeName>uint8_t</TypeName>
+<TypeWidth>8</TypeWidth>
+<PhysicalWidth>8</PhysicalWidth>
 </CType>
 <CFractionWidth>0</CFractionWidth>
 <InvalidType>0</InvalidType>
 </RtlPorts>
 <RtlPorts>
-<name>s_out_V_V</name>
+<name>s_out_V</name>
 <CType>
-<TypeName>ap_uint 128</TypeName>
-<TypeWidth>128</TypeWidth>
-<PhysicalWidth>128</PhysicalWidth>
+<TypeName>uint8_t</TypeName>
+<TypeWidth>8</TypeWidth>
+<PhysicalWidth>8</PhysicalWidth>
+</CType>
+<CFractionWidth>0</CFractionWidth>
+<InvalidType>0</InvalidType>
+</RtlPorts>
+<RtlPorts>
+<name>mode</name>
+<CType>
+<TypeName>int</TypeName>
+<TypeWidth>32</TypeWidth>
+<PhysicalWidth>32</PhysicalWidth>
 </CType>
 <CFractionWidth>0</CFractionWidth>
 <InvalidType>0</InvalidType>

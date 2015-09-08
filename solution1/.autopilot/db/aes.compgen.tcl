@@ -30,17 +30,29 @@ key_in_V {
 	mode ap_vld
 	offset 32
 }
+iv_V { 
+	dir I
+	width 128
+	mode ap_vld
+	offset 52
+}
 destinationAddress { 
 	dir I
 	width 32
 	mode ap_vld
-	offset 52
+	offset 72
 }
-length_r { 
+numBytes { 
 	dir I
 	width 32
 	mode ap_vld
-	offset 60
+	offset 80
+}
+mode { 
+	dir I
+	width 32
+	mode ap_vld
+	offset 88
 }
 }
 
@@ -105,16 +117,16 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::native_axis_add] == "::AESL_LIB_XILADAPTER::native_axis_add"} {
 eval "::AESL_LIB_XILADAPTER::native_axis_add { \
     id 7 \
-    name s_in_V_V \
+    name s_in_V \
     reset_level 0 \
     sync_rst true \
     corename {} \
     metadata {  } \
     op interface \
-    ports { s_in_V_V_TDATA { I 128 vector } s_in_V_V_TVALID { I 1 bit } s_in_V_V_TREADY { O 1 bit } } \
+    ports { s_in_V_TDATA { I 8 vector } s_in_V_TVALID { I 1 bit } s_in_V_TREADY { O 1 bit } } \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 's_in_V_V'"
+puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 's_in_V'"
 }
 }
 
@@ -124,16 +136,16 @@ if {${::AESL::PGuard_autoexp_gen}} {
 if {[info proc ::AESL_LIB_XILADAPTER::native_axis_add] == "::AESL_LIB_XILADAPTER::native_axis_add"} {
 eval "::AESL_LIB_XILADAPTER::native_axis_add { \
     id 8 \
-    name s_out_V_V \
+    name s_out_V \
     reset_level 0 \
     sync_rst true \
     corename {} \
     metadata {  } \
     op interface \
-    ports { s_out_V_V_TDATA { O 128 vector } s_out_V_V_TVALID { O 1 bit } s_out_V_V_TREADY { I 1 bit } } \
+    ports { s_out_V_TDATA { O 8 vector } s_out_V_TVALID { O 1 bit } s_out_V_TREADY { I 1 bit } } \
 } "
 } else {
-puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 's_out_V_V'"
+puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 's_out_V'"
 }
 }
 

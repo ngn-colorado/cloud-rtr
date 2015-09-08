@@ -289,9 +289,9 @@ set gport25 [list $gportName25 $gportInterface25 $gportData25 $gportPointer25 $g
 lappend globalVariable $gport25
 set staticVariable ""
 set moduleName "aes"
-set rawDecl [list "bool" "aes\(volatile unsigned int m_mm2s_ctl \[500\], volatile unsigned int m_s2mm_ctl\[500\], volatile unsigned sourceAddress, ap_uint<128>* key_in,
-  volatile unsigned destinationAddress, unsigned int length,
-  mem_stream& s_in, mem_stream& s_out\)"]
+set rawDecl [list "bool" "aes\(volatile unsigned int m_mm2s_ctl \[500\], volatile unsigned int m_s2mm_ctl\[500\], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
+  volatile unsigned destinationAddress, unsigned int numBytes,
+  mem_stream8& s_in, mem_stream8& s_out, int mode\)"]
 set argAPint ""
 set returnAPint ""
 set portList ""
@@ -335,39 +335,39 @@ set portVolatile3 "0"
 set portArrayOpt3 ""
 set port3 [list $portName3 $portInterface3 $portData3 $portPointer3 $portArrayDim3 $portConst3 $portVolatile3 $portArrayOpt3]
 lappend portList $port3
-set portName4 "destinationAddress"
+set portName4 "iv"
 set portInterface4 "wire"
-set portData4 "unsigned int"
-set portPointer4 "0"
+set portData4 "[list ap_uint "128" ]"
+set portPointer4 "1"
 set portArrayDim4 0
 set portConst4 "0"
-set portVolatile4 "1"
+set portVolatile4 "0"
 set portArrayOpt4 ""
 set port4 [list $portName4 $portInterface4 $portData4 $portPointer4 $portArrayDim4 $portConst4 $portVolatile4 $portArrayOpt4]
 lappend portList $port4
-set portName5 "length"
+set portName5 "destinationAddress"
 set portInterface5 "wire"
 set portData5 "unsigned int"
 set portPointer5 "0"
 set portArrayDim5 0
 set portConst5 "0"
-set portVolatile5 "0"
+set portVolatile5 "1"
 set portArrayOpt5 ""
 set port5 [list $portName5 $portInterface5 $portData5 $portPointer5 $portArrayDim5 $portConst5 $portVolatile5 $portArrayOpt5]
 lappend portList $port5
-set portName6 "s_in"
-set portInterface6 "[list AP_STREAM 1000]"
-set portData6 "[list ap_uint "128" ]"
-set portPointer6 "2"
+set portName6 "numBytes"
+set portInterface6 "wire"
+set portData6 "unsigned int"
+set portPointer6 "0"
 set portArrayDim6 0
 set portConst6 "0"
 set portVolatile6 "0"
 set portArrayOpt6 ""
 set port6 [list $portName6 $portInterface6 $portData6 $portPointer6 $portArrayDim6 $portConst6 $portVolatile6 $portArrayOpt6]
 lappend portList $port6
-set portName7 "s_out"
+set portName7 "s_in"
 set portInterface7 "[list AP_STREAM 1000]"
-set portData7 "[list ap_uint "128" ]"
+set portData7 "uint8_t"
 set portPointer7 "2"
 set portArrayDim7 0
 set portConst7 "0"
@@ -375,16 +375,36 @@ set portVolatile7 "0"
 set portArrayOpt7 ""
 set port7 [list $portName7 $portInterface7 $portData7 $portPointer7 $portArrayDim7 $portConst7 $portVolatile7 $portArrayOpt7]
 lappend portList $port7
-set portName8 "return"
-set portInterface8 "wire"
-set portData8 "bool"
-set portPointer8 "0"
+set portName8 "s_out"
+set portInterface8 "[list AP_STREAM 1000]"
+set portData8 "uint8_t"
+set portPointer8 "2"
 set portArrayDim8 0
 set portConst8 "0"
 set portVolatile8 "0"
 set portArrayOpt8 ""
 set port8 [list $portName8 $portInterface8 $portData8 $portPointer8 $portArrayDim8 $portConst8 $portVolatile8 $portArrayOpt8]
 lappend portList $port8
+set portName9 "mode"
+set portInterface9 "wire"
+set portData9 "int"
+set portPointer9 "0"
+set portArrayDim9 0
+set portConst9 "0"
+set portVolatile9 "0"
+set portArrayOpt9 ""
+set port9 [list $portName9 $portInterface9 $portData9 $portPointer9 $portArrayDim9 $portConst9 $portVolatile9 $portArrayOpt9]
+lappend portList $port9
+set portName10 "return"
+set portInterface10 "wire"
+set portData10 "bool"
+set portPointer10 "0"
+set portArrayDim10 0
+set portConst10 "0"
+set portVolatile10 "0"
+set portArrayOpt10 ""
+set port10 [list $portName10 $portInterface10 $portData10 $portPointer10 $portArrayDim10 $portConst10 $portVolatile10 $portArrayOpt10]
+lappend portList $port10
 set dataPackList ""
 set module [list $moduleName $portList $rawDecl $argAPint $returnAPint $dataPackList]
 set hasCPPAPInt 1

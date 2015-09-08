@@ -207,7 +207,7 @@
 				<spirit:parameter>
 					<spirit:name>ASSOCIATED_BUSIF</spirit:name>
 					<spirit:value spirit:resolve="immediate"
-							spirit:id="BUSIFPARAM_VALUE.AP_CLK.ASSOCIATED_BUSIF">s_axi_AXILiteS:m_axi_m_mm2s_ctl:m_axi_m_s2mm_ctl:s_in_V_V:s_out_V_V</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.AP_CLK.ASSOCIATED_BUSIF">s_axi_AXILiteS:m_axi_m_mm2s_ctl:m_axi_m_s2mm_ctl:s_in_V:s_out_V</spirit:value>
 				</spirit:parameter>
 				<spirit:parameter>
 					<spirit:name>ASSOCIATED_RESET</spirit:name>
@@ -1103,7 +1103,7 @@
 			</spirit:parameters>
 		</spirit:busInterface>
 		<spirit:busInterface>
-			<spirit:name>s_in_V_V</spirit:name>
+			<spirit:name>s_in_V</spirit:name>
 			<spirit:busType spirit:vendor="xilinx.com"
 					spirit:library="interface"
 					spirit:name="axis"
@@ -1119,7 +1119,7 @@
 						<spirit:name>TVALID</spirit:name>
 					</spirit:logicalPort>
 					<spirit:physicalPort>
-						<spirit:name>s_in_V_V_TVALID</spirit:name>
+						<spirit:name>s_in_V_TVALID</spirit:name>
 					</spirit:physicalPort>
 				</spirit:portMap>
 				<spirit:portMap>
@@ -1127,7 +1127,7 @@
 						<spirit:name>TREADY</spirit:name>
 					</spirit:logicalPort>
 					<spirit:physicalPort>
-						<spirit:name>s_in_V_V_TREADY</spirit:name>
+						<spirit:name>s_in_V_TREADY</spirit:name>
 					</spirit:physicalPort>
 				</spirit:portMap>
 				<spirit:portMap>
@@ -1135,7 +1135,7 @@
 						<spirit:name>TDATA</spirit:name>
 					</spirit:logicalPort>
 					<spirit:physicalPort>
-						<spirit:name>s_in_V_V_TDATA</spirit:name>
+						<spirit:name>s_in_V_TDATA</spirit:name>
 					</spirit:physicalPort>
 				</spirit:portMap>
 			</spirit:portMaps>
@@ -1144,27 +1144,27 @@
 				<spirit:parameter>
 					<spirit:name>SIGNAL_SET</spirit:name>
 					<spirit:value spirit:resolve="immediate"
-							spirit:id="BUSIFPARAM_VALUE.S_IN_V_V.SIGNAL_SET">00000011</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_IN_V.SIGNAL_SET">00000011</spirit:value>
 				</spirit:parameter>
 				<spirit:parameter>
 					<spirit:name>TDATA_NUM_BYTES</spirit:name>
 					<spirit:value spirit:resolve="immediate"
-							spirit:id="BUSIFPARAM_VALUE.S_IN_V_V.TDATA_NUM_BYTES">16</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_IN_V.TDATA_NUM_BYTES">1</spirit:value>
 				</spirit:parameter>
 				<spirit:parameter>
 					<spirit:name>TUSER_WIDTH</spirit:name>
 					<spirit:value spirit:resolve="immediate"
-							spirit:id="BUSIFPARAM_VALUE.S_IN_V_V.TUSER_WIDTH">0</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_IN_V.TUSER_WIDTH">0</spirit:value>
 				</spirit:parameter>
 				<spirit:parameter>
 					<spirit:name>LAYERED_METADATA</spirit:name>
 					<spirit:value spirit:resolve="generated"
-							spirit:id="BUSIFPARAM_VALUE.S_IN_V_V.LAYERED_METADATA">xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 128} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}}}</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_IN_V.LAYERED_METADATA">xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 8} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}}}</spirit:value>
 				</spirit:parameter>
 			</spirit:parameters>
 		</spirit:busInterface>
 		<spirit:busInterface>
-			<spirit:name>s_out_V_V</spirit:name>
+			<spirit:name>s_out_V</spirit:name>
 			<spirit:busType spirit:vendor="xilinx.com"
 					spirit:library="interface"
 					spirit:name="axis"
@@ -1180,7 +1180,7 @@
 						<spirit:name>TVALID</spirit:name>
 					</spirit:logicalPort>
 					<spirit:physicalPort>
-						<spirit:name>s_out_V_V_TVALID</spirit:name>
+						<spirit:name>s_out_V_TVALID</spirit:name>
 					</spirit:physicalPort>
 				</spirit:portMap>
 				<spirit:portMap>
@@ -1188,7 +1188,7 @@
 						<spirit:name>TREADY</spirit:name>
 					</spirit:logicalPort>
 					<spirit:physicalPort>
-						<spirit:name>s_out_V_V_TREADY</spirit:name>
+						<spirit:name>s_out_V_TREADY</spirit:name>
 					</spirit:physicalPort>
 				</spirit:portMap>
 				<spirit:portMap>
@@ -1196,7 +1196,7 @@
 						<spirit:name>TDATA</spirit:name>
 					</spirit:logicalPort>
 					<spirit:physicalPort>
-						<spirit:name>s_out_V_V_TDATA</spirit:name>
+						<spirit:name>s_out_V_TDATA</spirit:name>
 					</spirit:physicalPort>
 				</spirit:portMap>
 			</spirit:portMaps>
@@ -1205,22 +1205,22 @@
 				<spirit:parameter>
 					<spirit:name>SIGNAL_SET</spirit:name>
 					<spirit:value spirit:resolve="immediate"
-							spirit:id="BUSIFPARAM_VALUE.S_OUT_V_V.SIGNAL_SET">00000011</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_OUT_V.SIGNAL_SET">00000011</spirit:value>
 				</spirit:parameter>
 				<spirit:parameter>
 					<spirit:name>TDATA_NUM_BYTES</spirit:name>
 					<spirit:value spirit:resolve="immediate"
-							spirit:id="BUSIFPARAM_VALUE.S_OUT_V_V.TDATA_NUM_BYTES">16</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_OUT_V.TDATA_NUM_BYTES">1</spirit:value>
 				</spirit:parameter>
 				<spirit:parameter>
 					<spirit:name>TUSER_WIDTH</spirit:name>
 					<spirit:value spirit:resolve="immediate"
-							spirit:id="BUSIFPARAM_VALUE.S_OUT_V_V.TUSER_WIDTH">0</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_OUT_V.TUSER_WIDTH">0</spirit:value>
 				</spirit:parameter>
 				<spirit:parameter>
 					<spirit:name>LAYERED_METADATA</spirit:name>
 					<spirit:value spirit:resolve="generated"
-							spirit:id="BUSIFPARAM_VALUE.S_OUT_V_V.LAYERED_METADATA">xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 128} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}}}</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_OUT_V.LAYERED_METADATA">xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 8} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}}}</spirit:value>
 				</spirit:parameter>
 			</spirit:parameters>
 		</spirit:busInterface>
@@ -3107,7 +3107,7 @@
 				</spirit:wire>
 			</spirit:port>
 			<spirit:port>
-				<spirit:name>s_in_V_V_TVALID</spirit:name>
+				<spirit:name>s_in_V_TVALID</spirit:name>
 				<spirit:wire>
 					<spirit:direction>in</spirit:direction>
 					<spirit:wireTypeDefs>
@@ -3120,7 +3120,7 @@
 				</spirit:wire>
 			</spirit:port>
 			<spirit:port>
-				<spirit:name>s_in_V_V_TREADY</spirit:name>
+				<spirit:name>s_in_V_TREADY</spirit:name>
 				<spirit:wire>
 					<spirit:direction>out</spirit:direction>
 					<spirit:wireTypeDefs>
@@ -3133,11 +3133,11 @@
 				</spirit:wire>
 			</spirit:port>
 			<spirit:port>
-				<spirit:name>s_in_V_V_TDATA</spirit:name>
+				<spirit:name>s_in_V_TDATA</spirit:name>
 				<spirit:wire>
 					<spirit:direction>in</spirit:direction>
 					<spirit:vector>
-						<spirit:left>127</spirit:left>
+						<spirit:left>7</spirit:left>
 						<spirit:right>0</spirit:right>
 					</spirit:vector>
 					<spirit:wireTypeDefs>
@@ -3155,7 +3155,7 @@
 				</spirit:vendorExtensions>
 			</spirit:port>
 			<spirit:port>
-				<spirit:name>s_out_V_V_TVALID</spirit:name>
+				<spirit:name>s_out_V_TVALID</spirit:name>
 				<spirit:wire>
 					<spirit:direction>out</spirit:direction>
 					<spirit:wireTypeDefs>
@@ -3168,7 +3168,7 @@
 				</spirit:wire>
 			</spirit:port>
 			<spirit:port>
-				<spirit:name>s_out_V_V_TREADY</spirit:name>
+				<spirit:name>s_out_V_TREADY</spirit:name>
 				<spirit:wire>
 					<spirit:direction>in</spirit:direction>
 					<spirit:wireTypeDefs>
@@ -3181,11 +3181,11 @@
 				</spirit:wire>
 			</spirit:port>
 			<spirit:port>
-				<spirit:name>s_out_V_V_TDATA</spirit:name>
+				<spirit:name>s_out_V_TDATA</spirit:name>
 				<spirit:wire>
 					<spirit:direction>out</spirit:direction>
 					<spirit:vector>
-						<spirit:left>127</spirit:left>
+						<spirit:left>7</spirit:left>
 						<spirit:right>0</spirit:right>
 					</spirit:vector>
 					<spirit:wireTypeDefs>
@@ -3858,8 +3858,8 @@
 				<xilinx:taxonomy>/VIVADO_HLS_IP</xilinx:taxonomy>
 			</xilinx:taxonomies>
 			<xilinx:displayName>Aes</xilinx:displayName>
-			<xilinx:coreRevision>1505160000</xilinx:coreRevision>
-			<xilinx:coreCreationDateTime>2015-05-16T06:01:09Z</xilinx:coreCreationDateTime>
+			<xilinx:coreRevision>1509071753</xilinx:coreRevision>
+			<xilinx:coreCreationDateTime>2015-09-07T23:53:43Z</xilinx:coreCreationDateTime>
 		</xilinx:coreExtensions>
 		<xilinx:packagingInfo>
 			<xilinx:xilinxVersion>2014.1</xilinx:xilinxVersion>

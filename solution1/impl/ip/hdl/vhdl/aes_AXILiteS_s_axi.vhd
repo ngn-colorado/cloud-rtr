@@ -45,10 +45,14 @@ entity aes_AXILiteS_s_axi is
         sourceAddress_ap_vld :out  STD_LOGIC;
         key_in_V :out  STD_LOGIC_VECTOR(127 downto 0);
         key_in_V_ap_vld :out  STD_LOGIC;
+        iv_V :out  STD_LOGIC_VECTOR(127 downto 0);
+        iv_V_ap_vld :out  STD_LOGIC;
         destinationAddress :out  STD_LOGIC_VECTOR(31 downto 0);
         destinationAddress_ap_vld :out  STD_LOGIC;
-        length_r :out  STD_LOGIC_VECTOR(31 downto 0);
-        length_r_ap_vld :out  STD_LOGIC);
+        numBytes :out  STD_LOGIC_VECTOR(31 downto 0);
+        numBytes_ap_vld :out  STD_LOGIC;
+        mode :out  STD_LOGIC_VECTOR(31 downto 0);
+        mode_ap_vld :out  STD_LOGIC);
 end entity aes_AXILiteS_s_axi;
 
 --------------------------Address Info-------------------
@@ -89,15 +93,31 @@ end entity aes_AXILiteS_s_axi;
 -- 0x30 : Control signal of key_in_V
 --        bit 0  - key_in_V_ap_vld (Read/Write/SC)
 --        others - reserved
--- 0x34 : Data signal of destinationAddress
+-- 0x34 : Data signal of iv_V
+--        bit 31~0 - iv_V[31:0] (Read/Write)
+-- 0x38 : Data signal of iv_V
+--        bit 31~0 - iv_V[63:32] (Read/Write)
+-- 0x3c : Data signal of iv_V
+--        bit 31~0 - iv_V[95:64] (Read/Write)
+-- 0x40 : Data signal of iv_V
+--        bit 31~0 - iv_V[127:96] (Read/Write)
+-- 0x44 : Control signal of iv_V
+--        bit 0  - iv_V_ap_vld (Read/Write/SC)
+--        others - reserved
+-- 0x48 : Data signal of destinationAddress
 --        bit 31~0 - destinationAddress[31:0] (Read/Write)
--- 0x38 : Control signal of destinationAddress
+-- 0x4c : Control signal of destinationAddress
 --        bit 0  - destinationAddress_ap_vld (Read/Write/SC)
 --        others - reserved
--- 0x3c : Data signal of length_r
---        bit 31~0 - length_r[31:0] (Read/Write)
--- 0x40 : Control signal of length_r
---        bit 0  - length_r_ap_vld (Read/Write/SC)
+-- 0x50 : Data signal of numBytes
+--        bit 31~0 - numBytes[31:0] (Read/Write)
+-- 0x54 : Control signal of numBytes
+--        bit 0  - numBytes_ap_vld (Read/Write/SC)
+--        others - reserved
+-- 0x58 : Data signal of mode
+--        bit 31~0 - mode[31:0] (Read/Write)
+-- 0x5c : Control signal of mode
+--        bit 0  - mode_ap_vld (Read/Write/SC)
 --        others - reserved
 -- (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
@@ -115,10 +135,17 @@ architecture behave of aes_AXILiteS_s_axi is
     constant ADDR_KEY_IN_V_DATA_2 : INTEGER :=16#28#;
     constant ADDR_KEY_IN_V_DATA_3 : INTEGER :=16#2c#;
     constant ADDR_KEY_IN_V_CTRL : INTEGER :=16#30#;
-    constant ADDR_DESTINATIONADDRESS_DATA_0 : INTEGER :=16#34#;
-    constant ADDR_DESTINATIONADDRESS_CTRL : INTEGER :=16#38#;
-    constant ADDR_LENGTH_R_DATA_0 : INTEGER :=16#3c#;
-    constant ADDR_LENGTH_R_CTRL : INTEGER :=16#40#;
+    constant ADDR_IV_V_DATA_0 : INTEGER :=16#34#;
+    constant ADDR_IV_V_DATA_1 : INTEGER :=16#38#;
+    constant ADDR_IV_V_DATA_2 : INTEGER :=16#3c#;
+    constant ADDR_IV_V_DATA_3 : INTEGER :=16#40#;
+    constant ADDR_IV_V_CTRL : INTEGER :=16#44#;
+    constant ADDR_DESTINATIONADDRESS_DATA_0 : INTEGER :=16#48#;
+    constant ADDR_DESTINATIONADDRESS_CTRL : INTEGER :=16#4c#;
+    constant ADDR_NUMBYTES_DATA_0 : INTEGER :=16#50#;
+    constant ADDR_NUMBYTES_CTRL : INTEGER :=16#54#;
+    constant ADDR_MODE_DATA_0 : INTEGER :=16#58#;
+    constant ADDR_MODE_CTRL : INTEGER :=16#5c#;
     type states is (wridle, wrdata, wrresp, rdidle, rddata);  -- read and write FSM states
     signal wstate, wnext, rstate, rnext: states;
     -- Local signal
@@ -146,10 +173,14 @@ architecture behave of aes_AXILiteS_s_axi is
     signal int_sourceAddress_ap_vld : STD_LOGIC;
     signal int_key_in_V : UNSIGNED(127 downto 0);
     signal int_key_in_V_ap_vld : STD_LOGIC;
+    signal int_iv_V : UNSIGNED(127 downto 0);
+    signal int_iv_V_ap_vld : STD_LOGIC;
     signal int_destinationAddress : UNSIGNED(31 downto 0);
     signal int_destinationAddress_ap_vld : STD_LOGIC;
-    signal int_length_r : UNSIGNED(31 downto 0);
-    signal int_length_r_ap_vld : STD_LOGIC;
+    signal int_numBytes : UNSIGNED(31 downto 0);
+    signal int_numBytes_ap_vld : STD_LOGIC;
+    signal int_mode : UNSIGNED(31 downto 0);
+    signal int_mode_ap_vld : STD_LOGIC;
 
 begin
     -- axi write
@@ -280,14 +311,28 @@ begin
                     rdata_data <= RESIZE(int_key_in_V(127 downto 96), 32);
                 when ADDR_KEY_IN_V_CTRL =>
                     rdata_data <= (0 => int_key_in_V_ap_vld, others => '0');
+                when ADDR_IV_V_DATA_0 =>
+                    rdata_data <= RESIZE(int_iv_V(31 downto 0), 32);
+                when ADDR_IV_V_DATA_1 =>
+                    rdata_data <= RESIZE(int_iv_V(63 downto 32), 32);
+                when ADDR_IV_V_DATA_2 =>
+                    rdata_data <= RESIZE(int_iv_V(95 downto 64), 32);
+                when ADDR_IV_V_DATA_3 =>
+                    rdata_data <= RESIZE(int_iv_V(127 downto 96), 32);
+                when ADDR_IV_V_CTRL =>
+                    rdata_data <= (0 => int_iv_V_ap_vld, others => '0');
                 when ADDR_DESTINATIONADDRESS_DATA_0 =>
                     rdata_data <= RESIZE(int_destinationAddress(31 downto 0), 32);
                 when ADDR_DESTINATIONADDRESS_CTRL =>
                     rdata_data <= (0 => int_destinationAddress_ap_vld, others => '0');
-                when ADDR_LENGTH_R_DATA_0 =>
-                    rdata_data <= RESIZE(int_length_r(31 downto 0), 32);
-                when ADDR_LENGTH_R_CTRL =>
-                    rdata_data <= (0 => int_length_r_ap_vld, others => '0');
+                when ADDR_NUMBYTES_DATA_0 =>
+                    rdata_data <= RESIZE(int_numBytes(31 downto 0), 32);
+                when ADDR_NUMBYTES_CTRL =>
+                    rdata_data <= (0 => int_numBytes_ap_vld, others => '0');
+                when ADDR_MODE_DATA_0 =>
+                    rdata_data <= RESIZE(int_mode(31 downto 0), 32);
+                when ADDR_MODE_CTRL =>
+                    rdata_data <= (0 => int_mode_ap_vld, others => '0');
                 when others =>
                     rdata_data <= (others => '0');
                 end case;
@@ -305,10 +350,14 @@ begin
     sourceAddress_ap_vld <= int_sourceAddress_ap_vld;
     key_in_V <= STD_LOGIC_VECTOR(int_key_in_V);
     key_in_V_ap_vld <= int_key_in_V_ap_vld;
+    iv_V <= STD_LOGIC_VECTOR(int_iv_V);
+    iv_V_ap_vld <= int_iv_V_ap_vld;
     destinationAddress <= STD_LOGIC_VECTOR(int_destinationAddress);
     destinationAddress_ap_vld <= int_destinationAddress_ap_vld;
-    length_r <= STD_LOGIC_VECTOR(int_length_r);
-    length_r_ap_vld <= int_length_r_ap_vld;
+    numBytes <= STD_LOGIC_VECTOR(int_numBytes);
+    numBytes_ap_vld <= int_numBytes_ap_vld;
+    mode <= STD_LOGIC_VECTOR(int_mode);
+    mode_ap_vld <= int_mode_ap_vld;
 
     process (ACLK)
     begin
@@ -469,6 +518,55 @@ begin
     process (ACLK)
     begin
         if (ACLK'event and ACLK = '1') then
+             if (w_hs = '1' and waddr = ADDR_IV_V_DATA_0) then
+                 int_iv_V(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_iv_V(31 downto 0));
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+             if (w_hs = '1' and waddr = ADDR_IV_V_DATA_1) then
+                 int_iv_V(63 downto 32) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_iv_V(63 downto 32));
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+             if (w_hs = '1' and waddr = ADDR_IV_V_DATA_2) then
+                 int_iv_V(95 downto 64) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_iv_V(95 downto 64));
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+             if (w_hs = '1' and waddr = ADDR_IV_V_DATA_3) then
+                 int_iv_V(127 downto 96) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_iv_V(127 downto 96));
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+             if (ARESETN = '0') then
+                 int_iv_V_ap_vld <= '0';
+             elsif (w_hs  = '1' and waddr = ADDR_IV_V_CTRL and WSTRB(0) = '1' and WDATA(0) = '1') then
+                 int_iv_V_ap_vld <= '1';
+             else
+                 int_iv_V_ap_vld <= '0'; -- self clear
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
              if (w_hs = '1' and waddr = ADDR_DESTINATIONADDRESS_DATA_0) then
                  int_destinationAddress(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_destinationAddress(31 downto 0));
             end if;
@@ -491,8 +589,8 @@ begin
     process (ACLK)
     begin
         if (ACLK'event and ACLK = '1') then
-             if (w_hs = '1' and waddr = ADDR_LENGTH_R_DATA_0) then
-                 int_length_r(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_length_r(31 downto 0));
+             if (w_hs = '1' and waddr = ADDR_NUMBYTES_DATA_0) then
+                 int_numBytes(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_numBytes(31 downto 0));
             end if;
         end if;
     end process;
@@ -501,11 +599,33 @@ begin
     begin
         if (ACLK'event and ACLK = '1') then
              if (ARESETN = '0') then
-                 int_length_r_ap_vld <= '0';
-             elsif (w_hs  = '1' and waddr = ADDR_LENGTH_R_CTRL and WSTRB(0) = '1' and WDATA(0) = '1') then
-                 int_length_r_ap_vld <= '1';
+                 int_numBytes_ap_vld <= '0';
+             elsif (w_hs  = '1' and waddr = ADDR_NUMBYTES_CTRL and WSTRB(0) = '1' and WDATA(0) = '1') then
+                 int_numBytes_ap_vld <= '1';
              else
-                 int_length_r_ap_vld <= '0'; -- self clear
+                 int_numBytes_ap_vld <= '0'; -- self clear
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+             if (w_hs = '1' and waddr = ADDR_MODE_DATA_0) then
+                 int_mode(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_mode(31 downto 0));
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+             if (ARESETN = '0') then
+                 int_mode_ap_vld <= '0';
+             elsif (w_hs  = '1' and waddr = ADDR_MODE_CTRL and WSTRB(0) = '1' and WDATA(0) = '1') then
+                 int_mode_ap_vld <= '1';
+             else
+                 int_mode_ap_vld <= '0'; -- self clear
             end if;
         end if;
     end process;

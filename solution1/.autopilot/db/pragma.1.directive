@@ -73,7 +73,37 @@
 <directive functionLabel="" functionName="aes" label="">
 <pragma name="INTERFACE">
 <option name="s_axilite" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="length"/>
+<option name="port" positionalBoolean="4" value="iv"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="aes" label="">
+<pragma name="INTERFACE">
+<option name="ap_vld" positionalBoolean="mode" value=""/>
+<option name="port" positionalBoolean="4" value="iv"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="aes" label="">
+<pragma name="INTERFACE">
+<option name="s_axilite" positionalBoolean="mode" value=""/>
+<option name="port" positionalBoolean="4" value="numBytes"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="aes" label="">
+<pragma name="INTERFACE">
+<option name="ap_vld" positionalBoolean="mode" value=""/>
+<option name="port" positionalBoolean="4" value="numBytes"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="aes" label="">
+<pragma name="INTERFACE">
+<option name="s_axilite" positionalBoolean="mode" value=""/>
+<option name="port" positionalBoolean="4" value="mode"/>
+</pragma>
+</directive>
+<directive functionLabel="" functionName="aes" label="">
+<pragma name="INTERFACE">
+<option name="ap_vld" positionalBoolean="mode" value=""/>
+<option name="port" positionalBoolean="4" value="mode"/>
 </pragma>
 </directive>
 <directive functionLabel="" functionName="aes" label="">
@@ -135,12 +165,6 @@
 <directive functionLabel="" functionName="aes" label="">
 <pragma name="INTERFACE">
 <option name="ap_vld" positionalBoolean="mode" value=""/>
-<option name="port" positionalBoolean="4" value="length"/>
-</pragma>
-</directive>
-<directive functionLabel="" functionName="aes" label="">
-<pragma name="INTERFACE">
-<option name="ap_vld" positionalBoolean="mode" value=""/>
 <option name="port" positionalBoolean="4" value="destinationAddress"/>
 </pragma>
 </directive>
@@ -155,6 +179,21 @@
 <option name="ap_vld" positionalBoolean="mode" value=""/>
 <option name="port" positionalBoolean="4" value="sourceAddress"/>
 </pragma>
+</directive>
+<directive functionLabel="" functionName="aes" label="">
+<pragma name="UNROLL"/>
+</directive>
+<directive functionLabel="" functionName="aes" label="">
+<pragma name="UNROLL"/>
+</directive>
+<directive functionLabel="" functionName="aes" label="">
+<pragma name="UNROLL"/>
+</directive>
+<directive functionLabel="" functionName="aes" label="">
+<pragma name="UNROLL"/>
+</directive>
+<directive functionLabel="" functionName="aes" label="">
+<pragma name="UNROLL"/>
 </directive>
 </sourceFile>
 </AutoPilot:ProjectResources>
