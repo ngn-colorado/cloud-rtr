@@ -38279,16 +38279,14 @@ typedef unsigned char uint8_t;
 typedef hls::stream<uint8_t> mem_stream8;
 
 //512 MB is 0x20000000 bytes
-bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
-  volatile unsigned destinationAddress, unsigned int numBytes, int mode,
-  mem_stream8& s_in, mem_stream8& s_out){
-#pragma HLS INTERFACE axis depth=1000 port=s_out
+bool aes(volatile unsigned char ddr[0x20000000], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
+  volatile unsigned destinationAddress, unsigned int numBytes, int mode){
+#pragma HLS INTERFACE m_axi port=ddr
+
 
 #pragma HLS INTERFACE axis depth=1000 port=s_in
 
-#pragma HLS INTERFACE m_axi port=m_s2mm_ctl
 
-#pragma HLS INTERFACE m_axi port=m_mm2s_ctl
 
 #pragma HLS INTERFACE s_axilite port=iv
 
@@ -38343,41 +38341,41 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
  numIterations = numBytes/16 + (numBytes % 16 != 0);
  remainingBytes = numBytes;
 
- m_mm2s_ctl[0] &= 0;
- m_s2mm_ctl[12] &= 0;
-
- m_mm2s_ctl[0] |= 4;
- m_s2mm_ctl[12] |= 4;
-
- m_mm2s_ctl[0] &= 0;
- m_s2mm_ctl[12] &= 0;
-
- //--------Program read DMA mm2s----------
- //enable read dma block
- m_mm2s_ctl[0] |= 1;
- //enable read interupts
- m_mm2s_ctl[0] |= 4096;
- //write source address
- m_mm2s_ctl[6] = sourceAddress;
- //calculate # of bytes that will be read from s_in in total
- //read_length = #encryptions X #bytes/encryption
- int read_length;
-//	if(mode==2){
-//		read_length = numBytes;
-//	} else{
-  read_length = numIterations*16;//length*sizeof(ap_uint<128>);
-//	}
- m_mm2s_ctl[10] = read_length;
-
- //--------Program write DMA s2mm--------
- //enable s2mm on write dma block
- m_s2mm_ctl[12] |= 1;
- //enable write interrupts
- m_s2mm_ctl[12] |= 4096;
- //write dest address
- m_s2mm_ctl[18] = destinationAddress;
- //write write length as the same as read length
- m_s2mm_ctl[22] = read_length;
+//	m_mm2s_ctl[0] &= 0;
+//	m_s2mm_ctl[12] &= 0;
+//
+//	m_mm2s_ctl[0] |= 4;
+//	m_s2mm_ctl[12] |= 4;
+//
+//	m_mm2s_ctl[0] &= 0;
+//	m_s2mm_ctl[12] &= 0;
+//
+//	//--------Program read DMA mm2s----------
+//	//enable read dma block
+//	m_mm2s_ctl[0] |= 1;
+//	//enable read interupts
+//	m_mm2s_ctl[0] |= 4096;
+//	//write source address
+//	m_mm2s_ctl[6] = sourceAddress;
+//	//calculate # of bytes that will be read from s_in in total
+//	//read_length = #encryptions X #bytes/encryption
+//	int read_length;
+////	if(mode==2){
+////		read_length = numBytes;
+////	} else{
+//		read_length = numIterations*16;//length*sizeof(ap_uint<128>);
+////	}
+//	m_mm2s_ctl[10] = read_length;
+//
+//	//--------Program write DMA s2mm--------
+//	//enable s2mm on write dma block
+//	m_s2mm_ctl[12] |= 1;
+//	//enable write interrupts
+//	m_s2mm_ctl[12] |= 4096;
+//	//write dest address
+//	m_s2mm_ctl[18] = destinationAddress;
+//	//write write length as the same as read length
+//	m_s2mm_ctl[22] = read_length;
 
  //Now reverse the key and the iv
  for(i=0; i<16; i++){
@@ -38416,8 +38414,8 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
   //only read in the number of bytes that are left to encrypt
   for(i=0; i<16; i++){
 #pragma HLS UNROLL
- temp = s_in.read();
-//			temp = ddr[sourceAddressLocal + i];
+//			temp = s_in.read();
+   temp = ddr[sourceAddressLocal + i];
    plaintext_buffer[i] = temp;
    temp_buffer_in[i] = temp;
   }
@@ -38471,8 +38469,8 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 #pragma HLS UNROLL
  temp = ap_uint<8>(temp_buffer_out[i]);
 
-   s_out.write(temp);
-//			ddr[destinationAddressLocal + i] = temp;
+//			s_out.write(temp);
+   ddr[destinationAddressLocal + i] = temp;
   }
 
   remainingBytes -= 16;

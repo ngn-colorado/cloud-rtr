@@ -11,9 +11,7 @@
   </errorLogs>
   <warningLogs>
     <logs>
-      <synLog>
-        <logs message="@W [SYNCHK-23] aes_runner/source/aes.cpp:178: variable-indexed range selection may cause suboptimal QoR." projectName="aes_runner" solutionName="solution1" date="2015-09-09T01:05:54.991-0600" type="Warning"/>
-      </synLog>
+      <synLog/>
       <simLog/>
       <mgLog/>
       <packageLog/>
