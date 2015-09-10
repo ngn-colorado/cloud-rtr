@@ -38278,13 +38278,18 @@ typedef hls::stream<uint128_t> mem_stream;
 typedef unsigned char uint8_t;
 typedef hls::stream<uint8_t> mem_stream8;
 #pragma empty_line
-//I implement PKCS padding, as that seems to be what OpenSSL does. The buffers pointed to by the src and dest addresses
-//need to have enough space for the final block, else the FPGA will clobber them
-#pragma empty_line
-#pragma empty_line
+//512 MB is 0x20000000 bytes
 bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
-  volatile unsigned destinationAddress, unsigned int numBytes,
-  mem_stream8& s_in, mem_stream8& s_out, int mode){
+  volatile unsigned destinationAddress, unsigned int numBytes, int mode,
+  mem_stream8& s_in, mem_stream8& s_out){
+#pragma HLS INTERFACE axis depth=1000 port=s_out
+#pragma empty_line
+#pragma HLS INTERFACE axis depth=1000 port=s_in
+#pragma empty_line
+#pragma HLS INTERFACE m_axi port=m_s2mm_ctl
+#pragma empty_line
+#pragma HLS INTERFACE m_axi port=m_mm2s_ctl
+#pragma empty_line
 #pragma HLS INTERFACE s_axilite port=iv
 #pragma empty_line
 #pragma HLS INTERFACE ap_vld port=iv
@@ -38303,17 +38308,9 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 #pragma empty_line
 #pragma HLS INTERFACE s_axilite port=sourceAddress
 #pragma empty_line
-#pragma HLS INTERFACE m_axi port=m_s2mm_ctl
-#pragma empty_line
-#pragma HLS INTERFACE m_axi port=m_mm2s_ctl
-#pragma empty_line
 #pragma HLS INTERFACE ap_ctrl_hs port=return
 #pragma empty_line
 #pragma HLS INTERFACE s_axilite port=return
-#pragma empty_line
-#pragma HLS INTERFACE axis depth=1000 port=s_out
-#pragma empty_line
-#pragma HLS INTERFACE axis depth=1000 port=s_in
 #pragma empty_line
 #pragma HLS INTERFACE ap_vld port=destinationAddress
 #pragma empty_line
@@ -38420,12 +38417,13 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
   for(i=0; i<16; i++){
 #pragma HLS UNROLL
  temp = s_in.read();
+//			temp = ddr[sourceAddressLocal + i];
    plaintext_buffer[i] = temp;
    temp_buffer_in[i] = temp;
   }
   for(i=0; i<16; i++){
 #pragma HLS UNROLL
- temp = temp_buffer_in[15-i];
+ temp = temp_buffer_in[i];//temp_buffer_in[15-i];
    ap_uint<8> tmp(temp);
    data = data.concat(temp);
   }
@@ -38456,7 +38454,7 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 #pragma empty_line
   for(i=0; i<16; i++){
 #pragma HLS UNROLL
- temp_buffer_out[i] = encrypted_data.range(i*8 + 7, i*8);
+ temp_buffer_out[i] = encrypted_data.range(127-i*8, (120)-i*8);//.range(i*8 + 7, i*8);
   }
 #pragma empty_line
 //		printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
@@ -38474,6 +38472,7 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
  temp = ap_uint<8>(temp_buffer_out[i]);
 #pragma empty_line
    s_out.write(temp);
+//			ddr[destinationAddressLocal + i] = temp;
   }
 #pragma empty_line
   remainingBytes -= 16;

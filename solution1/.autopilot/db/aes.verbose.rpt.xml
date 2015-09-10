@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vivado HLS Report for 'aes'" level="0">
-<item name = "Date">Mon Sep  7 17:49:53 2015
+<item name = "Date">Wed Sep  9 01:06:20 2015
 </item>
 <item name = "Version">2014.1 (build date: Fri Apr 04 13:20:25 PM 2014)</item>
 <item name = "Project">aes_runner</item>
@@ -194,7 +194,6 @@
 <column name="tmp_15_reg_1663">8, 0, 8, 0</column>
 <column name="tmp_16_reg_1668">8, 0, 8, 0</column>
 <column name="tmp_17_reg_1673">8, 0, 8, 0</column>
-<column name="tmp_18_reg_1678">8, 0, 8, 0</column>
 <column name="tmp_26_reg_1256">1, 0, 1, 0</column>
 <column name="tmp_326_reg_1434">2, 0, 2, 0</column>
 <column name="tmp_327_reg_1444">2, 0, 2, 0</column>
@@ -203,22 +202,23 @@
 <column name="tmp_330_reg_1474">12, 0, 12, 0</column>
 <column name="tmp_331_reg_1261">8, 0, 8, 0</column>
 <column name="tmp_332_reg_1266">8, 0, 8, 0</column>
-<column name="tmp_333_reg_1527">8, 0, 8, 0</column>
-<column name="tmp_334_reg_1532">8, 0, 8, 0</column>
-<column name="tmp_335_reg_1537">8, 0, 8, 0</column>
-<column name="tmp_336_reg_1542">8, 0, 8, 0</column>
-<column name="tmp_337_reg_1547">8, 0, 8, 0</column>
+<column name="tmp_344_reg_1582">8, 0, 8, 0</column>
+<column name="tmp_345_reg_1587">8, 0, 8, 0</column>
+<column name="tmp_346_reg_1592">8, 0, 8, 0</column>
+<column name="tmp_347_reg_1597">8, 0, 8, 0</column>
+<column name="tmp_349_reg_1678">8, 0, 8, 0</column>
 <column name="tmp_35_reg_1421">1, 0, 1, 0</column>
-<column name="tmp_360_reg_1552">8, 0, 8, 0</column>
-<column name="tmp_361_reg_1557">8, 0, 8, 0</column>
-<column name="tmp_362_reg_1562">8, 0, 8, 0</column>
-<column name="tmp_363_reg_1567">8, 0, 8, 0</column>
-<column name="tmp_364_reg_1572">8, 0, 8, 0</column>
-<column name="tmp_365_reg_1577">8, 0, 8, 0</column>
-<column name="tmp_366_reg_1582">8, 0, 8, 0</column>
-<column name="tmp_367_reg_1587">8, 0, 8, 0</column>
-<column name="tmp_368_reg_1592">8, 0, 8, 0</column>
-<column name="tmp_369_reg_1597">8, 0, 8, 0</column>
+<column name="tmp_360_reg_1527">8, 0, 8, 0</column>
+<column name="tmp_361_reg_1532">8, 0, 8, 0</column>
+<column name="tmp_362_reg_1537">8, 0, 8, 0</column>
+<column name="tmp_363_reg_1542">8, 0, 8, 0</column>
+<column name="tmp_364_reg_1547">8, 0, 8, 0</column>
+<column name="tmp_365_reg_1552">8, 0, 8, 0</column>
+<column name="tmp_366_reg_1557">8, 0, 8, 0</column>
+<column name="tmp_367_reg_1562">8, 0, 8, 0</column>
+<column name="tmp_368_reg_1567">8, 0, 8, 0</column>
+<column name="tmp_369_reg_1572">8, 0, 8, 0</column>
+<column name="tmp_370_reg_1577">8, 0, 8, 0</column>
 <column name="tmp_38_reg_1425">1, 0, 1, 0</column>
 <column name="tmp_39_reg_1439">29, 0, 29, 0</column>
 <column name="tmp_40_reg_1449">31, 0, 31, 0</column>

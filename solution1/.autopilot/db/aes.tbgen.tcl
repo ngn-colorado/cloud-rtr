@@ -15,9 +15,9 @@ set C_modelArgList {
 	{ iv_V int 128 regular {axi_slave 0}  }
 	{ destinationAddress int 32 regular {axi_slave 0}  }
 	{ numBytes int 32 regular {axi_slave 0}  }
+	{ mode int 32 regular {axi_slave 0}  }
 	{ s_in_V int 8 regular {axi_s 0 volatile  { s_in_V data } }  }
 	{ s_out_V int 8 regular {axi_s 1 volatile  { s_out_V data } }  }
-	{ mode int 32 regular {axi_slave 0}  }
 }
 set C_modelArgMapList {[ 
 	{ "Name" : "m_mm2s_ctl", "interface" : "axi_master", "bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "m_mm2s_ctl","cData": "unsigned int","cArray": [{"low" : 0,"up" : 499,"step" : 1}]}]}]} , 
@@ -27,9 +27,9 @@ set C_modelArgMapList {[
  	{ "Name" : "iv_V", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 128,"bitSlice":[{"low":0,"up":127,"cElement": [{"cName": "iv.V","cData": "uint128","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}], "offset" : [{"in":52}]} , 
  	{ "Name" : "destinationAddress", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "destinationAddress","cData": "unsigned int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":72}]} , 
  	{ "Name" : "numBytes", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "numBytes","cData": "unsigned int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":80}]} , 
+ 	{ "Name" : "mode", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "mode","cData": "int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":88}]} , 
  	{ "Name" : "s_in_V", "interface" : "axis", "bitwidth" : 8,"bitSlice":[{"low":0,"up":7,"cElement": [{"cName": "s_in.V","cData": "unsigned char","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}]} , 
  	{ "Name" : "s_out_V", "interface" : "axis", "bitwidth" : 8,"bitSlice":[{"low":0,"up":7,"cElement": [{"cName": "s_out.V","cData": "unsigned char","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}]} , 
- 	{ "Name" : "mode", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "mode","cData": "int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":88}]} , 
  	{ "Name" : "ap_return", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_none","bitwidth" : 1,"bitSlice":[{"low":0,"up":0,"cElement": [{"cName": "return","cData": "","cArray": [{"low" : 0,"up" : 1,"step" : 0}]}]}], "offset" : [{"out":16}]} ]}
 # RTL Port declarations: 
 set portNum 116
@@ -143,12 +143,12 @@ set portList {
 	{ m_axi_m_s2mm_ctl_BRESP sc_in sc_lv 2 signal 1 } 
 	{ m_axi_m_s2mm_ctl_BID sc_in sc_lv 1 signal 1 } 
 	{ m_axi_m_s2mm_ctl_BUSER sc_in sc_lv 1 signal 1 } 
-	{ s_in_V_TDATA sc_in sc_lv 8 signal 7 } 
-	{ s_in_V_TVALID sc_in sc_logic 1 invld 7 } 
-	{ s_in_V_TREADY sc_out sc_logic 1 inacc 7 } 
-	{ s_out_V_TDATA sc_out sc_lv 8 signal 8 } 
-	{ s_out_V_TVALID sc_out sc_logic 1 outvld 8 } 
-	{ s_out_V_TREADY sc_in sc_logic 1 outacc 8 } 
+	{ s_in_V_TDATA sc_in sc_lv 8 signal 8 } 
+	{ s_in_V_TVALID sc_in sc_logic 1 invld 8 } 
+	{ s_in_V_TREADY sc_out sc_logic 1 inacc 8 } 
+	{ s_out_V_TDATA sc_out sc_lv 8 signal 9 } 
+	{ s_out_V_TVALID sc_out sc_logic 1 outvld 9 } 
+	{ s_out_V_TREADY sc_in sc_logic 1 outacc 9 } 
 	{ interrupt sc_out sc_logic 1 signal -1 } 
 }
 set NewPortList {[ 

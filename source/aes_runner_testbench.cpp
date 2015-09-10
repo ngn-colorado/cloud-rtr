@@ -31,9 +31,16 @@ void aestest(ap_uint<128>*, ap_uint<128>*, ap_uint<128>*);
 //		volatile unsigned, unsigned int,
 //		mem_stream&, mem_stream&);
 
+//bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
+//		volatile unsigned destinationAddress, unsigned int numBytes,
+//		mem_stream8& s_in, mem_stream8& s_out, int mode);
+
+//bool aes(volatile unsigned char ddr[0x20000000], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
+//		volatile unsigned destinationAddress, unsigned int numBytes, int mode);
+
 bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
-		volatile unsigned destinationAddress, unsigned int numBytes,
-		mem_stream8& s_in, mem_stream8& s_out, int mode);
+		volatile unsigned destinationAddress, unsigned int numBytes, int mode,
+		mem_stream8& s_in, mem_stream8& s_out);
 
 volatile unsigned char ddr[0x3000];
 volatile unsigned int mm2s[500];
@@ -140,7 +147,7 @@ int printAndCompareWriteStream16(unsigned char* compareBuffer, int numToRead){
 //		}
 	}
 
-	byteReverseBuffer16(temp, 16);
+//	byteReverseBuffer16(temp, 16);
 
 	printf("\n0x");
 	for(i=0; i<16; i++){
@@ -151,6 +158,26 @@ int printAndCompareWriteStream16(unsigned char* compareBuffer, int numToRead){
 			}
 		}
 		printf("%02X", current);
+	}
+	return incorrect;
+}
+
+int printAndCompareDdr16(unsigned char* compareBuffer, int start){
+	int i;
+	int incorrect = 0;
+	char temp[16];
+	unsigned char current;
+	for(i=0; i<16; i++){
+		temp[i] = ddr[start + i];
+	}
+//	byteReverseBuffer16(temp, 16);
+	printf("\n0x");
+	for(i=0; i<16; i++){
+		current = temp[i];
+		if(current != compareBuffer[i]){
+			incorrect++;
+		}
+		printf("%02x", current);
 	}
 	return incorrect;
 }
@@ -208,7 +235,7 @@ int run_aes_simulation(int mode, unsigned char* compare1, unsigned char* compare
 				printf("%02x", (unsigned char)tempBufIn[j]);
 			}
 //			default_iv[0]++;
-			aes(mm2s, s2mm, source, &fabric_key, &fabric_default_iv, dest, (unsigned)1, read_stream, write_stream, mode);
+			aes(mm2s, s2mm, source, &fabric_key, &fabric_default_iv, dest, (unsigned)1, mode, read_stream, write_stream);
 
 			char tempBufOut[16];
 			for(j=0; j<16; j++){
@@ -234,26 +261,37 @@ int run_aes_simulation(int mode, unsigned char* compare1, unsigned char* compare
 		print16Buffer((unsigned char*)data_to_encrypt);
 		print16Buffer((unsigned char*)data_to_encrypt2);
 	//	//reverse the input
-		byteReverseBuffer16((char*)data_to_encrypt, 16);
-		byteReverseBuffer16((char*)data_to_encrypt2, 16);
-		printf("\nReversed inputs:");
-		print16Buffer((unsigned char*)data_to_encrypt);
-		print16Buffer((unsigned char*)data_to_encrypt2);
+//		byteReverseBuffer16((char*)data_to_encrypt, 16);
+//		byteReverseBuffer16((char*)data_to_encrypt2, 16);
+//		printf("\nReversed inputs:");
+//		print16Buffer((unsigned char*)data_to_encrypt);
+//		print16Buffer((unsigned char*)data_to_encrypt2);
 		for(i=0; i<16; i++){
 			read_stream.write((unsigned char)data_to_encrypt[i]);
+//			ddr[source+i] = data_to_encrypt[i];
+//			ddr[source+i+16] = data_to_encrypt2[i];
 		}
 		for(i=0; i<16; i++){
 			read_stream.write((unsigned char)data_to_encrypt2[i]);
 		}
+		printf("\nDdr at source address:");
+		for(i=0; i<2; i++){
+			printf("\n0x");
+			for(j=0; j<16; j++){
+				printf("%02x", ddr[source + i*16 + j]);
+			}
+		}
 
-		aes(mm2s, s2mm, source, &fabric_key, &fabric_default_iv, dest, (unsigned)32, read_stream, write_stream, mode);
+		aes(mm2s, s2mm, source, &fabric_key, &fabric_default_iv, dest, (unsigned)32, mode, read_stream, write_stream);
 
 		printf("\nFabric simulation %s output:", modeStr);
+//		incorrect1 = printAndCompareDdr16(compare1, dest+0);
+//		incorrect2 = printAndCompareDdr16(compare2, dest+16);
 		incorrect1 = printAndCompareWriteStream16(compare1, 16);
 		incorrect2 = printAndCompareWriteStream16(compare2, 16);
 		//	un-reverse the input
-		byteReverseBuffer16((char*)data_to_encrypt, 16);
-		byteReverseBuffer16((char*)data_to_encrypt2, 16);
+//		byteReverseBuffer16((char*)data_to_encrypt, 16);
+//		byteReverseBuffer16((char*)data_to_encrypt2, 16);
 	}
 
 	//un-reverse key

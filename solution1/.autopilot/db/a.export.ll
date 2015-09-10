@@ -25,12 +25,12 @@ target triple = "x86_64-unknown-linux-gnu"
 @p_str1 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
 @llvm_global_ctors_0 = appending global [2 x i32] [i32 65535, i32 65535]
 @llvm_global_ctors_1 = appending global [2 x void ()*] [void ()* @_GLOBAL__I_a, void ()* @_GLOBAL__I_a14]
-@p_str5 = private unnamed_addr constant [10 x i8] c"s_axilite\00", align 1
+@p_str5 = private unnamed_addr constant [5 x i8] c"axis\00", align 1
 @p_str16 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
-@p_str27 = private unnamed_addr constant [7 x i8] c"ap_vld\00", align 1
-@p_str38 = private unnamed_addr constant [6 x i8] c"m_axi\00", align 1
-@p_str49 = private unnamed_addr constant [11 x i8] c"ap_ctrl_hs\00", align 1
-@p_str510 = private unnamed_addr constant [5 x i8] c"axis\00", align 1
+@p_str27 = private unnamed_addr constant [6 x i8] c"m_axi\00", align 1
+@p_str38 = private unnamed_addr constant [10 x i8] c"s_axilite\00", align 1
+@p_str49 = private unnamed_addr constant [7 x i8] c"ap_vld\00", align 1
+@p_str510 = private unnamed_addr constant [11 x i8] c"ap_ctrl_hs\00", align 1
 @str = internal constant [4 x i8] c"aes\00"
 
 define internal fastcc i128 @aestest(i128 %inptext_V_read, i128 %key_V_read) readnone {
@@ -2090,8 +2090,8 @@ declare void @_GLOBAL__I_a() nounwind section ".text.startup"
 
 declare void @_GLOBAL__I_a14() nounwind section ".text.startup"
 
-define i1 @aes(i32* %m_mm2s_ctl, i32* %m_s2mm_ctl, i32 %sourceAddress, i128* %key_in_V, i128* %iv_V, i32 %destinationAddress, i32 %numBytes, i8* %s_in_V, i8* %s_out_V, i32 %mode) {
-.preheader386.preheader:
+define i1 @aes(i32* %m_mm2s_ctl, i32* %m_s2mm_ctl, i32 %sourceAddress, i128* %key_in_V, i128* %iv_V, i32 %destinationAddress, i32 %numBytes, i32 %mode, i8* %s_in_V, i8* %s_out_V) {
+.preheader385.preheader:
   %rhs_V = alloca i128, align 8
   %t_V = alloca i128, align 8
   call void (...)* @_ssdm_op_SpecBitsMap(i32* %m_mm2s_ctl), !map !7
@@ -2101,9 +2101,9 @@ define i1 @aes(i32* %m_mm2s_ctl, i32* %m_s2mm_ctl, i32 %sourceAddress, i128* %ke
   call void (...)* @_ssdm_op_SpecBitsMap(i128* %iv_V), !map !29
   call void (...)* @_ssdm_op_SpecBitsMap(i32 %destinationAddress), !map !33
   call void (...)* @_ssdm_op_SpecBitsMap(i32 %numBytes), !map !37
-  call void (...)* @_ssdm_op_SpecBitsMap(i8* %s_in_V), !map !41
-  call void (...)* @_ssdm_op_SpecBitsMap(i8* %s_out_V), !map !45
-  call void (...)* @_ssdm_op_SpecBitsMap(i32 %mode), !map !49
+  call void (...)* @_ssdm_op_SpecBitsMap(i32 %mode), !map !41
+  call void (...)* @_ssdm_op_SpecBitsMap(i8* %s_in_V), !map !45
+  call void (...)* @_ssdm_op_SpecBitsMap(i8* %s_out_V), !map !49
   call void (...)* @_ssdm_op_SpecBitsMap(i1 false) nounwind, !map !53
   call void (...)* @_ssdm_op_SpecTopModule([4 x i8]* @str) nounwind
   %mode_read = call i32 @_ssdm_op_Read.ap_vld.i32(i32 %mode)
@@ -2114,24 +2114,24 @@ define i1 @aes(i32* %m_mm2s_ctl, i32* %m_s2mm_ctl, i32 %sourceAddress, i128* %ke
   %destinationAddress_assign = alloca i32, align 4
   store volatile i32 %sourceAddress_read, i32* %sourceAddress_assign, align 4
   store volatile i32 %destinationAddress_read, i32* %destinationAddress_assign, align 4
-  call void (...)* @_ssdm_op_SpecWire(i128* %iv_V, [10 x i8]* @p_str5, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i128* %iv_V, [7 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %numBytes, [10 x i8]* @p_str5, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %numBytes, [7 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %mode, [10 x i8]* @p_str5, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %mode, [7 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %destinationAddress, [10 x i8]* @p_str5, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i128* %key_in_V, [10 x i8]* @p_str5, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %sourceAddress, [10 x i8]* @p_str5, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32* %m_s2mm_ctl, [6 x i8]* @p_str38, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16)
-  call void (...)* @_ssdm_op_SpecWire(i32* %m_mm2s_ctl, [6 x i8]* @p_str38, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16)
-  call void (...)* @_ssdm_op_SpecWire(i32 0, [11 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 0, [10 x i8]* @p_str5, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i8* %s_out_V, [5 x i8]* @p_str510, i32 0, i32 0, i32 0, i32 1000, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i8* %s_in_V, [5 x i8]* @p_str510, i32 0, i32 0, i32 0, i32 1000, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %destinationAddress, [7 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i128* %key_in_V, [7 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
-  call void (...)* @_ssdm_op_SpecWire(i32 %sourceAddress, [7 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i8* %s_out_V, [5 x i8]* @p_str5, i32 0, i32 0, i32 0, i32 1000, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i8* %s_in_V, [5 x i8]* @p_str5, i32 0, i32 0, i32 0, i32 1000, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32* %m_s2mm_ctl, [6 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16)
+  call void (...)* @_ssdm_op_SpecWire(i32* %m_mm2s_ctl, [6 x i8]* @p_str27, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16)
+  call void (...)* @_ssdm_op_SpecWire(i128* %iv_V, [10 x i8]* @p_str38, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i128* %iv_V, [7 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %numBytes, [10 x i8]* @p_str38, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %numBytes, [7 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %mode, [10 x i8]* @p_str38, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %mode, [7 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %destinationAddress, [10 x i8]* @p_str38, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i128* %key_in_V, [10 x i8]* @p_str38, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %sourceAddress, [10 x i8]* @p_str38, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 0, [11 x i8]* @p_str510, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 0, [10 x i8]* @p_str38, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %destinationAddress, [7 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i128* %key_in_V, [7 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
+  call void (...)* @_ssdm_op_SpecWire(i32 %sourceAddress, [7 x i8]* @p_str49, i32 0, i32 0, i32 0, i32 0, [1 x i8]* @p_str16, [1 x i8]* @p_str16, [1 x i8]* @p_str16) nounwind
   %empty = load volatile i32* %sourceAddress_assign, align 4
   %empty_96 = load volatile i32* %destinationAddress_assign, align 4
   %tmp = call i28 @_ssdm_op_PartSelect.i28.i32.i32.i32(i32 %numBytes_read, i32 4, i32 31)
@@ -2266,21 +2266,16 @@ define i1 @aes(i32* %m_mm2s_ctl, i32* %m_s2mm_ctl, i32 %sourceAddress, i128* %ke
   %tmp_35 = icmp eq i32 %mode_read, 1
   %tmp_38 = icmp eq i32 %mode_read, 2
   store i128 0, i128* %t_V, align 8
-  br label %.preheader386
+  br label %.preheader385
 
-.preheader386:                                    ; preds = %.preheader.preheader, %.preheader386.preheader
-  %iterations = phi i29 [ %iterations_1, %.preheader.preheader ], [ 0, %.preheader386.preheader ]
+.preheader385:                                    ; preds = %.preheader.preheader, %.preheader385.preheader
+  %iterations = phi i29 [ %iterations_1, %.preheader.preheader ], [ 0, %.preheader385.preheader ]
   %empty_101 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 0, i64 268435456, i64 0)
   %exitcond = icmp eq i29 %iterations, %numIterations
   %iterations_1 = add i29 %iterations, 1
-  br i1 %exitcond, label %4, label %.preheader385.0
+  br i1 %exitcond, label %4, label %.preheader384.0
 
-.preheader385.0:                                  ; preds = %.preheader386
-  %tmp_333 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
-  %tmp_334 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
-  %tmp_335 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
-  %tmp_336 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
-  %tmp_337 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
+.preheader384.0:                                  ; preds = %.preheader385
   %tmp_360 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
   %tmp_361 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
   %tmp_362 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
@@ -2291,11 +2286,16 @@ define i1 @aes(i32* %m_mm2s_ctl, i32* %m_s2mm_ctl, i32 %sourceAddress, i128* %ke
   %tmp_367 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
   %tmp_368 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
   %tmp_369 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
+  %tmp_370 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
+  %tmp_344 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
+  %tmp_345 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
+  %tmp_346 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
+  %tmp_347 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
   %tmp_348 = call i8 @_ssdm_op_Read.axis.volatile.i8P(i8* %s_in_V)
-  %p_1_s = call i128 @_ssdm_op_BitConcatenate.i128.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8(i8 %tmp_348, i8 %tmp_369, i8 %tmp_368, i8 %tmp_367, i8 %tmp_366, i8 %tmp_365, i8 %tmp_364, i8 %tmp_363, i8 %tmp_362, i8 %tmp_361, i8 %tmp_360, i8 %tmp_337, i8 %tmp_336, i8 %tmp_335, i8 %tmp_334, i8 %tmp_333)
+  %p_1_s = call i128 @_ssdm_op_BitConcatenate.i128.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8.i8(i8 %tmp_360, i8 %tmp_361, i8 %tmp_362, i8 %tmp_363, i8 %tmp_364, i8 %tmp_365, i8 %tmp_366, i8 %tmp_367, i8 %tmp_368, i8 %tmp_369, i8 %tmp_370, i8 %tmp_344, i8 %tmp_345, i8 %tmp_346, i8 %tmp_347, i8 %tmp_348)
   br i1 %tmp_35, label %0, label %1
 
-; <label>:0                                       ; preds = %.preheader385.0
+; <label>:0                                       ; preds = %.preheader384.0
   %rhs_V_load = load i128* %rhs_V, align 8
   %t_V_load = load i128* %t_V, align 8
   %tmp_36 = icmp eq i128 %t_V_load, 0
@@ -2307,7 +2307,7 @@ define i1 @aes(i32* %m_mm2s_ctl, i32* %m_s2mm_ctl, i32 %sourceAddress, i128* %ke
   store i128 %encrypted_data_V, i128* %rhs_V, align 8
   br label %.preheader.preheader
 
-; <label>:1                                       ; preds = %.preheader385.0
+; <label>:1                                       ; preds = %.preheader384.0
   br i1 %tmp_38, label %2, label %3
 
 ; <label>:2                                       ; preds = %1
@@ -2326,23 +2326,23 @@ define i1 @aes(i32* %m_mm2s_ctl, i32* %m_s2mm_ctl, i32 %sourceAddress, i128* %ke
 
 .preheader.preheader:                             ; preds = %3, %2, %0
   %p_Val2_s = load i128* %rhs_V, align 8
+  %tmp_3 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 120, i32 127)
+  %temp_buffer_out_1 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 112, i32 119)
+  %temp_buffer_out_2 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 104, i32 111)
+  %temp_buffer_out_3 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 96, i32 103)
+  %temp_buffer_out_4 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 88, i32 95)
+  %temp_buffer_out_5 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 80, i32 87)
+  %temp_buffer_out_6 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 72, i32 79)
+  %temp_buffer_out_7 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 64, i32 71)
+  %temp_buffer_out_8 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 56, i32 63)
+  %temp_buffer_out_9 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 48, i32 55)
+  %temp_buffer_out_10 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 40, i32 47)
+  %tmp_14 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 32, i32 39)
+  %tmp_15 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 24, i32 31)
+  %tmp_16 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 16, i32 23)
+  %tmp_17 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 8, i32 15)
   %tmp_349 = trunc i128 %p_Val2_s to i8
-  %temp_buffer_out_1 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 8, i32 15)
-  %temp_buffer_out_2 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 16, i32 23)
-  %temp_buffer_out_3 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 24, i32 31)
-  %temp_buffer_out_4 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 32, i32 39)
-  %temp_buffer_out_5 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 40, i32 47)
-  %temp_buffer_out_6 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 48, i32 55)
-  %temp_buffer_out_7 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 56, i32 63)
-  %temp_buffer_out_8 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 64, i32 71)
-  %temp_buffer_out_9 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 72, i32 79)
-  %temp_buffer_out_10 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 80, i32 87)
-  %tmp_14 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 88, i32 95)
-  %tmp_15 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 96, i32 103)
-  %tmp_16 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 104, i32 111)
-  %tmp_17 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 112, i32 119)
-  %tmp_18 = call i8 @_ssdm_op_PartSelect.i8.i128.i32.i32(i128 %p_Val2_s, i32 120, i32 127)
-  call void @_ssdm_op_Write.axis.volatile.i8P(i8* %s_out_V, i8 %tmp_349)
+  call void @_ssdm_op_Write.axis.volatile.i8P(i8* %s_out_V, i8 %tmp_3)
   call void @_ssdm_op_Write.axis.volatile.i8P(i8* %s_out_V, i8 %temp_buffer_out_1)
   call void @_ssdm_op_Write.axis.volatile.i8P(i8* %s_out_V, i8 %temp_buffer_out_2)
   call void @_ssdm_op_Write.axis.volatile.i8P(i8* %s_out_V, i8 %temp_buffer_out_3)
@@ -2357,10 +2357,10 @@ define i1 @aes(i32* %m_mm2s_ctl, i32* %m_s2mm_ctl, i32 %sourceAddress, i128* %ke
   call void @_ssdm_op_Write.axis.volatile.i8P(i8* %s_out_V, i8 %tmp_15)
   call void @_ssdm_op_Write.axis.volatile.i8P(i8* %s_out_V, i8 %tmp_16)
   call void @_ssdm_op_Write.axis.volatile.i8P(i8* %s_out_V, i8 %tmp_17)
-  call void @_ssdm_op_Write.axis.volatile.i8P(i8* %s_out_V, i8 %tmp_18)
-  br label %.preheader386
+  call void @_ssdm_op_Write.axis.volatile.i8P(i8* %s_out_V, i8 %tmp_349)
+  br label %.preheader385
 
-; <label>:4                                       ; preds = %.preheader386
+; <label>:4                                       ; preds = %.preheader385
   ret i1 true
 }
 
@@ -2993,17 +2993,17 @@ declare i32 @llvm.part.set.i32.i29(i32, i29, i32, i32) nounwind readnone
 !39 = metadata !{metadata !40}
 !40 = metadata !{metadata !"numBytes", metadata !21, metadata !"unsigned int"}
 !41 = metadata !{metadata !42}
-!42 = metadata !{i32 0, i32 7, metadata !43}
+!42 = metadata !{i32 0, i32 31, metadata !43}
 !43 = metadata !{metadata !44}
-!44 = metadata !{metadata !"s_in.V", metadata !27, metadata !"unsigned char"}
+!44 = metadata !{metadata !"mode", metadata !21, metadata !"int"}
 !45 = metadata !{metadata !46}
 !46 = metadata !{i32 0, i32 7, metadata !47}
 !47 = metadata !{metadata !48}
-!48 = metadata !{metadata !"s_out.V", metadata !27, metadata !"unsigned char"}
+!48 = metadata !{metadata !"s_in.V", metadata !27, metadata !"unsigned char"}
 !49 = metadata !{metadata !50}
-!50 = metadata !{i32 0, i32 31, metadata !51}
+!50 = metadata !{i32 0, i32 7, metadata !51}
 !51 = metadata !{metadata !52}
-!52 = metadata !{metadata !"mode", metadata !21, metadata !"int"}
+!52 = metadata !{metadata !"s_out.V", metadata !27, metadata !"unsigned char"}
 !53 = metadata !{metadata !54}
 !54 = metadata !{i32 0, i32 0, metadata !55}
 !55 = metadata !{metadata !56}

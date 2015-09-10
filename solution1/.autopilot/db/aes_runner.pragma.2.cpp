@@ -38296,10 +38296,7 @@ typedef hls::stream<uint128_t> mem_stream;
 typedef unsigned char uint8_t;
 typedef hls::stream<uint8_t> mem_stream8;
 
-//I implement PKCS padding, as that seems to be what OpenSSL does. The buffers pointed to by the src and dest addresses
-//need to have enough space for the final block, else the FPGA will clobber them
-
-
+//512 MB is 0x20000000 bytes
 
 class aesl_keep_name_class {
 public:
@@ -38352,10 +38349,18 @@ inline __attribute__((always_inline)) static void aesl_keep_name_stream_s_out(hl
 
 };
 };
-# 67 "aes_runner/source/aes_runner.cpp"
+# 64 "aes_runner/source/aes_runner.cpp"
 bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
-  volatile unsigned destinationAddress, unsigned int numBytes,
-  mem_stream8& s_in, mem_stream8& s_out, int mode){_ssdm_SpecArrayDimSize(m_s2mm_ctl,500);_ssdm_SpecArrayDimSize(m_mm2s_ctl,500);::aesl_keep_name_class::aesl_keep_name_class_stream_s_out< uint8_t >::aesl_keep_name_stream_s_out(s_out);::aesl_keep_name_class::aesl_keep_name_class_stream_s_in< uint8_t >::aesl_keep_name_stream_s_in(s_in);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_iv< 128 >::aesl_keep_name_ap_uint_iv(iv);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_key_in< 128 >::aesl_keep_name_ap_uint_key_in(key_in);
+  volatile unsigned destinationAddress, unsigned int numBytes, int mode,
+  mem_stream8& s_in, mem_stream8& s_out){_ssdm_SpecArrayDimSize(m_s2mm_ctl,500);_ssdm_SpecArrayDimSize(m_mm2s_ctl,500);::aesl_keep_name_class::aesl_keep_name_class_stream_s_out< uint8_t >::aesl_keep_name_stream_s_out(s_out);::aesl_keep_name_class::aesl_keep_name_class_stream_s_in< uint8_t >::aesl_keep_name_stream_s_in(s_in);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_iv< 128 >::aesl_keep_name_ap_uint_iv(iv);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_key_in< 128 >::aesl_keep_name_ap_uint_key_in(key_in);
+_ssdm_op_SpecWire(&s_out, "axis", 0, 0, 0, 1000, "", "", "");
+
+_ssdm_op_SpecWire(&s_in, "axis", 0, 0, 0, 1000, "", "", "");
+
+_ssdm_op_SpecWire(m_s2mm_ctl, "m_axi", 0, 0, 0, 0, "", "", "");
+
+_ssdm_op_SpecWire(m_mm2s_ctl, "m_axi", 0, 0, 0, 0, "", "", "");
+
 _ssdm_op_SpecWire(iv, "s_axilite", 0, 0, 0, 0, "", "", "");
 
 _ssdm_op_SpecWire(iv, "ap_vld", 0, 0, 0, 0, "", "", "");
@@ -38374,17 +38379,9 @@ _ssdm_op_SpecWire(key_in, "s_axilite", 0, 0, 0, 0, "", "", "");
 
 _ssdm_op_SpecWire(&sourceAddress, "s_axilite", 0, 0, 0, 0, "", "", "");
 
-_ssdm_op_SpecWire(m_s2mm_ctl, "m_axi", 0, 0, 0, 0, "", "", "");
-
-_ssdm_op_SpecWire(m_mm2s_ctl, "m_axi", 0, 0, 0, 0, "", "", "");
-
 _ssdm_op_SpecWire(0, "ap_ctrl_hs", 0, 0, 0, 0, "", "", "");
 
 _ssdm_op_SpecWire(0, "s_axilite", 0, 0, 0, 0, "", "", "");
-
-_ssdm_op_SpecWire(&s_out, "axis", 0, 0, 0, 1000, "", "", "");
-
-_ssdm_op_SpecWire(&s_in, "axis", 0, 0, 0, 1000, "", "", "");
 
 _ssdm_op_SpecWire(&destinationAddress, "ap_vld", 0, 0, 0, 0, "", "", "");
 
@@ -38491,12 +38488,13 @@ _ssdm_Unroll(0,0,0, "");
   for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_1");
 _ssdm_Unroll(0,0,0, "");
  temp = s_in.read();
+//			temp = ddr[sourceAddressLocal + i];
    plaintext_buffer[i] = temp;
    temp_buffer_in[i] = temp;
   _ssdm_RegionEnd("hls_label_1");}
   for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_2");
 _ssdm_Unroll(0,0,0, "");
- temp = temp_buffer_in[15-i];
+ temp = temp_buffer_in[i];//temp_buffer_in[15-i];
    ap_uint<8> tmp(temp);
    data = data.concat(temp);
   _ssdm_RegionEnd("hls_label_2");}
@@ -38527,7 +38525,7 @@ _ssdm_Unroll(0,0,0, "");
 
   for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_3");
 _ssdm_Unroll(0,0,0, "");
- temp_buffer_out[i] = encrypted_data.range(i*8 + 7, i*8);
+ temp_buffer_out[i] = encrypted_data.range(127-i*8, (120)-i*8);//.range(i*8 + 7, i*8);
   _ssdm_RegionEnd("hls_label_3");}
 
 //		printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
@@ -38545,6 +38543,7 @@ _ssdm_Unroll(0,0,0, "");
  temp = ap_uint<8>(temp_buffer_out[i]);
 
    s_out.write(temp);
+//			ddr[destinationAddressLocal + i] = temp;
   _ssdm_RegionEnd("hls_label_4");}
 
   remainingBytes -= 16;
