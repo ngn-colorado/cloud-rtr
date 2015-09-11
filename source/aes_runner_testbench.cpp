@@ -40,7 +40,7 @@ void aestest(ap_uint<128>*, ap_uint<128>*, ap_uint<128>*);
 
 bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
 		volatile unsigned destinationAddress, unsigned int numBytes, int mode,
-		mem_stream8& s_in, mem_stream8& s_out);
+		mem_stream& s_in, mem_stream& s_out);
 
 volatile unsigned char ddr[0x3000];
 volatile unsigned int mm2s[500];
@@ -69,8 +69,8 @@ unsigned char encrypted_data3[1024];
 volatile ap_uint<128> fabric_dest_test(0);
 
 volatile bool finished;
-mem_stream8 read_stream;
-mem_stream8 write_stream;
+mem_stream read_stream;
+mem_stream write_stream;
 
 void clearStreams(){
 	while(!read_stream.empty()){
@@ -137,17 +137,19 @@ int printAndCompareWriteStream16(unsigned char* compareBuffer, int numToRead){
 	int incorrect = 0;
 	unsigned char current;
 
+	ap_uint<128> cur = write_stream.read();
 	char temp[16];
 	for(i=0; i<16; i++){
 //		if(i<numToRead){
-			current = write_stream.read();
+//			current = write_stream.read();
+			current = cur.range(i*8 + 7, i*8);
 			temp[i] = current;
 //		} else{
 //			temp[i] = 0;
 //		}
 	}
 
-//	byteReverseBuffer16(temp, 16);
+	byteReverseBuffer16(temp, 16);
 
 	printf("\n0x");
 	for(i=0; i<16; i++){
@@ -219,37 +221,37 @@ int run_aes_simulation(int mode, unsigned char* compare1, unsigned char* compare
 			outBuf[j] = 0;
 		}
 		for(i=0; i<16; i++){
-			clearStreams();
-			//need to put data into the stream starting at the point we want to encrypt
-			char tempBufIn[16];
-			printf("\n\n------------------\nCurrent original input:\n0x");
-			for(j=0; j<16; j++){
-//				read_stream.write((unsigned char)incrModeBuf[j+i]);
-				tempBufIn[j] = incrModeBuf[j+i];
-				printf("%02X", (unsigned char)tempBufIn[j]);
-			}
-			byteReverseBuffer16(tempBufIn, 16);
-			printf("\nCurrent input:\n0x");
-			for(j=0; j<16; j++){
-				read_stream.write(tempBufIn[j]);
-				printf("%02x", (unsigned char)tempBufIn[j]);
-			}
-//			default_iv[0]++;
-			aes(mm2s, s2mm, source, &fabric_key, &fabric_default_iv, dest, (unsigned)1, mode, read_stream, write_stream);
-
-			char tempBufOut[16];
-			for(j=0; j<16; j++){
-				tempBufOut[j] = (unsigned char)write_stream.read();
-			}
-			byteReverseBuffer16(tempBufOut, 16);
-			for(j=0; j<16; j++){
-				outBuf[j+i] = tempBufOut[j];
-			}
-			printf("\nFabric simulation %s output:", modeStr);
-			printf("\n0x");
-			for(j=0; j<16; j++){
-				printf("%02x", (unsigned char)tempBufOut[j]);//outBuf[j+i]);
-			}
+//			clearStreams();
+//			//need to put data into the stream starting at the point we want to encrypt
+//			char tempBufIn[16];
+//			printf("\n\n------------------\nCurrent original input:\n0x");
+//			for(j=0; j<16; j++){
+////				read_stream.write((unsigned char)incrModeBuf[j+i]);
+//				tempBufIn[j] = incrModeBuf[j+i];
+//				printf("%02X", (unsigned char)tempBufIn[j]);
+//			}
+//			byteReverseBuffer16(tempBufIn, 16);
+//			printf("\nCurrent input:\n0x");
+//			for(j=0; j<16; j++){
+//				read_stream.write(tempBufIn[j]);
+//				printf("%02x", (unsigned char)tempBufIn[j]);
+//			}
+////			default_iv[0]++;
+//			aes(mm2s, s2mm, source, &fabric_key, &fabric_default_iv, dest, (unsigned)1, mode, read_stream, write_stream);
+//
+//			char tempBufOut[16];
+//			for(j=0; j<16; j++){
+//				tempBufOut[j] = (unsigned char)write_stream.read();
+//			}
+//			byteReverseBuffer16(tempBufOut, 16);
+//			for(j=0; j<16; j++){
+//				outBuf[j+i] = tempBufOut[j];
+//			}
+//			printf("\nFabric simulation %s output:", modeStr);
+//			printf("\n0x");
+//			for(j=0; j<16; j++){
+//				printf("%02x", (unsigned char)tempBufOut[j]);//outBuf[j+i]);
+//			}
 //			incorrect1 = printAndCompareWriteStream16(compare1, 16);
 //			incorrect2 = printAndCompareWriteStream16(compare2, 1);
 		}
@@ -266,14 +268,16 @@ int run_aes_simulation(int mode, unsigned char* compare1, unsigned char* compare
 //		printf("\nReversed inputs:");
 //		print16Buffer((unsigned char*)data_to_encrypt);
 //		print16Buffer((unsigned char*)data_to_encrypt2);
-		for(i=0; i<16; i++){
-			read_stream.write((unsigned char)data_to_encrypt[i]);
-//			ddr[source+i] = data_to_encrypt[i];
-//			ddr[source+i+16] = data_to_encrypt2[i];
-		}
-		for(i=0; i<16; i++){
-			read_stream.write((unsigned char)data_to_encrypt2[i]);
-		}
+//		for(i=0; i<16; i++){
+//			read_stream.write((unsigned char)data_to_encrypt[i]);
+////			ddr[source+i] = data_to_encrypt[i];
+////			ddr[source+i+16] = data_to_encrypt2[i];
+//		}
+//		for(i=0; i<16; i++){
+//			read_stream.write((unsigned char)data_to_encrypt2[i]);
+//		}
+		read_stream.write(data_to_encrypt_fabric);
+		read_stream.write(data_to_encrypt_fabric2);
 		printf("\nDdr at source address:");
 		for(i=0; i<2; i++){
 			printf("\n0x");

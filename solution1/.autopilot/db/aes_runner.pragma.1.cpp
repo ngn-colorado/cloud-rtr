@@ -37795,6 +37795,9 @@ struct ap_uint: ap_int_base<_AP_W, false> {
 
 friend class ::aesl_keep_name_class;
 #234 "/Xilinx/Vivado_HLS/2014.1/common/technology/autopilot/ap_int.h"
+
+friend class ::aesl_keep_name_class;
+#234 "/Xilinx/Vivado_HLS/2014.1/common/technology/autopilot/ap_int.h"
 };
 
 
@@ -38348,20 +38351,44 @@ inline __attribute__((always_inline)) static void aesl_keep_name_ssdm_int_iv(ssd
 template< typename __STREAM_T__ >
 class aesl_keep_name_class_stream_s_in{ 
 public: 
-inline __attribute__((always_inline)) static void aesl_keep_name_stream_s_in(hls::stream< uint8_t >& s_in) {SSDM_KEEP_name(s_in.V, &s_in.V); }
+inline __attribute__((always_inline)) static void aesl_keep_name_stream_s_in(hls::stream< ap_uint< 128 > >& s_in) {aesl_keep_name_class_ap_int_base_ap_uint_s_in_V< 128 >::aesl_keep_name_ap_int_base_s_in_V(&s_in.V);}
+
+};
+template< int _AP_W >
+class aesl_keep_name_class_ap_int_base_ap_uint_s_in_V{ 
+public: 
+inline __attribute__((always_inline)) static void aesl_keep_name_ap_int_base_s_in_V(ap_int_base< _AP_W, false >* s_in_V) {aesl_keep_name_class_ssdm_int_ap_int_base_s_in_V< _AP_W, false >::aesl_keep_name_ssdm_int_s_in_V(s_in_V);}
+
+};
+template< int _AP_W, bool _AP_S >
+class aesl_keep_name_class_ssdm_int_ap_int_base_s_in_V{ 
+public: 
+inline __attribute__((always_inline)) static void aesl_keep_name_ssdm_int_s_in_V(ssdm_int< _AP_W, _AP_S >* s_in_V) {SSDM_KEEP_name(s_in.V.V, &s_in_V->V); }
 
 };
 template< typename __STREAM_T__ >
 class aesl_keep_name_class_stream_s_out{ 
 public: 
-inline __attribute__((always_inline)) static void aesl_keep_name_stream_s_out(hls::stream< uint8_t >& s_out) {SSDM_KEEP_name(s_out.V, &s_out.V); }
+inline __attribute__((always_inline)) static void aesl_keep_name_stream_s_out(hls::stream< ap_uint< 128 > >& s_out) {aesl_keep_name_class_ap_int_base_ap_uint_s_out_V< 128 >::aesl_keep_name_ap_int_base_s_out_V(&s_out.V);}
+
+};
+template< int _AP_W >
+class aesl_keep_name_class_ap_int_base_ap_uint_s_out_V{ 
+public: 
+inline __attribute__((always_inline)) static void aesl_keep_name_ap_int_base_s_out_V(ap_int_base< _AP_W, false >* s_out_V) {aesl_keep_name_class_ssdm_int_ap_int_base_s_out_V< _AP_W, false >::aesl_keep_name_ssdm_int_s_out_V(s_out_V);}
+
+};
+template< int _AP_W, bool _AP_S >
+class aesl_keep_name_class_ssdm_int_ap_int_base_s_out_V{ 
+public: 
+inline __attribute__((always_inline)) static void aesl_keep_name_ssdm_int_s_out_V(ssdm_int< _AP_W, _AP_S >* s_out_V) {SSDM_KEEP_name(s_out.V.V, &s_out_V->V); }
 
 };
 };
 #64 "aes_runner/source/aes_runner.cpp"
 bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
   volatile unsigned destinationAddress, unsigned int numBytes, int mode,
-  mem_stream8& s_in, mem_stream8& s_out){_ssdm_SpecArrayDimSize(m_s2mm_ctl,500);_ssdm_SpecArrayDimSize(m_mm2s_ctl,500);::aesl_keep_name_class::aesl_keep_name_class_stream_s_out< uint8_t >::aesl_keep_name_stream_s_out(s_out);::aesl_keep_name_class::aesl_keep_name_class_stream_s_in< uint8_t >::aesl_keep_name_stream_s_in(s_in);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_iv< 128 >::aesl_keep_name_ap_uint_iv(iv);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_key_in< 128 >::aesl_keep_name_ap_uint_key_in(key_in);
+  mem_stream& s_in, mem_stream& s_out){_ssdm_SpecArrayDimSize(m_s2mm_ctl,500);_ssdm_SpecArrayDimSize(m_mm2s_ctl,500);::aesl_keep_name_class::aesl_keep_name_class_stream_s_out< ap_uint< 128 > >::aesl_keep_name_stream_s_out(s_out);::aesl_keep_name_class::aesl_keep_name_class_stream_s_in< ap_uint< 128 > >::aesl_keep_name_stream_s_in(s_in);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_iv< 128 >::aesl_keep_name_ap_uint_iv(iv);::aesl_keep_name_class::aesl_keep_name_class_ap_uint_key_in< 128 >::aesl_keep_name_ap_uint_key_in(key_in);
 _ssdm_op_SpecWire(&s_out, "axis", 0, 0, 0, 1000, "", "", "");
 
 _ssdm_op_SpecWire(&s_in, "axis", 0, 0, 0, 1000, "", "", "");
@@ -38488,25 +38515,26 @@ _ssdm_Unroll(0,0,0, "");
 //		}
   //Need to pull out the 16 input bytes from the stream and place them in the correct place.
    //first, loop through and concatenate them onto the variable
-  ap_uint<128> data(0); //s_in.read();
-  ap_uint<8> tempData[16];
+  ap_uint<128> data = s_in.read();//(0); //s_in.read();
+//		ap_uint<8> tempData[16];
 
 
   //read them in and put into the byte-reversed position. if on the last cell that needs padding,
   //only read in the number of bytes that are left to encrypt
-  for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_1");
-_ssdm_Unroll(0,0,0, "");
- temp = s_in.read();
-//			temp = ddr[sourceAddressLocal + i];
-   plaintext_buffer[i] = temp;
-   temp_buffer_in[i] = temp;
-  _ssdm_RegionEnd("hls_label_1");}
-  for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_2");
-_ssdm_Unroll(0,0,0, "");
- temp = temp_buffer_in[i];//temp_buffer_in[15-i];
-   ap_uint<8> tmp(temp);
-   data = data.concat(temp);
-  _ssdm_RegionEnd("hls_label_2");}
+//		for(i=0; i<16; i++){
+//#pragma HLS UNROLL
+//			temp = s_in.read();
+////			temp = ddr[sourceAddressLocal + i];
+//			plaintext_buffer[i] = temp;
+//			temp_buffer_in[i] = temp;
+//		}
+//		for(i=0; i<16; i++){
+//#pragma HLS UNROLL
+//			temp = temp_buffer_in[i];//temp_buffer_in[15-i];
+//			ap_uint<8> tmp(temp);
+//			data = data.concat(temp);
+//		}
+
 //		printf("\nFabric data final:   %s", ((ap_uint<128>)data).to_string().c_str());
 
   /*
@@ -38532,10 +38560,10 @@ _ssdm_Unroll(0,0,0, "");
    aestest(&data, &key_local, &encrypted_data);
   }
 
-  for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_3");
-_ssdm_Unroll(0,0,0, "");
- temp_buffer_out[i] = encrypted_data.range(127-i*8, (120)-i*8);//.range(i*8 + 7, i*8);
-  _ssdm_RegionEnd("hls_label_3");}
+//		for(i=0; i<16; i++){
+//#pragma HLS UNROLL
+//			temp_buffer_out[i] = encrypted_data.range(127-i*8, (120)-i*8);//.range(i*8 + 7, i*8);
+//		}
 
 //		printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
 //		char current = 0;
@@ -38547,13 +38575,14 @@ _ssdm_Unroll(0,0,0, "");
   //s_out.write(encrypted_data);
 
   //Now need to write them out in reverse order
-  for(i=0; i<16; i++){_ssdm_RegionBegin("hls_label_4");
-_ssdm_Unroll(0,0,0, "");
- temp = ap_uint<8>(temp_buffer_out[i]);
-
-   s_out.write(temp);
-//			ddr[destinationAddressLocal + i] = temp;
-  _ssdm_RegionEnd("hls_label_4");}
+//		for(i=0; i<16; i++){
+//#pragma HLS UNROLL
+//			temp = ap_uint<8>(temp_buffer_out[i]);
+//
+//			s_out.write(temp);
+////			ddr[destinationAddressLocal + i] = temp;
+//		}
+  s_out.write(encrypted_data);
 
   remainingBytes -= 16;
   sourceAddressLocal += 16;
