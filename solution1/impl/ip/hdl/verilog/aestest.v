@@ -1776,7 +1776,7 @@ wire   [63:0] tmp_s_fu_11879_p1;
 wire   [63:0] tmp_4_fu_11884_p1;
 wire   [7:0] p_Result_s_fu_2377_p4;
 wire   [7:0] p_Result_1_fu_2387_p4;
-wire   [7:0] p_Result_s_95_fu_2397_p4;
+wire   [7:0] p_Result_s_77_fu_2397_p4;
 wire   [7:0] p_Result_2_fu_2417_p4;
 wire   [7:0] p_Result_3_fu_2437_p4;
 wire   [7:0] p_Result_4_fu_2457_p4;
@@ -6736,7 +6736,7 @@ assign p_Result_6_fu_2497_p4 = {{inptext_V_read[ap_const_lv32_4F : ap_const_lv32
 assign p_Result_7_fu_2517_p4 = {{inptext_V_read[ap_const_lv32_47 : ap_const_lv32_40]}};
 assign p_Result_8_fu_2537_p4 = {{inptext_V_read[ap_const_lv32_3F : ap_const_lv32_38]}};
 assign p_Result_9_fu_2557_p4 = {{inptext_V_read[ap_const_lv32_37 : ap_const_lv32_30]}};
-assign p_Result_s_95_fu_2397_p4 = {{inptext_V_read[ap_const_lv32_77 : ap_const_lv32_70]}};
+assign p_Result_s_77_fu_2397_p4 = {{inptext_V_read[ap_const_lv32_77 : ap_const_lv32_70]}};
 assign p_Result_s_fu_2377_p4 = {{inptext_V_read[ap_const_lv32_7F : ap_const_lv32_78]}};
 assign rv_10_0_1_fu_3169_p2 = (tmp_51_fu_3155_p2 ^ ap_const_lv8_1B);
 assign rv_10_0_2_fu_3554_p2 = (tmp_59_fu_3540_p2 ^ ap_const_lv8_1B);
@@ -8121,7 +8121,7 @@ assign tmp_6_11_fu_2757_p2 = (p_Result_12_fu_2617_p4 ^ p_Result_1_11_fu_2627_p4)
 assign tmp_6_12_fu_2763_p2 = (p_Result_13_fu_2637_p4 ^ p_Result_1_12_fu_2647_p4);
 assign tmp_6_13_fu_2769_p2 = (p_Result_14_fu_2657_p4 ^ p_Result_1_13_fu_2667_p4);
 assign tmp_6_14_fu_2775_p2 = (tmp_5_fu_2677_p1 ^ tmp_6_fu_2681_p1);
-assign tmp_6_1_fu_2691_p2 = (p_Result_s_95_fu_2397_p4 ^ p_Result_1_1_fu_2407_p4);
+assign tmp_6_1_fu_2691_p2 = (p_Result_s_77_fu_2397_p4 ^ p_Result_1_1_fu_2407_p4);
 assign tmp_6_2_fu_2697_p2 = (p_Result_2_fu_2417_p4 ^ p_Result_1_2_fu_2427_p4);
 assign tmp_6_3_fu_2703_p2 = (p_Result_3_fu_2437_p4 ^ p_Result_1_3_fu_2447_p4);
 assign tmp_6_4_fu_2709_p2 = (p_Result_4_fu_2457_p4 ^ p_Result_1_4_fu_2467_p4);

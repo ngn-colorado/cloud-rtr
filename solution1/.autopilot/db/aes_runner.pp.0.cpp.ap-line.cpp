@@ -38283,11 +38283,6 @@ bool aes(volatile unsigned char ddr[0x20000000], volatile unsigned sourceAddress
   volatile unsigned destinationAddress, unsigned int numBytes, int mode){
 #pragma HLS INTERFACE m_axi port=ddr
 #pragma empty_line
-#pragma empty_line
-#pragma HLS INTERFACE axis depth=1000 port=s_in
-#pragma empty_line
-#pragma empty_line
-#pragma empty_line
 #pragma HLS INTERFACE s_axilite port=iv
 #pragma empty_line
 #pragma HLS INTERFACE ap_vld port=iv
