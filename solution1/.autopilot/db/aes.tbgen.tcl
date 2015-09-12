@@ -30,7 +30,7 @@ set C_modelArgMapList {[
  	{ "Name" : "mode", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "mode","cData": "int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":88}]} , 
  	{ "Name" : "s_in_V_V", "interface" : "axis", "bitwidth" : 128,"bitSlice":[{"low":0,"up":127,"cElement": [{"cName": "s_in.V.V","cData": "uint128","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}]} , 
  	{ "Name" : "s_out_V_V", "interface" : "axis", "bitwidth" : 128,"bitSlice":[{"low":0,"up":127,"cElement": [{"cName": "s_out.V.V","cData": "uint128","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}]} , 
- 	{ "Name" : "ap_return", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_none","bitwidth" : 1,"bitSlice":[{"low":0,"up":0,"cElement": [{"cName": "return","cData": "bool","cArray": [{"low" : 0,"up" : 1,"step" : 0}]}]}], "offset" : [{"out":16}]} ]}
+ 	{ "Name" : "ap_return", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_none","bitwidth" : 1,"bitSlice":[{"low":0,"up":0,"cElement": [{"cName": "return","cData": "","cArray": [{"low" : 0,"up" : 1,"step" : 0}]}]}], "offset" : [{"out":16}]} ]}
 # RTL Port declarations: 
 set portNum 116
 set portList { 

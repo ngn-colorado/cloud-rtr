@@ -81,6 +81,19 @@ void clearStreams(){
 	}
 }
 
+ap_uint<128> reverse128ApUint(ap_uint<128> in){
+	ap_uint<8> temp;
+	ap_uint<128> out;
+	int i;
+//	printf("\nReverse input:\t\t%s", in.to_string().c_str());
+	for(i=0; i<16; i++){
+		temp = in.range(i*8 + 7, i*8);
+		out = out.concat(temp);
+	}
+//	printf("\nReversed output:\t%s", out.to_string().c_str());
+	return out;
+}
+
 //borrowed from my aes library code
 void byteReverseBuffer16(char* buffer, int length){
 	int i, j, tmp, iterLen, bufferIndex;
@@ -138,18 +151,20 @@ int printAndCompareWriteStream16(unsigned char* compareBuffer, int numToRead){
 	unsigned char current;
 
 	ap_uint<128> cur = write_stream.read();
+	cur = reverse128ApUint(cur);
 	char temp[16];
 	for(i=0; i<16; i++){
 //		if(i<numToRead){
 //			current = write_stream.read();
-			current = cur.range(i*8 + 7, i*8);
+//			current = cur.range(i*8 + 7, i*8);
+			current = cur.range(127-i*8, 120-i*8);
 			temp[i] = current;
 //		} else{
 //			temp[i] = 0;
 //		}
 	}
 
-	byteReverseBuffer16(temp, 16);
+//	byteReverseBuffer16(temp, 16);
 
 	printf("\n0x");
 	for(i=0; i<16; i++){
@@ -198,10 +213,10 @@ int run_aes_simulation(int mode, unsigned char* compare1, unsigned char* compare
 
 	//reverse key
 //	byteReverseBuffer16((char*)key, 16);
-	printf("\nOriginal Fabric key:");
+//	printf("\nOriginal Fabric key:");
 	printFabricKey();
 	reverseFabricKey();
-	printf("\nReversed Fabric key:");
+//	printf("\nReversed Fabric key:");
 	printFabricKey();
 
 	int len, incorrect1, incorrect2;
@@ -276,15 +291,15 @@ int run_aes_simulation(int mode, unsigned char* compare1, unsigned char* compare
 //		for(i=0; i<16; i++){
 //			read_stream.write((unsigned char)data_to_encrypt2[i]);
 //		}
-		read_stream.write(data_to_encrypt_fabric);
-		read_stream.write(data_to_encrypt_fabric2);
-		printf("\nDdr at source address:");
-		for(i=0; i<2; i++){
-			printf("\n0x");
-			for(j=0; j<16; j++){
-				printf("%02x", ddr[source + i*16 + j]);
-			}
-		}
+		read_stream.write(reverse128ApUint(data_to_encrypt_fabric));
+		read_stream.write(reverse128ApUint(data_to_encrypt_fabric2));
+//		printf("\nDdr at source address:");
+//		for(i=0; i<2; i++){
+//			printf("\n0x");
+//			for(j=0; j<16; j++){
+//				printf("%02x", ddr[source + i*16 + j]);
+//			}
+//		}
 
 		aes(mm2s, s2mm, source, &fabric_key, &fabric_default_iv, dest, (unsigned)32, mode, read_stream, write_stream);
 

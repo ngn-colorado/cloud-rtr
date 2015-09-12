@@ -35,7 +35,7 @@ set SCTraceFileName "mytrace"
 set SCTraceFileFormat "vcd"
 set SCTraceOption "all"
 set TargetInfo "xc7z020:clg484:-1"
-set SourceFiles {sc {} c {../source/aes_runner.cpp ../source/aes.cpp}}
+set SourceFiles {sc {} c {../source/aes.cpp ../source/aes_runner.cpp}}
 set SourceFlags {sc {} c {{} {}}}
 set DirectiveFile {/Xilinx/aes_runner/solution1/solution1.directive}
 set TBFiles {verilog ../source/aes_runner_testbench.cpp bc ../source/aes_runner_testbench.cpp vhdl ../source/aes_runner_testbench.cpp sc ../source/aes_runner_testbench.cpp cas ../source/aes_runner_testbench.cpp c {}}

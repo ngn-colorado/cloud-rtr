@@ -38408,19 +38408,22 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 //		}
   //Need to pull out the 16 input bytes from the stream and place them in the correct place.
    //first, loop through and concatenate them onto the variable
-  ap_uint<128> data = s_in.read();//(0); //s_in.read();
+  ap_uint<128> data1 = s_in.read();//(0); //s_in.read();
+  ap_uint<128> data(0);
 //		ap_uint<8> tempData[16];
 #pragma empty_line
 #pragma empty_line
   //read them in and put into the byte-reversed position. if on the last cell that needs padding,
   //only read in the number of bytes that are left to encrypt
-//		for(i=0; i<16; i++){
-//#pragma HLS UNROLL
+  for(i=0; i<16; i++){
+#pragma HLS UNROLL
+ temp = data1.range(i*8+7, i*8);//range(127-i*8, 120-i*8);
 //			temp = s_in.read();
-////			temp = ddr[sourceAddressLocal + i];
+//			temp = ddr[sourceAddressLocal + i];
 //			plaintext_buffer[i] = temp;
 //			temp_buffer_in[i] = temp;
-//		}
+   data = data.concat(temp);
+  }
 //		for(i=0; i<16; i++){
 //#pragma HLS UNROLL
 //			temp = temp_buffer_in[i];//temp_buffer_in[15-i];
@@ -38453,10 +38456,13 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
    aestest(&data, &key_local, &encrypted_data);
   }
 #pragma empty_line
-//		for(i=0; i<16; i++){
-//#pragma HLS UNROLL
-//			temp_buffer_out[i] = encrypted_data.range(127-i*8, (120)-i*8);//.range(i*8 + 7, i*8);
-//		}
+  ap_uint<128> encrypted_data1;
+  for(i=0; i<16; i++){
+#pragma HLS UNROLL
+ //temp_buffer_out[i] = encrypted_data.range(127-i*8, (120)-i*8);//.range(i*8 + 7, i*8);
+   temp = encrypted_data.range(i*8+7, i*8);
+   encrypted_data1 = encrypted_data1.concat(temp);
+  }
 #pragma empty_line
 //		printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
 //		char current = 0;
@@ -38475,7 +38481,7 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 //			s_out.write(temp);
 ////			ddr[destinationAddressLocal + i] = temp;
 //		}
-  s_out.write(encrypted_data);
+  s_out.write(encrypted_data1);
 #pragma empty_line
   remainingBytes -= 16;
   sourceAddressLocal += 16;
