@@ -123,7 +123,7 @@ eval "::AESL_LIB_XILADAPTER::native_axis_add { \
     corename {} \
     metadata {  } \
     op interface \
-    ports { s_in_V_V_TDATA { I 128 vector } s_in_V_V_TVALID { I 1 bit } s_in_V_V_TREADY { O 1 bit } } \
+    ports { s_in_V_V_TDATA { I 32 vector } s_in_V_V_TVALID { I 1 bit } s_in_V_V_TREADY { O 1 bit } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 's_in_V_V'"
@@ -142,7 +142,7 @@ eval "::AESL_LIB_XILADAPTER::native_axis_add { \
     corename {} \
     metadata {  } \
     op interface \
-    ports { s_out_V_V_TDATA { O 128 vector } s_out_V_V_TVALID { O 1 bit } s_out_V_V_TREADY { I 1 bit } } \
+    ports { s_out_V_V_TDATA { O 32 vector } s_out_V_V_TVALID { O 1 bit } s_out_V_V_TREADY { I 1 bit } } \
 } "
 } else {
 puts "@W \[IMPL-110\] Cannot find bus interface model in the library. Ignored generation of bus interface for 's_out_V_V'"

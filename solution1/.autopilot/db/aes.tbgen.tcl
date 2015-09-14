@@ -16,8 +16,8 @@ set C_modelArgList {
 	{ destinationAddress int 32 regular {axi_slave 0}  }
 	{ numBytes int 32 regular {axi_slave 0}  }
 	{ mode int 32 regular {axi_slave 0}  }
-	{ s_in_V_V int 128 regular {axi_s 0 volatile  { s_in_V_V data } }  }
-	{ s_out_V_V int 128 regular {axi_s 1 volatile  { s_out_V_V data } }  }
+	{ s_in_V_V int 32 regular {axi_s 0 volatile  { s_in_V_V data } }  }
+	{ s_out_V_V int 32 regular {axi_s 1 volatile  { s_out_V_V data } }  }
 }
 set C_modelArgMapList {[ 
 	{ "Name" : "m_mm2s_ctl", "interface" : "axi_master", "bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "m_mm2s_ctl","cData": "unsigned int","cArray": [{"low" : 0,"up" : 499,"step" : 1}]}]}]} , 
@@ -28,9 +28,9 @@ set C_modelArgMapList {[
  	{ "Name" : "destinationAddress", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "destinationAddress","cData": "unsigned int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":72}]} , 
  	{ "Name" : "numBytes", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "numBytes","cData": "unsigned int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":80}]} , 
  	{ "Name" : "mode", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_vld","bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "mode","cData": "int","cArray": [{"low" : 0,"up" : 0,"step" : 0}]}]}], "offset" : [{"in":88}]} , 
- 	{ "Name" : "s_in_V_V", "interface" : "axis", "bitwidth" : 128,"bitSlice":[{"low":0,"up":127,"cElement": [{"cName": "s_in.V.V","cData": "uint128","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}]} , 
- 	{ "Name" : "s_out_V_V", "interface" : "axis", "bitwidth" : 128,"bitSlice":[{"low":0,"up":127,"cElement": [{"cName": "s_out.V.V","cData": "uint128","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}]} , 
- 	{ "Name" : "ap_return", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_none","bitwidth" : 1,"bitSlice":[{"low":0,"up":0,"cElement": [{"cName": "return","cData": "","cArray": [{"low" : 0,"up" : 1,"step" : 0}]}]}], "offset" : [{"out":16}]} ]}
+ 	{ "Name" : "s_in_V_V", "interface" : "axis", "bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "s_in.V.V","cData": "uint32","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}]} , 
+ 	{ "Name" : "s_out_V_V", "interface" : "axis", "bitwidth" : 32,"bitSlice":[{"low":0,"up":31,"cElement": [{"cName": "s_out.V.V","cData": "uint32","cArray": [{"low" : 0,"up" : 0,"step" : 1}]}]}]} , 
+ 	{ "Name" : "ap_return", "interface" : "axi_slave", "bundle":"AXILiteS","type":"ap_none","bitwidth" : 1,"bitSlice":[{"low":0,"up":0,"cElement": [{"cName": "return","cData": "bool","cArray": [{"low" : 0,"up" : 1,"step" : 0}]}]}], "offset" : [{"out":16}]} ]}
 # RTL Port declarations: 
 set portNum 116
 set portList { 
@@ -143,10 +143,10 @@ set portList {
 	{ m_axi_m_s2mm_ctl_BRESP sc_in sc_lv 2 signal 1 } 
 	{ m_axi_m_s2mm_ctl_BID sc_in sc_lv 1 signal 1 } 
 	{ m_axi_m_s2mm_ctl_BUSER sc_in sc_lv 1 signal 1 } 
-	{ s_in_V_V_TDATA sc_in sc_lv 128 signal 8 } 
+	{ s_in_V_V_TDATA sc_in sc_lv 32 signal 8 } 
 	{ s_in_V_V_TVALID sc_in sc_logic 1 invld 8 } 
 	{ s_in_V_V_TREADY sc_out sc_logic 1 inacc 8 } 
-	{ s_out_V_V_TDATA sc_out sc_lv 128 signal 9 } 
+	{ s_out_V_V_TDATA sc_out sc_lv 32 signal 9 } 
 	{ s_out_V_V_TVALID sc_out sc_logic 1 outvld 9 } 
 	{ s_out_V_V_TREADY sc_in sc_logic 1 outacc 9 } 
 	{ interrupt sc_out sc_logic 1 signal -1 } 
@@ -261,18 +261,18 @@ set NewPortList {[
  	{ "name": "m_axi_m_s2mm_ctl_BRESP", "direction": "in", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "m_s2mm_ctl", "role": "BRESP" }} , 
  	{ "name": "m_axi_m_s2mm_ctl_BID", "direction": "in", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "m_s2mm_ctl", "role": "BID" }} , 
  	{ "name": "m_axi_m_s2mm_ctl_BUSER", "direction": "in", "datatype": "sc_lv", "bitwidth":1, "type": "signal", "bundle":{"name": "m_s2mm_ctl", "role": "BUSER" }} , 
- 	{ "name": "s_in_V_V_TDATA", "direction": "in", "datatype": "sc_lv", "bitwidth":128, "type": "signal", "bundle":{"name": "s_in_V_V", "role": "TDATA" }} , 
+ 	{ "name": "s_in_V_V_TDATA", "direction": "in", "datatype": "sc_lv", "bitwidth":32, "type": "signal", "bundle":{"name": "s_in_V_V", "role": "TDATA" }} , 
  	{ "name": "s_in_V_V_TVALID", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "invld", "bundle":{"name": "s_in_V_V", "role": "TVALID" }} , 
  	{ "name": "s_in_V_V_TREADY", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "inacc", "bundle":{"name": "s_in_V_V", "role": "TREADY" }} , 
- 	{ "name": "s_out_V_V_TDATA", "direction": "out", "datatype": "sc_lv", "bitwidth":128, "type": "signal", "bundle":{"name": "s_out_V_V", "role": "TDATA" }} , 
+ 	{ "name": "s_out_V_V_TDATA", "direction": "out", "datatype": "sc_lv", "bitwidth":32, "type": "signal", "bundle":{"name": "s_out_V_V", "role": "TDATA" }} , 
  	{ "name": "s_out_V_V_TVALID", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "outvld", "bundle":{"name": "s_out_V_V", "role": "TVALID" }} , 
  	{ "name": "s_out_V_V_TREADY", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "outacc", "bundle":{"name": "s_out_V_V", "role": "TREADY" }} , 
  	{ "name": "interrupt", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "interrupt", "role": "default" }}  ]}
 set Spec2ImplPortList { 
 	m_mm2s_ctl { m_axi {  { m_axi_m_mm2s_ctl_AWVALID VALID 1 1 }  { m_axi_m_mm2s_ctl_AWREADY READY 0 1 }  { m_axi_m_mm2s_ctl_AWADDR ADDR 1 32 }  { m_axi_m_mm2s_ctl_AWID ID 1 1 }  { m_axi_m_mm2s_ctl_AWLEN LEN 1 8 }  { m_axi_m_mm2s_ctl_AWSIZE SIZE 1 3 }  { m_axi_m_mm2s_ctl_AWBURST BURST 1 2 }  { m_axi_m_mm2s_ctl_AWLOCK LOCK 1 2 }  { m_axi_m_mm2s_ctl_AWCACHE CACHE 1 4 }  { m_axi_m_mm2s_ctl_AWPROT PROT 1 3 }  { m_axi_m_mm2s_ctl_AWQOS QOS 1 4 }  { m_axi_m_mm2s_ctl_AWREGION REGION 1 4 }  { m_axi_m_mm2s_ctl_AWUSER USER 1 1 }  { m_axi_m_mm2s_ctl_WVALID VALID 1 1 }  { m_axi_m_mm2s_ctl_WREADY READY 0 1 }  { m_axi_m_mm2s_ctl_WDATA DATA 1 32 }  { m_axi_m_mm2s_ctl_WSTRB STRB 1 4 }  { m_axi_m_mm2s_ctl_WLAST LAST 1 1 }  { m_axi_m_mm2s_ctl_WID ID 1 1 }  { m_axi_m_mm2s_ctl_WUSER USER 1 1 }  { m_axi_m_mm2s_ctl_ARVALID VALID 1 1 }  { m_axi_m_mm2s_ctl_ARREADY READY 0 1 }  { m_axi_m_mm2s_ctl_ARADDR ADDR 1 32 }  { m_axi_m_mm2s_ctl_ARID ID 1 1 }  { m_axi_m_mm2s_ctl_ARLEN LEN 1 8 }  { m_axi_m_mm2s_ctl_ARSIZE SIZE 1 3 }  { m_axi_m_mm2s_ctl_ARBURST BURST 1 2 }  { m_axi_m_mm2s_ctl_ARLOCK LOCK 1 2 }  { m_axi_m_mm2s_ctl_ARCACHE CACHE 1 4 }  { m_axi_m_mm2s_ctl_ARPROT PROT 1 3 }  { m_axi_m_mm2s_ctl_ARQOS QOS 1 4 }  { m_axi_m_mm2s_ctl_ARREGION REGION 1 4 }  { m_axi_m_mm2s_ctl_ARUSER USER 1 1 }  { m_axi_m_mm2s_ctl_RVALID VALID 0 1 }  { m_axi_m_mm2s_ctl_RREADY READY 1 1 }  { m_axi_m_mm2s_ctl_RDATA DATA 0 32 }  { m_axi_m_mm2s_ctl_RLAST LAST 0 1 }  { m_axi_m_mm2s_ctl_RID ID 0 1 }  { m_axi_m_mm2s_ctl_RUSER USER 0 1 }  { m_axi_m_mm2s_ctl_RRESP RESP 0 2 }  { m_axi_m_mm2s_ctl_BVALID VALID 0 1 }  { m_axi_m_mm2s_ctl_BREADY READY 1 1 }  { m_axi_m_mm2s_ctl_BRESP RESP 0 2 }  { m_axi_m_mm2s_ctl_BID ID 0 1 }  { m_axi_m_mm2s_ctl_BUSER USER 0 1 } } }
 	m_s2mm_ctl { m_axi {  { m_axi_m_s2mm_ctl_AWVALID VALID 1 1 }  { m_axi_m_s2mm_ctl_AWREADY READY 0 1 }  { m_axi_m_s2mm_ctl_AWADDR ADDR 1 32 }  { m_axi_m_s2mm_ctl_AWID ID 1 1 }  { m_axi_m_s2mm_ctl_AWLEN LEN 1 8 }  { m_axi_m_s2mm_ctl_AWSIZE SIZE 1 3 }  { m_axi_m_s2mm_ctl_AWBURST BURST 1 2 }  { m_axi_m_s2mm_ctl_AWLOCK LOCK 1 2 }  { m_axi_m_s2mm_ctl_AWCACHE CACHE 1 4 }  { m_axi_m_s2mm_ctl_AWPROT PROT 1 3 }  { m_axi_m_s2mm_ctl_AWQOS QOS 1 4 }  { m_axi_m_s2mm_ctl_AWREGION REGION 1 4 }  { m_axi_m_s2mm_ctl_AWUSER USER 1 1 }  { m_axi_m_s2mm_ctl_WVALID VALID 1 1 }  { m_axi_m_s2mm_ctl_WREADY READY 0 1 }  { m_axi_m_s2mm_ctl_WDATA DATA 1 32 }  { m_axi_m_s2mm_ctl_WSTRB STRB 1 4 }  { m_axi_m_s2mm_ctl_WLAST LAST 1 1 }  { m_axi_m_s2mm_ctl_WID ID 1 1 }  { m_axi_m_s2mm_ctl_WUSER USER 1 1 }  { m_axi_m_s2mm_ctl_ARVALID VALID 1 1 }  { m_axi_m_s2mm_ctl_ARREADY READY 0 1 }  { m_axi_m_s2mm_ctl_ARADDR ADDR 1 32 }  { m_axi_m_s2mm_ctl_ARID ID 1 1 }  { m_axi_m_s2mm_ctl_ARLEN LEN 1 8 }  { m_axi_m_s2mm_ctl_ARSIZE SIZE 1 3 }  { m_axi_m_s2mm_ctl_ARBURST BURST 1 2 }  { m_axi_m_s2mm_ctl_ARLOCK LOCK 1 2 }  { m_axi_m_s2mm_ctl_ARCACHE CACHE 1 4 }  { m_axi_m_s2mm_ctl_ARPROT PROT 1 3 }  { m_axi_m_s2mm_ctl_ARQOS QOS 1 4 }  { m_axi_m_s2mm_ctl_ARREGION REGION 1 4 }  { m_axi_m_s2mm_ctl_ARUSER USER 1 1 }  { m_axi_m_s2mm_ctl_RVALID VALID 0 1 }  { m_axi_m_s2mm_ctl_RREADY READY 1 1 }  { m_axi_m_s2mm_ctl_RDATA DATA 0 32 }  { m_axi_m_s2mm_ctl_RLAST LAST 0 1 }  { m_axi_m_s2mm_ctl_RID ID 0 1 }  { m_axi_m_s2mm_ctl_RUSER USER 0 1 }  { m_axi_m_s2mm_ctl_RRESP RESP 0 2 }  { m_axi_m_s2mm_ctl_BVALID VALID 0 1 }  { m_axi_m_s2mm_ctl_BREADY READY 1 1 }  { m_axi_m_s2mm_ctl_BRESP RESP 0 2 }  { m_axi_m_s2mm_ctl_BID ID 0 1 }  { m_axi_m_s2mm_ctl_BUSER USER 0 1 } } }
-	s_in_V_V { axis {  { s_in_V_V_TDATA in_data 0 128 }  { s_in_V_V_TVALID in_vld 0 1 }  { s_in_V_V_TREADY in_acc 1 1 } } }
-	s_out_V_V { axis {  { s_out_V_V_TDATA out_data 1 128 }  { s_out_V_V_TVALID out_vld 1 1 }  { s_out_V_V_TREADY out_acc 0 1 } } }
+	s_in_V_V { axis {  { s_in_V_V_TDATA in_data 0 32 }  { s_in_V_V_TVALID in_vld 0 1 }  { s_in_V_V_TREADY in_acc 1 1 } } }
+	s_out_V_V { axis {  { s_out_V_V_TDATA out_data 1 32 }  { s_out_V_V_TVALID out_vld 1 1 }  { s_out_V_V_TREADY out_acc 0 1 } } }
 }
 
 # RTL port scheduling information:

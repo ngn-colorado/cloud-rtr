@@ -1149,7 +1149,7 @@
 				<spirit:parameter>
 					<spirit:name>TDATA_NUM_BYTES</spirit:name>
 					<spirit:value spirit:resolve="immediate"
-							spirit:id="BUSIFPARAM_VALUE.S_IN_V_V.TDATA_NUM_BYTES">16</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_IN_V_V.TDATA_NUM_BYTES">4</spirit:value>
 				</spirit:parameter>
 				<spirit:parameter>
 					<spirit:name>TUSER_WIDTH</spirit:name>
@@ -1159,7 +1159,7 @@
 				<spirit:parameter>
 					<spirit:name>LAYERED_METADATA</spirit:name>
 					<spirit:value spirit:resolve="generated"
-							spirit:id="BUSIFPARAM_VALUE.S_IN_V_V.LAYERED_METADATA">xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 128} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}}}</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_IN_V_V.LAYERED_METADATA">xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 32} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}}}</spirit:value>
 				</spirit:parameter>
 			</spirit:parameters>
 		</spirit:busInterface>
@@ -1210,7 +1210,7 @@
 				<spirit:parameter>
 					<spirit:name>TDATA_NUM_BYTES</spirit:name>
 					<spirit:value spirit:resolve="immediate"
-							spirit:id="BUSIFPARAM_VALUE.S_OUT_V_V.TDATA_NUM_BYTES">16</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_OUT_V_V.TDATA_NUM_BYTES">4</spirit:value>
 				</spirit:parameter>
 				<spirit:parameter>
 					<spirit:name>TUSER_WIDTH</spirit:name>
@@ -1220,7 +1220,7 @@
 				<spirit:parameter>
 					<spirit:name>LAYERED_METADATA</spirit:name>
 					<spirit:value spirit:resolve="generated"
-							spirit:id="BUSIFPARAM_VALUE.S_OUT_V_V.LAYERED_METADATA">xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 128} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}}}</spirit:value>
+							spirit:id="BUSIFPARAM_VALUE.S_OUT_V_V.LAYERED_METADATA">xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 32} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}}}</spirit:value>
 				</spirit:parameter>
 			</spirit:parameters>
 		</spirit:busInterface>
@@ -3137,7 +3137,7 @@
 				<spirit:wire>
 					<spirit:direction>in</spirit:direction>
 					<spirit:vector>
-						<spirit:left>127</spirit:left>
+						<spirit:left>31</spirit:left>
 						<spirit:right>0</spirit:right>
 					</spirit:vector>
 					<spirit:wireTypeDefs>
@@ -3185,7 +3185,7 @@
 				<spirit:wire>
 					<spirit:direction>out</spirit:direction>
 					<spirit:vector>
-						<spirit:left>127</spirit:left>
+						<spirit:left>31</spirit:left>
 						<spirit:right>0</spirit:right>
 					</spirit:vector>
 					<spirit:wireTypeDefs>
@@ -3858,8 +3858,8 @@
 				<xilinx:taxonomy>/VIVADO_HLS_IP</xilinx:taxonomy>
 			</xilinx:taxonomies>
 			<xilinx:displayName>Aes</xilinx:displayName>
-			<xilinx:coreRevision>1509111808</xilinx:coreRevision>
-			<xilinx:coreCreationDateTime>2015-09-12T00:08:30Z</xilinx:coreCreationDateTime>
+			<xilinx:coreRevision>1509140307</xilinx:coreRevision>
+			<xilinx:coreCreationDateTime>2015-09-14T09:07:41Z</xilinx:coreCreationDateTime>
 		</xilinx:coreExtensions>
 		<xilinx:packagingInfo>
 			<xilinx:xilinxVersion>2014.1</xilinx:xilinxVersion>

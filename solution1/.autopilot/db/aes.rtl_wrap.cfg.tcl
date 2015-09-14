@@ -291,7 +291,7 @@ set staticVariable ""
 set moduleName "aes"
 set rawDecl [list "bool" "aes\(volatile unsigned int m_mm2s_ctl \[500\], volatile unsigned int m_s2mm_ctl\[500\], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
   volatile unsigned destinationAddress, unsigned int numBytes, int mode,
-  mem_stream& s_in, mem_stream& s_out\)"]
+  mem_stream32& s_in, mem_stream32& s_out\)"]
 set argAPint ""
 set returnAPint ""
 set portList ""
@@ -377,7 +377,7 @@ set port7 [list $portName7 $portInterface7 $portData7 $portPointer7 $portArrayDi
 lappend portList $port7
 set portName8 "s_in"
 set portInterface8 "[list AP_STREAM 1000]"
-set portData8 "[list ap_uint "128" ]"
+set portData8 "[list ap_uint "32" ]"
 set portPointer8 "2"
 set portArrayDim8 0
 set portConst8 "0"
@@ -387,7 +387,7 @@ set port8 [list $portName8 $portInterface8 $portData8 $portPointer8 $portArrayDi
 lappend portList $port8
 set portName9 "s_out"
 set portInterface9 "[list AP_STREAM 1000]"
-set portData9 "[list ap_uint "128" ]"
+set portData9 "[list ap_uint "32" ]"
 set portPointer9 "2"
 set portArrayDim9 0
 set portConst9 "0"

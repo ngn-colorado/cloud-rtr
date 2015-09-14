@@ -17,7 +17,7 @@ __SIM_FIR__ = 1
 
 ObjDir = obj
 
-HLS_SOURCES = ../../../source/aes_runner_testbench.cpp ../../../source/aes_runner.cpp ../../../source/aes.cpp
+HLS_SOURCES = ../../../source/aes_runner_testbench.cpp ../../../source/aes.cpp ../../../source/aes_runner.cpp
 
 TARGET := csim.exe
 
@@ -68,14 +68,14 @@ $(ObjDir)/aes_runner_testbench.o: ../../../source/aes_runner_testbench.cpp $(Obj
 
 -include $(ObjDir)/aes_runner_testbench.d
 
-$(ObjDir)/aes_runner.o: ../../../source/aes_runner.cpp $(ObjDir)/.dir
-	$(Echo) "   Compiling ../../../source/aes_runner.cpp in $(BuildMode) mode" $(AVE_DIR_DLOG)
-	$(Verb)  $(CC) -c -MMD    $(IFLAG) $(DFLAG)  $< -o $@ ; \
-
--include $(ObjDir)/aes_runner.d
-
 $(ObjDir)/aes.o: ../../../source/aes.cpp $(ObjDir)/.dir
 	$(Echo) "   Compiling ../../../source/aes.cpp in $(BuildMode) mode" $(AVE_DIR_DLOG)
 	$(Verb)  $(CC) -c -MMD    $(IFLAG) $(DFLAG)  $< -o $@ ; \
 
 -include $(ObjDir)/aes.d
+
+$(ObjDir)/aes_runner.o: ../../../source/aes_runner.cpp $(ObjDir)/.dir
+	$(Echo) "   Compiling ../../../source/aes_runner.cpp in $(BuildMode) mode" $(AVE_DIR_DLOG)
+	$(Verb)  $(CC) -c -MMD    $(IFLAG) $(DFLAG)  $< -o $@ ; \
+
+-include $(ObjDir)/aes_runner.d

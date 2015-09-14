@@ -56,14 +56,33 @@ void aestest(ap_uint<128>*, ap_uint<128>*, ap_uint<128>*);
 typedef ap_uint<128> uint128_t;
 typedef hls::stream<uint128_t> mem_stream;
 
+typedef ap_uint<32> uint32_t_hw;
+typedef hls::stream<uint32_t_hw> mem_stream32;
+
 //typedef ap_uint<8> uint8_t;
 typedef unsigned char uint8_t;
 typedef hls::stream<uint8_t> mem_stream8;
 
+ap_uint<32> reverse32(ap_uint<32> in){
+	int j;
+	ap_uint<8> temp2;
+	ap_uint<8> temp2_array[4];
+	for(j=0; j<4; j++){
+#pragma HLS UNROLL
+		temp2 = in.range(j*8+7, j*8);
+//		temp2 = temp.range(31-j*8, 24-j*8);
+//		printf("\n%s", temp2.to_string(16).c_str());
+//		out = out.concat(temp2);
+		temp2_array[j] = temp2;
+	}
+	return (temp2_array[0], temp2_array[1], temp2_array[2], temp2_array[3]);
+}
+
+
 //512 MB is 0x20000000 bytes
 bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
 		volatile unsigned destinationAddress, unsigned int numBytes, int mode,
-		mem_stream& s_in, mem_stream& s_out){
+		mem_stream32& s_in, mem_stream32& s_out){
 #pragma HLS INTERFACE axis depth=1000 port=s_out
 
 #pragma HLS INTERFACE axis depth=1000 port=s_in
@@ -102,7 +121,8 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 
 	//for i to length, fetch 128 bits of data, call aes function on data, and write data back out
 	//increment the source and dest address by 128 bits each time
-	int i, j, iterations, numIterations;
+	int i, j, numIterations;
+	ap_uint<128> iterations(0);
 
 	unsigned remainingBytes;
 	unsigned char mask;
@@ -113,11 +133,11 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 	char plaintext_buffer[16];
 	char tempBuf[16];
 
-	ap_uint<8> temp;
+	ap_uint<32> temp;
 
 	ap_uint<128> key_local; //= *key_in;
 	ap_uint<128> iv_local;
-	ap_uint<128> count = 0;
+	ap_uint<128> aes_data;
 
 	//calculate the number of iterations. since we implement padding, this should be
 	//ceil(numBytes/16). Also need to keep track of the number of bytes we have done
@@ -190,22 +210,40 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 //		}
 		//Need to pull out the 16 input bytes from the stream and place them in the correct place.
 			//first, loop through and concatenate them onto the variable
-		ap_uint<128> data1 = s_in.read();//(0); //s_in.read();
+//		ap_uint<128> data1 = s_in.read();//(0); //s_in.read();
 		ap_uint<128> data(0);
 //		ap_uint<8> tempData[16];
 
 
 		//read them in and put into the byte-reversed position. if on the last cell that needs padding,
 		//only read in the number of bytes that are left to encrypt
-		for(i=0; i<16; i++){
+		ap_uint<32> data_array[4];
+		for(i=0; i<4; i++){
 #pragma HLS UNROLL
-			temp = data1.range(i*8+7, i*8);//range(127-i*8, 120-i*8);
-//			temp = s_in.read();
+			temp = s_in.read();
+//			data_array[i] = temp;
+//			ap_uint<32> out;
+//			ap_uint<8> temp2;
+//			ap_uint<8> temp2_array[4];
+//			for(j=0; j<4; j++){
+//#pragma HLS UNROLL
+//				temp2 = temp.range(j*8+7, j*8);
+////				temp2 = temp.range(31-j*8, 24-j*8);
+////				printf("\n%s", temp2.to_string(16).c_str());
+////				out = out.concat(temp2);
+//				temp2_array[j] = temp2;
+//			}
+//			data_array[i] = (temp2_array[0], temp2_array[1], temp2_array[2], temp2_array[3]);
+//			temp = data1.range(i*8+7, i*8);//range(127-i*8, 120-i*8);
+
 //			temp = ddr[sourceAddressLocal + i];
 //			plaintext_buffer[i] = temp;
 //			temp_buffer_in[i] = temp;
-			data = data.concat(temp);
+//			data = data.concat(temp);
+			data_array[i] = reverse32(temp);
 		}
+//		data = (data_array[3],data_array[2],data_array[1],data_array[0]);
+		data = (data_array[0],data_array[1],data_array[2],data_array[3]);
 //		for(i=0; i<16; i++){
 //#pragma HLS UNROLL
 //			temp = temp_buffer_in[i];//temp_buffer_in[15-i];
@@ -222,29 +260,37 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 		 * 	2: CTR mode - Counter mode - Use iv as a counter. Encrypt the counter in AES each iteration. XOR the output with plaintext to get cipher text. Increment counter and repeat for each chunk
 		 */
 
+		aes_data = data;
 		if(mode == 1){
-			if(count == 0){
-				data = data^iv_local;
+			if(iterations == 0){
+				aes_data = data^iv_local;
 			} else{
-				data = data^encrypted_data;
+				aes_data = data^encrypted_data;
 			}
-			aestest(&data, &key_local, &encrypted_data);
-			count++;
+			//aestest(&data, &key_local, &encrypted_data);
+			//count++;
 		} else if(mode == 2){
-			aestest(&count, &key_local, &encrypted_data);
-			encrypted_data = encrypted_data^data;
-			count++;
-		} else{
-			aestest(&data, &key_local, &encrypted_data);
+//			aestest(&count, &key_local, &encrypted_data);
+//			encrypted_data = encrypted_data^data;
+//			count++;
+//			aes_data = iterations;
+			aes_data = iv_local;
+
 		}
+		aestest(&aes_data, &key_local, &encrypted_data);
 
 		ap_uint<128> encrypted_data1;
-		for(i=0; i<16; i++){
-#pragma HLS UNROLL
-			//temp_buffer_out[i] = encrypted_data.range(127-i*8, (120)-i*8);//.range(i*8 + 7, i*8);
-			temp = encrypted_data.range(i*8+7, i*8);
-			encrypted_data1 = encrypted_data1.concat(temp);
+
+		if(mode == 2){
+			encrypted_data = encrypted_data^data;
+			iv_local++;
 		}
+//		for(i=0; i<16; i++){
+//#pragma HLS UNROLL
+//			//temp_buffer_out[i] = encrypted_data.range(127-i*8, (120)-i*8);//.range(i*8 + 7, i*8);
+//			temp = encrypted_data.range(i*8+7, i*8);
+//			encrypted_data1 = encrypted_data1.concat(temp);
+//		}
 
 //		printf("\nEncrypted data in fabric: %s", encrypted_data.to_string().c_str());
 //		char current = 0;
@@ -256,14 +302,36 @@ bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ct
 		//s_out.write(encrypted_data);
 
 		//Now need to write them out in reverse order
-//		for(i=0; i<16; i++){
-//#pragma HLS UNROLL
+
+//		encrypted_data = data;
+
+		for(i=3; i>=0; i--){
+#pragma HLS UNROLL
 //			temp = ap_uint<8>(temp_buffer_out[i]);
-//
+//			temp = encrypted_data(127-i*32, 96-i*32);
+			temp = encrypted_data.range(i*32+31, i*32);
+//			printf("\n%s", temp.to_string(16).c_str());
 //			s_out.write(temp);
-////			ddr[destinationAddressLocal + i] = temp;
-//		}
-		s_out.write(encrypted_data1);
+//
+			ap_uint<32> out;
+//			ap_uint<8> temp2;
+//			ap_uint<8> temp2_array[4];
+//			for(j=0; j<4; j++){
+//#pragma HLS UNROLL
+//				temp2 = temp.range(j*8+7, j*8);
+////				temp2 = temp.range(31-j*8, 24-j*8);
+////				printf("\n%s", temp2.to_string(16).c_str());
+////				out = out.concat(temp2);
+//				temp2_array[j] = temp2;
+//			}
+//			out = (temp2_array[0], temp2_array[1], temp2_array[2], temp2_array[3]);
+//			out = (temp2_array[3], temp2_arry[2], temp2_array[1], temp2_array[0]);
+			out = reverse32(temp);
+//			out = temp;
+			s_out.write(out);
+//			ddr[destinationAddressLocal + i] = temp;
+		}
+//		s_out.write(encrypted_data1);
 
 		remainingBytes -= 16;
 		sourceAddressLocal += 16;
