@@ -127,8 +127,8 @@ test_crypto_aes(void *arg)
   unsigned base_address = 0x1f410000;
   char* aes_device = "aes-qam";
   char* rst_device = "axi-reset";
-//  shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
-  shared_memory shared_mem = getSharedMemoryArea(base_address, shared_size);
+  shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
+//  shared_memory shared_mem = getSharedMemoryArea(base_address, shared_size);
 //  memmgr_init(shared_mem->ptr, shared_size, base_address);
 
   char* shared = (char*)(shared_mem->ptr);
@@ -171,18 +171,20 @@ test_crypto_aes(void *arg)
 	printf("%02x", env2key[i]);
   }
   
+  char default_iv[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; 
+
   printf("\nTor cipher key length: %i",  CIPHER_KEY_LEN);
   printf("\nTor iv lenght: %i", CIPHER_IV_LEN);
 
   FPGA_AES *cipher1 = NULL;
   FPGA_AES *cipher2 = NULL;
   //TODO: correct these hardcoded values if needed
-  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, base_address, aes_device, rst_device)) == NULL){
+  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, base_address, aes_device, rst_device, default_iv, 16, 2)) == NULL){
     printf("\nCould not allocate cipher1");
     abort();
   }
 
-  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, base_address, aes_device, rst_device)) == NULL){
+  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, base_address, aes_device, rst_device, default_iv, 16, 2)) == NULL){
     printf("\nCould not allocate cipher2");
     abort();
   }
@@ -208,30 +210,44 @@ test_crypto_aes(void *arg)
  	}
 	printf("%02x", data1[i]);
   }
+  //struct crypto_cipher_t env1st = env1;
+  char* env1_iv = env1->iv;
+  printf("\nenv1 iv:\n0x");
+  for(i=0; i<CIPHER_IV_LEN; i++){
+	  printf("%02x", env1_iv[i]);
+  }
+//  crypto_cipher_encrypt(env1, data2, data1, 512);
 //  Aes_encrypt_memmgr(cipher2, data2, data1, 512);
 //  Aes_encrypt_run(cipher1, data1, 512, data2, d1_addr, d2_addr);
-  printf("\nTesting our FPGA AES with software ctr function");
-  Aes_encrypt_ctr_run(cipher1, data1, 512, data2, d1_addr, d2_addr);
+  printf("\nTesting our FPGA AES with software ctr function?");
+  Aes_encrypt_ctr_hw(cipher1, data1, 512, data2, d1_addr, d2_addr);
   //MODIFY for FPGA -------------------------------------------------------------------
   crypto_cipher_decrypt(env2, data3, data2, 512);
 //  Aes_encrypt_memmgr(cipher1, data2, data1, 512);
   printf("\n--------------------------------");
+  printf("\nFirst encryption run outputs:");
   printf("\nFPGA\t\t|\t\tTor");
-  for(i=0; i<2; i++){
+  for(i=0; i<5; i++){
 //	printf("\n0x%02x\t|\t0x%02x", data2[i], temp1[i]);	
     printf("\n0x");
     for(j=0; j<16; j++){
-	printf("%02x", data2[j]);
+	printf("%02x", data2[i*16+j]);
     }
     printf(" 0x");
     for(j=0; j<16; j++){
-	printf("%02x", temp1[j]);
+	printf("%02x", temp1[i*16+j]);
     }
   }
+  int numIncorrect = 0;
+  for(i=0; j<512; j++){
+	  if(temp1[i] != data2[i]){
+		  numIncorrect++;
+	  }
+  }
+  printf("\nNum incorrect: %i", numIncorrect);
   printf("\n--------------------------------");
 
-
-
+  tt_mem_op(data2,OP_EQ, temp1, 512);
   tt_mem_op(data1,OP_EQ, data3, 512);
   tt_mem_op(data1,OP_NE, data2, 512);
 
@@ -240,12 +256,15 @@ test_crypto_aes(void *arg)
   for (j = 512; j < 560; ++j) {
    // crypto_cipher_encrypt(env1, data2+j, data1+j, 1);
 //    Aes_encrypt_memmgr(cipher1, data2+j, data1+j, 1);
-    Aes_encrypt_run(cipher1, data1+j, 1, data2+j, d1_addr+j, d2_addr+j);
+    //Aes_encrypt_run(cipher1, data1+j, 1, data2+j, d1_addr+j, d2_addr+j);
+  //  Aes_encrypt_ctr_run(cipher1, data1+j, 1, data2+j, d1_addr+j, d2_addr+j);
+    Aes_encrypt_ctr_hw(cipher1, data1+j, 1, data2+j, d1_addr+j, d2_addr+j);
   }
   for (j = 512; j < 560; ++j) {
    // crypto_cipher_decrypt(env2, data3+j, data2+j, 1);
 //    Aes_encrypt_memmgr(cipher2, data3+j, data2+j, 1);
-    Aes_encrypt_run(cipher2, data2+j, 1, data3+j, d2_addr+j, d3_addr+j);
+  //  Aes_encrypt_run(cipher2, data2+j, 1, data3+j, d2_addr+j, d3_addr+j);
+    Aes_encrypt_ctr_hw(cipher2, data2+j, 1, data3+j, d2_addr+j, d3_addr+j);
   }
   tt_mem_op(data1,OP_EQ, data3, 560);
   /* Now encrypt 3 at a time, and get 5 at a time. */
@@ -253,7 +272,8 @@ test_crypto_aes(void *arg)
   for (j = 560; j < 1024-5; j += 3) {
   //  crypto_cipher_encrypt(env1, data2+j, data1+j, 3);
 //    Aes_encrypt_memmgr(cipher1, data2+j, data1+j, 3);
-    Aes_encrypt_run(cipher1, data1+j, 3, data2+j, d1_addr+j, d2_addr+j);
+//    Aes_encrypt_run(cipher1, data1+j, 3, data2+j, d1_addr+j, d2_addr+j);
+    Aes_encrypt_ctr_hw(cipher1, data1+j, 1, data2+j, d1_addr+j, d2_addr+j);
   }
   for (j = 560; j < 1024-5; j += 5) {
     crypto_cipher_decrypt(env2, data3+j, data2+j, 5);
@@ -268,7 +288,7 @@ test_crypto_aes(void *arg)
   env2 = crypto_cipher_new(crypto_cipher_get_key(env1));
 
 
-  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, base_address, aes_device, rst_device)) == NULL){
+  if((cipher2 = fpga_aes_new(crypto_cipher_get_key(env2), 16, base_address, aes_device, rst_device, default_iv, 16, 2)) == NULL){
     printf("\nCould not allocate cipher2");
     abort();
   }
@@ -278,7 +298,8 @@ test_crypto_aes(void *arg)
   for (j = 0; j < 1024-16; j += 17) {
   //  crypto_cipher_encrypt(env2, data3+j, data1+j, 17);
 //    Aes_encrypt_memmgr(cipher2, data3+j, data1+j, 17);
-    Aes_encrypt_run(cipher2, data1+j, 17, data3+j, d1_addr+j, d3_addr+j);
+//    Aes_encrypt_run(cipher2, data1+j, 17, data3+j, d1_addr+j, d3_addr+j);
+    Aes_encrypt_ctr_hw(cipher2, data1+j, 17, data3+j, d1_addr+j, d3_addr+j);
   }
   for (j= 0; j < 1024-16; ++j) {
     if (data2[j] != data3[j]) {
@@ -296,7 +317,7 @@ test_crypto_aes(void *arg)
   env1 = crypto_cipher_new("\x80\x00\x00\x00\x00\x00\x00\x00"
                            "\x00\x00\x00\x00\x00\x00\x00\x00");
 
-  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, base_address, aes_device, rst_device)) == NULL){
+  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, base_address, aes_device, rst_device, default_iv, 16, 2)) == NULL){
     printf("\nCould not allocate cipher1");
     abort();
   }
@@ -312,7 +333,8 @@ test_crypto_aes(void *arg)
 //  Aes_encrypt_memmgr(cipher1, data1,
   //                      "\x00\x00\x00\x00\x00\x00\x00\x00"
     //                    "\x00\x00\x00\x00\x00\x00\x00\x00", 16);
-  Aes_encrypt_run(cipher1, data4, 16, data1, d4_addr, d1_addr);
+//  Aes_encrypt_run(cipher1, data4, 16, data1, d4_addr, d1_addr);
+  Aes_encrypt_ctr_hw(cipher1, data4, 16, data1, d4_addr, d1_addr);
   test_memeq_hex(data1, "0EDD33D3C621E546455BD8BA1418BEC8");
 
   /* Now test rollover.  All these values are originally from a python
@@ -324,7 +346,7 @@ test_crypto_aes(void *arg)
                                    "\x00\x00\x00\x00\x00\x00\x00\x00"
                                    "\xff\xff\xff\xff\xff\xff\xff\xff");
   memset(data2, 0,  1024);
-  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, base_address, aes_device, rst_device)) == NULL){
+  if((cipher1 = fpga_aes_new(crypto_cipher_get_key(env1), 16, base_address, aes_device, rst_device, default_iv, 16, 2)) == NULL){
     printf("\nCould not allocate cipher1");
     abort();
   }

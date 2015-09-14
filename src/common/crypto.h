@@ -17,6 +17,8 @@
 #include "torint.h"
 #include "testsupport.h"
 
+#include "aes.h"
+
 /*
   Macro to create an arbitrary OpenSSL version number as used by
   OPENSSL_VERSION_NUMBER or SSLeay(), since the actual numbers are a bit hard
@@ -104,7 +106,14 @@ typedef struct {
 } digests_t;
 
 typedef struct crypto_pk_t crypto_pk_t;
-typedef struct crypto_cipher_t crypto_cipher_t;
+//typedef struct crypto_cipher_t crypto_cipher_t;
+
+typedef struct crypto_cipher_t{
+	char key[CIPHER_IV_LEN];
+	char iv[CIPHER_IV_LEN];
+	aes_cnt_cipher_t *cipher;
+} crypto_cipher_t;
+
 typedef struct crypto_digest_t crypto_digest_t;
 typedef struct crypto_dh_t crypto_dh_t;
 

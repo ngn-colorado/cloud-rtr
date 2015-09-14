@@ -88,13 +88,13 @@ struct crypto_pk_t
 };
 
 /** Key and stream information for a stream cipher. */
-struct crypto_cipher_t
-{
-  char key[CIPHER_KEY_LEN]; /**< The raw key. */
-  char iv[CIPHER_IV_LEN]; /**< The initial IV. */
-  aes_cnt_cipher_t *cipher; /**< The key in format usable for counter-mode AES
-                             * encryption */
-};
+//struct crypto_cipher_t
+//{
+//  char key[CIPHER_KEY_LEN]; /**< The raw key. */
+//  char iv[CIPHER_IV_LEN]; /**< The initial IV. */
+//  aes_cnt_cipher_t *cipher; /**< The key in format usable for counter-mode AES
+//                             * encryption */
+//};
 
 /** A structure to hold the first half (x, g^x) of a Diffie-Hellman handshake
  * while we're waiting for the second.*/
