@@ -19,6 +19,16 @@
 #include "routerlist.h"
 #include "routerparse.h"
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+#include "aes_fpga.h"
+
+#define AES_DEVICE "aes-qam"
+#define RST_DEVICE "axi-reset"
+#define SHARED_SIZE 0x70000
+#define BASE_ADDRESS 0x1f410000
+#define UIO_DEVICE "/dev/uio1"
+
 /** Return 0 if one and two are the same service ids, else -1 or 1 */
 int
 rend_cmp_service_ids(const char *one, const char *two)
@@ -176,7 +186,8 @@ rend_encode_v2_intro_points(char **encoded, rend_service_descriptor_t *desc)
   int r = -1;
   /* Assemble unencrypted list of introduction points. */
   unenc_len = smartlist_len(desc->intro_nodes) * 1000; /* too long, but ok. */
-  unenc = tor_malloc_zero(unenc_len);
+//  unenc = tor_malloc_zero(unenc_len);
+  unenc = memmgr_alloc(unenc_len);
   for (i = 0; i < smartlist_len(desc->intro_nodes); i++) {
     char id_base32[REND_INTRO_POINT_ID_LEN_BASE32 + 1];
     char *onion_key = NULL;
@@ -243,7 +254,8 @@ rend_encode_v2_intro_points(char **encoded, rend_service_descriptor_t *desc)
   r = 0;
  done:
   if (r<0)
-    tor_free(unenc);
+//    tor_free(unenc);
+    memmgr_free(unenc);
   return r;
 }
 
@@ -251,6 +263,8 @@ rend_encode_v2_intro_points(char **encoded, rend_service_descriptor_t *desc)
  * authorization type  'basic' with <b>client_cookies</b> and write the
  * result to a newly allocated string pointed to by <b>encrypted_out</b> of
  * length <b>encrypted_len_out</b>. Return 0 for success, -1 otherwise. */
+
+//encode needs to be allocated with memmgr
 static int
 rend_encrypt_v2_intro_points_basic(char **encrypted_out,
                                    size_t *encrypted_len_out,
@@ -260,13 +274,17 @@ rend_encrypt_v2_intro_points_basic(char **encrypted_out,
   int r = -1, i, pos, enclen, client_blocks;
   size_t len, client_entries_len;
 
+//  shared_memory shared_mem = getUioMemoryArea(UIO_DEVICE, SHARED_SIZE);
+//  memmgr_init(shared_mem->ptr, SHARED_SIZE, BASE_ADDRESS);
+
 //TODO: MODIFY session_key variable for FPGA ----------------------------------------
-  char *enc = NULL, iv[CIPHER_IV_LEN], *client_part = NULL,
-       session_key[CIPHER_KEY_LEN];
+  char *enc = NULL, iv[CIPHER_IV_LEN], *client_part = NULL;
+//       session_key[CIPHER_KEY_LEN];
+  char* session_key = (char*)memmgr_alloc(CIPHER_KEY_LEN);
   smartlist_t *encrypted_session_keys = NULL;
   crypto_digest_t *digest;
   crypto_cipher_t *cipher;
-  tor_assert(encoded);
+//  tor_assert(encoded);
   tor_assert(client_cookies && smartlist_len(client_cookies) > 0);
 
   /* Generate session key. */
@@ -287,14 +305,22 @@ rend_encrypt_v2_intro_points_basic(char **encrypted_out,
     log_warn(LD_REND, "Too many clients in introduction point string.");
     goto done;
   }
-  enc = tor_malloc_zero(len);
+//  enc = tor_malloc_zero(len);
+  enc = memmgr_alloc(len);
   enc[0] = 0x01; /* type of authorization. */
   enc[1] = (uint8_t)client_blocks;
 
+  //MODIFY FOR FPGA--------------------------------------------------------------------------------
   /* Encrypt with random session key. */
-  enclen = crypto_cipher_encrypt_with_iv(session_key,
-      enc + 2 + client_entries_len,
-      CIPHER_IV_LEN + strlen(encoded), encoded, strlen(encoded));
+//  enclen = crypto_cipher_encrypt_with_iv(session_key,
+//      enc + 2 + client_entries_len,
+//      CIPHER_IV_LEN + strlen(encoded), encoded, strlen(encoded));
+  char iv_local[CIPHER_IV_LEN];
+  crypto_rand(iv_local, CIPHER_IV_LEN);
+  FPGA_AES *cipher1 = fpga_aes_new(session_key, 16, BASE_ADDRESS, AES_DEVICE, RST_DEVICE, iv_local, CIPHER_IV_LEN, 2);
+  enclen = Aes_encrypt_memmgr_with_iv(cipher1, enc + 2 + client_entries_len, CIPHER_IV_LEN + strlen(encoded), (char*)encoded, strlen(encoded));
+
+  fpga_aes_free(cipher1);
 
   if (enclen < 0) {
     log_warn(LD_REND, "Could not encrypt introduction point string.");
@@ -307,19 +333,27 @@ rend_encrypt_v2_intro_points_basic(char **encrypted_out,
   encrypted_session_keys = smartlist_new();
   SMARTLIST_FOREACH_BEGIN(client_cookies, const char *, cookie) {
 //TODO: MODIFY for FPGA --------------------------------------------------------------
-    client_part = tor_malloc_zero(REND_BASIC_AUTH_CLIENT_ENTRY_LEN);
+//    client_part = tor_malloc_zero(REND_BASIC_AUTH_CLIENT_ENTRY_LEN);
+    client_part = memmgr_alloc(REND_BASIC_AUTH_CLIENT_ENTRY_LEN);
+    memset(client_part, 0, REND_BASIC_AUTH_CLIENT_ENTRY_LEN);
     /* Encrypt session key. */
     cipher = crypto_cipher_new(cookie);
+    char default_iv[] = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+    cipher1 = fpga_aes_new(crypto_cipher_get_key(cipher), 16, BASE_ADDRESS, AES_DEVICE, RST_DEVICE, default_iv, 16, 2);
 //TODO: MODIFY for FPGA----------------------------------------------------------------
-    if (crypto_cipher_encrypt(cipher, client_part +
-                                  REND_BASIC_AUTH_CLIENT_ID_LEN,
-                              session_key, CIPHER_KEY_LEN) < 0) {
+//    if (crypto_cipher_encrypt(cipher, client_part +
+//                                  REND_BASIC_AUTH_CLIENT_ID_LEN,
+//                              session_key, CIPHER_KEY_LEN) < 0) {
+    if(Aes_encrypt_memmgr(cipher1, client_part + REND_BASIC_AUTH_CLIENT_ID_LEN, session_key, CIPHER_KEY_LEN) < 0){ 
       log_warn(LD_REND, "Could not encrypt session key for client.");
       crypto_cipher_free(cipher);
-      tor_free(client_part);
+      fpga_aes_free(cipher1);
+//      tor_free(client_part);
+      memmgr_free(client_part);
       goto done;
     }
     crypto_cipher_free(cipher);
+    fpga_aes_free(cipher1);
 
     /* Determine client ID. */
     digest = crypto_digest_new();
@@ -357,7 +391,8 @@ rend_encrypt_v2_intro_points_basic(char **encrypted_out,
   enc = NULL; /* prevent free. */
   r = 0;
  done:
-  tor_free(enc);
+//  tor_free(enc);
+  memmgr_free(enc);
   if (encrypted_session_keys) {
     SMARTLIST_FOREACH(encrypted_session_keys, char *, d, tor_free(d););
     smartlist_free(encrypted_session_keys);
@@ -378,15 +413,24 @@ rend_encrypt_v2_intro_points_stealth(char **encrypted_out,
 {
   int r = -1, enclen;
   char *enc;
-  tor_assert(encoded);
+//  tor_assert(encoded);
+  memmgr_assert((char*)encoded);
   tor_assert(descriptor_cookie);
 
-  enc = tor_malloc_zero(1 + CIPHER_IV_LEN + strlen(encoded));
+//  enc = tor_malloc_zero(1 + CIPHER_IV_LEN + strlen(encoded));
+  enc = memmgr_alloc(1 + CIPHER_IV_LEN + strlen(encoded));
+  memset(enc, 0, 1+CIPHER_IV_LEN + strlen(encoded));
   enc[0] = 0x02; /* Auth type */
-  enclen = crypto_cipher_encrypt_with_iv(descriptor_cookie,
-                                         enc + 1,
-                                         CIPHER_IV_LEN+strlen(encoded),
-                                         encoded, strlen(encoded));
+  //MODIFY FOR FPGA-----------------------------------------------------------------------------
+//  enclen = crypto_cipher_encrypt_with_iv(descriptor_cookie,
+//                                         enc + 1,
+//                                         CIPHER_IV_LEN+strlen(encoded),
+//                                         encoded, strlen(encoded));
+  char iv_local[CIPHER_IV_LEN];
+  crypto_rand(iv_local, CIPHER_IV_LEN);
+  FPGA_AES *cipher1 = fpga_aes_new(descriptor_cookie, 16, BASE_ADDRESS, AES_DEVICE, RST_DEVICE, iv_local, CIPHER_IV_LEN, 2);
+  enclen = Aes_encrypt_memmgr_with_iv(cipher1, enc + 1, CIPHER_IV_LEN+strlen(encoded), (char*)encoded, strlen(encoded));
+  fpga_aes_free(cipher1);
   if (enclen < 0) {
     log_warn(LD_REND, "Could not encrypt introduction point string.");
     goto done;
@@ -396,7 +440,8 @@ rend_encrypt_v2_intro_points_stealth(char **encrypted_out,
   enc = NULL; /* prevent free */
   r = 0;
  done:
-  tor_free(enc);
+  memmgr_free(enc);
+//  tor_free(enc);
   return r;
 }
 
@@ -490,6 +535,8 @@ rend_encode_v2_descriptors(smartlist_t *descs_out,
   seconds_valid = period * REND_TIME_PERIOD_V2_DESC_VALIDITY +
                   get_seconds_valid(now, service_id);
   /* Assemble, possibly encrypt, and encode introduction points. */
+  shared_memory shared_mem = getUioMemoryArea(UIO_DEVICE, SHARED_SIZE);
+  memmgr_init((void*)(shared_mem->ptr), SHARED_SIZE, BASE_ADDRESS);
   if (smartlist_len(desc->intro_nodes) > 0) {
     if (rend_encode_v2_intro_points(&ipos, desc) < 0) {
       log_warn(LD_REND, "Encoding of introduction points did not succeed.");
@@ -505,10 +552,12 @@ rend_encode_v2_descriptors(smartlist_t *descs_out,
                                                client_cookies) < 0) {
           log_warn(LD_REND, "Encrypting of introduction points did not "
                             "succeed.");
-          tor_free(ipos);
+//          tor_free(ipos);
+          memmgr_free(ipos);
           return -1;
         }
-        tor_free(ipos);
+        //tor_free(ipos);
+	memmgr_free(ipos);
         ipos = ipos_encrypted;
         ipos_len = ipos_encrypted_len;
         break;
@@ -518,17 +567,20 @@ rend_encode_v2_descriptors(smartlist_t *descs_out,
                                                  descriptor_cookie) < 0) {
           log_warn(LD_REND, "Encrypting of introduction points did not "
                             "succeed.");
-          tor_free(ipos);
+//          tor_free(ipos);
+	  memmgr_free(ipos);
           return -1;
         }
         tor_free(ipos);
+//	memmgr_free(ipos);
         ipos = ipos_encrypted;
         ipos_len = ipos_encrypted_len;
         break;
       default:
         log_warn(LD_REND|LD_BUG, "Unrecognized authorization type %d",
                  (int)auth_type);
-        tor_free(ipos);
+	memmgr_free(ipos);
+//        tor_free(ipos);
         return -1;
     }
     /* Base64-encode introduction points. */
@@ -537,10 +589,12 @@ rend_encode_v2_descriptors(smartlist_t *descs_out,
       log_warn(LD_REND, "Could not encode introduction point string to "
                "base64. length=%d", (int)ipos_len);
       tor_free(ipos_base64);
-      tor_free(ipos);
+      memmgr_free(ipos);
+//      tor_free(ipos);
       return -1;
     }
-    tor_free(ipos);
+    memmgr_free(ipos);
+//    tor_free(ipos);
   }
   /* Encode REND_NUMBER_OF_NON_CONSECUTIVE_REPLICAS descriptors. */
   for (k = 0; k < REND_NUMBER_OF_NON_CONSECUTIVE_REPLICAS; k++) {
