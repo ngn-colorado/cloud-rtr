@@ -125,13 +125,15 @@ test_crypto_aes(void *arg)
 
   printf("\nBeginning AES test!----------------------------------------------------------------");
 
-  unsigned shared_size = 0x70000;//8*1024*1024;
+  unsigned shared_size = 0x800000;//0x70000;//8*1024*1024;
   unsigned base_address = 0x1f410000;
   char* aes_device = "aes-qam";
   char* rst_device = "axi-reset";
-  shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
+  //shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
 //  shared_memory shared_mem = getSharedMemoryArea(base_address, shared_size);
-  memmgr_init(shared_mem->ptr, shared_size, base_address);
+//  memmgr_init(shared_mem->ptr, shared_size, base_address);
+  memmgr_destroy();
+  memmgr_init_check_shared_mem(shared_size, "/dev/uio1", base_address);
 
 //  char* shared = (char*)(shared_mem->ptr);
 
@@ -483,7 +485,8 @@ test_crypto_aes(void *arg)
   memmgr_free(data4);
   fpga_aes_free(cipher1);
   fpga_aes_free(cipher2);
-  cleanupSharedMemoryPointer(shared_mem);
+  memmgr_destroy();
+  //cleanupSharedMemoryPointer(shared_mem);
 }
 
 /** Run unit tests for our SHA-1 functionality */
@@ -954,13 +957,16 @@ test_crypto_aes_iv(void *arg)
   char key1[16], key2[16];
   ssize_t encrypted_size, decrypted_size;
   printf("\nBeginning AES IV test!--------------------------------------------------------------");
-  unsigned shared_size = 0x70000;//8*1024*1024;
+  unsigned shared_size = 0x800000;//0x70000;//8*1024*1024;
   unsigned base_address = 0x1f410000;
   char* aes_device = "aes-qam";
   char* rst_device = "axi-reset";
-  shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
+//  shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
 //  shared_memory shared_mem = getSharedMemoryArea(base_address, shared_size);
-  memmgr_init((void*)(shared_mem->ptr), shared_size, base_address);
+//  memmgr_init((void*)(shared_mem->ptr), shared_size, base_address);
+  memmgr_destroy();
+  memmgr_init_check_shared_mem(shared_size, "/dev/uio1", base_address);
+
 
 //  char* shared = (char*)(shared_mem->ptr);
 
@@ -997,6 +1003,7 @@ test_crypto_aes_iv(void *arg)
   plain_15 = memmgr_alloc(15);
   plain_16 = memmgr_alloc(16);
   plain_17 = memmgr_alloc(17);
+  printf("\nContinuing iv test ------------------------------------");
 //  unsigned plain_addr = base_address;
   //Allocate in FPGA ------------------------------------------------------------------------
 //  encrypted1 = tor_malloc(4095 + 1 + 16);
@@ -1170,7 +1177,8 @@ test_crypto_aes_iv(void *arg)
   memmgr_free(encrypted2);
   memmgr_free(decrypted1);
   memmgr_free(decrypted2);
-  cleanupSharedMemoryPointer(shared_mem);
+  memmgr_destroy();
+  //cleanupSharedMemoryPointer(shared_mem);
 }
 
 /** Test base32 decoding. */
