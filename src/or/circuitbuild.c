@@ -45,6 +45,9 @@
 #include "routerset.h"
 #include "crypto.h"
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+
 #ifndef MIN
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #endif
@@ -853,7 +856,9 @@ circuit_send_next_onion_skin(origin_circuit_t *circ)
 
   if (circ->cpath->state == CPATH_STATE_CLOSED) {
     /* This is the first hop. */
-    create_cell_t cc;
+    memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+    create_cell_t *cc_ptr = memmgr_alloc(sizeof(create_cell_t));
+    create_cell_t cc = *cc_ptr;
     int fast;
     int len;
     log_debug(LD_CIRC,"First skin; sending create cell.");
@@ -887,20 +892,26 @@ circuit_send_next_onion_skin(origin_circuit_t *circ)
                             cc.onionskin);
     if (len < 0) {
       log_warn(LD_CIRC,"onion_skin_create (first hop) failed.");
+      memmgr_free(cc_ptr);
       return - END_CIRC_REASON_INTERNAL;
     }
     cc.handshake_len = len;
 
-    if (circuit_deliver_create_cell(TO_CIRCUIT(circ), &cc, 0) < 0)
+    if (circuit_deliver_create_cell(TO_CIRCUIT(circ), &cc, 0) < 0){
+      memmgr_free(cc_ptr);
       return - END_CIRC_REASON_RESOURCELIMIT;
+    }
 
     circ->cpath->state = CPATH_STATE_AWAITING_KEYS;
     circuit_set_state(TO_CIRCUIT(circ), CIRCUIT_STATE_BUILDING);
     log_info(LD_CIRC,"First hop: finished sending %s cell to '%s'",
              fast ? "CREATE_FAST" : "CREATE",
              node ? node_describe(node) : "<unnamed>");
+    memmgr_free(cc_ptr);
   } else {
-    extend_cell_t ec;
+    memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+    extend_cell_t *ec_ptr = memmgr_alloc(sizeof(extend_cell_t));
+    extend_cell_t ec = *ec_ptr;
     int len;
     tor_assert(circ->cpath->state == CPATH_STATE_OPEN);
     tor_assert(circ->base_.state == CIRCUIT_STATE_BUILDING);
@@ -977,11 +988,13 @@ circuit_send_next_onion_skin(origin_circuit_t *circ)
       if (circ->base_.purpose == CIRCUIT_PURPOSE_C_MEASURE_TIMEOUT) {
         circuit_mark_for_close(TO_CIRCUIT(circ), END_CIRC_REASON_FINISHED);
       }
+      memmgr_free(ec_ptr);
       return 0;
     }
 
     if (tor_addr_family(&hop->extend_info->addr) != AF_INET) {
       log_warn(LD_BUG, "Trying to extend to a non-IPv4 address.");
+      memmgr_free(ec_ptr);
       return - END_CIRC_REASON_INTERNAL;
     }
 
@@ -1006,6 +1019,7 @@ circuit_send_next_onion_skin(origin_circuit_t *circ)
                             ec.create_cell.onionskin);
     if (len < 0) {
       log_warn(LD_CIRC,"onion_skin_create failed.");
+      memmgr_free(ec_ptr);
       return - END_CIRC_REASON_INTERNAL;
     }
     ec.create_cell.handshake_len = len;
@@ -1018,6 +1032,7 @@ circuit_send_next_onion_skin(origin_circuit_t *circ)
       uint8_t payload[RELAY_PAYLOAD_SIZE];
       if (extend_cell_format(&command, &payload_len, payload, &ec)<0) {
         log_warn(LD_CIRC,"Couldn't format extend cell");
+	memmgr_free(ec_ptr);
         return -END_CIRC_REASON_INTERNAL;
       }
 
@@ -1026,10 +1041,13 @@ circuit_send_next_onion_skin(origin_circuit_t *circ)
       if (relay_send_command_from_edge(0, TO_CIRCUIT(circ),
                                        command,
                                        (char*)payload, payload_len,
-                                       hop->prev) < 0)
+                                       hop->prev) < 0){
+	memmgr_free(ec_ptr);
         return 0; /* circuit is closed */
+      }
     }
     hop->state = CPATH_STATE_AWAITING_KEYS;
+    memmgr_free(ec_ptr);
   }
   return 0;
 }

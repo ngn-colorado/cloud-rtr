@@ -20,6 +20,10 @@
 #include "onion_tap.h"
 #include "rephist.h"
 
+#include "memmgr.h"
+#include "aes_fpga.h"
+#include "user_mmap_driver.h"
+
 /*----------------------------------------------------------------------*/
 
 /** Given a router's 128 byte public key,
@@ -39,13 +43,16 @@ onion_skin_TAP_create(crypto_pk_t *dest_router_key,
                   crypto_dh_t **handshake_state_out,
                   char *onion_skin_out) /* TAP_ONIONSKIN_CHALLENGE_LEN bytes */
 {
-  char challenge[DH_KEY_LEN];
+  memmgr_assert(onion_skin_out);
+//  char challenge[DH_KEY_LEN];
+  char *challenge = memmgr_alloc(DH_KEY_LEN);
   crypto_dh_t *dh = NULL;
   int dhbytes, pkbytes;
 
   tor_assert(dest_router_key);
   tor_assert(handshake_state_out);
-  tor_assert(onion_skin_out);
+//  memmgr_assert(onion_skin_out);
+//  tor_assert(onion_skin_out);
   *handshake_state_out = NULL;
   memset(onion_skin_out, 0, TAP_ONIONSKIN_CHALLENGE_LEN);
 
@@ -69,12 +76,16 @@ onion_skin_TAP_create(crypto_pk_t *dest_router_key,
                                       PK_PKCS1_OAEP_PADDING, 1)<0)
     goto err;
 
-  memwipe(challenge, 0, sizeof(challenge));
+  memwipe(challenge, 0, DH_KEY_LEN);//sizeof(challenge));
   *handshake_state_out = dh;
+
+  memmgr_free(challenge);
 
   return 0;
  err:
-  memwipe(challenge, 0, sizeof(challenge));
+  memwipe(challenge, 0, DH_KEY_LEN);//sizeof(challenge));
+  memmgr_free(challenge);
+//  tor_free(challenge);
   if (dh) crypto_dh_free(dh);
   return -1;
 }

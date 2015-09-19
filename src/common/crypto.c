@@ -58,6 +58,12 @@
 #include "compat.h"
 #include "sandbox.h"
 
+#include "memmgr.h"
+#include "aes_fpga.h"
+#include "user_mmap_driver.h"
+
+static char default_iv[] = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+
 #if OPENSSL_VERSION_NUMBER < OPENSSL_V_SERIES(0,9,8)
 #error "We require OpenSSL >= 0.9.8"
 #endif
@@ -972,15 +978,27 @@ crypto_pk_private_decrypt(crypto_pk_t *env, char *to,
   tor_assert(env->key);
   tor_assert(fromlen<INT_MAX);
   tor_assert(tolen >= crypto_pk_keysize(env));
-  if (!env->key->p)
+  if (!env->key->p){
     /* Not a private key */
+    printf("\nNot a private key");
     return -1;
+  }
 
   r = RSA_private_decrypt((int)fromlen,
                           (unsigned char*)from, (unsigned char*)to,
                           env->key, crypto_get_rsa_padding(padding));
 
   if (r<0) {
+    printf("\nr < 0 in private decrypt non-hybrid. key: 0x");
+    int i;
+//    for(i=0; i<20; i++){
+//	    printf("%02x", env->key);
+//    }
+//    BIO *keybio = BIO_new(BIO_s_mem
+    unsigned long error = ERR_get_error();
+    printf("\nError code: %lu", error);
+    printf("\nError string: %s", ERR_error_string(error, NULL));
+    printf("\nPadding: %i", padding);
     crypto_log_errors(warnOnFailure?LOG_WARN:LOG_DEBUG,
                       "performing RSA decryption");
     return -1;
@@ -1142,6 +1160,8 @@ crypto_pk_public_hybrid_encrypt(crypto_pk_t *env,
   tor_assert(env);
   tor_assert(from);
   tor_assert(to);
+  memmgr_assert((void*)from);
+  memmgr_assert((void*)to);
   tor_assert(fromlen < SIZE_T_CEILING);
 
   overhead = crypto_get_rsa_padding_overhead(crypto_get_rsa_padding(padding));
@@ -1169,8 +1189,27 @@ crypto_pk_public_hybrid_encrypt(crypto_pk_t *env,
   if (outlen!=(int)pkeylen) {
     goto err;
   }
-  r = crypto_cipher_encrypt(cipher, to+outlen,
-                            from+pkeylen-overhead-CIPHER_KEY_LEN, symlen);
+/*  char *temp_buf = malloc(tolen);
+  memset(temp_buf, 0, tolen);
+  r = crypto_cipher_encrypt(cipher, temp_buf,//to+outlen,
+                            from+pkeylen-overhead-CIPHER_KEY_LEN, symlen);*/
+  FPGA_AES *cipher1 = NULL;
+  cipher1 = fpga_aes_new_short_16((char*)crypto_cipher_get_key(cipher), default_iv, 2);
+  if(cipher1 == NULL){
+	  printf("\nCould not allocate fpga cipher");
+	  abort();
+  }
+  r = Aes_encrypt_memmgr(cipher1, to+outlen, from+pkeylen-overhead-CIPHER_KEY_LEN, symlen);
+  fpga_aes_free(cipher1);
+/*  int i;
+  int incorrect = 0;
+  for(i=0; i<symlen; i++){
+	  if((to+outlen)[i] != temp_buf[i]){
+		  incorrect++;
+	  }
+  }
+  printf("\nIncorrect: %i", incorrect);
+  free(temp_buf);*/
 
   if (r<0) goto err;
   memwipe(buf, 0, pkeylen);
@@ -1214,11 +1253,13 @@ crypto_pk_private_hybrid_decrypt(crypto_pk_t *env,
   if (outlen<0) {
     log_fn(warnOnFailure?LOG_WARN:LOG_DEBUG, LD_CRYPTO,
            "Error decrypting public-key data");
+    printf("\nError decryptin public-key data");
     goto err;
   }
   if (outlen < CIPHER_KEY_LEN) {
     log_fn(warnOnFailure?LOG_WARN:LOG_INFO, LD_CRYPTO,
            "No room for a symmetric key");
+    printf("\nNo room for a symmetric key");
     goto err;
   }
   cipher = crypto_cipher_new(buf);
@@ -1229,8 +1270,10 @@ crypto_pk_private_hybrid_decrypt(crypto_pk_t *env,
   outlen -= CIPHER_KEY_LEN;
   tor_assert(tolen - outlen >= fromlen - pkeylen);
   r = crypto_cipher_decrypt(cipher, to+outlen, from+pkeylen, fromlen-pkeylen);
-  if (r<0)
+  if (r<0){
+    printf("\nr < 0");
     goto err;
+  }
   memwipe(buf,0,pkeylen);
   tor_free(buf);
   crypto_cipher_free(cipher);

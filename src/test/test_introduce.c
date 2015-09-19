@@ -6,6 +6,9 @@
 #include "or.h"
 #include "test.h"
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+
 #define RENDSERVICE_PRIVATE
 #include "rendservice.h"
 
@@ -299,12 +302,18 @@ do_parse_test(uint8_t *plaintext, size_t plaintext_len, int phase)
   tt_assert(r >= 0);
 
   /* Make a cell out of it */
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+  char* plaintext_buf = memmgr_alloc(plaintext_len);
+  memcpy(plaintext_buf, plaintext, plaintext_len);
+
+
   r = make_intro_from_plaintext(
-      plaintext, plaintext_len,
+      plaintext_buf, plaintext_len,
       k, (void **)(&cell));
   tt_assert(r > 0);
   tt_assert(cell);
   cell_len = r;
+  memmgr_free(plaintext_buf);
 
   /* Do early parsing */
   parsed_req = rend_service_begin_parse_intro(cell, cell_len, 2, &err_msg);
@@ -334,7 +343,9 @@ do_parse_test(uint8_t *plaintext, size_t plaintext_len, int phase)
   tt_assert(parsed_req->parsed);
 
  done:
-  tor_free(cell);
+//  tor_free(cell);
+  memmgr_assert(cell);
+  memmgr_free(cell);
   crypto_pk_free(k);
   rend_service_free_intro(parsed_req);
   tor_free(err_msg);
@@ -367,7 +378,12 @@ make_intro_from_plaintext(
   /*
    * Allocate space for the cell
    */
-  cell = tor_malloc(DIGEST_LEN + ciphertext_size);
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+//  cell = tor_malloc(DIGEST_LEN + ciphertext_size);
+  cell = memmgr_alloc(DIGEST_LEN + ciphertext_size);
+
+  memmgr_assert(buf);
+  
 
   /* Compute key digest (will be first DIGEST_LEN octets of cell) */
   r = crypto_pk_get_digest(key, cell);
@@ -387,6 +403,7 @@ make_intro_from_plaintext(
   *cell_out = cell;
 
  done:
+//  memmgr_free(cell);
   return cell_len;
 }
 

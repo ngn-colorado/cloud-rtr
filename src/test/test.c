@@ -60,13 +60,18 @@ double fabs(double x);
 #include "crypto_curve25519.h"
 #include "onion_ntor.h"
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+
 /** Run unit tests for the onion handshake code. */
 static void
 test_onion_handshake(void *arg)
 {
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
   /* client-side */
   crypto_dh_t *c_dh = NULL;
-  char c_buf[TAP_ONIONSKIN_CHALLENGE_LEN];
+//  char c_buf[TAP_ONIONSKIN_CHALLENGE_LEN];
+  char *c_buf = memmgr_alloc(TAP_ONIONSKIN_CHALLENGE_LEN);
   char c_keys[40];
   /* server-side */
   char s_buf[TAP_ONIONSKIN_REPLY_LEN];
@@ -114,16 +119,21 @@ test_onion_handshake(void *arg)
   crypto_dh_free(c_dh);
   crypto_pk_free(pk);
   crypto_pk_free(pk2);
+  memmgr_free(c_buf);
 }
 
 static void
 test_bad_onion_handshake(void *arg)
 {
-  char junk_buf[TAP_ONIONSKIN_CHALLENGE_LEN];
-  char junk_buf2[TAP_ONIONSKIN_CHALLENGE_LEN];
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+//  char junk_buf[TAP_ONIONSKIN_CHALLENGE_LEN];
+//  char junk_buf2[TAP_ONIONSKIN_CHALLENGE_LEN];
+  char *junk_buf = memmgr_alloc(TAP_ONIONSKIN_CHALLENGE_LEN);
+  char *junk_buf2 = memmgr_alloc(TAP_ONIONSKIN_CHALLENGE_LEN);
   /* client-side */
   crypto_dh_t *c_dh = NULL;
-  char c_buf[TAP_ONIONSKIN_CHALLENGE_LEN];
+  //char c_buf[TAP_ONIONSKIN_CHALLENGE_LEN];
+  char *c_buf = memmgr_alloc(TAP_ONIONSKIN_CHALLENGE_LEN);
   char c_keys[40];
   /* server-side */
   char s_buf[TAP_ONIONSKIN_REPLY_LEN];
@@ -137,7 +147,7 @@ test_bad_onion_handshake(void *arg)
   pk2 = pk_generate(1);
 
   /* Server: Case 1: the encrypted data is degenerate. */
-  memset(junk_buf, 0, sizeof(junk_buf));
+  memset(junk_buf, 0, TAP_ONIONSKIN_CHALLENGE_LEN);//sizeof(junk_buf));
   crypto_pk_public_hybrid_encrypt(pk, junk_buf2, TAP_ONIONSKIN_CHALLENGE_LEN,
                                junk_buf, DH_KEY_LEN, PK_PKCS1_OAEP_PADDING, 1);
   tt_int_op(-1, OP_EQ,
@@ -145,9 +155,9 @@ test_bad_onion_handshake(void *arg)
                                             s_buf, s_keys, 40));
 
   /* Server: Case 2: the encrypted data is not long enough. */
-  memset(junk_buf, 0, sizeof(junk_buf));
-  memset(junk_buf2, 0, sizeof(junk_buf2));
-  crypto_pk_public_encrypt(pk, junk_buf2, sizeof(junk_buf2),
+  memset(junk_buf, 0, TAP_ONIONSKIN_CHALLENGE_LEN);//sizeof(junk_buf));
+  memset(junk_buf2, 0, TAP_ONIONSKIN_CHALLENGE_LEN);//sizeof(junk_buf2));
+  crypto_pk_public_encrypt(pk, junk_buf2, TAP_ONIONSKIN_CHALLENGE_LEN,
                                junk_buf, 48, PK_PKCS1_OAEP_PADDING);
   tt_int_op(-1, OP_EQ,
             onion_skin_TAP_server_handshake(junk_buf2, pk, NULL,
@@ -194,6 +204,9 @@ test_bad_onion_handshake(void *arg)
   crypto_dh_free(c_dh);
   crypto_pk_free(pk);
   crypto_pk_free(pk2);
+  memmgr_free(c_buf);
+  memmgr_free(junk_buf);
+  memmgr_free(junk_buf2);
 }
 
 static void

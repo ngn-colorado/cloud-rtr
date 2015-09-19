@@ -28,6 +28,10 @@
 #include "routerset.h"
 #include "control.h"
 
+#include "memmgr.h"
+#include "aes_fpga.h"
+#include "user_mmap_driver.h"
+
 static extend_info_t *rend_client_get_random_intro_impl(
                           const rend_cache_entry_t *rend_query,
                           const int strict, const int warnings);
@@ -139,8 +143,11 @@ rend_client_send_introduction(origin_circuit_t *introcirc,
 {
   size_t payload_len;
   int r, v3_shift = 0;
-  char payload[RELAY_PAYLOAD_SIZE];
-  char tmp[RELAY_PAYLOAD_SIZE];
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+//  char payload[RELAY_PAYLOAD_SIZE];
+  char *payload = memmgr_alloc(RELAY_PAYLOAD_SIZE);
+//  char tmp[RELAY_PAYLOAD_SIZE];
+  char *tmp = memmgr_alloc(RELAY_PAYLOAD_SIZE);
   rend_cache_entry_t *entry;
   crypt_path_t *cpath;
   off_t dh_offset;
@@ -334,6 +341,10 @@ rend_client_send_introduction(origin_circuit_t *introcirc,
  cleanup:
   memwipe(payload, 0, sizeof(payload));
   memwipe(tmp, 0, sizeof(tmp));
+  memmgr_free(payload);
+  memmgr_free(tmp);
+//  tor_free(payload);
+//  tor_free(tmp);
 
   return status;
 }
