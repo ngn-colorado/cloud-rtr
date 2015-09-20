@@ -100,8 +100,8 @@
 #undef MALLOC_ZERO_WORKS
 #endif
 
-#include "memmgr.h"
-#include "user_mmap_driver.h"
+//#include "memmgr.h"
+//#include "user_mmap_driver.h"
 
 /* =====
  * Assertion helper.

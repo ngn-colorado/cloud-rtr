@@ -132,7 +132,8 @@ test_crypto_aes(void *arg)
   //shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
 //  shared_memory shared_mem = getSharedMemoryArea(base_address, shared_size);
 //  memmgr_init(shared_mem->ptr, shared_size, base_address);
-//  memmgr_destroy();
+  printf("\nDestroying queue since we are in a new process");
+  memmgr_destroy();
   memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
 
 //  char* shared = (char*)(shared_mem->ptr);
@@ -637,6 +638,8 @@ test_crypto_pk(void *arg)
 {
   crypto_pk_t *pk1 = NULL, *pk2 = NULL;
   char *encoded = NULL;
+  printf("\nDestroying now, as the memmgr buffer may have been invalidated by another process");
+  memmgr_destroy();
   memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
   char data1[1024], data2[1024], data3[1024];
   size_t size;
@@ -978,6 +981,7 @@ test_crypto_aes_iv(void *arg)
 //  shared_memory shared_mem = getUioMemoryArea("/dev/uio1", shared_size);
 //  shared_memory shared_mem = getSharedMemoryArea(base_address, shared_size);
 //  memmgr_init((void*)(shared_mem->ptr), shared_size, base_address);
+  printf("\nDestroying now cause it doesn't seem to be working otherwise. Maybe because the buffer is set by another thread?");
   memmgr_destroy();
   memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
 
@@ -1202,7 +1206,7 @@ test_crypto_aes_iv(void *arg)
   memmgr_free(encrypted2);
   memmgr_free(decrypted1);
   memmgr_free(decrypted2);
-  memmgr_destroy();
+//  memmgr_destroy();
   //cleanupSharedMemoryPointer(shared_mem);
 }
 

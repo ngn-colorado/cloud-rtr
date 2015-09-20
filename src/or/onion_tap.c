@@ -43,6 +43,7 @@ onion_skin_TAP_create(crypto_pk_t *dest_router_key,
                   crypto_dh_t **handshake_state_out,
                   char *onion_skin_out) /* TAP_ONIONSKIN_CHALLENGE_LEN bytes */
 {
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
   memmgr_assert(onion_skin_out);
 //  char challenge[DH_KEY_LEN];
   char *challenge = memmgr_alloc(DH_KEY_LEN);
