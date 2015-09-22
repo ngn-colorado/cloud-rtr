@@ -19,6 +19,10 @@
 
 #include "aes.h"
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+#include "aes_fpga.h"
+
 /*
   Macro to create an arbitrary OpenSSL version number as used by
   OPENSSL_VERSION_NUMBER or SSLeay(), since the actual numbers are a bit hard
@@ -112,6 +116,7 @@ typedef struct crypto_cipher_t{
 	char key[CIPHER_IV_LEN];
 	char iv[CIPHER_IV_LEN];
 	aes_cnt_cipher_t *cipher;
+	FPGA_AES *cipher1;
 } crypto_cipher_t;
 
 typedef struct crypto_digest_t crypto_digest_t;

@@ -30,6 +30,9 @@
 #include "routerparse.h"
 #include "routerset.h"
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+
 static origin_circuit_t *find_intro_circuit(rend_intro_point_t *intro,
                                             const char *pk_digest);
 static rend_intro_point_t *find_intro_point(origin_circuit_t *circ);
@@ -1678,7 +1681,8 @@ rend_service_free_intro(rend_intro_cell_t *request)
   }
 
   /* Free ciphertext */
-  tor_free(request->ciphertext);
+//  tor_free(request->ciphertext);
+  memmgr_free(request->ciphertext);
   request->ciphertext_len = 0;
 
   /* Have plaintext? */
@@ -1767,6 +1771,8 @@ rend_service_begin_parse_intro(const uint8_t *request,
 
   /* Allocate a new parsed cell structure */
   rv = tor_malloc_zero(sizeof(*rv));
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+//  rv = memmgr_alloc(sizeof(rend_intro_cell_t));
 
   /* Set the type */
   rv->type = type;
@@ -1775,7 +1781,7 @@ rend_service_begin_parse_intro(const uint8_t *request,
   memcpy(rv->pk, request, DIGEST_LEN);
 
   /* Copy in the ciphertext */
-  rv->ciphertext = tor_malloc(request_len - DIGEST_LEN);
+  rv->ciphertext = memmgr_alloc(request_len - DIGEST_LEN);//tor_malloc(request_len - DIGEST_LEN);
   memcpy(rv->ciphertext, request + DIGEST_LEN, request_len - DIGEST_LEN);
   rv->ciphertext_len = request_len - DIGEST_LEN;
 
@@ -2125,7 +2131,9 @@ rend_service_decrypt_intro(
   uint8_t key_digest[DIGEST_LEN];
   char service_id[REND_SERVICE_ID_LEN_BASE32+1];
   ssize_t key_len;
-  uint8_t buf[RELAY_PAYLOAD_SIZE];
+//  uint8_t buf[RELAY_PAYLOAD_SIZE];
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+  uint8_t *buf = memmgr_alloc(sizeof(uint8_t)*RELAY_PAYLOAD_SIZE);
   int result, status = -1;
 
   if (!intro || !key) {
@@ -2187,6 +2195,7 @@ rend_service_decrypt_intro(
   /* Decrypt the encrypted part */
 
   note_crypto_pk_op(REND_SERVER);
+  memmgr_assert(intro->ciphertext);
   result =
     crypto_pk_private_hybrid_decrypt(
        key, (char *)buf, sizeof(buf),
@@ -2224,6 +2233,7 @@ rend_service_decrypt_intro(
   memwipe(buf, 0, sizeof(buf));
   memwipe(key_digest, 0, sizeof(key_digest));
   memwipe(service_id, 0, sizeof(service_id));
+  memmgr_free(buf);
 
   return status;
 }

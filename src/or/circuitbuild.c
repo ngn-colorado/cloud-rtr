@@ -648,7 +648,8 @@ static int
 circuit_deliver_create_cell(circuit_t *circ, const create_cell_t *create_cell,
                             int relayed)
 {
-  cell_t cell;
+  memmgr_init_shared_short();
+  cell_t *cell = memmgr_alloc(sizeof(cell_t));
   circid_t id;
   int r;
 
@@ -667,18 +668,18 @@ circuit_deliver_create_cell(circuit_t *circ, const create_cell_t *create_cell,
     goto error;
   }
 
-  memset(&cell, 0, sizeof(cell_t));
-  r = relayed ? create_cell_format_relayed(&cell, create_cell)
-              : create_cell_format(&cell, create_cell);
+  memset(cell, 0, sizeof(cell_t));
+  r = relayed ? create_cell_format_relayed(cell, create_cell)
+              : create_cell_format(cell, create_cell);
   if (r < 0) {
     log_warn(LD_CIRC,"Couldn't format create cell");
     goto error;
   }
   log_debug(LD_CIRC,"Chosen circID %u.", (unsigned)id);
   circuit_set_n_circid_chan(circ, id, circ->n_chan);
-  cell.circ_id = circ->n_circ_id;
+  cell->circ_id = circ->n_circ_id;
 
-  append_cell_to_circuit_queue(circ, circ->n_chan, &cell,
+  append_cell_to_circuit_queue(circ, circ->n_chan, cell,
                                CELL_DIRECTION_OUT, 0);
 
   if (CIRCUIT_IS_ORIGIN(circ)) {
@@ -1375,15 +1376,16 @@ onionskin_answer(or_circuit_t *circ,
                  const char *keys,
                  const uint8_t *rend_circ_nonce)
 {
-  cell_t cell;
+  memmgr_init_shared_short();
+  cell_t *cell = memmgr_alloc(sizeof(cell_t));
   crypt_path_t *tmp_cpath;
 
-  if (created_cell_format(&cell, created_cell) < 0) {
+  if (created_cell_format(cell, created_cell) < 0) {
     log_warn(LD_BUG,"couldn't format created cell (type=%d, len=%d)",
              (int)created_cell->cell_type, (int)created_cell->handshake_len);
     return -1;
   }
-  cell.circ_id = circ->p_circ_id;
+  cell->circ_id = circ->p_circ_id;
 
   tmp_cpath = tor_malloc_zero(sizeof(crypt_path_t));
   tmp_cpath->magic = CRYPT_PATH_MAGIC;
@@ -1410,7 +1412,7 @@ onionskin_answer(or_circuit_t *circ,
   circ->is_first_hop = (created_cell->cell_type == CELL_CREATED_FAST);
 
   append_cell_to_circuit_queue(TO_CIRCUIT(circ),
-                               circ->p_chan, &cell, CELL_DIRECTION_IN, 0);
+                               circ->p_chan, cell, CELL_DIRECTION_IN, 0);
   log_debug(LD_CIRC,"Finished sending '%s' cell.",
             circ->is_first_hop ? "created_fast" : "created");
 

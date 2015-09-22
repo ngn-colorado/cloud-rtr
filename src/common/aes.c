@@ -88,9 +88,9 @@
 
 #ifdef USE_EVP_AES_CTR
 
-struct aes_cnt_cipher {
+/*struct aes_cnt_cipher {
   EVP_CIPHER_CTX evp;
-};
+};*/
 
 aes_cnt_cipher_t *
 aes_new_cipher(const char *key, const char *iv)
@@ -127,9 +127,25 @@ aes_crypt_inplace(aes_cnt_cipher_t *cipher, char *data, size_t len)
   int outl;
 
   tor_assert(len < INT_MAX);
+/*  printf("\n\nIn aes crypt in place");
+  int i;
+  printf("\nCurrent key: 0x");
+  for(i=0; i<16; i++){
+	  printf("%02x", crypto_cipher_get_key(cipher)[i]);
+  }
+  printf("\n1st input:");
+  for(i=0; i<16&&i<len; i++){
+	  printf("%02x", data[i]);
+  }*/
 
   EVP_EncryptUpdate(&cipher->evp, (unsigned char*)data,
                     &outl, (unsigned char*)data, (int)len);
+/*  printf("\n1st output:");
+  for(i=0; i<16&&i<len; i++){
+	  printf("%02x", data[i]);
+  }
+
+  printf("\nDone with aes crypt inplace\n");*/
 }
 int
 evaluate_evp_for_aes(int force_val)
@@ -150,40 +166,40 @@ evaluate_ctr_for_aes(void)
 /* Interface to AES code, and counter implementation */
 
 /** Implements an AES counter-mode cipher. */
-struct aes_cnt_cipher {
-/** This next element (however it's defined) is the AES key. */
-  union {
-    EVP_CIPHER_CTX evp;
-    AES_KEY aes;
-  } key;
-
-#if !defined(WORDS_BIGENDIAN)
-#define USING_COUNTER_VARS
-  /** These four values, together, implement a 128-bit counter, with
-   * counter0 as the low-order word and counter3 as the high-order word. */
-  uint32_t counter3;
-  uint32_t counter2;
-  uint32_t counter1;
-  uint32_t counter0;
-#endif
-
-  union {
-    /** The counter, in big-endian order, as bytes. */
-    uint8_t buf[16];
-    /** The counter, in big-endian order, as big-endian words.  Note that
-     * on big-endian platforms, this is redundant with counter3...0,
-     * so we just use these values instead. */
-    uint32_t buf32[4];
-  } ctr_buf;
-
-  /** The encrypted value of ctr_buf. */
-  uint8_t buf[16];
-  /** Our current stream position within buf. */
-  unsigned int pos;
-
-  /** True iff we're using the evp implementation of this cipher. */
-  uint8_t using_evp;
-};
+//struct aes_cnt_cipher {
+///** This next element (however it's defined) is the AES key. */
+//  union {
+//    EVP_CIPHER_CTX evp;
+//    AES_KEY aes;
+//  } key;
+//
+//#if !defined(WORDS_BIGENDIAN)
+//#define USING_COUNTER_VARS
+//  /** These four values, together, implement a 128-bit counter, with
+//   * counter0 as the low-order word and counter3 as the high-order word. */
+//  uint32_t counter3;
+//  uint32_t counter2;
+//  uint32_t counter1;
+//  uint32_t counter0;
+//#endif
+//
+//  union {
+//    /** The counter, in big-endian order, as bytes. */
+//    uint8_t buf[16];
+//    /** The counter, in big-endian order, as big-endian words.  Note that
+//     * on big-endian platforms, this is redundant with counter3...0,
+//     * so we just use these values instead. */
+//    uint32_t buf32[4];
+//  } ctr_buf;
+//
+//  /** The encrypted value of ctr_buf. */
+//  uint8_t buf[16];
+//  /** Our current stream position within buf. */
+//  unsigned int pos;
+//
+//  /** True iff we're using the evp implementation of this cipher. */
+//  uint8_t using_evp;
+//};
 
 /** True iff we should prefer the EVP implementation for AES, either because
  * we're testing it or because we have hardware acceleration configured */
@@ -409,7 +425,9 @@ aes_crypt(aes_cnt_cipher_t *cipher, const char *input, size_t len,
 {
 #ifdef CAN_USE_OPENSSL_CTR
   if (should_use_openssl_CTR) {
+	 // printf("\nIn aes_crypt use openssl 1");
     if (cipher->using_evp) {
+//	  printf("\nIn aes_crypt use openssl 2");
       /* In openssl 1.0.0, there's an if'd out EVP_aes_128_ctr in evp.h.  If
        * it weren't disabled, it might be better just to use that.
        */
@@ -422,6 +440,21 @@ aes_crypt(aes_cnt_cipher_t *cipher, const char *input, size_t len,
                             &cipher->pos,
                             evp_block128_fn);
     } else {
+/*	  printf("\nIn aes_crypt use openssl 3");
+      int i;
+      printf("\nkey: 0x");
+      for(i=0; i<4; i++){
+	      printf("%02x", cipher->key.aes.rd_key[i]);
+      }
+      printf("\nIV input: 0x");
+      for(i=0; i<16; i++){
+	      printf("%02x", cipher->ctr_buf.buf[i]);
+      }
+      printf("\nEcount input: 0x");
+      for(i=0; i<16; i++){
+	      printf("%02x", cipher->buf[i]);
+      }
+      printf("\nnum input: 0x%08x", (unsigned int)cipher->pos);*/
       AES_ctr128_encrypt((const unsigned char *)input,
                          (unsigned char *)output,
                          len,
@@ -429,6 +462,15 @@ aes_crypt(aes_cnt_cipher_t *cipher, const char *input, size_t len,
                          cipher->ctr_buf.buf,
                          cipher->buf,
                          &cipher->pos);
+   /*   printf("\nIV output: 0x");
+      for(i=0; i<16; i++){
+	      printf("%02x", cipher->ctr_buf.buf[i]);
+      }
+      printf("\nEcount output: 0x");
+      for(i=0; i<16; i++){
+	      printf("%02x", cipher->buf[i]);
+      }
+      printf("\nnum output: 0x%08x", (unsigned int)cipher->pos);*/
     }
     return;
   } else
@@ -467,12 +509,31 @@ void
 aes_crypt_inplace(aes_cnt_cipher_t *cipher, char *data, size_t len)
 {
 #ifdef CAN_USE_OPENSSL_CTR
+//  printf("\n\nUsing openssl ctr-----------------------------------");
   if (should_use_openssl_CTR) {
+    
+  /*  printf("\n\nIn aes crypt in place");
+    int i;
+    printf("\nCurrent key: 0x");
+    for(i=0; i<4; i++){
+  	  printf("%08x", cipher->key.aes.rd_key[i]);
+    }
+    printf("\nAes rounds: 0x%08x", cipher->key.aes.rounds);
+    printf("\n1st input:");
+    for(i=0; i<16&&i<len; i++){
+  	  printf("%02x", data[i]);
+    }*/
     aes_crypt(cipher, data, len, data);
+/*    printf("\n1st output:");
+    for(i=0; i<16&&i<len; i++){
+  	  printf("%02x", data[i]);
+    }
+    printf("-----------------------------------------\n\n\n");*/
     return;
   } else
 #endif
   {
+/*    printf("\n\nNot using openssl ctr--------------------------------------");*/
     int c = cipher->pos;
     if (PREDICT_UNLIKELY(!len)) return;
 

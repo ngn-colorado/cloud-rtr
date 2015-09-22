@@ -85,6 +85,9 @@
 #include <systemd/sd-daemon.h>
 #endif
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+
 void evdns_shutdown(int);
 
 /********* PROTOTYPES **********/
@@ -1050,7 +1053,9 @@ directory_info_has_arrived(time_t now, int from_cache)
 static void
 run_connection_housekeeping(int i, time_t now)
 {
-  cell_t cell;
+//  cell_t cell;
+  memmgr_init_shared_short();
+  cell_t *cell = memmgr_alloc(sizeof(cell_t));
   connection_t *conn = smartlist_get(connection_array, i);
   const or_options_t *options = get_options();
   or_connection_t *or_conn;
@@ -1166,9 +1171,9 @@ run_connection_housekeeping(int i, time_t now)
     /* send a padding cell */
     log_fn(LOG_DEBUG,LD_OR,"Sending keepalive to (%s:%d)",
            conn->address, conn->port);
-    memset(&cell,0,sizeof(cell_t));
-    cell.command = CELL_PADDING;
-    connection_or_write_cell_to_buf(&cell, or_conn);
+    memset(cell,0,sizeof(cell_t));
+    cell->command = CELL_PADDING;
+    connection_or_write_cell_to_buf(cell, or_conn);
   }
 }
 

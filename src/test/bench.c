@@ -30,6 +30,10 @@ const char tor_git_revision[] = "";
 #include "onion_ntor.h"
 #include "crypto_ed25519.h"
 
+#include "memmgr.h"
+#include "aes_fpga.h"
+#include "user_mmap_driver.h"
+
 #if defined(HAVE_CLOCK_GETTIME) && defined(CLOCK_PROCESS_CPUTIME_ID)
 static uint64_t nanostart;
 static inline uint64_t
@@ -86,28 +90,82 @@ static void
 bench_aes(void)
 {
   int len, i;
-  char *b1, *b2;
+  char *b1, *b2, *temp;
   crypto_cipher_t *c;
   uint64_t start, end;
   const int bytes_per_iter = (1<<24);
   reset_perftime();
   c = crypto_cipher_new(NULL);
+  memmgr_destroy();
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+  FPGA_AES *cipher1 = NULL;
+  char default_iv[] = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+  cipher1 = fpga_aes_new_short_16((char*)crypto_cipher_get_key(c), default_iv, 2);
+  if(cipher1 == NULL){
+	  printf("\nCould not allocate cipher");
+	  return;
+  }
 
-  for (len = 1; len <= 8192; len *= 2) {
+    b1 = memmgr_alloc(8192*2+16);//tor_malloc_zero(len);
+    b2 = memmgr_alloc(8192*2+16);//tor_malloc_zero(len);
+    temp = memmgr_alloc(8192*2+16);
+    printf("\nKey: 0x");
+    for(i=0; i<16; i++){
+	    printf("%02x", cipher1->key[i]);
+    }
+    printf("\n");
+  //  printf("\nBytes per iter: %i", bytes_per_iter);
+  for (len = 2; len <= 8192; len *= 2) {
     int iters = bytes_per_iter / len;
-    b1 = tor_malloc_zero(len);
-    b2 = tor_malloc_zero(len);
+//    printf("\nIterations: %i\n", iters);
+    memset(b1, 0, len);
+    memset(b2, 0, len);
+    memset(temp, 0, len);
+    printf("\nb2: 0x");
+    for(i=0; i<len; i++){
+	    printf("%02x", b2[i]);
+    }
     start = perftime();
     for (i = 0; i < iters; ++i) {
-      crypto_cipher_encrypt(c, b1, b2, len);
+//      crypto_cipher_encrypt(c, b1, b2, len);
+//	if(i == iters - 1){
+//	        printf(" i: %i ", i);
+//	}
+        Aes_encrypt_memmgr(cipher1, b1, b2, len);
     }
     end = perftime();
-    tor_free(b1);
-    tor_free(b2);
+    memset(b2, 0, len);
+    printf("\nFinal iv/iters: 0x%08x", iters);
+//    for(i=1; i<16; i++){
+//	    printf("%02x", cipher1->iv[i]);
+  //  }
+    for(i=0; i<iters; ++i){
+      crypto_cipher_encrypt(c, temp, b2, len);
+    }
+
+    int incorrect = 0;
+    printf("\nb1: 0x");
+    for(i=0; i<len; i++){
+	    printf("%02x", b2[i]);
+    }
+    for(i=0; i<len; i++){
+	    if(temp[i] != b1[i]){
+		    incorrect++;
+		    printf("\nIncorrect: 0x%02x - 0x%02x fabric", temp[i], b1[i]);
+	    }
+    }
+//    tor_free(b1);
+//    tor_free(b2);
     printf("%d bytes: %.2f nsec per byte\n", len,
            NANOCOUNT(start, end, iters*len));
+    printf("Num incorrect: %i\n", incorrect);
+    //printf("start: %lu, end: %lu\n", start, end);
   }
+    memmgr_free(b1);
+    memmgr_free(b2);
+    memmgr_free(temp);
   crypto_cipher_free(c);
+  fpga_aes_free(cipher1);
 }
 
 static void
@@ -117,7 +175,10 @@ bench_onion_TAP(void)
   int i;
   crypto_pk_t *key, *key2;
   uint64_t start, end;
-  char os[TAP_ONIONSKIN_CHALLENGE_LEN];
+  memmgr_destroy();
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+//  char os[TAP_ONIONSKIN_CHALLENGE_LEN];
+  char *os = memmgr_alloc(TAP_ONIONSKIN_CHALLENGE_LEN);
   char or[TAP_ONIONSKIN_REPLY_LEN];
   crypto_dh_t *dh_out;
 
@@ -176,6 +237,7 @@ bench_onion_TAP(void)
  done:
   crypto_pk_free(key);
   crypto_pk_free(key2);
+  memmgr_free(os);
 }
 
 static void

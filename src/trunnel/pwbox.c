@@ -28,10 +28,16 @@ int pwbox_deadcode_dummy__ = 0;
     }                                                            \
   } while (0)
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+
 pwbox_encoded_t *
 pwbox_encoded_new(void)
 {
-  pwbox_encoded_t *val = trunnel_calloc(1, sizeof(pwbox_encoded_t));
+  memmgr_init_shared_short();
+  pwbox_encoded_t *val_raw = trunnel_calloc(1, sizeof(pwbox_encoded_t));
+  pwbox_encoded_t *val = memmgr_alloc(sizeof(pwbox_encoded_t));
+  memcpy(val, val_raw, sizeof(pwbox_encoded_t));
   if (NULL == val)
     return NULL;
   val->fixedbytes0 = PWBOX0_CONST0;
@@ -54,11 +60,14 @@ pwbox_encoded_clear(pwbox_encoded_t *obj)
 void
 pwbox_encoded_free(pwbox_encoded_t *obj)
 {
+  memmgr_assert(obj);
   if (obj == NULL)
     return;
   pwbox_encoded_clear(obj);
   trunnel_memwipe(obj, sizeof(pwbox_encoded_t));
   trunnel_free_(obj);
+  memmgr_free(obj);
+
 }
 
 uint32_t

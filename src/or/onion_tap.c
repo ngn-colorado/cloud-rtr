@@ -107,7 +107,10 @@ onion_skin_TAP_server_handshake(
                             char *key_out,
                             size_t key_out_len)
 {
-  char challenge[TAP_ONIONSKIN_CHALLENGE_LEN];
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+  memmgr_assert((char*)onion_skin);
+//  char challenge[TAP_ONIONSKIN_CHALLENGE_LEN];
+  char *challenge = memmgr_alloc(TAP_ONIONSKIN_CHALLENGE_LEN);
   crypto_dh_t *dh = NULL;
   ssize_t len;
   char *key_material=NULL;
@@ -170,6 +173,8 @@ onion_skin_TAP_server_handshake(
   memwipe(key_material, 0, key_material_len);
   tor_free(key_material);
   crypto_dh_free(dh);
+  printf("\nFreeing");
+  memmgr_free(challenge);
   return 0;
  err:
   memwipe(challenge, 0, sizeof(challenge));
@@ -178,6 +183,8 @@ onion_skin_TAP_server_handshake(
     tor_free(key_material);
   }
   if (dh) crypto_dh_free(dh);
+  printf("\nFreeing");
+  memmgr_free(challenge);
 
   return -1;
 }
@@ -209,15 +216,19 @@ onion_skin_TAP_client_handshake(crypto_dh_t *handshake_state,
                                  handshake_reply, DH_KEY_LEN, key_material,
                                  key_material_len);
   if (len < 0) {
-    if (msg_out)
+    if (msg_out){
       *msg_out = "DH computation failed.";
+      printf("\n%s", *msg_out);
+    }
     goto err;
   }
 
   if (tor_memneq(key_material, handshake_reply+DH_KEY_LEN, DIGEST_LEN)) {
     /* H(K) does *not* match. Something fishy. */
-    if (msg_out)
+    if (msg_out){
       *msg_out = "Digest DOES NOT MATCH on onion handshake. Bug or attack.";
+      printf("\n%s", *msg_out);
+    }
     goto err;
   }
 

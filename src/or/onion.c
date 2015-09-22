@@ -646,7 +646,7 @@ create_cell_init(create_cell_t *cell_out, uint8_t cell_type,
                  uint16_t handshake_type, uint16_t handshake_len,
                  const uint8_t *onionskin)
 {
-  memset(cell_out, 0, sizeof(*cell_out));
+  memset(cell_out, 0, sizeof(create_cell_t));
 
   cell_out->cell_type = cell_type;
   cell_out->handshake_type = handshake_type;
@@ -750,27 +750,46 @@ check_created_cell(const created_cell_t *cell)
 int
 created_cell_parse(created_cell_t *cell_out, const cell_t *cell_in)
 {
-  memset(cell_out, 0, sizeof(*cell_out));
+//  printf("\nAsserting in created_cell_parse");
+  memmgr_assert((void*)cell_in);
+  memset(cell_out, 0, sizeof(cell_t));
+  int i;
 
   switch (cell_in->command) {
   case CELL_CREATED:
+  //  printf("\ncreated cell t case 1");
     cell_out->cell_type = CELL_CREATED;
     cell_out->handshake_len = TAP_ONIONSKIN_REPLY_LEN;
-    memcpy(cell_out->reply, cell_in->payload, TAP_ONIONSKIN_REPLY_LEN);
+    for(i=0; i<TAP_ONIONSKIN_REPLY_LEN; i++){
+	    cell_out->reply[i] = cell_in->payload[i];
+    }
+//    memcpy(cell_out->reply, cell_in->payload, TAP_ONIONSKIN_REPLY_LEN);
+//    printf("\ncreated cell t case 1 done");
+
     break;
   case CELL_CREATED_FAST:
+//    printf("\ncreated cell t case 2");
     cell_out->cell_type = CELL_CREATED_FAST;
     cell_out->handshake_len = CREATED_FAST_LEN;
-    memcpy(cell_out->reply, cell_in->payload, CREATED_FAST_LEN);
+    for(i=0; i<CREATED_FAST_LEN; i++){
+	    cell_out->reply[i] = cell_in->payload[i];
+    }
+  //  memcpy(cell_out->reply, cell_in->payload, CREATED_FAST_LEN);
+//    printf("\ncreated cell t case 2 done");
     break;
   case CELL_CREATED2:
     {
+//    printf("\ncreated cell t case 3");
       const uint8_t *p = cell_in->payload;
       cell_out->cell_type = CELL_CREATED2;
       cell_out->handshake_len = ntohs(get_uint16(p));
       if (cell_out->handshake_len > CELL_PAYLOAD_SIZE - 2)
         return -1;
-      memcpy(cell_out->reply, p+2, cell_out->handshake_len);
+    for(i=0; i<cell_out->handshake_len; i++){
+	    cell_out->reply[i] = p[i+2];
+    }
+    //  memcpy(cell_out->reply, p+2, cell_out->handshake_len);
+//    printf("\ncreated cell t case 3 done");
       break;
     }
   }
@@ -821,7 +840,7 @@ extend_cell_parse(extend_cell_t *cell_out, const uint8_t command,
 {
   const uint8_t *eop;
 
-  memset(cell_out, 0, sizeof(*cell_out));
+  memset(cell_out, 0, sizeof(extend_cell_t));
   if (payload_length > RELAY_PAYLOAD_SIZE)
     return -1;
   eop = payload + payload_length;
@@ -946,7 +965,7 @@ extended_cell_parse(extended_cell_t *cell_out,
                     const uint8_t command, const uint8_t *payload,
                     size_t payload_len)
 {
-  memset(cell_out, 0, sizeof(*cell_out));
+  memset(cell_out, 0, sizeof(extended_cell_t));
   if (payload_len > RELAY_PAYLOAD_SIZE)
     return -1;
 
@@ -1042,7 +1061,7 @@ created_cell_format(cell_t *cell_out, const created_cell_t *cell_in)
   if (check_created_cell(cell_in) < 0)
     return -1;
 
-  memset(cell_out->payload, 0, sizeof(cell_out->payload));
+  memset(cell_out->payload, 0, sizeof(RELAY_PAYLOAD_SIZE));
   cell_out->command = cell_in->cell_type;
 
   switch (cell_in->cell_type) {

@@ -40,6 +40,9 @@
 #include "ext_orport.h"
 #include "scheduler.h"
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+
 #ifdef USE_BUFFEREVENTS
 #include <event2/bufferevent_ssl.h>
 #endif
@@ -2080,7 +2083,8 @@ connection_or_process_cells_from_inbuf(or_connection_t *conn)
       const int wide_circ_ids = conn->wide_circ_ids;
       size_t cell_network_size = get_cell_network_size(conn->wide_circ_ids);
       char buf[CELL_MAX_NETWORK_SIZE];
-      cell_t cell;
+      memmgr_init_shared_short();
+      cell_t *cell = memmgr_alloc(sizeof(cell_t));
       if (connection_get_inbuf_len(TO_CONN(conn))
           < cell_network_size) /* whole response available? */
         return 0; /* not yet */
@@ -2094,9 +2098,9 @@ connection_or_process_cells_from_inbuf(or_connection_t *conn)
 
       /* retrieve cell info from buf (create the host-order struct from the
        * network-order string) */
-      cell_unpack(&cell, buf, wide_circ_ids);
+      cell_unpack(cell, buf, wide_circ_ids);
 
-      channel_tls_handle_cell(&cell, conn);
+      channel_tls_handle_cell(cell, conn);
     }
   }
 }
@@ -2161,7 +2165,8 @@ connection_or_send_versions(or_connection_t *conn, int v3_plus)
 int
 connection_or_send_netinfo(or_connection_t *conn)
 {
-  cell_t cell;
+  memmgr_init_shared_short();
+  cell_t *cell = memmgr_alloc(sizeof(cell_t));
   time_t now = time(NULL);
   const routerinfo_t *me;
   int len;
@@ -2175,15 +2180,15 @@ connection_or_send_netinfo(or_connection_t *conn)
     return 0;
   }
 
-  memset(&cell, 0, sizeof(cell_t));
-  cell.command = CELL_NETINFO;
+  memset(cell, 0, sizeof(cell_t));
+  cell->command = CELL_NETINFO;
 
   /* Timestamp, if we're a relay. */
   if (public_server_mode(get_options()) || ! conn->is_outgoing)
-    set_uint32(cell.payload, htonl((uint32_t)now));
+    set_uint32(cell->payload, htonl((uint32_t)now));
 
   /* Their address. */
-  out = cell.payload + 4;
+  out = cell->payload + 4;
   /* We use &conn->real_addr below, unless it hasn't yet been set. If it
    * hasn't yet been set, we know that base_.addr hasn't been tampered with
    * yet either. */
@@ -2218,7 +2223,7 @@ connection_or_send_netinfo(or_connection_t *conn)
 
   conn->handshake_state->digest_sent_data = 0;
   conn->handshake_state->sent_netinfo = 1;
-  connection_or_write_cell_to_buf(&cell, conn);
+  connection_or_write_cell_to_buf(cell, conn);
 
   return 0;
 }

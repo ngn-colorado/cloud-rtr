@@ -326,6 +326,8 @@ do_parse_test(uint8_t *plaintext, size_t plaintext_len, int phase)
   if (phase == EARLY_PARSE_ONLY)
     goto done;
 
+  printf("\nHere");
+
   /* Do decryption */
   r = rend_service_decrypt_intro(parsed_req, k, &err_msg);
   tt_assert(!r);

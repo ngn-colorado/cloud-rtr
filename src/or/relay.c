@@ -38,6 +38,10 @@
 #include "routerparse.h"
 #include "scheduler.h"
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+#include "aes_fpga.h"
+
 static edge_connection_t *relay_lookup_conn(circuit_t *circ, cell_t *cell,
                                             cell_direction_t cell_direction,
                                             crypt_path_t *layer_hint);
@@ -155,7 +159,61 @@ relay_crypt_one_payload(crypto_cipher_t *cipher, uint8_t *in,
 {
   int r;
   (void)encrypt_mode;
-  r = crypto_cipher_crypt_inplace(cipher, (char*) in, CELL_PAYLOAD_SIZE);
+//  printf("\nIn relay crypt one payload");
+  memmgr_assert(in);
+  //char default_iv[] = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+//  char temp[CELL_PAYLOAD_SIZE];
+  //memcpy(temp, in, CELL_PAYLOAD_SIZE);
+/*  int i;
+  printf("\ncipher encrypted iv: 0x");
+  for(i=0; i<16; i++){
+	  printf("%02x", cipher->cipher->buf[i]);
+  }
+  printf("\ncipher iv: 0x");
+  for(i=0; i<16; i++){
+	  printf("%02x", cipher->cipher->ctr_buf.buf[i]);
+  }
+  printf("\ncipher use evp: %i", cipher->cipher->using_evp);
+  printf("\ncipher key: 0x");
+  for(i=0; i<16; i++){
+	  printf("%02x", crypto_cipher_get_key(cipher)[i]);
+  }*/
+//  printIvFpga(cipher1);
+/*  FPGA_AES *cipher1 = fpga_aes_new_short_16((char*)crypto_cipher_get_key(cipher), cipher->cipher->ctr_buf.buf, 2);
+  printf("\nfpga iv: 0x");
+  for(i=0; i<16; i++){
+	  printf("%02x", cipher1->iv[i]);
+  }
+  printIvFpga(cipher1);
+  if(cipher1 == NULL){
+	  printf("\nCould not allocate cipher");
+	  return -1;
+  }
+  r = Aes_encrypt_memmgr(cipher1, (char*)in, (char*)in, CELL_PAYLOAD_SIZE);
+  fpga_aes_free(cipher1);
+  if(r == CELL_PAYLOAD_SIZE){
+	  r = 0;
+  } else{
+	  printf("\nDid not encrypt payload size. aborting");
+	  abort();
+  }*/
+//  printf("\nCalling crypto cipher crypt inplace in relay crypt one payload");
+  r = crypto_cipher_crypt_inplace(cipher, (char*)in, CELL_PAYLOAD_SIZE);
+//  printf("\ncipher iv: 0x");
+/*  for(i=0; i<16; i++){
+	  printf("%02x", cipher->cipher->ctr_buf.buf[i]);
+  }
+  int incorrect = 0;
+  for(i=0; i<CELL_PAYLOAD_SIZE; i++){
+	  if(in[i] != temp[i]){
+		  incorrect++;
+	  }
+  }
+  printf("\nrelay crypt one payload incorrect: %i", incorrect);
+  if(incorrect > 0){
+	  printf("\naborting");
+	  abort();
+  }*/
 
   if (r) {
     log_warn(LD_BUG,"Error during relay encryption");
@@ -314,55 +372,74 @@ relay_crypt(circuit_t *circ, cell_t *cell, cell_direction_t cell_direction,
   relay_header_t rh;
 
   tor_assert(circ);
-  tor_assert(cell);
+//  tor_assert(cell);
+//  printf("\nasserting cell in relay crypt");
+  memmgr_assert(cell);
   tor_assert(recognized);
   tor_assert(cell_direction == CELL_DIRECTION_IN ||
              cell_direction == CELL_DIRECTION_OUT);
 
+//  printf("\nIn relay crypt");
   if (cell_direction == CELL_DIRECTION_IN) {
     if (CIRCUIT_IS_ORIGIN(circ)) { /* We're at the beginning of the circuit.
                                     * We'll want to do layered decrypts. */
+  //    printf("\nto origin circuit");
       crypt_path_t *thishop, *cpath = TO_ORIGIN_CIRCUIT(circ)->cpath;
       thishop = cpath;
+      memmgr_assert(cell);
       if (thishop->state != CPATH_STATE_OPEN) {
         log_fn(LOG_PROTOCOL_WARN, LD_PROTOCOL,
                "Relay cell before first created cell? Closing.");
+//	printf("\nrelay crypt return -1 #1");
         return -1;
       }
       do { /* Remember: cpath is in forward order, that is, first hop first. */
         tor_assert(thishop);
 
-        if (relay_crypt_one_payload(thishop->b_crypto, cell->payload, 0) < 0)
+        if (relay_crypt_one_payload(thishop->b_crypto, cell->payload, 0) < 0){
+//	  printf("\nrelay crypt return -1 #2");
           return -1;
+	}
+//	printf("\nrelay crypt here #1");
 
         relay_header_unpack(&rh, cell->payload);
         if (rh.recognized == 0) {
+//	printf("\nrelay crypt here #2");
           /* it's possibly recognized. have to check digest to be sure. */
           if (relay_digest_matches(thishop->b_digest, cell)) {
+//		printf("\nrelay crypt here #3");
             *recognized = 1;
             *layer_hint = thishop;
             return 0;
           }
         }
 
+//	printf("\nrelay crypt here #4");
         thishop = thishop->next;
       } while (thishop != cpath && thishop->state == CPATH_STATE_OPEN);
       log_fn(LOG_PROTOCOL_WARN, LD_OR,
-             "Incoming cell at client not recognized. Closing.");
+             "Incoming cell at client not recognized. Closing.");	
+//      printf("\nrelay crypt return -1 #3");
       return -1;
     } else { /* we're in the middle. Just one crypt. */
+	memmgr_assert(cell);
       if (relay_crypt_one_payload(TO_OR_CIRCUIT(circ)->p_crypto,
-                                  cell->payload, 1) < 0)
+                                  cell->payload, 1) < 0){
+//	printf("\nrelay crypt return -1 #4");
         return -1;
+      }
 //      log_fn(LOG_DEBUG,"Skipping recognized check, because we're not "
 //             "the client.");
     }
   } else /* cell_direction == CELL_DIRECTION_OUT */ {
     /* we're in the middle. Just one crypt. */
 
+    memmgr_assert(cell);
     if (relay_crypt_one_payload(TO_OR_CIRCUIT(circ)->n_crypto,
-                                cell->payload, 0) < 0)
+                                cell->payload, 0) < 0){
+  //    printf("\nrelay crypt return -1 #5");
       return -1;
+    }
 
     relay_header_unpack(&rh, cell->payload);
     if (rh.recognized == 0) {
@@ -498,10 +575,35 @@ void
 relay_header_pack(uint8_t *dest, const relay_header_t *src)
 {
   set_uint8(dest, src->command);
-  set_uint16(dest+1, htons(src->recognized));
-  set_uint16(dest+3, htons(src->stream_id));
-  memcpy(dest+5, src->integrity, 4);
-  set_uint16(dest+9, htons(src->length));
+//  printf("\nHere in relay header pack");
+//  printf("\n1 Dest pointer: %p, Src pointer: %p", dest, src);
+  //set_uint16(dest+1, htons(src->recognized));
+  uint16_t a = htons(src->recognized);
+  memcpy(dest+1, &a, 2);
+/*  printf("\nHere in relay header pack 2");
+  printf("\n2 Dest pointer: %p, Src pointer: %p", dest, src);
+  printf("\nsrc stream_id: %u", src->stream_id);*/
+  uint16_t b = htons(src->stream_id);
+//  set_uint16(dest+3, htons(src->stream_id));
+  memcpy(dest+3, &b, 2);
+/*  printf("\nHere in relay header pack 3");
+  printf("\n3 Dest pointer: %p, Src pointer: %p", dest, src);
+  printf("\nsrc integrity: %p", src->integrity);
+  printf("\nsrc integrity value: 0x");*/
+  int i;
+  for(i=0; i<4; i++){
+//	  printf("%02x", src->integrity[i]);
+	  dest[i+5] = src->integrity[i];
+  }
+
+//  memcpy(dest+5, src->integrity, 4);
+/*  printf("\nHere in relay header pack 4");
+  printf("\n4 Dest pointer: %p, Src pointer: %p", dest, src);*/
+  uint16_t c = htons(src->length);
+//  set_uint16(dest+9, htons(src->length));
+  memcpy(dest+9, &c, 2);
+ /* printf("\nHere in relay header pack 5");
+  printf("\n5 Dest pointer: %p, Src pointer: %p", dest, src);*/
 }
 
 /** Unpack the network-order buffer <b>src</b> into a host-order
@@ -510,10 +612,18 @@ relay_header_pack(uint8_t *dest, const relay_header_t *src)
 void
 relay_header_unpack(relay_header_t *dest, const uint8_t *src)
 {
+//  printf("\nRelay header unpack");
   dest->command = get_uint8(src);
+ // printf("\nDest recognized: %u", ntohs(get_uint16(src+1))); 
   dest->recognized = ntohs(get_uint16(src+1));
   dest->stream_id = ntohs(get_uint16(src+3));
-  memcpy(dest->integrity, src+5, 4);
+//  memcpy(dest->integrity, src+5, 4);
+  int i;
+//  printf("\nDest integrity: 0x");
+  for(i=0; i<4; i++){
+//	  printf("%02x", src[5+i]);
+	  dest->integrity[i] = src[5+i];
+  }
   dest->length = ntohs(get_uint16(src+9));
 }
 
@@ -570,7 +680,13 @@ relay_send_command_from_edge_(streamid_t stream_id, circuit_t *circ,
                               size_t payload_len, crypt_path_t *cpath_layer,
                               const char *filename, int lineno)
 {
-  cell_t cell;
+ // printf("\nIn relay send command from edge");
+//  memmgr_destroy();
+  memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
+  //cell_t *cell_raw = memmgr_alloc(sizeof(cell_t));
+ // printf("\nSize of cell: %i", sizeof(cell_t));
+  cell_t *cell = memmgr_alloc(sizeof(cell_t));
+//  cell->payload = memmgr_alloc(CELL_PAYLOAD_SIZE);
   relay_header_t rh;
   cell_direction_t cell_direction;
   /* XXXX NM Split this function into a separate versions per circuit type? */
@@ -578,13 +694,13 @@ relay_send_command_from_edge_(streamid_t stream_id, circuit_t *circ,
   tor_assert(circ);
   tor_assert(payload_len <= RELAY_PAYLOAD_SIZE);
 
-  memset(&cell, 0, sizeof(cell_t));
-  cell.command = CELL_RELAY;
+  memset(cell, 0, sizeof(cell_t));
+  cell->command = CELL_RELAY;
   if (cpath_layer) {
-    cell.circ_id = circ->n_circ_id;
+    cell->circ_id = circ->n_circ_id;
     cell_direction = CELL_DIRECTION_OUT;
   } else if (! CIRCUIT_IS_ORIGIN(circ)) {
-    cell.circ_id = TO_OR_CIRCUIT(circ)->p_circ_id;
+    cell->circ_id = TO_OR_CIRCUIT(circ)->p_circ_id;
     cell_direction = CELL_DIRECTION_IN;
   } else {
     return -1;
@@ -594,9 +710,18 @@ relay_send_command_from_edge_(streamid_t stream_id, circuit_t *circ,
   rh.command = relay_command;
   rh.stream_id = stream_id;
   rh.length = payload_len;
-  relay_header_pack(cell.payload, &rh);
+ // printf("\nCalling relay header pack");
+  memmgr_assert(cell->payload);
+  int i;
+//  printf("\nCell payload: 0x");
+//  for(i=0; i<CELL_PAYLOAD_SIZE; i++){
+//	  printf("%02x", cell->payload[i]);
+//  }
+//  printf("\nCell pointer: %p", cell);
+//  printf("\nCell payload pointer: %p", cell->payload);
+  relay_header_pack(cell->payload, &rh);
   if (payload_len)
-    memcpy(cell.payload+RELAY_HEADER_SIZE, payload, payload_len);
+    memcpy(cell->payload+RELAY_HEADER_SIZE, payload, payload_len);
 
   log_debug(LD_OR,"delivering %d cell %s.", relay_command,
             cell_direction == CELL_DIRECTION_OUT ? "forward" : "backward");
@@ -622,7 +747,7 @@ relay_send_command_from_edge_(streamid_t stream_id, circuit_t *circ,
        * an extend cell or we're not talking to the first hop), use
        * one of them.  Don't worry about the conn protocol version:
        * append_cell_to_circuit_queue will fix it up. */
-      cell.command = CELL_RELAY_EARLY;
+      cell->command = CELL_RELAY_EARLY;
       --origin_circ->remaining_relay_early_cells;
       log_debug(LD_OR, "Sending a RELAY_EARLY cell; %d remaining.",
                 (int)origin_circ->remaining_relay_early_cells);
@@ -650,12 +775,20 @@ relay_send_command_from_edge_(streamid_t stream_id, circuit_t *circ,
     }
   }
 
-  if (circuit_package_relay_cell(&cell, circ, cell_direction, cpath_layer,
+//  printf("\nPackaging relay cell in send command from edge");
+  memmgr_assert(cell);
+//  printf("\nCell asserted");
+  memmgr_assert(cell->payload);
+//  printf("\nPayload asserted");
+  if (circuit_package_relay_cell(cell, circ, cell_direction, cpath_layer,
                                  stream_id, filename, lineno) < 0) {
     log_warn(LD_BUG,"circuit_package_relay_cell failed. Closing.");
     circuit_mark_for_close(circ, END_CIRC_REASON_INTERNAL);
+    //memmgr_free(cell);
     return -1;
   }
+//  printf("\nfreeing in send command from edge");
+//  memmgr_free(cell);
   return 0;
 }
 
@@ -2861,12 +2994,19 @@ int
 append_address_to_payload(uint8_t *payload_out, const tor_addr_t *addr)
 {
   uint32_t a;
+//  printf("\nHere in append address to payload");
   switch (tor_addr_family(addr)) {
   case AF_INET:
     payload_out[0] = RESOLVED_TYPE_IPV4;
     payload_out[1] = 4;
     a = tor_addr_to_ipv4n(addr);
-    memcpy(payload_out+2, &a, 4);
+//    printf("\nHere in append address to payload 2");
+    int i;
+    for(i=0; i<4; i++){
+	    payload_out[i+2] = (&a)[i];
+    }
+//    memcpy(payload_out+2, &a, 4);
+  //  printf("\nHere in append address to payload 3");
     return 6;
   case AF_INET6:
     payload_out[0] = RESOLVED_TYPE_IPV6;

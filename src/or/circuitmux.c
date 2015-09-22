@@ -12,6 +12,9 @@
 #include "circuitmux.h"
 #include "relay.h"
 
+#include "memmgr.h"
+#include "user_mmap_driver.h"
+
 /*
  * Private typedefs for circuitmux.c
  */
@@ -1885,13 +1888,14 @@ circuitmux_append_destroy_cell(channel_t *chan,
                                circid_t circ_id,
                                uint8_t reason)
 {
-  cell_t cell;
-  memset(&cell, 0, sizeof(cell_t));
-  cell.circ_id = circ_id;
-  cell.command = CELL_DESTROY;
-  cell.payload[0] = (uint8_t) reason;
+  memmgr_init_shared_short();
+  cell_t *cell = memmgr_alloc(sizeof(cell_t));
+  memset(cell, 0, sizeof(cell_t));
+  cell->circ_id = circ_id;
+  cell->command = CELL_DESTROY;
+  cell->payload[0] = (uint8_t) reason;
 
-  cell_queue_append_packed_copy(NULL, &cmux->destroy_cell_queue, 0, &cell,
+  cell_queue_append_packed_copy(NULL, &cmux->destroy_cell_queue, 0, cell,
                                 chan->wide_circ_ids, 0);
 
   /* Destroy entering the queue, update counters */

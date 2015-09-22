@@ -74,6 +74,8 @@ crypto_pwbox(uint8_t **out, size_t *outlen_out,
     goto err;
 
   cipher = crypto_cipher_new_with_iv((char*)keys, (char*)enc->iv);
+  printf("\nCalling crypt in place in crypto_pwbox");
+  memmgr_assert(encrypted_portion);
   crypto_cipher_crypt_inplace(cipher, (char*)encrypted_portion, encrypted_len);
   crypto_cipher_free(cipher);
 

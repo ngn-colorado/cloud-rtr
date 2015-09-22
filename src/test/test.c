@@ -67,6 +67,7 @@ double fabs(double x);
 static void
 test_onion_handshake(void *arg)
 {
+  memmgr_destroy();
   memmgr_init_check_shared_mem(SHARED_SIZE, UIO_DEVICE, BASE_ADDRESS);
   /* client-side */
   crypto_dh_t *c_dh = NULL;

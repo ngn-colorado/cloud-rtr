@@ -328,7 +328,7 @@ command_process_create_cell(cell_t *cell, channel_t *chan)
      * received this cell to satisfy an EXTEND request,  */
     channel_mark_client(chan);
 
-    memset(&created_cell, 0, sizeof(created_cell));
+    memset(&created_cell, 0, sizeof(created_cell_t));
     len = onion_skin_server_handshake(ONION_HANDSHAKE_TYPE_FAST,
                                        create_cell->onionskin,
                                        create_cell->handshake_len,
@@ -414,7 +414,7 @@ command_process_created_cell(cell_t *cell, channel_t *chan)
     uint8_t payload[RELAY_PAYLOAD_SIZE];
     log_debug(LD_OR,
               "Converting created cell to extended relay cell, sending.");
-    memset(payload, 0, sizeof(payload));
+    memset(payload, 0, RELAY_PAYLOAD_SIZE);
     if (extended_cell.created_cell.cell_type == CELL_CREATED2)
       extended_cell.cell_type = RELAY_COMMAND_EXTENDED2;
     else

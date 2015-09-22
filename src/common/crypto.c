@@ -62,7 +62,7 @@
 #include "aes_fpga.h"
 #include "user_mmap_driver.h"
 
-static char default_iv[] = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+//static char default_iv[] = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 
 #if OPENSSL_VERSION_NUMBER < OPENSSL_V_SERIES(0,9,8)
 #error "We require OpenSSL >= 0.9.8"
@@ -523,6 +523,7 @@ crypto_cipher_new_with_iv(const char *key, const char *iv)
     memcpy(env->iv, iv, CIPHER_IV_LEN);
 
   env->cipher = aes_new_cipher(env->key, env->iv);
+  env->cipher1 = fpga_aes_new_short_16(env->key, env->iv, 2);
 
   return env;
 }
@@ -548,6 +549,7 @@ crypto_cipher_free(crypto_cipher_t *env)
   tor_assert(env->cipher);
   aes_cipher_free(env->cipher);
   memwipe(env, 0, sizeof(crypto_cipher_t));
+  fpga_aes_free(env->cipher1);
   tor_free(env);
 }
 
@@ -980,7 +982,7 @@ crypto_pk_private_decrypt(crypto_pk_t *env, char *to,
   tor_assert(tolen >= crypto_pk_keysize(env));
   if (!env->key->p){
     /* Not a private key */
-    printf("\nNot a private key");
+//    printf("\nNot a private key");
     return -1;
   }
 
@@ -989,16 +991,16 @@ crypto_pk_private_decrypt(crypto_pk_t *env, char *to,
                           env->key, crypto_get_rsa_padding(padding));
 
   if (r<0) {
-    printf("\nr < 0 in private decrypt non-hybrid. key: 0x");
-    int i;
+  //  printf("\nr < 0 in private decrypt non-hybrid. key: 0x");
+//    int i;
 //    for(i=0; i<20; i++){
 //	    printf("%02x", env->key);
 //    }
 //    BIO *keybio = BIO_new(BIO_s_mem
-    unsigned long error = ERR_get_error();
-    printf("\nError code: %lu", error);
-    printf("\nError string: %s", ERR_error_string(error, NULL));
-    printf("\nPadding: %i", padding);
+//    unsigned long error = ERR_get_error();
+//    printf("\nError code: %lu", error);
+//    printf("\nError string: %s", ERR_error_string(error, NULL));
+//    printf("\nPadding: %i", padding);
     crypto_log_errors(warnOnFailure?LOG_WARN:LOG_DEBUG,
                       "performing RSA decryption");
     return -1;
@@ -1166,6 +1168,7 @@ crypto_pk_public_hybrid_encrypt(crypto_pk_t *env,
 
   overhead = crypto_get_rsa_padding_overhead(crypto_get_rsa_padding(padding));
   pkeylen = crypto_pk_keysize(env);
+//  printf("\nIn public hybrid encrypt");
 
   if (!force && fromlen+overhead <= pkeylen) {
     /* It all fits in a single encrypt. */
@@ -1189,18 +1192,19 @@ crypto_pk_public_hybrid_encrypt(crypto_pk_t *env,
   if (outlen!=(int)pkeylen) {
     goto err;
   }
-/*  char *temp_buf = malloc(tolen);
-  memset(temp_buf, 0, tolen);
-  r = crypto_cipher_encrypt(cipher, temp_buf,//to+outlen,
-                            from+pkeylen-overhead-CIPHER_KEY_LEN, symlen);*/
-  FPGA_AES *cipher1 = NULL;
-  cipher1 = fpga_aes_new_short_16((char*)crypto_cipher_get_key(cipher), default_iv, 2);
-  if(cipher1 == NULL){
-	  printf("\nCould not allocate fpga cipher");
-	  abort();
-  }
-  r = Aes_encrypt_memmgr(cipher1, to+outlen, from+pkeylen-overhead-CIPHER_KEY_LEN, symlen);
-  fpga_aes_free(cipher1);
+//  char *temp_buf = malloc(tolen);
+//  memset(temp_buf, 0, tolen);
+  r = crypto_cipher_encrypt(cipher, to+outlen,
+                            from+pkeylen-overhead-CIPHER_KEY_LEN, symlen);
+//  printf("\nCalling aes fpga");
+//  FPGA_AES *cipher1 = NULL;
+//  cipher1 = fpga_aes_new_short_16((char*)crypto_cipher_get_key(cipher), default_iv, 2);
+//  if(cipher1 == NULL){
+//	  printf("\nCould not allocate fpga cipher");
+//	  abort();
+//  }
+//  r = Aes_encrypt_memmgr(cipher1, to+outlen, from+pkeylen-overhead-CIPHER_KEY_LEN, symlen);
+//  fpga_aes_free(cipher1);
 /*  int i;
   int incorrect = 0;
   for(i=0; i<symlen; i++){
@@ -1237,8 +1241,12 @@ crypto_pk_private_hybrid_decrypt(crypto_pk_t *env,
   int outlen, r;
   size_t pkeylen;
   crypto_cipher_t *cipher = NULL;
+//  FPGA_AES *cipher1 = env->cipher1;
   char *buf = NULL;
+//  printf("\nIn private hybrid decrypt");
 
+  memmgr_assert((void*)to);
+  memmgr_assert((void*)from);
   tor_assert(fromlen < SIZE_T_CEILING);
   pkeylen = crypto_pk_keysize(env);
 
@@ -1253,36 +1261,47 @@ crypto_pk_private_hybrid_decrypt(crypto_pk_t *env,
   if (outlen<0) {
     log_fn(warnOnFailure?LOG_WARN:LOG_DEBUG, LD_CRYPTO,
            "Error decrypting public-key data");
-    printf("\nError decryptin public-key data");
+//    printf("\nError decryptin public-key data");
     goto err;
   }
   if (outlen < CIPHER_KEY_LEN) {
     log_fn(warnOnFailure?LOG_WARN:LOG_INFO, LD_CRYPTO,
            "No room for a symmetric key");
-    printf("\nNo room for a symmetric key");
+//    printf("\nNo room for a symmetric key");
     goto err;
   }
-  cipher = crypto_cipher_new(buf);
-  if (!cipher) {
-    goto err;
-  }
+//  cipher = crypto_cipher_new(buf);
+//  if (!cipher) {
+//    goto err;
+//  }
   memcpy(to,buf+CIPHER_KEY_LEN,outlen-CIPHER_KEY_LEN);
   outlen -= CIPHER_KEY_LEN;
   tor_assert(tolen - outlen >= fromlen - pkeylen);
+//  printf("\nDecrypting %i bytes using the fpga encrypt function", fromlen-pkeylen);
+//  char* default_iv = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+//  cipher1 = fpga_aes_new_short_16((char*)buf, default_iv, 2);
+//  if(cipher1 == NULL){
+//	  printf("\nCould not allocate cipher");
+//	  goto err;
+//  }
+//  printf("\nCalling aes fpga");
+//  r = Aes_encrypt_memmgr(cipher1,(char*)(to+outlen), (char*)(from+pkeylen),fromlen-pkeylen);
   r = crypto_cipher_decrypt(cipher, to+outlen, from+pkeylen, fromlen-pkeylen);
   if (r<0){
-    printf("\nr < 0");
+//    printf("\nr < 0");
     goto err;
   }
   memwipe(buf,0,pkeylen);
   tor_free(buf);
-  crypto_cipher_free(cipher);
+//  crypto_cipher_free(cipher);
   tor_assert(outlen + fromlen < INT_MAX);
+ // fpga_aes_free(cipher1);
   return (int)(outlen + (fromlen-pkeylen));
  err:
   memwipe(buf,0,pkeylen);
   tor_free(buf);
-  crypto_cipher_free(cipher);
+  //crypto_cipher_free(cipher);
+//  fpga_aes_free(cipher1);
   return -1;
 }
 
@@ -1458,14 +1477,30 @@ int
 crypto_cipher_encrypt(crypto_cipher_t *env, char *to,
                       const char *from, size_t fromlen)
 {
+//  printf("\nIn crypto cipher encrypt");
   tor_assert(env);
   tor_assert(env->cipher);
-  tor_assert(from);
+  //tor_assert(from);
   tor_assert(fromlen);
-  tor_assert(to);
+//  tor_assert(to);
   tor_assert(fromlen < SIZE_T_CEILING);
-
+  memmgr_assert((void*)from);
+  memmgr_assert((void*)to);
+//  printf("\nCalling aes fpga in crypto cipher encrypt");
+  Aes_encrypt_memmgr(env->cipher1, to, from, fromlen);
+  char temp[fromlen];
+  memcpy(temp, from, fromlen);
   aes_crypt(env->cipher, from, fromlen, to);
+  int i, incorrect = 0;
+  for(i=0; i<fromlen; i++){
+	  if(temp[i] != to[i]){
+		  incorrect++;
+	  }
+  }
+  if(incorrect > 0){
+	  printf("\nIncorrect in crypto_cipher_encrypt: %i", incorrect);
+	  abort();
+  }
   return 0;
 }
 
@@ -1477,12 +1512,30 @@ int
 crypto_cipher_decrypt(crypto_cipher_t *env, char *to,
                       const char *from, size_t fromlen)
 {
+//  printf("\nIn cipher decrypt");
   tor_assert(env);
-  tor_assert(from);
-  tor_assert(to);
+//  tor_assert(from);
+//  tor_assert(to);
+  memmgr_assert((void*)to);
+  memmgr_assert((void*)from);
   tor_assert(fromlen < SIZE_T_CEILING);
 
+//  printf("\nCalling aes fpga in cipher decrypt");
+  Aes_encrypt_memmgr(env->cipher1, to, from, fromlen);
+//  aes_crypt(env->cipher, from, fromlen, to);
+  char temp[fromlen];
+  memcpy(temp, from, fromlen);
   aes_crypt(env->cipher, from, fromlen, to);
+  int i, incorrect = 0;
+  for(i=0; i<fromlen; i++){
+	  if(temp[i] != to[i]){
+		  incorrect++;
+	  }
+  }
+  if(incorrect > 0){
+	  printf("\nIncorrect in crypto_cipher_decrypt: %i", incorrect);
+	  abort();
+  }
   return 0;
 }
 
@@ -1492,8 +1545,77 @@ crypto_cipher_decrypt(crypto_cipher_t *env, char *to,
 int
 crypto_cipher_crypt_inplace(crypto_cipher_t *env, char *buf, size_t len)
 {
+//  printf("\nIn crypto cipher crypt inplace");
   tor_assert(len < SIZE_T_CEILING);
-  aes_crypt_inplace(env->cipher, buf, len);
+  memmgr_assert(buf);
+//  printf("\nCalling aes fpga in crypt in place");
+  char temp[len];
+  memcpy(temp, buf, len);
+  int i;
+  /*printf("\nKey: 0x");
+  for(i=0; i<16 && i<len; i++){
+	  printf("%02x", crypto_cipher_get_key(env)[i]);
+  }
+  printf("\n1st Input fpga: 0x");
+  for(i=0; i<16 && i<len; i++){
+	  printf("%02x", buf[i]);
+  }
+  printf("\nOriginal fpga iv: 0x");
+  for(i=0; i<16; i++){
+	  printf("%02x", env->cipher1->iv[i]);
+  }
+  printIvFpga(env->cipher1);
+  printf("\noriginal fpga iv char*:");
+  for(i=0; i<16; i++){
+	printf("%02x", env->cipher1->iv[i]);
+  }*/
+  Aes_encrypt_memmgr(env->cipher1, buf, buf, len);
+/*  printf("\nfpga iv: 0x");
+  for(i=0; i<16; i++){
+	  printf("%02x", env->cipher1->iv[i]);
+  }
+  printIvFpga(env->cipher1);
+  printf("\nfpga iv char*:");
+  for(i=0; i<16; i++){
+	printf("%02x", env->cipher1->iv[i]);
+  }
+//  aes_crypt_inplace(env->cipher, buf, len);
+  printf("\n1st Input tor: 0x");
+  for(i=0; i<16 && i<len; i++){
+	  printf("%02x", temp[i]);
+  }
+  printf("\ncrypto cipher counter original:");
+  for(i=0; i<16; i++){
+	printf("%02x", (unsigned char)(env->cipher->ctr_buf.buf[i]));
+  }*/
+  aes_crypt_inplace(env->cipher, temp, len);
+  int incorrect = 0;
+/*  printf("\ncrypto cipher counter:");
+  for(i=0; i<16; i++){
+	printf("%02x", (unsigned char)(env->cipher->ctr_buf.buf[i]));
+  }
+  printf("\ncrypto counter again:");
+  printf("0x%08x",env->cipher->counter0);
+  printf(" %08x", env->cipher->counter1);
+  printf(" %08x", env->cipher->counter2);
+  printf(" %08x", env->cipher->counter3);*/
+  for(i=0; i<len; i++){
+	  if(temp[i] != buf[i]){
+		  incorrect++;
+	  }
+  }
+/*  printf("\n1st output fpga: 0x");
+  for(i=0; i<len; i++){
+	  printf("%02x", buf[i]);
+  }
+  printf("\n1st output tor: 0x");
+  for(i=0; i<len; i++){
+	  printf("%02x", temp[i]);
+  }
+  if(incorrect > 0){
+	  printf("\nIncorrect in crypto_cipher_crypt_inplace: %i", incorrect);
+	  abort();
+  }*/
   return 0;
 }
 
@@ -1508,6 +1630,7 @@ crypto_cipher_encrypt_with_iv(const char *key,
                               char *to, size_t tolen,
                               const char *from, size_t fromlen)
 {
+//  printf("\nIn crypto cipher encrypt with iv");
   crypto_cipher_t *cipher;
   tor_assert(from);
   tor_assert(to);
@@ -1539,9 +1662,12 @@ crypto_cipher_decrypt_with_iv(const char *key,
 {
   crypto_cipher_t *cipher;
   tor_assert(key);
-  tor_assert(from);
-  tor_assert(to);
+//  tor_assert(from);
+//  tor_assert(to);
+  memmgr_assert((void*)from);
+  memmgr_assert((void*)to);
   tor_assert(fromlen < INT_MAX);
+//  printf("\nIN cipher decrypt with iv");
 
   if (fromlen <= CIPHER_IV_LEN)
     return -1;
@@ -1549,9 +1675,19 @@ crypto_cipher_decrypt_with_iv(const char *key,
     return -1;
 
   cipher = crypto_cipher_new_with_iv(key, from);
+//  FPGA_AES *cipher1 = fpga_aes_new_short_16((char*)key, (char*)from, 16);
+//  if(cipher1 == NULL){
+//	  printf("\nCould not allocate cipher");
+//	  return -1;
+//  }
+//  printf("\nCalling aes fpga");
+//  Aes_encrypt_memmgr(cipher1, to, from+CIPHER_IV_LEN, fromlen-CIPHER_IV_LEN);
 
   crypto_cipher_encrypt(cipher, to, from+CIPHER_IV_LEN, fromlen-CIPHER_IV_LEN);
-  crypto_cipher_free(cipher);
+
+  //fpga_aes_free(cipher1);
+  
+//  crypto_cipher_free(cipher);
   return (int)(fromlen - CIPHER_IV_LEN);
 }
 

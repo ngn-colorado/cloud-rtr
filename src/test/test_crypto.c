@@ -739,7 +739,7 @@ test_crypto_pk(void *arg)
   char *data1_memmgr = memmgr_alloc(1024);
   char *data2_memmgr = memmgr_alloc(1024);
   memcpy(data1_memmgr, data1, 1024);
-//  char *data3_memmgr = memmgr_alloc(1024);
+  char *data3_memmgr = memmgr_alloc(1024);
   for (i = 85; i < 140; ++i) {
     memset(data2,0,1024);
     memset(data3,0,1024);
@@ -752,8 +752,9 @@ test_crypto_pk(void *arg)
 //    printf("\nlen: %i, sizeof data2: %i", len, sizeof(data2));
 //    printf("\nencrypt padding: %i, decrypt padding: %i", PK_PKCS1_OAEP_PADDING, PK_PKCS1_OAEP_PADDING);
     tt_int_op(len, OP_GE, 0);
-    len = crypto_pk_private_hybrid_decrypt(pk1,data3,sizeof(data3),
+    len = crypto_pk_private_hybrid_decrypt(pk1,data3_memmgr, 1024,//sizeof(data3),
                                            data2_memmgr,len,PK_PKCS1_OAEP_PADDING,1);
+    memcpy(data3, data3_memmgr, 1024);
     tt_int_op(len,OP_EQ, i);
     tt_mem_op(data1,OP_EQ, data3,i);
   }

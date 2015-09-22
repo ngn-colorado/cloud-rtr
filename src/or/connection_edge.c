@@ -1131,7 +1131,7 @@ connection_ap_handshake_rewrite_and_attach(entry_connection_t *conn,
   time_t now = time(NULL);
   rewrite_result_t rr;
 
-  memset(&rr, 0, sizeof(rr));
+  memset(&rr, 0, sizeof(rewrite_result_t));
   connection_ap_handshake_rewrite(conn,&rr);
 
   if (rr.should_close) {
@@ -1695,7 +1695,7 @@ destination_from_pf(entry_connection_t *conn, socks_request_t *req)
   }
 #endif
 
-  memset(&pnl, 0, sizeof(pnl));
+  memset(&pnl, 0, sizeof(struct pfioc_natlook));
   pnl.proto           = IPPROTO_TCP;
   pnl.direction       = PF_OUT;
   if (proxy_sa->sa_family == AF_INET) {
@@ -2569,7 +2569,8 @@ connection_ap_handshake_socks_reply(entry_connection_t *conn, char *reply,
     connection_write_to_buf(buf, SOCKS4_NETWORK_LEN, ENTRY_TO_CONN(conn));
   } else if (conn->socks_request->socks_version == 5) {
     size_t buf_len;
-    memset(buf,0,sizeof(buf));
+    //memset(buf,0,sizeof(buf));
+    memset(buf,0,256);
     if (tor_addr_family(&conn->edge_.base_.addr) == AF_INET) {
       buf[0] = 5; /* version 5 */
       buf[1] = (char)status;
@@ -2608,7 +2609,7 @@ begin_cell_parse(const cell_t *cell, begin_cell_t *bcell,
   relay_header_t rh;
   const uint8_t *body, *nul;
 
-  memset(bcell, 0, sizeof(*bcell));
+  memset(bcell, 0, sizeof(begin_cell_t));
   *end_reason_out = END_STREAM_REASON_MISC;
 
   relay_header_unpack(&rh, cell->payload);
