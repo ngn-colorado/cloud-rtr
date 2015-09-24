@@ -1,0 +1,16 @@
+#-----------------------------------------------------------
+# Vivado v2014.1 (64-bit)
+# SW Build 881834 on Fri Apr  4 14:15:54 MDT 2014
+# IP Build 877625 on Fri Mar 28 16:29:15 MDT 2014
+# Start of session at: Fri Sep 05 13:56:24 2014
+# Process ID: 8284
+# Log file: C:/Users/Ali/Documents/Research/HLS_IP/add_five/add_five/solution1/impl/ip/vivado.log
+# Journal file: C:/Users/Ali/Documents/Research/HLS_IP/add_five/add_five/solution1/impl/ip\vivado.jou
+#-----------------------------------------------------------
+source run_ippack.tcl -notrace
+ipx::create_core: Time (s): cpu = 00:00:00 ; elapsed = 00:00:07 . Memory (MB): peak = 180.910 ; gain = 1.555
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'c:/Xilinx/Vivado/2014.1/data/ip'.
+ipx::add_bus_interface: Time (s): cpu = 00:00:01 ; elapsed = 00:00:10 . Memory (MB): peak = 192.598 ; gain = 6.688
+INFO: [Common 17-206] Exiting Vivado at Fri Sep 05 13:57:21 2014...
