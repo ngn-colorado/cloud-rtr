@@ -289,8 +289,9 @@ set gport25 [list $gportName25 $gportInterface25 $gportData25 $gportPointer25 $g
 lappend globalVariable $gport25
 set staticVariable ""
 set moduleName "aes"
-set rawDecl [list "bool" "aes\(volatile unsigned char ddr\[0x20000000\], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
-  volatile unsigned destinationAddress, unsigned int numBytes, int mode\)"]
+set rawDecl [list "bool" "aes\(volatile unsigned int m_mm2s_ctl \[500\], volatile unsigned int m_s2mm_ctl\[500\], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
+  volatile unsigned destinationAddress, unsigned int numBytes, int mode,
+  mem_stream32& s_in, mem_stream32& s_out\)"]
 set argAPint ""
 set returnAPint ""
 set portList ""
@@ -374,6 +375,36 @@ set portVolatile7 "0"
 set portArrayOpt7 ""
 set port7 [list $portName7 $portInterface7 $portData7 $portPointer7 $portArrayDim7 $portConst7 $portVolatile7 $portArrayOpt7]
 lappend portList $port7
+set portName8 "s_in"
+set portInterface8 "[list AP_STREAM 1000]"
+set portData8 "[list ap_uint "32" ]"
+set portPointer8 "2"
+set portArrayDim8 0
+set portConst8 "0"
+set portVolatile8 "0"
+set portArrayOpt8 ""
+set port8 [list $portName8 $portInterface8 $portData8 $portPointer8 $portArrayDim8 $portConst8 $portVolatile8 $portArrayOpt8]
+lappend portList $port8
+set portName9 "s_out"
+set portInterface9 "[list AP_STREAM 1000]"
+set portData9 "[list ap_uint "32" ]"
+set portPointer9 "2"
+set portArrayDim9 0
+set portConst9 "0"
+set portVolatile9 "0"
+set portArrayOpt9 ""
+set port9 [list $portName9 $portInterface9 $portData9 $portPointer9 $portArrayDim9 $portConst9 $portVolatile9 $portArrayOpt9]
+lappend portList $port9
+set portName10 "return"
+set portInterface10 "wire"
+set portData10 "bool"
+set portPointer10 "0"
+set portArrayDim10 0
+set portConst10 "0"
+set portVolatile10 "0"
+set portArrayOpt10 ""
+set port10 [list $portName10 $portInterface10 $portData10 $portPointer10 $portArrayDim10 $portConst10 $portVolatile10 $portArrayOpt10]
+lappend portList $port10
 set dataPackList ""
 set module [list $moduleName $portList $rawDecl $argAPint $returnAPint $dataPackList]
 set hasCPPAPInt 1

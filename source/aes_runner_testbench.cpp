@@ -11,6 +11,9 @@
 typedef ap_uint<128> uint128_t;
 typedef hls::stream<uint128_t> mem_stream;
 
+typedef ap_uint<32> uint32_t_hw;
+typedef hls::stream<uint32_t_hw> mem_stream32;
+
 //typedef ap_uint<8> uint8_t;
 typedef unsigned char uint8_t;
 typedef hls::stream<uint8_t> mem_stream8;
@@ -31,16 +34,16 @@ void aestest(ap_uint<128>*, ap_uint<128>*, ap_uint<128>*);
 //		volatile unsigned, unsigned int,
 //		mem_stream&, mem_stream&);
 
-//bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
-//		volatile unsigned destinationAddress, unsigned int numBytes,
-//		mem_stream8& s_in, mem_stream8& s_out, int mode);
+bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
+		volatile unsigned destinationAddress, unsigned int numBytes, int mode,
+		mem_stream32& s_in, mem_stream32& s_out);
 
 bool aes(volatile unsigned char ddr[0x20000000], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
 		volatile unsigned destinationAddress, unsigned int numBytes, int mode);
 
 //bool aes(volatile unsigned int m_mm2s_ctl [500], volatile unsigned int m_s2mm_ctl[500], volatile unsigned sourceAddress, ap_uint<128> *key_in, ap_uint<128> *iv,
 //		volatile unsigned destinationAddress, unsigned int numBytes, int mode,
-//		mem_stream8& s_in, mem_stream8& s_out);
+//		mem_stream& s_in, mem_stream& s_out);
 
 volatile unsigned char ddr[0x3000];
 volatile unsigned int mm2s[500];
@@ -69,8 +72,8 @@ unsigned char encrypted_data3[1024];
 volatile ap_uint<128> fabric_dest_test(0);
 
 volatile bool finished;
-mem_stream8 read_stream;
-mem_stream8 write_stream;
+mem_stream32 read_stream;
+mem_stream32 write_stream;
 
 void clearStreams(){
 	while(!read_stream.empty()){
@@ -79,6 +82,19 @@ void clearStreams(){
 	while(!write_stream.empty()){
 		write_stream.read();
 	}
+}
+
+ap_uint<128> reverse128ApUint(ap_uint<128> in){
+	ap_uint<8> temp;
+	ap_uint<128> out;
+	int i;
+//	printf("\nReverse input:\t\t%s", in.to_string().c_str());
+	for(i=0; i<16; i++){
+		temp = in.range(i*8 + 7, i*8);
+		out = out.concat(temp);
+	}
+//	printf("\nReversed output:\t%s", out.to_string().c_str());
+	return out;
 }
 
 //borrowed from my aes library code
@@ -104,6 +120,21 @@ void print16Buffer(unsigned char* buffer){
 	for(i = 0; i<16; i++){
 		printf("%02X", buffer[i]);
 	}
+}
+
+ap_uint<32> reverse32test(ap_uint<32> in){
+	int j;
+	ap_uint<8> temp2;
+	ap_uint<8> temp2_array[4];
+	for(j=0; j<4; j++){
+#pragma HLS UNROLL
+		temp2 = in.range(j*8+7, j*8);
+//		temp2 = temp.range(31-j*8, 24-j*8);
+//		printf("\n%s", temp2.to_string(16).c_str());
+//		out = out.concat(temp2);
+		temp2_array[j] = temp2;
+	}
+	return (temp2_array[0], temp2_array[1], temp2_array[2], temp2_array[3]);
 }
 
 void printFabricDestTest(){
@@ -133,15 +164,26 @@ void reverseFabricKey(){
 
 //assumes compare is also 16 bytes
 int printAndCompareWriteStream16(unsigned char* compareBuffer, int numToRead){
-	int i;
+	int i, j;
 	int incorrect = 0;
-	unsigned char current;
+	ap_uint<32> current;
+	ap_uint<8> cur2;
 
-	char temp[16];
-	for(i=0; i<16; i++){
+//	ap_uint<128> cur = write_stream.read();
+//	cur = reverse128ApUint(cur);
+	ap_uint<8> temp[16];
+	ap_uint<128> out;
+	for(i=0; i<4; i++){
 //		if(i<numToRead){
 			current = write_stream.read();
-			temp[i] = current;
+			out = out.concat(current);
+			printf("\nOut: %s", current.to_string(16).c_str());
+//			current = cur.range(i*8 + 7, i*8);
+//			current = cur.range(127-i*8, 120-i*8);
+			for(j=0; j<4; j++){
+				cur2 = current.range(31-j*8 , 24-j*8);
+				temp[i*4 + j] = cur2;
+			}
 //		} else{
 //			temp[i] = 0;
 //		}
@@ -149,16 +191,18 @@ int printAndCompareWriteStream16(unsigned char* compareBuffer, int numToRead){
 
 //	byteReverseBuffer16(temp, 16);
 
-	printf("\n0x");
+//	printf("\n0x");
 	for(i=0; i<16; i++){
-		current = temp[i];
+		cur2 = temp[15-i];
 		if(compareBuffer != 0){
-			if(current != compareBuffer[i]){
+			if(cur2 != compareBuffer[i]){
+//				printf(" %s,%02x ", cur2.to_string(16).c_str(), compareBuffer[i]);
 				incorrect++;
 			}
 		}
-		printf("%02X", current);
+
 	}
+	printf("\n%s", reverse128ApUint(out).to_string().c_str());
 	return incorrect;
 }
 
@@ -196,11 +240,11 @@ int run_aes_simulation(int mode, unsigned char* compare1, unsigned char* compare
 
 	//reverse key
 //	byteReverseBuffer16((char*)key, 16);
-	printf("\nOriginal Fabric key:");
-	printFabricKey();
+//	printf("\nOriginal Fabric key:");
+//	printFabricKey();
 	reverseFabricKey();
-	printf("\nReversed Fabric key:");
-	printFabricKey();
+//	printf("\nReversed Fabric key:");
+//	printFabricKey();
 
 	int len, incorrect1, incorrect2;
 	if(incrMode){
@@ -219,37 +263,37 @@ int run_aes_simulation(int mode, unsigned char* compare1, unsigned char* compare
 			outBuf[j] = 0;
 		}
 		for(i=0; i<16; i++){
-			clearStreams();
-			//need to put data into the stream starting at the point we want to encrypt
-			char tempBufIn[16];
-			printf("\n\n------------------\nCurrent original input:\n0x");
-			for(j=0; j<16; j++){
-//				read_stream.write((unsigned char)incrModeBuf[j+i]);
-				tempBufIn[j] = incrModeBuf[j+i];
-				printf("%02X", (unsigned char)tempBufIn[j]);
-			}
-			byteReverseBuffer16(tempBufIn, 16);
-			printf("\nCurrent input:\n0x");
-			for(j=0; j<16; j++){
-				read_stream.write(tempBufIn[j]);
-				printf("%02x", (unsigned char)tempBufIn[j]);
-			}
-//			default_iv[0]++;
-			aes(ddr, source, &fabric_key, &fabric_default_iv, dest, (unsigned)1, mode);
-
-			char tempBufOut[16];
-			for(j=0; j<16; j++){
-				tempBufOut[j] = (unsigned char)write_stream.read();
-			}
-			byteReverseBuffer16(tempBufOut, 16);
-			for(j=0; j<16; j++){
-				outBuf[j+i] = tempBufOut[j];
-			}
-			printf("\nFabric simulation %s output:", modeStr);
-			printf("\n0x");
-			for(j=0; j<16; j++){
-				printf("%02x", (unsigned char)tempBufOut[j]);//outBuf[j+i]);
-			}
+//			clearStreams();
+//			//need to put data into the stream starting at the point we want to encrypt
+//			char tempBufIn[16];
+//			printf("\n\n------------------\nCurrent original input:\n0x");
+//			for(j=0; j<16; j++){
+////				read_stream.write((unsigned char)incrModeBuf[j+i]);
+//				tempBufIn[j] = incrModeBuf[j+i];
+//				printf("%02X", (unsigned char)tempBufIn[j]);
+//			}
+//			byteReverseBuffer16(tempBufIn, 16);
+//			printf("\nCurrent input:\n0x");
+//			for(j=0; j<16; j++){
+//				read_stream.write(tempBufIn[j]);
+//				printf("%02x", (unsigned char)tempBufIn[j]);
+//			}
+////			default_iv[0]++;
+//			aes(mm2s, s2mm, source, &fabric_key, &fabric_default_iv, dest, (unsigned)1, mode, read_stream, write_stream);
+//
+//			char tempBufOut[16];
+//			for(j=0; j<16; j++){
+//				tempBufOut[j] = (unsigned char)write_stream.read();
+//			}
+//			byteReverseBuffer16(tempBufOut, 16);
+//			for(j=0; j<16; j++){
+//				outBuf[j+i] = tempBufOut[j];
+//			}
+//			printf("\nFabric simulation %s output:", modeStr);
+//			printf("\n0x");
+//			for(j=0; j<16; j++){
+//				printf("%02x", (unsigned char)tempBufOut[j]);//outBuf[j+i]);
+//			}
 //			incorrect1 = printAndCompareWriteStream16(compare1, 16);
 //			incorrect2 = printAndCompareWriteStream16(compare2, 1);
 		}
@@ -261,26 +305,46 @@ int run_aes_simulation(int mode, unsigned char* compare1, unsigned char* compare
 		print16Buffer((unsigned char*)data_to_encrypt);
 		print16Buffer((unsigned char*)data_to_encrypt2);
 	//	//reverse the input
-//		byteReverseBuffer16((char*)data_to_encrypt, 16);
-//		byteReverseBuffer16((char*)data_to_encrypt2, 16);
+		byteReverseBuffer16((char*)data_to_encrypt, 16);
+		byteReverseBuffer16((char*)data_to_encrypt2, 16);
 //		printf("\nReversed inputs:");
 //		print16Buffer((unsigned char*)data_to_encrypt);
 //		print16Buffer((unsigned char*)data_to_encrypt2);
-		for(i=0; i<16; i++){
+		for(i=0; i<4; i++){
+//		for(i=3; i>=0; i--){
 //			read_stream.write((unsigned char)data_to_encrypt[i]);
-			ddr[source+i] = data_to_encrypt[i];
-			ddr[source+i+16] = data_to_encrypt2[i];
-		}
-//		for(i=0; i<16; i++){
-//			read_stream.write((unsigned char)data_to_encrypt2[i]);
-//		}
-		printf("\nDdr at source address:");
-		for(i=0; i<2; i++){
-			printf("\n0x");
-			for(j=0; j<16; j++){
-				printf("%02x", ddr[source + i*16 + j]);
+			ap_uint<32> current;
+			for(j=0; j<4; j++){
+				ap_uint<8> cur(data_to_encrypt[i*4 + j]);
+				current = current.concat(cur);
 			}
+//			current = reverse32test(current);
+			printf("\n%s", current.to_string(16).c_str());
+			read_stream.write(current);
+//			ddr[source+i] = data_to_encrypt[i];
+//			ddr[source+i+16] = data_to_encrypt2[i];
 		}
+		for(i=0; i<4; i++){
+//		for(i=3; i>=0; i--){
+//			read_stream.write((unsigned char)data_to_encrypt2[i]);
+			ap_uint<32> current;
+			for(j=0; j<4; j++){
+				ap_uint<8> cur(data_to_encrypt2[i*4 + j]);
+				current = current.concat(cur);
+			}
+//			current = reverse32test(current);
+			printf("\n%s", current.to_string(16).c_str());
+			read_stream.write(current);
+		}
+//		read_stream.write(reverse128ApUint(data_to_encrypt_fabric));
+//		read_stream.write(reverse128ApUint(data_to_encrypt_fabric2));
+//		printf("\nDdr at source address:");
+//		for(i=0; i<2; i++){
+//			printf("\n0x");
+//			for(j=0; j<16; j++){
+//				printf("%02x", ddr[source + i*16 + j]);
+//			}
+//		}
 
 		aes(ddr, source, &fabric_key, &fabric_default_iv, dest, (unsigned)32, mode);
 
@@ -290,8 +354,8 @@ int run_aes_simulation(int mode, unsigned char* compare1, unsigned char* compare
 //		incorrect1 = printAndCompareWriteStream16(compare1, 16);
 //		incorrect2 = printAndCompareWriteStream16(compare2, 16);
 		//	un-reverse the input
-//		byteReverseBuffer16((char*)data_to_encrypt, 16);
-//		byteReverseBuffer16((char*)data_to_encrypt2, 16);
+		byteReverseBuffer16((char*)data_to_encrypt, 16);
+		byteReverseBuffer16((char*)data_to_encrypt2, 16);
 	}
 
 	//un-reverse key
