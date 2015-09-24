@@ -2,3 +2,4 @@ git@github.com:ayi102/AndroidRTR.git
 https://github.com/ayi102/AndroidRTR_Updates.git
 git@github.com:mcoughli/tor.git
 git@github.com:mcoughli/xilinx_zedboard_c.git
+git@github.com:mcoughli/zedboard_android5_manifests.git
