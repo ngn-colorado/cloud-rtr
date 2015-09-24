@@ -1,0 +1,6 @@
+the_ROM_image:
+{
+	[bootloader]/Xilinx/hdl/projects/adv7511/zed/adv7511_zed.sdk/fsbl/Debug/fsbl.elf
+	/Xilinx/hdl/projects/adv7511/zed/adv7511_zed.sdk/system_top_hw_platform_0/system_top.bit
+	/Xilinx/xilinx_bootfiles/u-boot.elf
+}

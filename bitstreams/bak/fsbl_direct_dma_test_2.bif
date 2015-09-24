@@ -1,0 +1,6 @@
+the_ROM_image:
+{
+	[bootloader]/D/xilinx_workspace/zedboard_no_hdmi/zedboard_no_hdmi.sdk/SDK/SDK_Export/fsbl/Debug/fsbl.elf
+	/D/xilinx_workspace/zedboard_no_hdmi/zedboard_no_hdmi.sdk/SDK/SDK_Export/hw_platform_0/design_1_wrapper.bit
+	/home/michael/android_partial_reconfiguration/boot/u-boot.elf
+}

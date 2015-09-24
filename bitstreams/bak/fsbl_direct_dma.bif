@@ -1,0 +1,6 @@
+the_ROM_image:
+{
+	[bootloader]/home/michael/android_partial_reconfiguration/hdmi_ref_direct_dma/vivado/projects/adv7511/zed/adv7511_zed.sdk/SDK/SDK_Export/fsbl/Debug/fsbl.elf
+	/home/michael/android_partial_reconfiguration/hdmi_ref_direct_dma/vivado/projects/adv7511/zed/adv7511_zed.sdk/SDK/SDK_Export/hw_platform_0/system_top.bit
+	/home/michael/android_partial_reconfiguration/boot/u-boot.elf
+}
