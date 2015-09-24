@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="qam_runner.cpp" path="/Xilinx/QAM_Runner/source/qam_runner.cpp"/>
+    <originFiles name="crec.cpp" path="/Xilinx/QAM_Runner/source/crec.cpp"/>
+    <originFiles name="crec.h" path="/Xilinx/QAM_Runner/source/crec.h"/>
+  </source>
+  <testbench>
+    <originFiles name="crec_tb.cpp" path="/Xilinx/QAM_Runner/source/crec_tb.cpp"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>
