@@ -1,0 +1,9 @@
+verilog xil_defaultlib "aes.autotb.v"
+verilog xil_defaultlib "aes.v"
+verilog xil_defaultlib "AESL_autobus_m_mm2s_ctl.v"
+verilog xil_defaultlib "AESL_autobus_m_s2mm_ctl.v"
+verilog xil_defaultlib "AESL_axi_s_s_in_V.v"
+verilog xil_defaultlib "AESL_axi_s_s_out_V.v"
+verilog xil_defaultlib "aestest.v"
+verilog xil_defaultlib "aestest_sboxes_0.v"
+

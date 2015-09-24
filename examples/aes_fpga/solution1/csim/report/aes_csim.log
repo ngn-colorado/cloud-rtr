@@ -1,0 +1,4 @@
+   Compiling ../../../source/aes_runner_testbench.cpp in debug mode
+   Compiling ../../../source/aes_runner.cpp in debug mode
+   Generating csim.exe
+@E [SIM-1] 'csim_design' failed: nonzero return value.
