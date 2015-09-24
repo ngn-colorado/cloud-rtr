@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoPilot:ProjectResources xmlns:AutoPilot="com.autoesl.autopilot.ui.directiveView">
+  <sourceFile>
+    <directive functionName="simple_fft" label="" functionLabel="">
+      <pragma name="INTERFACE">
+        <option name="ap_fifo" value="" positionalBoolean="mode"/>
+        <option name="port" value="in" positionalBoolean="4"/>
+      </pragma>
+    </directive>
+    <directive functionName="simple_fft" label="" functionLabel="">
+      <pragma name="RESOURCE">
+        <option name="variable" value="in" positionalBoolean="4"/>
+        <option name="core" value="AXI4Stream"/>
+      </pragma>
+    </directive>
+    <directive functionName="simple_fft" label="" functionLabel="">
+      <pragma name="INTERFACE">
+        <option name="ap_fifo" value="" positionalBoolean="mode"/>
+        <option name="port" value="out" positionalBoolean="4"/>
+      </pragma>
+    </directive>
+    <directive functionName="simple_fft" label="" functionLabel="">
+      <pragma name="RESOURCE">
+        <option name="variable" value="out" positionalBoolean="4"/>
+        <option name="core" value="AXI4Stream"/>
+      </pragma>
+    </directive>
+  </sourceFile>
+</AutoPilot:ProjectResources>

@@ -1,0 +1,21 @@
+
+****** Vivado v2014.1 (64-bit)
+  **** SW Build 881834 on Fri Apr  4 14:15:54 MDT 2014
+  **** IP Build 877625 on Fri Mar 28 16:29:15 MDT 2014
+    ** Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
+
+source run_ippack.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'c:/Xilinx/Vivado/2014.1/data/ip'.
+INFO: [Project 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter.
+Current project path is 'C:/Users/Ali/Documents/Research/HLS_IP_PY/simple_fft/simple_fft/solution1/impl/ip'
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'c:/Xilinx/Vivado/2014.1/data/ip'.
+WARNING: [IP_Flow 19-3374] Attempt to set value '0' on disabled parameter 'memory_options_hybrid' is ignored for 'fft_config1_s_core'
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'fft_config1_s_core'...
+WARNING: [IP_Flow 19-1687] The current project language is set to Verilog. However IP 'fft_config1_s_core' does not support 'Verilog Synthesis' output products, delivering 'VHDL Synthesis' output products instead.
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'fft_config1_s_core'...
+WARNING: [IP_Flow 19-1687] The current project language is set to Verilog. However IP 'fft_config1_s_core' does not support 'Verilog Simulation' output products, delivering 'VHDL Simulation' output products instead.
+INFO: [Common 17-206] Exiting Vivado at Thu Mar 12 17:21:08 2015...

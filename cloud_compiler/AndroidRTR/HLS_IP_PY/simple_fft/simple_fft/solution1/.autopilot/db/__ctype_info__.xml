@@ -1,0 +1,33 @@
+<InterfaceSummary>
+<RtlPorts>
+<name>in_r</name>
+<CType>
+<TypeName>complex</TypeName>
+<TypeWidth>32</TypeWidth>
+<PhysicalWidth>32</PhysicalWidth>
+<ElementType>
+<TypeName>ap_fixed 16 1 SC_TRN SC_WRAP 0</TypeName>
+<TypeWidth>16</TypeWidth>
+<PhysicalWidth>16</PhysicalWidth>
+</ElementType>
+</CType>
+<CFractionWidth>0</CFractionWidth>
+<InvalidType>1</InvalidType>
+</RtlPorts>
+<RtlPorts>
+<name>out_r</name>
+<CType>
+<TypeName>complex</TypeName>
+<TypeWidth>32</TypeWidth>
+<PhysicalWidth>32</PhysicalWidth>
+<ElementType>
+<TypeName>ap_fixed 16 1 SC_TRN SC_WRAP 0</TypeName>
+<TypeWidth>16</TypeWidth>
+<PhysicalWidth>16</PhysicalWidth>
+</ElementType>
+</CType>
+<CFractionWidth>0</CFractionWidth>
+<InvalidType>1</InvalidType>
+</RtlPorts>
+</InterfaceSummary>
+
