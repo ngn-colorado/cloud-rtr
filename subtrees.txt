@@ -1,0 +1,2 @@
+git@github.com:ayi102/AndroidRTR.git
+https://github.com/ayi102/AndroidRTR_Updates.git
