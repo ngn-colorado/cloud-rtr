@@ -4,3 +4,4 @@ git@github.com:mcoughli/tor.git
 git@github.com:mcoughli/xilinx_zedboard_c.git
 git@github.com:mcoughli/zedboard_android5_manifests.git
 git@github.com:mcoughli/xilinx-android-manifest.git
+git@github.com:mcoughli/NdkTest.git
