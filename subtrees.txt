@@ -7,3 +7,4 @@ git@github.com:mcoughli/xilinx-android-manifest.git
 git@github.com:mcoughli/NdkTest.git
 git@bitbucket.org:mcoughli/aes_runner.git
 git@bitbucket.org:mcoughli/xilinx_bootfiles.git
+git@bitbucket.org:mcoughli/qam_runner.git
