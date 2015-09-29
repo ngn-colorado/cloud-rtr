@@ -1,0 +1,1 @@
+This code for the static design contains the adv7511 graphics core provided by Analog Devices for the Zedboard. Due to these, we use the project provided by Analog Devices for Vivado 14.2. The source for these projects was forked from and available at: https://github.com/analogdevicesinc/hdl
