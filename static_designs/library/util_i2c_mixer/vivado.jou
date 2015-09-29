@@ -1,0 +1,10 @@
+#-----------------------------------------------------------
+# Vivado v2014.2 (64-bit)
+# SW Build 932637 on Wed Jun 11 13:08:52 MDT 2014
+# IP Build 924643 on Fri May 30 09:20:16 MDT 2014
+# Start of session at: Wed May 13 04:33:01 2015
+# Process ID: 6183
+# Log file: /Xilinx/hdl/library/util_i2c_mixer/vivado.log
+# Journal file: /Xilinx/hdl/library/util_i2c_mixer/vivado.jou
+#-----------------------------------------------------------
+source util_i2c_mixer_ip.tcl

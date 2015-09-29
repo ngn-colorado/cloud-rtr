@@ -1,0 +1,293 @@
+#-----------------------------------------------------------
+# Vivado v2014.2 (64-bit)
+# SW Build 932637 on Wed Jun 11 13:08:52 MDT 2014
+# IP Build 924643 on Fri May 30 09:20:16 MDT 2014
+# Start of session at: Wed May 13 04:32:17 2015
+# Process ID: 5957
+# Log file: /Xilinx/hdl/library/controllerperipheralhdladi_pcore/vivado.log
+# Journal file: /Xilinx/hdl/library/controllerperipheralhdladi_pcore/vivado.jou
+#-----------------------------------------------------------
+source controllerperipheralhdladi_pcore_ip.tcl
+# source ../scripts/adi_env.tcl
+## set ad_hdl_dir  "../.."
+## set ad_phdl_dir "../.."
+## if [info exists ::env(ADI_HDL_DIR)] {
+##   set ad_hdl_dir $::env(ADI_HDL_DIR)
+## }
+## if [info exists ::env(ADI_PHDL_DIR)] {
+##   set ad_phdl_dir $::env(ADI_PHDL_DIR)
+## }
+# source $ad_hdl_dir/library/scripts/adi_ip.tcl
+## proc adi_ip_create {ip_name} {
+## 
+##   create_project $ip_name . -force
+## 
+##   set proj_dir [get_property directory [current_project]]
+##   set proj_name [get_projects $ip_name]
+## }
+## proc adi_ip_files {ip_name ip_files} {
+## 
+##   set proj_fileset [get_filesets sources_1]
+##   add_files -norecurse -scan_for_includes -fileset $proj_fileset $ip_files
+##   set_property "top" "$ip_name" $proj_fileset
+## }
+## proc adi_ip_constraints {ip_name ip_constr_files} {
+## 
+##   set proj_filegroup [ipx::get_file_group xilinx_verilogsynthesis [ipx::current_core]]
+##   ipx::add_file $ip_constr_files $proj_filegroup
+##   set_property type {{xdc}} [ipx::get_file $ip_constr_files $proj_filegroup]
+##   set_property library_name {} [ipx::get_file $ip_constr_files $proj_filegroup]
+## }
+## proc adi_ip_properties {ip_name} {
+## 
+##   ipx::package_project -root_dir .
+##   ipx::remove_memory_map {s_axi} [ipx::current_core]
+##   ipx::add_memory_map {s_axi} [ipx::current_core]
+##   set_property slave_memory_map_ref {s_axi} [ipx::get_bus_interface s_axi [ipx::current_core]]
+## 
+##   ipx::add_address_block {axi_lite} [ipx::get_memory_map s_axi [ipx::current_core]]
+##   set_property range {65536} [ipx::get_address_block axi_lite \
+##     [ipx::get_memory_map s_axi [ipx::current_core]]]
+## 
+##   set_property vendor {analog.com} [ipx::current_core]
+##   set_property library {user} [ipx::current_core]
+##   set_property taxonomy {{/AXI_Infrastructure}} [ipx::current_core]
+##   set_property vendor_display_name {Analog Devices} [ipx::current_core]
+##   set_property company_url {www.analog.com} [ipx::current_core]
+## 
+##   set_property supported_families \
+##     {{kintexu}    {Pre-Production} \
+##      {virtexu}    {Pre-Production} \
+##      {virtex7}    {Production} \
+##      {qvirtex7}   {Production} \
+##      {kintex7}    {Production} \
+##      {kintex7l}   {Production} \
+##      {qkintex7}   {Production} \
+##      {qkintex7l}  {Production} \
+##      {artix7}     {Production} \
+##      {artix7l}    {Production} \
+##      {aartix7}    {Production} \
+##      {qartix7}    {Production} \
+##      {zynq}       {Production} \
+##      {qzynq}      {Production} \
+##      {azynq}      {Production}} \
+##   [ipx::current_core]
+## }
+## proc adi_ip_properties_lite {ip_name} {
+## 
+##   ipx::package_project -root_dir .
+## 
+##   set_property vendor {analog.com} [ipx::current_core]
+##   set_property library {user} [ipx::current_core]
+##   set_property taxonomy {{/AXI_Infrastructure}} [ipx::current_core]
+##   set_property vendor_display_name {Analog Devices} [ipx::current_core]
+##   set_property company_url {www.analog.com} [ipx::current_core]
+## 
+##   set_property supported_families \
+##     {{kintexu}    {Pre-Production} \
+##      {virtexu}    {Pre-Production} \
+##      {virtex7}    {Production} \
+##      {qvirtex7}   {Production} \
+##      {kintex7}    {Production} \
+##      {kintex7l}   {Production} \
+##      {qkintex7}   {Production} \
+##      {qkintex7l}  {Production} \
+##      {artix7}     {Production} \
+##      {artix7l}    {Production} \
+##      {aartix7}    {Production} \
+##      {qartix7}    {Production} \
+##      {zynq}       {Production} \
+##      {qzynq}      {Production} \
+##      {azynq}      {Production}} \
+##   [ipx::current_core]
+## }
+## proc adi_set_ports_dependency {port_prefix dependency} {
+## 	foreach port [ipx::get_ports [format "%s%s" $port_prefix "*"]] {
+## 		set_property ENABLEMENT_DEPENDENCY $dependency $port
+## 	}
+## }
+## proc adi_set_bus_dependency {bus prefix dependency} {
+## 	set_property ENABLEMENT_DEPENDENCY $dependency [ipx::get_bus_interface $bus [ipx::current_core]]
+## 	adi_set_ports_dependency $prefix $dependency
+## }
+## proc adi_add_port_map {bus phys logic} {
+## 	set map [ipx::add_port_map $phys $bus]
+## 	set_property "PHYSICAL_NAME" $phys $map
+## 	set_property "LOGICAL_NAME" $logic $map
+## }
+## proc adi_add_bus {bus_name bus_type mode port_maps} {
+## 	set bus [ipx::add_bus_interface $bus_name [ipx::current_core]]
+## 	if { $bus_type == "axis" } {
+## 		set abst_type "axis_rtl"
+## 	} elseif { $bus_type == "aximm" } {
+## 		set abst_type "aximm_rtl"
+## 	} else {
+## 		set abst_type $bus_type
+## 	}
+## 
+## 	set_property "ABSTRACTION_TYPE_LIBRARY" "interface" $bus
+## 	set_property "ABSTRACTION_TYPE_NAME" $abst_type $bus
+## 	set_property "ABSTRACTION_TYPE_VENDOR" "xilinx.com" $bus
+## 	set_property "ABSTRACTION_TYPE_VERSION" "1.0" $bus
+## 	set_property "BUS_TYPE_LIBRARY" "interface" $bus
+## 	set_property "BUS_TYPE_NAME" $bus_type $bus
+## 	set_property "BUS_TYPE_VENDOR" "xilinx.com" $bus
+## 	set_property "BUS_TYPE_VERSION" "1.0" $bus
+## 	set_property "CLASS" "bus_interface" $bus
+## 	set_property "INTERFACE_MODE" $mode $bus
+## 
+## 	foreach port_map $port_maps {
+## 		adi_add_port_map $bus {*}$port_map
+## 	}
+## }
+## proc adi_add_bus_clock {clock_signal_name bus_inf_name {reset_signal_name ""}} {
+## 	set bus_inf_name_clean [string map {":" "_"} $bus_inf_name]
+## 	set clock_inf_name [format "%s%s" $bus_inf_name_clean "_signal_clock"]
+## 	set clock_inf [ipx::add_bus_interface $clock_inf_name [ipx::current_core]]
+## 	set_property abstraction_type_vlnv "xilinx.com:signal:clock_rtl:1.0" $clock_inf
+## 	set_property bus_type_vlnv "xilinx.com:signal:clock:1.0" $clock_inf
+## 	set_property display_name $clock_inf_name $clock_inf
+## 	set clock_map [ipx::add_port_map "CLK" $clock_inf]
+## 	set_property physical_name $clock_signal_name $clock_map
+## 
+## 	set assoc_busif [ipx::add_bus_parameter "ASSOCIATED_BUSIF" $clock_inf]
+## 	set_property value $bus_inf_name $assoc_busif
+## 
+## 	if { $reset_signal_name != "" } {
+## 		set assoc_reset [ipx::add_bus_parameter "ASSOCIATED_RESET" $clock_inf]
+## 		set_property value $reset_signal_name $assoc_reset
+## 
+## 		set reset_inf_name [format "%s%s" $bus_inf_name_clean "_signal_reset"]
+## 		set reset_inf [ipx::add_bus_interface $reset_inf_name [ipx::current_core]]
+## 		set_property abstraction_type_vlnv "xilinx.com:signal:reset_rtl:1.0" $reset_inf
+## 		set_property bus_type_vlnv "xilinx.com:signal:reset:1.0" $reset_inf
+## 		set_property display_name $reset_inf_name $reset_inf
+## 		set reset_map [ipx::add_port_map "RST" $reset_inf]
+## 		set_property physical_name $reset_signal_name $reset_map
+## 
+## 		set reset_polarity [ipx::add_bus_parameter "POLARITY" $reset_inf]
+## 		set_property value "ACTIVE_LOW" $reset_polarity
+## 	}
+## }
+# adi_ip_create controllerperipheralhdladi_pcore
+CRITICAL WARNING: [Board 49-4] Problem parsing board_part file - /Xilinx/Vivado/2014.2/data/boards/board_parts/zynq/zc706/1.0/board_part.xml, The board part 'xc7z045ffg900-2' is either not supported or invalid.
+CRITICAL WARNING: [Board 49-4] Problem parsing board_part file - /Xilinx/Vivado/2014.2/data/boards/board_parts/zynq/zc706/0.9/board_part.xml, The board part 'xc7z045ffg900-2' is either not supported or invalid.
+CRITICAL WARNING: [Board 49-4] Problem parsing board_part file - /Xilinx/Vivado/2014.2/data/boards/board_parts/kintex7/kc705/1.0/board_part.xml, The board part 'xc7k325tffg900-2' is either not supported or invalid.
+CRITICAL WARNING: [Board 49-4] Problem parsing board_part file - /Xilinx/Vivado/2014.2/data/boards/board_parts/kintex7/kc705/0.9/board_part.xml, The board part 'xc7k325tffg900-2' is either not supported or invalid.
+# adi_ip_files controllerperipheralhdladi_pcore [list \
+# "velocityControlHdl_Clamp.v" \
+# "velocityControlHdl_Convert_Data_Type1.v" \
+# "velocityControlHdl_Maintain_Range.v" \
+# "velocityControlHdl_Dynamic_Saturation.v" \
+# "velocityControlHdl_PI_Sat.v" \
+# "velocityControlHdl_Reset_Delay.v" \
+# "velocityControlHdl_Control_Current.v" \
+# "velocityControlHdl_Clamp_block.v" \
+# "velocityControlHdl_Convert_Data_Type1_block.v" \
+# "velocityControlHdl_Maintain_Range_block.v" \
+# "velocityControlHdl_Dynamic_Saturation_block.v" \
+# "velocityControlHdl_PI_Sat_block.v" \
+# "velocityControlHdl_Reset_Delay_block.v" \
+# "velocityControlHdl_Control_Current1.v" \
+# "velocityControlHdl_Control_DQ_Currents.v" \
+# "velocityControlHdl_Clamp_block1.v" \
+# "velocityControlHdl_Convert_Data_Type.v" \
+# "velocityControlHdl_Maintain_Range_block1.v" \
+# "velocityControlHdl_Dynamic_Saturation_block1.v" \
+# "velocityControlHdl_PI_Sat_block1.v" \
+# "velocityControlHdl_Reset_Delay_block1.v" \
+# "velocityControlHdl_Rotor_Velocity_Control.v" \
+# "velocityControlHdl_Control_Velocity.v" \
+# "velocityControlHdl_Complex_Multiply.v" \
+# "velocityControlHdl_Convert_Data_Type_block.v" \
+# "velocityControlHdl_MATLAB_Function.v" \
+# "velocityControlHdl_Mark_Extract_Bits.v" \
+# "velocityControlHdl_MATLAB_Function_block.v" \
+# "velocityControlHdl_Mark_Extract_Bits1.v" \
+# "velocityControlHdl_Sin_Cos1.v" \
+# "velocityControlHdl_Double_Range.v" \
+# "velocityControlHdl_MinMax.v" \
+# "velocityControlHdl_MinMax1.v" \
+# "velocityControlHdl_Space_Vector_Modulation.v" \
+# "velocityControlHdl_Clarke_Transform.v" \
+# "velocityControlHdl_Park_Transform.v" \
+# "velocityControlHdl_Transform_ABC_to_dq.v" \
+# "velocityControlHdl_Inverse_Clarke_Transform.v" \
+# "velocityControlHdl_Convert_Data_Type_block1.v" \
+# "velocityControlHdl_Convert_Data_Type1_block1.v" \
+# "velocityControlHdl_Inverse_Park_Transform.v" \
+# "velocityControlHdl_Transform_dq_to_ABC.v" \
+# "velocityControlHdl_velocityControlHdl.v" \
+# "controllerHdl_ADC_Peripheral_To_Phase_Current.v" \
+# "controllerHdl_Wrap_NegPi_To_Pi.v" \
+# "controllerHdl_Calculate_Rotor_Velocity.v" \
+# "controllerHdl_Wrap_2pi.v" \
+# "controllerHdl_Encoder_To_Rotor_Position.v" \
+# "controllerHdl_MATLAB_Function.v" \
+# "controllerHdl_Mark_Extract_Bits.v" \
+# "controllerHdl_Mod_2pi_Scale_And_Bit_Slice.v" \
+# "controllerHdl_Rotor_To_Electrical_Position.v" \
+# "controllerHdl_Encoder_To_Position_And_Velocity.v" \
+# "controllerHdl_Reset_Delay.v" \
+# "controllerHdl_Wrap_2pi_Once.v" \
+# "controllerHdl_Electrical_Velocity_To_Position.v" \
+# "controllerHdl_Convert_Data_Type.v" \
+# "controllerHdl_Double_Range.v" \
+# "controllerHdl_Frequency_To_Volts.v" \
+# "controllerHdl_Reset_Delay_block.v" \
+# "controllerHdl_Detect_Change.v" \
+# "controllerHdl_Set_Acceleration.v" \
+# "controllerHdl_Rotor_Acceleration_To_Velocity.v" \
+# "controllerHdl_Convert_Data_Type_block.v" \
+# "controllerHdl_Rotor_To_Electical_Velocity.v" \
+# "controllerHdl_Generate_Position_And_Voltage_Ramp.v" \
+# "controllerHdl_Complex_Multiply.v" \
+# "controllerHdl_Convert_Data_Type_block1.v" \
+# "controllerHdl_MATLAB_Function_block.v" \
+# "controllerHdl_Mark_Extract_Bits_block.v" \
+# "controllerHdl_MATLAB_Function_block1.v" \
+# "controllerHdl_Mark_Extract_Bits1.v" \
+# "controllerHdl_Sin_Cos.v" \
+# "controllerHdl_Inverse_Clarke_Transform.v" \
+# "controllerHdl_Convert_Data_Type_block2.v" \
+# "controllerHdl_Convert_Data_Type1.v" \
+# "controllerHdl_Inverse_Park_Transform.v" \
+# "controllerHdl_Transform_dq_to_ABC.v" \
+# "controllerHdl_Open_Loop_Control.v" \
+# "controllerHdl_StandBy.v" \
+# "controllerHdl_MATLAB_Function_block2.v" \
+# "controllerHdl_Field_Oriented_Control.v" \
+# "controllerHdl_Phase_Voltages_To_Compare_Values.v" \
+# "controllerHdl_MATLAB_Function_block3.v" \
+# "controllerHdl_controllerHdl.v" \
+# "Count_Up_Down.v" \
+# "Debounce_A.v" \
+# "Debounce_B.v" \
+# "Debounce_Index.v" \
+# "Detect_Change_To_One.v" \
+# "Latch_Index_Pulse.v" \
+# "Select_AB.v" \
+# "Update_Count_From_AB.v" \
+# "Encoder_Peripheral_Hardware_Specification.v" \
+# "Chart.v" \
+# "PWM.v" \
+# "controllerPeripheralHdlAdi_tc.v" \
+# "controllerPeripheralHdlAdi.v" \
+# "controllerperipheralhdladi_pcore_dut.v" \
+# "controllerperipheralhdladi_pcore_axi_lite_module.v" \
+# "controllerperipheralhdladi_pcore_addr_decoder.v" \
+# "controllerperipheralhdladi_pcore_axi_lite.v" \
+# "controllerperipheralhdladi_pcore.v" ]
+# adi_ip_properties controllerperipheralhdladi_pcore
+WARNING: [IP_Flow 19-3899] Cannot get the environment domain name variable to for the component vendor name. Setting the vendor name to 'user.org'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/Xilinx/Vivado/2014.2/data/ip'.
+INFO: [IP_Flow 19-2228] Inferred bus interface "s_axi" of definition type "xilinx.com:interface:aximm:1.0".
+INFO: [IP_Flow 19-2228] Inferred bus interface "s_axi_signal_reset" of definition type "xilinx.com:signal:reset:1.0".
+INFO: [IP_Flow 19-2228] Inferred bus interface "s_axi_signal_clock" of definition type "xilinx.com:signal:clock:1.0".
+INFO: [#UNDEF] INFO: [#UNDEF] INFO: [#UNDEF] INFO: [#UNDEF] INFO: [#UNDEF] INFO: [#UNDEF] INFO: [#UNDEF] INFO: [#UNDEF] # set_property physical_name {s_axi_aclk} [ipx::get_port_map CLK \
+#   [ipx::get_bus_interface s_axi_signal_clock [ipx::current_core]]]
+# ipx::remove_bus_interface {signal_clock} [ipx::current_core]
+# ipx::save_core [ipx::current_core]
+INFO: [Common 17-206] Exiting Vivado at Wed May 13 04:32:22 2015...

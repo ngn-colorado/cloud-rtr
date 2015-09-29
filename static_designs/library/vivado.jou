@@ -1,0 +1,11 @@
+#-----------------------------------------------------------
+# Vivado v2014.2 (64-bit)
+# SW Build 932637 on Wed Jun 11 13:08:52 MDT 2014
+# IP Build 924643 on Fri May 30 09:20:16 MDT 2014
+# Start of session at: Wed May 13 04:21:59 2015
+# Process ID: 4901
+# Log file: /Xilinx/hdl/library/vivado.log
+# Journal file: /Xilinx/hdl/library/vivado.jou
+#-----------------------------------------------------------
+start_gui
+source axi_ad6676/axi_ad6676_ip.tcl
